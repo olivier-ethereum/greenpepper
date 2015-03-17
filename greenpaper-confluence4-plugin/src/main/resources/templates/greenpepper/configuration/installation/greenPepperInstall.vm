@@ -1,0 +1,66 @@
+<html>
+    <head>
+		<title>$action.getText('greenpepper.install.title')</title>
+    </head>
+    <body>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/prototype.js"></script>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/scriptaculous.js"></script>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/effects.js"></script>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/gp-pyxis-util-${greenPepper.getVersion()}.js"></script>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/ConfluenceActions-${greenPepper.getVersion()}.js"></script>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/server-properties-${greenPepper.getVersion()}.js"></script>
+		<script language="JavaScript" type="text/javascript">
+			var gpProperties = new GPProperties('$req.contextPath', GP.ConfluenceActions);
+			gpProperties.addAjaxListeners();
+			
+			function updateTabsUI(selectedTab)
+			{
+				$$('#tabMenu a').each(function(s){s.className="";s.style.color='';});
+				selectedTab.className='current';
+				//selectedTab.style.color="black";
+				$$('#paneGroup div').each(function(s){s.innerHTML='';})
+			}
+		</script>
+		<link rel="stylesheet" href="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/css/server-properties.css" type="text/css"/>
+        #if ($permissionHelper.isGlobalAdministrator($remoteUser))
+			#parse ( "/template/includes/actionerrors.vm" )
+
+			#if (!${action.hasActionErrors()})
+			<div style="padding-bottom: 5px;">
+				##2.6+<ul class="tabnav" onclick="">
+				##2.6-<ul id="foldertab">
+				<ul #if(${greenPepper.isConfluenceMajorVersionLessThan_2_6()})id="foldertab"#end class="tabnav">
+				    ##2.6+<li id="tabMenu" class="tabs" style="color:white; cursor:pointer;">
+				    ##2.6-<li id="tabMenu" style="color:white; cursor:pointer;">
+				    <li id="tabMenu" class="tabs" style="color:white; cursor:pointer;">
+						<a id="tabMenu_dbms" onclick="updateTabsUI(this);gpProperties.getDbmsConfigPane();">$action.getText('greenpepper.install.tabmenu.dbms')</a>
+						<a id="tabMenu_license" onclick="updateTabsUI(this);gpProperties.getLicensePane();">$action.getText('greenpepper.install.tabmenu.license')</a>
+						<a id="tabMenu_runners" onclick="updateTabsUI(this);gpProperties.getRunnersPane();">$action.getText('greenpepper.install.tabmenu.runners')</a>
+						<a id="tabMenu_projects" onclick="updateTabsUI(this);gpProperties.getGpProjectPane();">$action.getText('greenpepper.install.tabmenu.gpproject')</a>
+						<a id="tabMenu_fsRegistration" onclick="updateTabsUI(this);gpProperties.getFileSystemRegistration();">$action.getText('greenpepper.install.tabmenu.fsregister')</a>
+						<a id="tabMenu_demo" onclick="updateTabsUI(this);gpProperties.getDemoPane();">$action.getText('greenpepper.install.tabmenu.demo')</a>
+				    </li>
+				</ul>
+				<!-- clears the floated elements above -->
+				<br class="after-tabnav" />
+			</div>
+			<span id="paneGroup">			
+				<div id="dbmsConfigPane_display"></div>
+				<div id="license_display"></div>
+				<div id="runnersPane_display"></div>
+				<div id="GpProjectPane_display"></div>
+				<div id="fileSystemPane_display"></div>
+				<div id="demoPane_display"></div>
+			</span>
+        	<br />
+			#end
+			#parse('templates/greenpepper/configuration/poweredByGPFooter.vm')
+			#parse ( "/admin/admin-breadcrumbs.vm" )
+        #else
+            <div class="errorBox">
+                <p> $action.getText('greenpepper.install.adminuseronly') </p>
+            </div>
+        #end
+        	<script  language="JavaScript" type="text/javascript">$$('#tabMenu a')[0].onclick()</script>
+    </body>
+</html>

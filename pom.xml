@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <!--
+       - Basic Project Information
+        -->
+	<groupId>greenpepper</groupId>
+	<artifactId>greenpepper-base</artifactId>
+	<packaging>pom</packaging>
+	<version>4.0-SNAPSHOT</version>
+	<name>GreenPepper</name>
+
+    <!--
+       - Dependencies that we want for all modules
+       -->
+	<dependencies>
+        <!-- **** Test level (not distributed) dependencies  **** -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+    <!--
+       - Extra project information
+       -->
+	<url>https://www.greenpeppersoftware.com</url>
+	<inceptionYear>2005</inceptionYear>
+	<organization>
+		<name>Pyxis Technologies</name>
+		<url>http://www.pyxis-tech.com</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>fbeauregard</id>
+			<name>Francois Beauregard</name>
+			<email>fbeauregard@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Stakeholder</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>abrissette</id>
+			<name>Andre Brissette</name>
+			<email>abrissette@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Product Owner</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>lthibault</id>
+			<name>Louis Thibault</name>
+			<email>lthibault@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>ScrumMaster</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>clapointe</id>
+			<name>Christian Lapointe</name>
+			<email>clapointe@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>jchuet</id>
+			<name>Jean-Christophe Huet</name>
+			<email>jchuet@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>lcobos</id>
+			<name>Laurent Cobos</name>
+			<email>lcobos@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		
+		<developer>
+			<id>vtence</id>
+			<name>Vincent Tence</name>
+			<email>vtence@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>gcarey</id>
+			<name>Gilles Carey</name>
+			<email>gcarey@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>ehardy</id>
+			<name>Etienne Hardy</name>
+			<email>ehardy@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>fdenommee</id>
+			<name>Francois Denommee</name>
+			<email>fdenommee@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>Marc-Andre Thibodeau</name>
+			<email>mathibodeau@pyxis-tech.com</email>
+			<organization>Pyxis Technologies</organization>
+		</contributor>
+	</contributors>
+	
+	<scm>
+		<connection>https://github.com/greenpeppersoftware/greenpepper-base.git</connection>
+		<url>https://github.com/greenpeppersoftware/greenpepper-base</url>
+	</scm>
+
+    <!--
+       - Configure the build plugins
+       -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+         <repository>
+           <id>atlassian-public-m1</id>
+           <url>https://maven.atlassian.com/content/groups/public</url>
+         </repository>
+	</repositories>
+	  
+    <!--
+       - Configure the reporting plugins
+       -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jxr-maven-plugin</artifactId>
+				<configuration>
+					<bottom>Copyright &amp;copy; 2005-2009 ${project.organization.name}. All Rights Reserved.</bottom>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>surefire-report-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<modules>
+		<module>greenpaper</module>
+		<module>greenpaper-confluence3-plugin</module>
+		<module>greenpaper-confluence4-plugin</module>
+		<module>greenpaper-maven-plugin</module>
+	</modules>
+</project>

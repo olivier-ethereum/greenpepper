@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>greenpepper</artifactId>
+        <groupId>greenpepper</groupId>
+        <version>4.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>greenpepper-license</artifactId>
+    <packaging>jar</packaging>
+    <name>GreenPepper License</name>
+
+    <dependencies>
+    		<dependency>
+			<groupId>greenpepper</groupId>
+			<artifactId>greenpepper-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>greenpepper</groupId>
+			<artifactId>greenpepper-core</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+			<version>${project.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>truelicense</groupId>
+            <artifactId>truelicense</artifactId>
+            <version>1.29</version>
+        </dependency>
+        <dependency>
+            <groupId>truelicense</groupId>
+            <artifactId>truexml</artifactId>
+            <version>1.29</version>
+        </dependency>
+        <dependency>
+            <groupId>greenpepper</groupId>
+            <artifactId>greenpepper-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

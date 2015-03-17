@@ -1,0 +1,41 @@
+<div>
+	<div class="steptitle">
+		$action.getText('greenpepper.install.dbms.title')
+		#if(!$action.editMode)<span id="dbmsView_edit" class="sp_configLinks" onclick="gpProperties.editDbms()">($action.getText('greenpepper.filesystem.edit'))</span>#end
+	</div>
+	#if($action.editMode)<p>	$action.getText('greenpepper.install.maindesc')</p>#end
+	<div class="form-block greyboxfilled">
+		<div id="installPreference">
+			#if($action.editMode)
+				<div class="form-element-small">$action.getText('greenpepper.install.installtypelabel')
+					<select id="installType_Cmb" onchange="$$('#installPreference div[id]').each(function(s){s.hide();});$(this.value).show();gpProperties.changeInstallationType();" #if(!$action.editMode)disabled="disabled"#end>
+						<option value="quickInstall" #if(!$action.isCustomSetup)selected="selected"#end>$action.getText('greenpepper.install.quick')</option>
+						<option value="customInstall" #if($action.isCustomSetup)selected="selected"#end>$action.getText('greenpepper.install.custom')</option>
+					</select>
+				</div>
+				<div id="quickInstall" #if($action.isCustomSetup)style="display:none"#end>
+					$action.getText('greenpepper.install.quickdescription')
+					<div class="warningPanel">
+						$action.getText('greenpepper.install.hsql.notice')
+					</div>
+				</div>
+				<div id="customInstall" #if(!$action.isCustomSetup)style="display:none"#end>
+					$action.getText('greenpepper.install.customdescription')
+					<div class="warningPanel">
+						$action.getText('greenpepper.install.jdbc.drivers.notice')
+						</br>
+						</br>
+						$action.getText('greenpepper.install.jndiurl.hint')
+					</div>
+				</div>
+			#end
+		</div>
+		<div id="dbmsChoice_display" class="sp_configItemPane">
+			#if($action.editMode)
+				#parse('templates/greenpepper/configuration/installation/configurationDbmsEdit.vm')
+			#else
+				#parse('templates/greenpepper/configuration/installation/configurationDbmsView.vm')
+			#end
+		</div>
+	</div>
+</div>

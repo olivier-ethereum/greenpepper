@@ -1,0 +1,7 @@
+#if (${greenPepper.isConfluenceMajorVersionLessThan_2_8()})
+	#parse ( "templates/greenpepper/confluence/themes/page-old.vmd" )
+#elseif (${greenPepper.isConfluenceVersion28()} || ${greenPepper.isConfluenceVersion29()})
+	#parse ( "templates/greenpepper/confluence/themes/page-28_29.vmd" )
+#else
+	#parse ( "templates/greenpepper/confluence/themes/page-default.vmd" )
+#end

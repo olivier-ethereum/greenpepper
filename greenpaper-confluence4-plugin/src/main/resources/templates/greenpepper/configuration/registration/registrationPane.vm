@@ -1,0 +1,30 @@
+#if($action.readonly)<span id="readonly" style="display:none"></span>#end
+<div class="sp_configTitlePane">
+	<div class="steptitle">$action.getText('greenpepper.registration.title')
+	#if($action.isServerReady && $action.licenseValid)
+		#if(!$action.editMode && !$action.registered)<span id="registrationPane_register" class="sp_configLinks" onclick="gpProperties.editRegistration('$action.spaceKey')">($action.getText('greenpepper.registration.register'))</span>#end
+		#if($action.registered && !$action.editMode)<span id="registrationPane_edit" class="sp_configLinks" onclick="gpProperties.editRegistration('$action.spaceKey')">($action.getText('greenpepper.registration.edit'))</span>#end
+	#end
+	</div>
+	#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+		#set($errorDisplayed = true)
+		<div  id="registrationPaneError_display" class="gpErrMsg">
+			&nbsp;&nbsp;
+			#foreach($error in $action.actionErrors)
+				$action.getText($error)
+			#end
+		</div>
+	#end
+	#if($action.isServerReady && $action.licenseValid)
+		<span class="stepdesc">$action.getText('greenpepper.registration.desc')</span>
+	#end
+</div>
+<div class="sp_configItemPane">
+	#if($action.isServerReady && $action.licenseValid)
+		#if(!$action.editMode)
+			#parse('templates/greenpepper/configuration/registration/registration.vm')
+		#else
+			#parse('templates/greenpepper/configuration/registration/registrationEdit.vm')
+		#end
+	#end
+</div>

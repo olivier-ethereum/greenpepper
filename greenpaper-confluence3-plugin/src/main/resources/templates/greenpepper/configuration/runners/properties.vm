@@ -1,0 +1,42 @@
+#macro ( notEmptyString $value $id)
+	#if($value)
+		<td id="$id" class="sp_configOutput">$value</td>
+	#else
+		<td id="$id" class="sp_configNoOutput">$action.getText('greenpepper.runners.none')</td>
+	#end
+#end
+#macro ( notEmptySmallString $value $id )
+	#if($value)
+		<td id="$id" class="sp_configSmallOutput">$value</td>
+	#else
+		<td id="$id" class="sp_configNoOutput">$action.getText('greenpepper.runners.none')</td>
+	#end
+#end
+<table class="sp_configPropertiesView" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.cmdline')</td>
+		#notEmptySmallString($action.selectedRunner.cmdLineTemplate 'runnerCmdline')
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.mainclass')</td>
+		#notEmptyString($action.selectedRunner.mainClass 'runnerMainclass')
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.envtype')</td>
+		#notEmptyString($action.selectedRunner.environmentType.name 'runnerEnvType')
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.servername')</td>
+		#notEmptyString($action.selectedRunner.serverName 'runnerServerName')
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.serverport')</td>
+		#notEmptyString($action.selectedRunner.serverPort 'runnerServerPort')
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.secured')</td>
+		#if($action.selectedRunner.secured) #notEmptyString($action.getText('greenpepper.runners.on') 'runnerServerSecured')
+		#else #notEmptyString($action.getText('greenpepper.runners.off') 'runnerServerSecured')
+		#end
+	</tr>
+</table>

@@ -1,0 +1,10 @@
+<tr bgcolor="#ffffff">
+    <td>
+    	<a name="greenpepper-import">
+    	<b><font color="#006600">{greenpepper-import}</font></b>
+    </td>
+    <td>
+        <p>$greenPepper.getText('greenpepper.import.helpdesc')</p>
+		<p>$greenPepper.getText('greenpepper.macros.seealso')&nbsp;<a href="http://www.greenpeppersoftware.com/confluence/display/GP/Confluence+Macros">$greenPepper.getText('greenpepper.macros.guide')</a></p>
+    </td>
+</tr>

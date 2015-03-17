@@ -1,0 +1,24 @@
+<div class="stepTitle">$action.getText('greenpepper.runners.title')
+#if(!$action.addMode && $action.isServerReady)
+	<span id="runnersPane_add" class="sp_configLinks" onclick="gpProperties.showRunnerInputs('$action.spaceKey');">($action.getText('greenpepper.runners.add'))</span>
+#end
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	<span  id="runnersPaneError_display" class="gpErrMsg">
+		&nbsp;&nbsp;
+		#foreach($error in $action.actionErrors)
+			$action.getText($error)
+		#end
+	</span>
+#end
+</div>
+#if($action.isServerReady)
+	<div class="steptitle"><p>$action.getText('greenpepper.runners.desc')</p></div>
+	<div class="form-block greyboxfilled">
+		#if(!$action.addMode)
+			#parse('templates/greenpepper/configuration/runners/runner.vm')
+		#else
+			#parse('templates/greenpepper/configuration/runners/runnerInputs.vm')
+		#end
+	</div>
+#end

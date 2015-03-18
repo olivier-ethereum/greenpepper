@@ -186,8 +186,7 @@
 
 	<modules>
 		<module>greenpaper</module>
-		<module>greenpaper-confluence3-plugin</module>
-		<module>greenpaper-confluence4-plugin</module>
+		<module>greenpaper-confluence</module>
 		<module>greenpaper-maven-plugin</module>
 	</modules>
 </project>

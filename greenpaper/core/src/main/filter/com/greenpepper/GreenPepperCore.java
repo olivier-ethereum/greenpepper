@@ -19,24 +19,9 @@
 
 package com.greenpepper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 public final class GreenPepperCore
 {
 
-    public static String VERSION;
-    static {
-        try {
-            Properties info = new Properties();
-            InputStream coreInfo = GreenPepperCore.class.getResourceAsStream("/com/greenpepper/core-info.properties");
-            info.load(coreInfo);
-            VERSION = info.getProperty("core.version");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Unable to load GreenPepperCore.class", e);
-        }
-
-    }
+    public final static String VERSION = "${pom.version}";
+   
 }

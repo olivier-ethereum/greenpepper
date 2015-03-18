@@ -118,7 +118,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/filtered</outputDirectory>
+							<outputDirectory>${filtered-sources}</outputDirectory>
 							<resources>
 								<resource>
 									<directory>src/main/filter</directory>
@@ -137,14 +137,12 @@
 					<execution>
 						<id>add-resource</id>
 						<goals>
-							<goal>add-resource</goal>
+							<goal>add-source</goal>
 						</goals>
 						<configuration>
-							<resources>
-								<resource>
-									<directory>${project.build.directory}/filtered</directory>
-								</resource>
-							</resources>
+							<sources>
+								<directory>${filtered-sources}</directory>
+							</sources>
 						</configuration>
 					</execution>
 				</executions>
@@ -172,5 +170,8 @@
 			</plugin>
 		</plugins>
 	</build>
+	<properties>
+		<filtered-sources>${project.build.directory}/filtered-sources</filtered-sources>
+	</properties>
 
 </project>

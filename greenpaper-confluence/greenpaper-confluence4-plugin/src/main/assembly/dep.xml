@@ -13,7 +13,8 @@
 				<include>greenpepper:greenpepper-license</include>
 				<include>greenpepper:greenpepper-extensions-java</include>
 				<include>greenpepper:greenpepper-core</include>
-				<include>greenpepper-open:greenpepper-confluence-demo</include>
+				<include>greenpepper:greenpepper-confluence4</include>
+				<include>greenpepper:greenpepper-confluence-demo</include>
 				<include>xmlrpc:xmlrpc</include>
 				<include>commons-codec:commons-codec</include>
 				<include>org.hibernate:hibernate</include>

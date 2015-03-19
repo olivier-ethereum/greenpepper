@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>greenpepper-base</artifactId>
+        <artifactId>greenpepper-confluence</artifactId>
         <groupId>greenpepper</groupId>
         <version>4.0-SNAPSHOT</version>
     </parent>
@@ -14,102 +14,6 @@
         <!-- Confluence version -->
 		<atlassian.product.version>4.3</atlassian.product.version>
     </properties>
-
-    <build>
-        <resources>
-            <resource>
-                <targetPath>includes/js</targetPath>
-                <directory>target/javascript-sources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.xml</exclude>
-                </excludes> 
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <configuration>
-                            <tasks>
-                                <copy todir="${project.build.directory}/javascript-sources" includeemptydirs="false">
-                                    <fileset dir="src/main/javascript">
-                                        <include name="*.js"/>
-                                    </fileset>
-                                    <mapper type="glob" from="*.js" to="*-${pom.version}.js"/>
-                                </copy>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptor>src/main/assembly/dep.xml</descriptor>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>
-        									org.apache.maven.plugins
-        								</groupId>
-        								<artifactId>
-        									maven-antrun-plugin
-        								</artifactId>
-        								<versionRange>
-        									[1.3,)
-        								</versionRange>
-        								<goals>
-        									<goal>run</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-        								<ignore></ignore>
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
-        </pluginManagement>
-    </build>
 
     <dependencies>
         <dependency>
@@ -173,21 +77,5 @@
             </exclusions>
         </dependency>
     </dependencies>
-
-    <scm>
-        <connection>https://github.com/greenpeppersoftware/confluence4-plugin.git</connection>
-        <url>https://github.com/greenpeppersoftware/confluence4-plugin</url>
-    </scm>
-
-    <repositories>
-        <repository>
-            <id>Atlassian Proxy</id>
-            <name>Atlassian Proxy</name>
-            <url>https://maven.atlassian.com/content/repositories/atlassian-public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>

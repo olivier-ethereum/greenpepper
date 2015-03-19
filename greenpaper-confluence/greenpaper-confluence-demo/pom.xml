@@ -9,7 +9,7 @@
 
 	<parent>
 		<groupId>greenpepper</groupId>
-		<artifactId>greenpepper-base</artifactId>
+		<artifactId>greenpepper-confluence</artifactId>
 		<version>4.0-SNAPSHOT</version>
 	</parent>
 
@@ -23,6 +23,7 @@
 			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-confluence4</artifactId>
 			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.atlassian.confluence</groupId>
@@ -34,14 +35,13 @@
 
 	<build>
 		<plugins>
-			<!-- 
 			<plugin>
 				<groupId>greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
-				<version>${greenpepper.maven.plugin.version}</version>
+				<version>${project.version}</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
 					<fixtureOutputDirectory>target/fixture-test-classes</fixtureOutputDirectory>
 					<systemUnderDevelopment>com.greenpepper.confluence.demo.DemoSystemUnderDevelopment</systemUnderDevelopment>
@@ -85,7 +85,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			 -->
+			
 		</plugins>
 	</build>
 </project>

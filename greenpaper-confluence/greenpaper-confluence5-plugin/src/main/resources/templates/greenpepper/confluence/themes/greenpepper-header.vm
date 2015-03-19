@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/css/conf-greenpepper.css" type="text/css"/>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/lib/prototype.js"></script>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/lib/dragdrop.js"></script>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/lib/effects.js"></script>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/gp-pyxis-util-${greenPepper.getVersion()}.js"></script>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/ConfluenceActions-${greenPepper.getVersion()}.js"></script>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/statusbar-${greenPepper.getVersion()}.js"></script>
+<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/js/conf-greenpepper-${greenPepper.getVersion()}.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+	function addLoadEvent(func)
+	{ 
+		var oldonload = window.onload; 
+		if (typeof window.onload != 'function') { window.onload = eval(func); } 
+		else { window.onload = function() { oldonload(); eval(func); } } 
+	}
+</script>
+#requireResourcesForContext("greenpepper-context")
+<tr>
+	<td class="conf_pageMacro" colspan="2">
+		#set($msg = $greenPepper.enable($page.spaceKey))
+		#if($msg)
+			<div>#parse("/templates/greenpepper/confluence/macros/greenPepperLogo.vm")<span id="greenpepper_header_error" class="conf_smallErrMsg">$msg</span></div>
+		#else
+			<div id="greenpepper_header_display">
+				<script language="JavaScript" type="text/javascript">addLoadEvent("conf_greenPepper.loadHeader('$req.contextPath', '$page.spaceKey', '$page.id');");</script>
+			</div>
+		#end
+	<td>
+</tr>

@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.atlassian.confluence.core.ConfluenceEntityObject;
 import com.atlassian.confluence.importexport.DefaultImportContext;
 import com.atlassian.confluence.importexport.ImportExportException;
@@ -53,6 +56,12 @@ import com.greenpepper.util.StringUtil;
 public class DemoSpaceAction
 		extends GreenPepperServerAction
 {
+
+    /**
+     * Logger for this class
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(DemoSpaceAction.class);
+
 
 	private static final String DEMO_NAME = "GreenPepper Demo";
 	private static final String DEMO_SUT_NAME = "Demo";
@@ -92,6 +101,7 @@ public class DemoSpaceAction
 	{
 		if (!gpUtil.isServerReady())
 		{
+            LOGGER.error("Server is not correctly configured.");
 			addActionError(ConfluenceGreenPepper.SERVER_NOCONFIGURATION);
 			return SUCCESS;
 		}
@@ -113,6 +123,7 @@ public class DemoSpaceAction
 
 	public String doCreateDemoSpace()
 	{
+        LOGGER.info("creating DEMO Space");
 		try
 		{
 			if (getUsername() != null)
@@ -140,11 +151,13 @@ public class DemoSpaceAction
 		}
 		catch (GreenPepperServerException ex)
 		{
+            LOGGER.error("Error creating DEMO Space", ex);
 			addActionError(ex.getId());
 			doRemoveDemoSpace();
 		}
 		catch (Exception ex)
 		{
+            LOGGER.error("Error creating DEMO Space", ex);
 			addActionError(ex.getMessage());
 			doRemoveDemoSpace();
 		}
@@ -155,6 +168,7 @@ public class DemoSpaceAction
 	private Repository doRegisterSpace(Space demoSpace)
 			throws GreenPepperServerException
 	{
+        LOGGER.info("Registering DEMO Space");
 		Repository demoRepository = getDemoRepository();
 
 		if (demoRepository != null) return demoRepository;
@@ -333,6 +347,7 @@ public class DemoSpaceAction
 	private void doImportDemoSite()
 			throws FileNotFoundException, ImportExportException
 	{
+        LOGGER.info("Importing DEMO site");
 		URL demoSiteZipUrl = DemoSpaceAction.class.getResource("/com/greenpepper/confluence/demo/demo-site.zip");
 
 		if (demoSiteZipUrl == null)
@@ -368,11 +383,12 @@ public class DemoSpaceAction
 			}
 		});
 
-		getImportExportManager().importAs(ImportExportManager.TYPE_ALL_DATA, ctx);
+        getImportExportManager().doImport(ctx);
 	}
 
 	public String doRemoveDemoSpace()
 	{
+        LOGGER.info("Removing DEMO space.");
 		try
 		{
 			Space demoSpace = getDemoSpace();
@@ -386,6 +402,7 @@ public class DemoSpaceAction
 		}
 		catch (Exception ex)
 		{
+            LOGGER.error("ERROR Removing DEMO space", ex);
 			addActionError(ex.getMessage());
 		}
 

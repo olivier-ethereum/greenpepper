@@ -5,10 +5,8 @@ import java.io.FileFilter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.SortedSet;
 
 import com.greenpepper.runner.Main;
 import com.greenpepper.server.GreenPepperServer;
@@ -65,6 +63,30 @@ public class DefaultRunnersTest extends AbstractDBUnitHibernateMemoryTest
         assertTrue(expectedCp.containsAll(asPathList((runnerDir.listFiles()))));
     }
     
+    public void testTheJavaCurrentVersionRunnerIsProperlyRegisteredAndAllLibsAreCopiedIntoTheRunnersDirectoryConfluence5() throws Exception {
+        String absolutePath = new File(basePath, "confluence5").getAbsolutePath();
+        properties.setProperty("baseUrl", absolutePath);
+        List<String> expectedCp = new ArrayList<String>();
+        expectedCp.add(URIUtil.decoded(new File(absolutePath, "WEB-INF/lib/greenpepper-confluence5-plugin-dummy-complete.jar").getAbsolutePath()).toUpperCase());
+
+        new InitialDatas(this).insert();
+        new DefaultRunners(this, properties).insert();
+
+        Runner runner = sutDao.getRunnerByName("GPCore JAVA v. dummy");
+
+        assertNotNull(runner);
+        assertEquals(Main.class.getName(), runner.getMainClass());
+        assertEquals("java -mx252m -cp ${classpaths} ${mainClass} ${inputPath} ${outputPath} -l ${locale} -r ${repository} -f ${fixtureFactory} --xml", runner.getCmdLineTemplate());
+        assertNull(runner.getServerName());
+        assertNull(runner.getServerPort());
+        assertEquals("JAVA", runner.getEnvironmentType().getName());
+
+        List<String> runnerClasspaths = toUpperCaseList(runner.getClasspaths());
+        assertTrue(runnerClasspaths.containsAll(expectedCp));
+        assertTrue("expected:" + expectedCp.toString() + "but got :" + runnerClasspaths.toString(), expectedCp.containsAll(runnerClasspaths));
+        assertTrue(expectedCp.containsAll(asPathList((new File(absolutePath, "WEB-INF/lib").listFiles()))));
+    }
+
     public void testTheJavaCurrentVersionRunnerInsertIsNotTriggeredIfWeAlreadyHaveARunnerWithSameVersion() throws Exception
     {  
         insertIntoDatabase(DATAS);

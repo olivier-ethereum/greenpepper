@@ -21,14 +21,14 @@
 		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
-			<artifactId>greenpepper-confluence4</artifactId>
+			<artifactId>greenpepper-confluence5</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.atlassian.confluence</groupId>
 			<artifactId>confluence</artifactId>
-			<version>4.3</version>
+            <version>${atlassian.product.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

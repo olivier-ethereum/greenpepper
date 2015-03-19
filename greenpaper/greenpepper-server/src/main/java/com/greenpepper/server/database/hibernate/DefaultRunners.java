@@ -70,7 +70,7 @@ public class DefaultRunners {
 
 	private void insertJavaRunnerFromDir(File dir) {
 		try {
-			detect(dir, "^greenpepper\\-(confluence|xwiki)4??\\-plugin\\-(.+)\\-complete\\.jar$");
+            detect(dir, "^greenpepper\\-(confluence|xwiki)[1-9]??\\-plugin\\-(.+)\\-complete\\.jar$");
 
 			if (shouldCreateJavaRunner()) {
 				createJavaRunner(getJavaRunnerClassPathsFromDir(dir), jarFile);

@@ -1,0 +1,18 @@
+<table id="sutFixturesEdit" class="sp_configClasspathsView" cellpadding="0" cellspacing="0">
+	<tr class="sp_configClasspathsTitle">
+		<td class="sp_cplabels">$action.getText('greenpepper.suts.fixture')</td>
+		<td class="sp_cplinksView">
+			#if(!$action.readonly)
+				<span id="sutFixtures_edit" class="sp_configLinks" onclick="gpProperties.editSutFixtures('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.classpath.edit')</span>
+			#end
+		</td>
+	</tr>
+	#foreach($classPath in $action.selectedSut.fixtureClasspaths)
+		#set($index = $velocityCount - 1)
+		<tr>
+			<td class="sp_classpath" colspan="2">
+				<span id="sutFixtures_path_$index">-&nbsp;$classPath</span><br>
+			</td>
+		</tr>
+	#end
+</table>

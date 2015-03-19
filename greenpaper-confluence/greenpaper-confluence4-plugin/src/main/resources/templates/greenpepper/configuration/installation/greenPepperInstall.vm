@@ -22,7 +22,7 @@
 			}
 		</script>
 		<link rel="stylesheet" href="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/css/server-properties.css" type="text/css"/>
-        #if ($permissionHelper.isGlobalAdministrator($remoteUser))
+        #if ($permissionHelper.isConfluenceAdministrator($remoteUser))
 			#parse ( "/template/includes/actionerrors.vm" )
 
 			#if (!${action.hasActionErrors()})

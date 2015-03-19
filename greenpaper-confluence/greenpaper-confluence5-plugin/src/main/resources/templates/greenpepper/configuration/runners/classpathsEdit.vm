@@ -1,0 +1,30 @@
+<table id="classpathsEdit" class="sp_configClasspathsView" cellpadding="0" cellspacing="0">
+	#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+		#set($errorDisplayed = true)
+		<tr>
+			<td colspan="2">
+				<table class="gpErrMsgTable" cellpadding="0" cellspacing="0">
+					#foreach($error in $action.actionErrors)
+						<tr><td class="gpErrMsg">$action.getText($error)</td></tr>
+					#end
+				</table>
+			</td>
+		</tr>
+	#end
+	<tr class="sp_configClasspathsTitle">
+		<td class="sp_cplabels">$action.ClasspathTitle</td>
+		<td class="sp_cplinksView">
+			<span id="classpathsEditSave"class="sp_configLinks" onclick="gpProperties.editRunnerClasspath('$action.spaceKey', $('editClasspathInput').value);">$action.getText('greenpepper.classpath.update')</span>
+			|
+			<span id="classpathsEditCancel" class="sp_configLinks" onclick="gpProperties.getRunner('$action.spaceKey');">$action.getText('greenpepper.classpath.cancel')</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="sp_classpath">$action.getText('greenpepper.classpath.info')</td>
+	</tr>
+	<tr>
+		<td class="sp_classpath" colspan="2">
+			<textarea class="sp_cpInputClasspath" id="editClasspathInput" style="width:100%" rows="15">$action.classpathsAsTextAreaContent</textarea>
+		</td>
+	</tr>
+</table>

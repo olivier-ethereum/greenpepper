@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import com.greenpepper.server.GreenPepperServer;
 import com.greenpepper.server.GreenPepperServerException;
+import com.greenpepper.server.database.SessionService;
+import com.greenpepper.server.domain.dao.RepositoryDao;
 import com.greenpepper.server.domain.dao.SystemInfoDao;
 import com.greenpepper.server.domain.dao.SystemUnderTestDao;
-import com.greenpepper.server.domain.dao.RepositoryDao;
+import com.greenpepper.server.domain.dao.hibernate.HibernateRepositoryDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemInfoDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
-import com.greenpepper.server.domain.dao.hibernate.HibernateRepositoryDao;
-import com.greenpepper.server.database.SessionService;
 
 public class BootstrapData
 {
@@ -45,9 +45,13 @@ public class BootstrapData
         try 
         {
 			sessionService.beginTransaction();
-			
+            log.info("Inserting InitialDatas");
 			new InitialDatas(systemInfoDao, systemUnderTestDao, repositoryDao).insert();
+
+            log.info("Inserting DefaultRunners");
 			new DefaultRunners(systemUnderTestDao, properties).insert();
+
+            log.info("Upgrading to version {} ", GreenPepperServer.VERSION);
 			new ServerUpgrader(sessionService, systemInfoDao).upgradeTo(GreenPepperServer.VERSION);
 			
 			sessionService.commitTransaction();

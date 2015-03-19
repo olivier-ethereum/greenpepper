@@ -1,0 +1,69 @@
+<div class="sp_configItemView">
+	<table width="90%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="sp_configSubTitle">
+				<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+				$action.getText('greenpepper.runners.runnerlist')
+			</td>
+			#if($action.runners.isEmpty())
+				<td class="sp_configNoOutput">$action.getText('greenpepper.runners.none')</td>
+			#else
+				<td class="sp_configOutput">
+					<select id="selectedRunner" class="sp_configSelectOption" onchange="gpProperties.getRunner('$action.spaceKey');">
+						<option value="none" class="sp_configNoOption" #if(!$action.selectedRunnerName)selected#end>&nbsp;&nbsp;$action.getText('greenpepper.runners.selection')&nbsp;&nbsp;</option>
+						#foreach($runner in $action.runners)
+							<option value="$runner.name" #if($action.selectedRunnerName && $action.selectedRunnerName.equals($runner.name))selected#end>$runner.name</option>
+						#end
+					</select>
+					&nbsp;&nbsp;
+					#if(!$action.editPropertiesMode && !$action.editClasspathsMode)
+						<span class="sp_configTxt" #if(!$action.selectedRunnerName)style="display:none"#end>
+							<span id="runners_edit" class="sp_configLinks" onclick="gpProperties.editRunnerProperties('$action.spaceKey');">$action.getText('greenpepper.runners.edit')</span>
+							|
+							<span id="runners_remove" class="sp_configLinks" onclick="gpProperties.removeRunner('$action.spaceKey');">$action.getText('greenpepper.runners.delete')</span>
+						</span>
+					#end
+					#if($action.editPropertiesMode)
+						<span class="sp_configTxt">
+							<span id="runners_save" class="sp_configLinks" onclick="gpProperties.updateRunnerProperties('$action.spaceKey');">$action.getText('greenpepper.runners.save')</span>
+							|
+							<span id="runners_cancel" class="sp_configLinks" onclick="gpProperties.getRunner('$action.spaceKey', '$action.selectedRunnerName');">$action.getText('greenpepper.runners.cancel')</span>
+						</span>
+					#end
+					#if(!$action.selectedRunnerName && !($errors.isEmpty()) && !$errorDisplayed)
+						#set($errorDisplayed = true)
+						#foreach($error in $action.errors.keySet())
+							<span id="runnersPaneError_display" class="gpErrMsg">$action.getText($action.errors.get($error))</span>
+						#end
+					#end
+				</td>
+			#end
+		</tr>
+		#if($action.selectedRunnerName)
+			<tr>
+				<td colspan="2" class="sp_configItem">
+					#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+						#set($errorDisplayed = true)
+						<div id="runnersPaneError_display" class="sp_configError" cellpadding="0" cellspacing="0">
+							#foreach($error in $action.actionErrors)
+								<span class="gpErrMsg">$action.getText($error)</span><br>
+							#end
+						</div>
+					#end
+					<div class="sp_configSubItemView">
+						#if(!$action.editPropertiesMode)
+							#parse('templates/greenpepper/configuration/runners/properties.vm')
+						#else
+							#parse('templates/greenpepper/configuration/runners/propertiesEdit.vm')
+						#end
+						#if(!$action.editClasspathsMode)
+							#parse('templates/greenpepper/configuration/runners/classpaths.vm')
+						#else
+							#parse('templates/greenpepper/configuration/runners/classpathsEdit.vm')
+						#end
+					</div>
+				</td>
+			</tr>
+		#end
+	</table>
+</div>

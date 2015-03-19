@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <!--
-       - Basic Project Information
-        -->
+	<!-- - Basic Project Information -->
 	<parent>
 		<artifactId>greenpepper-base</artifactId>
 		<groupId>greenpepper</groupId>
@@ -14,12 +13,42 @@
 	<packaging>pom</packaging>
 	<name>GreenPepper</name>
 
+	<properties>
+		<!-- Confluence version -->
+		<atlassian.product.version>5.7</atlassian.product.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
 	<modules>
-		<module>greenpaper-confluence3</module>
-		<module>greenpaper-confluence4</module>
-		<module>greenpaper-confluence3-plugin</module>
-		<module>greenpaper-confluence4-plugin</module>
+		<module>greenpaper-confluence5</module>
+		<module>greenpaper-confluence5-plugin</module>
 		<module>greenpaper-confluence-demo</module>
 	</modules>
 

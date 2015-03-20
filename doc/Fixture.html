@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fixture</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h3 id="Fixture-Introduction">Introduction</h3>
+
+<p>Even though one of the objectives of <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111926im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> is to create a common language between the business experts and the development team, there will always be a certain degree of difference between the natural language and the programing language.</p>
+
+<p>Hence comes the reason for having fixtures. Fixtures are the glue between the business expert examples and the software being developed.</p>
+
+<p>When running the table, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111926im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> uses a fixture to mediate between the example expressed in the table and the system under test.</p>
+
+<h4 id="Fixture-Collaborationdemandscompromise">Collaboration demands compromise</h4>
+
+<p>The goal of the fixture, is to translate from one language to the other so neither has to compromise their clarity or their design to match the other. The fixture is the compromise.</p>
+
+<p>A fixture is any class. It does not have to extend or implement any base class/interface.</p>
+
+<h3 id="Fixture-Thefixturename">The fixture name</h3>
+
+<p>The fixture name is found right next to the interpreter specification.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>simple fixture name</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr><td class="confluenceTd"  valign="top" width="20%">
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> <b>FixtureName</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> .. </td>
+<td class='confluenceTd'> .. </td>
+</tr>
+</tbody></table></td><td class="confluenceTd"  valign="top" width="20%">
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> list of </td>
+<td class='confluenceTd'> <b>FixtureName</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> .. </td>
+<td class='confluenceTd'> .. </td>
+</tr>
+</tbody></table></td><td class="confluenceTd"  valign="top" width="60%">
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> do with </td>
+<td class='confluenceTd'> <b>FixtureName</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> .. </td>
+<td class='confluenceTd'> .. </td>
+</tr>
+</tbody></table></td></tr></tbody></table>
+</div></div>
+<p>Since a fixture is a Java or C# class, when <em>GreenPepper</em> execute the example, it will try to match the fixture name with a class name.</p>
+
+<h4 id="Fixture-Whataboutpackagesandnamespaces%3F">What about packages and namespaces?</h4>
+
+<p>Usually, Java classes are found inside package and C# inside namespaces.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>An explicity imported fixture</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> <b>com.xyz.stuff.FixtureName</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> .. </td>
+<td class='confluenceTd'> .. </td>
+</tr>
+</tbody></table>
+</div></div>
+
+<h3 id="Fixture-Readability">Readability</h3>
+
+<p>The problem with packages and namespace and with the classes naming convention, camel casing and no spaces, is that they makes the example less readable for the business expert.</p>
+
+<p>To help readability, we have the following options</p>
+
+<p><a name="Fixture-Importtables"></a></p>
+
+<h4 id="Fixture-Importtables">Import tables</h4>
+
+<p>Import tables are special tables at the beginning of the document.<br/>
+By using an import table we can remove the package from the fixture name thus improving the readability of the example.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>an import table</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> import </th>
+</tr>
+<tr>
+<td class='confluenceTd'> x.y.z </td>
+</tr>
+</tbody></table>
+</div></div>
+<p>In C#, the namespaces are also provided in the Import table.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>an import table with namespaces</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> import </th>
+</tr>
+<tr>
+<td class='confluenceTd'> Sample.Application.Stuff </td>
+</tr>
+</tbody></table>
+</div></div>
+<p>When <em>GreenPepper</em> will search for fixtures in the code, it will look into all the packages/namespaces specified in the import tables.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Example of fixture name with implicit import</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> import </th>
+</tr>
+<tr>
+<td class='confluenceTd'> com.xyz.mystuff </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> list of </th>
+<th class='confluenceTh'> FixtureName </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table>
+<p><em>GreenPepper</em> will match com.xyz.stuff.FixtureName.</p>
+</div></div>
+<p>You can have more than one package or namespace imported in a document. Just add more lines to the import table.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>an import table with multiple imports</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> import </th>
+</tr>
+<tr>
+<td class='confluenceTd'> com.xyz.stuff </td>
+</tr>
+<tr>
+<td class='confluenceTd'> com.xyz.otherstuff </td>
+</tr>
+<tr>
+<td class='confluenceTd'> com.xyz.yapackage </td>
+</tr>
+</tbody></table>
+</div></div>
+<p><em>GreenPepper</em> will search for the fixture in each of these packages until it finds a matching class.</p>
+
+<h4 id="Fixture-Humanizedname">Humanized name</h4>
+
+<p>Event without the package, programmatic naming conventions are not the most readable form for the name of the example.<br/>
+This can be arranged by following the <span class="nobr"><a href="/web/20071022111926/http://en.wikipedia.org/wiki/CamelCase" rel="nofollow">camel casing<sup><img class="rendericon" src="/web/20071022111926im_/http://greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> conventions.</p>
+
+<p>Use a free form with space separating each words for the fixture name. And makes the fixture class use camel casing.</p>
+
+<p><em>GreenPepper</em> will match the words of the fixture name with the camel cased class name.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Camel casing multiple word fixture name</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr><td class="confluenceTd"  valign="top">
+<p><b>fixture name</b><br/>
+the fixture<br/>
+a fixture with a very long name becomes </p></td><td class="confluenceTd"  valign="top">
+<p>TheFixture<br/>
+AFixtureWithAVeryLongName</p></td></tr></tbody></table>
+</div></div><table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20071022111926im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>When using the humanized version of fixture naming, you must use <span class="error">&#91;Import tables&#93;</span>.<br/>
+explicit package won't work ex: <font color="red">&#124;list of &#124; com.xyz.stuff.the fixture name&#124;</font> </td></tr></table>
+
+<h4 id="Fixture-Thefixturesuffix">The fixture suffix</h4>
+
+<p>If you wish to clearly distinguish between your domain classes and the classes that serve as fixture, you can add the suffix <b><em>Fixture</em></b> at the end of the fixtures classes name.</p>
+
+<p>When writing the example, you can omit the suffix Fixture from the fixture name. This keeps the example closer to the real domain.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Suffix example</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> rule for </th>
+<th class='confluenceTh'> bank account fixture </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table>
+<p>and</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> rule for </th>
+<th class='confluenceTh'> bank account </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table>
+<p>will both match</p>
+<style type="text/css">
+@import url(/web/20071022111926im_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shStyles.css);
+</style>
+<!--[if IE]>
+<style type="text/css">
+    .code textarea, .code input { padding: 0 !important; }
+</style>
+<![endif]-->
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shCore.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushCSharp.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushPhp.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushJScript.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushVb.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushSql.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushXml.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushShell.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushDelphi.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushPython.js"></script>
+<script class="javascript" src="/web/20071022111926js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushJava.js"></script><div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class BankAccountFixture {
+ ...
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+</div></div>
+
+<h3 id="Fixture-Constructor">Constructor</h3>
+
+<p>A fixture can receive parameters during it's construction. You must have a public constructor that matches the numbers of parameters.</p>
+
+<p>When no parameters are specified in the example, the fixture class must have a public constructor without parameters.</p>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Empty constructor example</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> rule for </th>
+<th class='confluenceTh'> bank account </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table>
+<div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class BankAccountFixture {
+   public BankAccountFixture()
+   { ... }
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+</div></div>
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>An example with two parameters</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> rule for </th>
+<th class='confluenceTh'> poker table </th>
+<th class='confluenceTh'> ante </th>
+<th class='confluenceTh'> 5$ </th>
+<th class='confluenceTh'> max bet </th>
+<th class='confluenceTh'> 100$ </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table>
+<div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class PokerTableFixture {
+   public PokerTableFixture(Ammount ante, Ammount maxBet)
+   { ... }
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+</div></div> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

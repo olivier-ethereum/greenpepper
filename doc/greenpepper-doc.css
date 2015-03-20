@@ -1,0 +1,88 @@
+body {
+    width: 800px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+#PageContent {
+}
+
+p, h1, h2, h3, h4, h5, th, td, span, div
+{
+  font-family: 'Calibri', 'Helvetica', sans-serif;
+}
+
+.confluenceTable {
+}
+
+.panel {
+    margin: 10px;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px #100800;
+}
+
+.panelHeader ,
+.panelContent{
+    padding: 10px;
+}
+.panelHeader {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.panelContent{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.code {
+    border: solid 1px black !important;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fffcf8;
+    box-shadow: 1px 1px 3px black;
+}
+
+.codeHeader {
+    border-bottom: solid 1px black !important;
+    
+}
+
+.wiki-content {
+    width: 900px !important;
+}
+
+
+.confluenceTable {
+    padding: 0px;
+    margin: 5px 0px;
+}
+
+.confluenceTd {
+    padding: 3px;
+    
+border-width: 1px;
+border-style: solid;
+border-color: #DDD;
+padding: 5px;
+vertical-align: top;
+min-width: 0.6em;    
+}
+
+.confluenceTh {
+    color: #060;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #CCC;
+    padding: 3px 4px;
+    background-color: #F0F0F0;
+    text-align: center;
+    vertical-align: top;
+}
+
+.confluenceTh,
+.confluenceTd {
+}

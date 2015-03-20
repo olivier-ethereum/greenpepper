@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Executing a Specification in PHP</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h1 id="ExecutingaSpecificationinPHP-PHPSud%28PHPSystemUnderDeveloppement%29">PHPSud (PHP System Under Developpement)</h1>
+
+<h2 id="ExecutingaSpecificationinPHP-Introduction">Introduction</h2>
+
+<p>PHPSud is a free add-on for GreenPepper which allow you to use executables specifications on PHP Code.</p>
+
+<p>PHPSud is very easy to use :</p>
+<ul>
+	<li>write yours executables specifications in GreenPepper</li>
+	<li>write yours fixtures in PHP</li>
+	<li>write yours business code in PHP</li>
+	<li>run your executable specification on your code :
+	<ul>
+		<li>from GreenPepper</li>
+		<li>from command line with local specifications</li>
+		<li>from command line with remote specifications</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p>Sorry, it doesn't work with PHP4. It's tested with PHP5.</p>
+
+<h2 id="ExecutingaSpecificationinPHP-Howit%27swork%3F">How it's work ?</h2>
+
+<p>PHPSud is see by GreenPepper as a Java program, but PHPSud runs your PHP program. A small part of mixed PHP/Java code make the glue between the two languages.</p>
+
+
+<p>Concretely, for each GreenPepperized page, PHPSud launch a PHP interperter, load your PHP program, forward fixtures request from GreenPepper to your PHP code, and give your PHP code response to GreenPepper. Communication between PHP interpreter and java code is done throuh a socket.</p>
+
+<h2 id="ExecutingaSpecificationinPHP-Examples">Examples</h2>
+
+<p>See the GreenPepper's <a href="/web/20121025031712/http://www.greenpeppersoftware.com/confluence/display/GREENPEPPERDEMO/Calculator" title="Calculator">calulator demo</a>.</p>
+
+<p>You can implement that in PHP like that</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;?php
+
+class Calculator {
+	<span class="code-keyword">private</span> $x;
+	
+	<span class="code-keyword">private</span> $y;
+	
+	function setX($x) {
+		$<span class="code-keyword">this</span>-&gt;x = $x;
+	}
+	
+	function setY($y) {
+		$<span class="code-keyword">this</span>-&gt;y = $y;
+	}
+	
+	function Sum() {
+		<span class="code-keyword">return</span> $<span class="code-keyword">this</span>-&gt;x + $<span class="code-keyword">this</span>-&gt;y;
+	}
+	
+	function Product() {
+		<span class="code-keyword">return</span> $<span class="code-keyword">this</span>-&gt;x * $<span class="code-keyword">this</span>-&gt;y;
+	}
+	
+	function Quotient() {
+		<span class="code-keyword">if</span> ($<span class="code-keyword">this</span>-&gt;y == 0) {
+			<span class="code-keyword">throw</span> <span class="code-keyword">new</span> Exception(<span class="code-quote">"Divide by zero"</span>);
+		}
+		<span class="code-keyword">return</span> $<span class="code-keyword">this</span>-&gt;x / $<span class="code-keyword">this</span>-&gt;y;
+	}
+}</pre>
+</div></div>
+
+<p>Compare this code with the corresponding <a href="/web/20121025031712/http://www.greenpeppersoftware.com/confluence/display/GREENPEPPERDEMO/Calculator.java" title="Calculator.java">java code</a>. It's very similar !</p>
+
+<p>The PHP files to implements GreenPepper's <a href="/web/20121025031712/http://www.greenpeppersoftware.com/confluence/display/GREENPEPPERDEMO/Bank" title="Bank">bank example</a> are in attachements. Look at them !</p>
+
+<h1 id="ExecutingaSpecificationinPHP-Userguide">User guide</h1>
+
+<h2 id="ExecutingaSpecificationinPHP-GettingPHPSud">Getting PHPSud</h2>
+
+<p>If you want to use PHPSud from Maven, you have nothing to do. Maven will download PHPSud for you.<br/>
+On other case, you have to download it from GreenPepper Maven repo, from <span class="nobr"><a href="/web/20121025031712/http://www.greenpeppersoftware.com/proximity/repository/public/greenpepper-open/greenpepper-extensions-php?repositoryId=extFree" rel="nofollow">here<sup><img class="rendericon" src="/web/20121025031712im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span>. Take the version with all dependencies packaged in.<br/>
+Example : <tt>greenpepper-extensions-php-1.0-jar-with-dependencies.jar</tt></p>
+
+<h2 id="ExecutingaSpecificationinPHP-PHPSudconstructorparameters">PHPSud constructor parameters</h2>
+
+<p>To use PHPSud, you have to specify in GreenPepper configuration that you want to use it. (See below to see where you have to do that).</p>
+
+<p>PHPSud class is <tt>com.greenpepper.phpsud.PHPSud</tt>.</p>
+
+<p>PHPSud take three arguments in command line :</p>
+<ul>
+	<li>complete path and filename of PHP interpreter. For example : <tt>c:\php5\php.exe</tt>. On unix system, you can use <tt>default</tt> value, PHPSud will use <tt>/usr/bin/php</tt>.</li>
+	<li>working directory for your php program. For example : <tt>c:\myprojet</tt></li>
+	<li>your main PHP file. Generally, this file include all others. This file is loaded by PHPSud with PHP command <tt>include_once</tt> from specified working directory. For exampe : <tt>init.php</tt>.</li>
+</ul>
+
+
+<p>With the GreenPepper SUD syntax :</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">com.greenpepper.phpsud.PHPSud;c:\php5\php.exe;c:\myprojet;init.php</pre>
+</div></div>
+
+<p>You can not use <tt>import</tt> command in your PHP GreenPepperized pages, all PHP script have to be included by your main PHP file.</p>
+
+<h2 id="ExecutingaSpecificationinPHP-UsingPHPSudfromGreenPepperinConfluence">Using PHPSud from GreenPepper in Confluence</h2>
+
+<ul>
+	<li>Put PHPSud jar (jar with all dependencies) in confluence classpath</li>
+	<li>Create a new System Under Test, use Java Runner, and use PHPSud as described above. No more configuration is necessary</li>
+	<li>Thats'all !!</li>
+</ul>
+
+
+<h2 id="ExecutingaSpecificationinPHP-UsingPHPSudfromcommandlineonlocalspecifications">Using PHPSud from command line on local specifications</h2>
+
+<p>On windows, you can use a command like that :</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">java -cp greenpepper-extensions-php-1.0-SNAPSHOT-jar-with-dependencies.jar com.greenpepper.phpsud.Runner c:\php5\php.exe c:\myproject init.php -o target -s specs</pre>
+</div></div>
+<p>The first three agruments are the three PHPSud constructor argument (see above).<br/>
+The next argument is GreenPepper Command Line runner arguments. See <a href="/web/20121025031712/http://www.greenpeppersoftware.com/confluence/display/GPO/Executing+a+Specification+in+Java" title="Executing a Specification in Java">Executing a Specification in Java</a> for complete arguments description.</p>
+
+<p>You can use this method to run local specifications during <span class="nobr"><a href="/web/20121025031712/http://phing.info/trac/" rel="nofollow">Phing<sup><img class="rendericon" src="/web/20121025031712im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> builds.</p>
+
+<p>Remark : your GreenPepperized pages have to be 'Set as implemented'.</p>
+
+<h2 id="ExecutingaSpecificationinPHP-UsingPHPSudonremotespecifications">Using PHPSud on remote specifications</h2>
+
+<p>You can use GreenPepper maven plugin to run executable specification on PHP.</p>
+
+<p>To do that :</p>
+<ul>
+	<li>have maven installed and configured</li>
+	<li>have a Confluence / GreenPepper instance ready, hosting your executable specifications</li>
+	<li>create a <tt>pom.xml</tt> file in the root directory of your project. This file will only be used to run your executable specification. See an example below. <tt>greenPepperUid</tt> and <tt>greenPepperSut</tt> parameter can be found on GreenPepper Space Registration config panel. Other properties are self descritptives</li>
+	<li>run command <tt>mvn greenpepper:run</tt></li>
+	<li>maven gives you result : failure or success</li>
+	<li>reports are in directory <tt>target/greenpepper-reports</tt></li>
+</ul>
+
+
+<p>Remark : this method can also be used to run executable specifications on local specifications. For example on local specifications retrieven by <tt>mvn greenpepper:freeze</tt> command.</p>
+
+<p>Remark : your GreenPepperized pages have to be 'Set as implemented'.</p>
+
+<p>Remark : more documentation on GreenPepper maven plugin <a href="/web/20121025031712/http://www.greenpeppersoftware.com/confluence/display/GP/GreenPepper+Server" title="GreenPepper Server">here</a>.</p>
+
+<p>Pom example :</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;?xml version=<span class="code-quote">"1.0"</span> encoding=<span class="code-quote">"UTF-8"</span>?&gt;
+&lt;project xsi:schemaLocation=<span class="code-quote">"http:<span class="code-comment">//maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span> xmlns:xsi=<span class="code-quote">"http://www.w3.org/2001/XMLSchema-instance"</span>&gt;
+</span>	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+	&lt;groupId&gt;my.project&lt;/groupId&gt;
+	&lt;artifactId&gt;php&lt;/artifactId&gt;
+	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+	
+	&lt;properties&gt;
+		&lt;php&gt;c:\php5\php.exe&lt;/php&gt;
+		&lt;phpMainFile&gt;init.php&lt;/phpMainFile&gt;
+		&lt;confluenceUrl&gt;&lt;![CDATA[http:<span class="code-comment">//confluence:8080/]]&gt;&lt;/confluenceUrl&gt;
+</span>		&lt;greenPepperUid&gt;GreenPepper - Bank&lt;/greenPepperUid&gt;
+		&lt;greenPepperSut&gt;Bank&lt;/greenPepperSut&gt;
+	&lt;/properties&gt;
+	
+	&lt;dependencies&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;greenpepper-open&lt;/groupId&gt;
+			&lt;artifactId&gt;greenpepper-core&lt;/artifactId&gt;
+			&lt;version&gt;2.1&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;greenpepper-open&lt;/groupId&gt;
+			&lt;artifactId&gt;greenpepper-extensions-php&lt;/artifactId&gt;
+			&lt;version&gt;1.0&lt;/version&gt;
+		&lt;/dependency&gt;
+	&lt;/dependencies&gt;
+	
+	&lt;build&gt;
+		&lt;plugins&gt;
+			&lt;plugin&gt;
+				&lt;groupId&gt;greenpepper&lt;/groupId&gt;
+				&lt;artifactId&gt;greenpepper-maven-plugin&lt;/artifactId&gt;
+				&lt;version&gt;2.1&lt;/version&gt;
+				&lt;configuration&gt;
+					&lt;source&gt;1.5&lt;/source&gt;
+					&lt;target&gt;1.5&lt;/target&gt;
+					&lt;reportsDirectory&gt;target/greenpepper-reports&lt;/reportsDirectory&gt;
+					&lt;systemUnderDevelopment&gt;com.greenpepper.phpsud.PHPSud;${php};${basedir};${phpMainFile}&lt;/systemUnderDevelopment&gt;
+					&lt;repositories&gt;
+						&lt;repository&gt;
+							&lt;name&gt;greenpepper&lt;/name&gt;
+							&lt;type&gt;com.greenpepper.runner.repository.GreenPepperRepository&lt;/type&gt;
+							&lt;root&gt;
+		&lt;![CDATA[${confluenceUrl}/rpc/xmlrpc?handler=greenpepper1&amp;sut=${greenPepperSut}&amp;includeStyle=<span class="code-keyword">true</span>]]&gt;
+							&lt;/root&gt;
+							&lt;suites&gt;
+								&lt;suite&gt;${greenPepperUid}&lt;/suite&gt;
+							&lt;/suites&gt;
+						&lt;/repository&gt;
+					&lt;!-- 
+						&lt;repository&gt;
+							&lt;name&gt;greenpepper&lt;/name&gt;
+							&lt;type&gt;com.greenpepper.repository.FileSystemRepository&lt;/type&gt;
+							&lt;root&gt;my/path/to/specs&lt;/root&gt;
+							&lt;tests&gt;
+								&lt;test&gt;MyPage.html&lt;/test&gt;
+							&lt;/tests&gt;
+						&lt;/repository&gt;
+					--&gt;					
+					&lt;/repositories&gt;
+				&lt;/configuration&gt;
+			&lt;/plugin&gt;
+		&lt;/plugins&gt;
+	&lt;/build&gt;
+
+	&lt;repositories&gt;
+		&lt;repository&gt;
+			&lt;id&gt;GreenPepper Proximity&lt;/id&gt;
+			&lt;name&gt;GreenPepper Proximity&lt;/name&gt;
+			&lt;url&gt;
+				http:<span class="code-comment">//www.greenpeppersoftware.com/proximity/repository/<span class="code-keyword">public</span>
+</span>			&lt;/url&gt;
+		&lt;/repository&gt;
+	&lt;/repositories&gt;
+
+	&lt;pluginRepositories&gt;
+		&lt;pluginRepository&gt;
+			&lt;id&gt;GreenPepper Proximity&lt;/id&gt;
+			&lt;name&gt;GreenPepper Proximity&lt;/name&gt;
+			&lt;url&gt;
+				http:<span class="code-comment">//www.greenpeppersoftware.com/proximity/repository/<span class="code-keyword">public</span>
+</span>			&lt;/url&gt;
+		&lt;/pluginRepository&gt;
+	&lt;/pluginRepositories&gt;
+	
+&lt;/project&gt;</pre>
+</div></div>
+
+<h1 id="ExecutingaSpecificationinPHP-Bugs%26FeaturesRequest">Bugs &amp; Features Request</h1>
+
+<p>Please use <span class="nobr"><a href="/web/20121025031712/http://www.greenpeppersoftware.com/jira/secure/Dashboard.jspa" rel="nofollow">GreenPepper Jira<sup><img class="rendericon" src="/web/20121025031712im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span>, use GreenPepper project, Open Source component. </p> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

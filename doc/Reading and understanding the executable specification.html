@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading and understanding the executable specification</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h1 id="Readingandunderstandingtheexecutablespecification-ReadingandunderstandingaGreenPepperExecutableSpecification">Reading and understanding a GreenPepper Executable Specification</h1>
+
+<p>A GreenPepper Executable Specification is a document mainly composed of free text and GreenPepper examples.<br/>
+As a GreenPepper example we mean an executable structure that will be interpreted over the System under test.</p>
+
+<h3 id="Readingandunderstandingtheexecutablespecification-I.TheGreenPepperExampleforms.">I. The GreenPepper Example forms.</h3>
+
+<ol>
+	<li><b>Table</b> (<em>Most common form</em>).
+	<ul>
+		<li>The first cell is reserved to the <a href="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/display/GPO/Interpreters" title="Interpreters">Interpreter</a> which will dictacte the exact table structure.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> <b>My Interpreter</b> </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table></li>
+		<li>The Second cell is reserved to the <a href="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixture" title="Fixture">Fixture</a>.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> My Interpreter </td>
+<td class='confluenceTd'> <b>My Fixture</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table></li>
+		<li>The Third cell is an optional comment that is ignored by GreenPepper .
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> My Interpreter </td>
+<td class='confluenceTd'> My Fixture </td>
+<td class='confluenceTd'> <b>good old comment</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table></li>
+		<li>Every other cells following the fixture name is a parameter separated by a comment cell.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> My Interpreter </td>
+<td class='confluenceTd'> My Fixture </td>
+<td class='confluenceTd'> comment </td>
+<td class='confluenceTd'> <b>parameter 1 to My Fixture</b> </td>
+<td class='confluenceTd'> comment </td>
+<td class='confluenceTd'> <b>second parameter</b> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ... </td>
+<td class='confluenceTd'> ... </td>
+</tr>
+</tbody></table></li>
+	</ul>
+	</li>
+</ol>
+
+
+<p>Ex: &#124; rule for &#124; product listing &#124; sorting using &#124; ascending &#124; order &#124;</p>
+
+<p>rule for &#45;&gt; interpreter<br/>
+product listing &#45;&gt; fixture name<br/>
+sorting using, order &#45;&gt; comments<br/>
+ascending &#45;&gt; parameter to product listing fixture</p>
+<ul>
+	<li>
+	<ul>
+		<li>Table headers <b>&lt;th&gt;&lt;\th&gt;</b> are supported and interpreted like normal table elements.</li>
+		<li>The table doesn't have to be rectangular.
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> This is a valid GreenPepper example </th>
+</tr>
+<tr>
+<td class='confluenceTd'> a </td>
+<td class='confluenceTd'> b </td>
+<td class='confluenceTd'> sum() </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 1 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> 3 </td>
+</tr>
+</tbody></table></li>
+	</ul>
+	</li>
+</ul>
+
+
+<p><br clear="all" /></p>
+<ol>
+	<li><b>Bullet list</b>
+	<ul>
+		<li>Cell simulation with <b>&lt;style&gt;</b> such as: <b>bold</b> <em>italic</em> ...
+<br clear="all" />
+<br clear="all" /></li>
+	</ul>
+	</li>
+</ol> </div>
+                            <!--
+<rdf:RDF xmlns:rdf="/web/20121008025249/http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="/web/20121008025249/http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="/web/20121008025249/http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+    rdf:about="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/display/GPO/Reading+and+understanding+the+executable+specification"
+    dc:identifier="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/display/GPO/Reading+and+understanding+the+executable+specification"
+    dc:title="Reading and understanding the executable specification"
+    trackback:ping="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/rpc/trackback/2416"/>
+</rdf:RDF>
+-->
+
+                            
+                            <div class="tabletitle">
+                <a name="children">Children</a>
+
+                <span class="bodytext">
+                &nbsp;
+                <a href="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/display/GPO/Reading+and+understanding+the+executable+specification?showChildren=false">Hide Children</a>
+                | <a href="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/pages/listpages-dirview.action?key=GPO&amp;openId=2416#selectedPageInHierarchy">View in hierarchy</a>
+                                </span>
+            </div>
+            <div class="greybox" align="left">
+                                                         <img src="/web/20121008025249im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Interpreters"/>
+                         <a href="/web/20121008025249/http://www.greenpeppersoftware.com/confluence/display/GPO/Interpreters">Interpreters</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                            </div>
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

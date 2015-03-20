@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rule For Definition</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.application.calculator</td>
+		</tr>
+	</table>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
+<p>The <tt>RuleForInterpreter</tt> is used to express concrete and measurable business rules.<br/>
+During the execution of the specification, GreenPepper compares the values returned by the system under development against the expected values defined by the Business Expert.<br/>
+<img src="/web/20090107045101im_/http://www.greenpeppersoftware.com/confluence/download/attachments/2482/LexicalFormOfRuleFor.bmp" align="absmiddle" border="0" /></p>
+<ul>
+	<li>The first row of the table indicates the set of rules to be tested by GreenPepper.</li>
+	<li>The next row is called the <b>header row</b> and serves to distinguish the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve as comparison values against values that are actually returned by the system. When a column header ends with special characters <b>?</b> or <b>()</b>, it denotes an expected value.</li>
+	<li>Finally, the remaining rows capture the examples. They are the executable test rows.</li>
+</ul>
+</div></div>
+
+<h3 id="RuleForDefinition-SpecificKeywordsforexpectedvalues">Specific Keywords for expected values</h3>
+
+<p>GreenPepper offers a list of useful keywords to support the Business Expert.</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Empty cells </th>
+<td class='confluenceTd'> When a test cell is left blank, GreenPepper only shows the returned value </td>
+</tr>
+<tr>
+<th class='confluenceTh'> <b>error</b> </th>
+<td class='confluenceTd'> When you expect an error, specify it in the cell to test that particular behavior </td>
+</tr>
+<tr>
+<th class='confluenceTh'> OGNL </th>
+<td class='confluenceTd'> You can use <a href="/web/20090107045101/http://www.greenpeppersoftware.com/confluence/display/GPEXAMPLES/Object-Graph+Navigation+Language+%28OGNL%29" title="Object-Graph Navigation Language (OGNL)">OGNL expressions</a> as expected test results. </td>
+</tr>
+</tbody></table>
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> calculator </td>
+</tr>
+<tr>
+<td class='confluenceTd'> x </td>
+<td class='confluenceTd'> y </td>
+<td class='confluenceTd'> quotient? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> 1 </td>
+<td class='confluenceTd'> 0 </td>
+<td class='confluenceTd'> error </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 30 </td>
+<td class='confluenceTd'> 3 </td>
+<td class='confluenceTd'> ? &gt;= 9 and ? &lt; 12 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 30 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> =30/2 </td>
+</tr>
+</tbody></table>
+
+<h3 id="RuleForDefinition-Coloring">Coloring</h3>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<p>GreenPepper will visually show the test result by coloring each testing cell:</p>
+<table border="1">
+ <tr>
+  <td align="center"> <b>GREEN</b> </td>
+  <td bgcolor="#98FB98">When the expected value match the returned value, the <tt>RuleForInterpreter</tt> colors the cell as "right" by coloring it green.</td>
+</tr>
+ <tr>
+  <td align="center"> <b>RED</b> </td>
+  <td bgcolor="#F08080">If the values don't match, the <tt>RuleForInterpreter</tt> colors the cell as "wrong" in red.</td>
+</tr>
+ <tr>
+  <td align="center"> <b>YELLOW</b> </td>
+  <td bgcolor="#F0E68C">If the system encounters an execution error, the cell is colored yellow and GreenPepper provides information about the error.</td>
+</tr>
+ <tr>
+  <td align="center"> <b>GRAY</b> </td>
+  <td bgcolor="#D3D3D3">If no expected value is specified in a test, the <tt>RuleForInterpreter</tt> colors the cell in gray.</td>
+</tr></table>
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<p>Here is an example of cell coloring:</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> calculator </td>
+</tr>
+<tr>
+<td class='confluenceTd'> x </td>
+<td class='confluenceTd'> y </td>
+<td class='confluenceTd'> sum? </td>
+<td class='confluenceTd'> product() </td>
+<td class='confluenceTd'> quotient? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 10 </td>
+<td class='confluenceTd'> 0 </td>
+<td class='confluenceTd'> 10 </td>
+<td class='confluenceTd'> 0 </td>
+<td class='confluenceTd'> 0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6 </td>
+<td class='confluenceTd'> 3 </td>
+<td class='confluenceTd'> 9 </td>
+<td class='confluenceTd'> -5 </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+</tbody></table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

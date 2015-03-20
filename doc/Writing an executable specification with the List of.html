@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Writing an executable specification with the List of</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.application.phonebook</td>
+		</tr>
+	</table>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<h2 id="WritinganexecutablespecificationwiththeListof-Whendoweusethe%7B%7BCollectionInterpreters%7D%7D">When do we use the <tt>CollectionInterpreters</tt></h2>
+
+<p>The <tt>CollectionInterpreters</tt> are used to express any kind of group, list or set of values.</p>
+
+<p>When a <tt>CollectionInterpreters</tt> is executed, GreenPepper compares the list of expected values with the list of values returned by the system under development. The test result depends on the specific <tt>CollectionInterpreters</tt> selected.</p>
+
+<p>GreenPepper offers four different <tt>CollectionInterpreters</tt>:</p>
+<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
+<td class="confluenceTd"  valign="top" width="80%">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> <tt>ListOfInterpreter</tt> </th>
+<td class='confluenceTd'>  This interpreter expects to match the <b>content</b> and the <b>order</b> of the list returned by the system under development (SUD) with the expected list defined in the specification.</td>
+</tr>
+<tr>
+<th class='confluenceTh'> <tt>SetOfInterpreter</tt> </th>
+<td class='confluenceTd'> The <tt>SetOfInterpreter</tt> expects to match <b>only the content</b> of the list returned by the SUD with the expected list defined in the specification. The order of the rows is not important.</td>
+</tr>
+<tr>
+<th class='confluenceTh'> <tt>SubsetOfInterpreter</tt> </th>
+<td class='confluenceTd'> The <tt>SubsetOfInterpreter</tt> verifies that each row defined in the specification exists in the list returned by the SUD. In order to have a successful test, the set of elements listed in the specification should be a <b>subset</b> of the list returned by the SUD.</td>
+</tr>
+<tr>
+<th class='confluenceTh'> <tt>SupersetOfInterpreter</tt> </th>
+<td class='confluenceTd'>  The <tt>SupersetOfInterpreter</tt> verifies that each row returned by the SUD exists in the list defined in the specification. In order to have a successful test, the set of elements listed in the specification should be a <b>superset</b> of the list returned by the SUD. This means that the specification may contain rows that are not contained in the SUD.</td>
+</tr>
+</tbody></table></td>
+<td class="confluenceTd"  valign="top" width="20%">
+<p><img src="/web/20090106230448im_/http://www.greenpeppersoftware.com/confluence/download/attachments/3228/SubsetvsSuperset.bmp" align="absmiddle" border="0" /> <br/>
+A is a <b>subset</b> of B<br/>
+B is a <b>superset</b> of A</p></td></tr></tbody></table>
+<h2 id="WritinganexecutablespecificationwiththeListof-Firstrow%3AIdentificationoftheCollectionInterpreter">First row: Identification of the Collection Interpreter</h2>
+<p>As for all other interpreters, the first row of any <tt>CollectionInterpreter</tt> specifies the name of the interpreter and the name of the collection to be tested. </p>
+
+<ul>
+	<li><b>Example - Provinces of Canada:</b> A simple example would be a system containing the Canadian provinces name and code. In that particular case, we could define the collection as <em>Canada Province Codes</em> :
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>list of</td>
+<td class='confluenceTd'>Canada Province Codes</td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+<ul>
+	<li><b>Example - Phone Book :</b> A phone book application able to manage the first name, last name and the phone number of people. The <tt>ListOfInterpreter</tt> could be express as
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> list of  </td>
+<td class='confluenceTd'> phone book entries</td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+<h2 id="WritinganexecutablespecificationwiththeListof-Secondrow%3AHeader">Second row: Header </h2>
+<p>The second row is used to define the name of each attribute related to the members of the collection of data.</p>
+
+<ul>
+	<li><b>Example - Provinces of Canada:</b> The attributes for that example are the name and the code.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>list of</td>
+<td class='confluenceTd'>Canada Province Codes</td>
+</tr>
+<tr>
+<td class='confluenceTd'>Name</td>
+<td class='confluenceTd'> Code </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+<ul>
+	<li><b>Example - Phone Book :</b> The attributes for that example are the first name, the last name and the phone number.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> list of  </td>
+<td class='confluenceTd'> phone book entries</td>
+</tr>
+<tr>
+<td class='confluenceTd'> FirstName </td>
+<td class='confluenceTd'> LastName </td>
+<td class='confluenceTd'> Phone Number </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+
+<h2 id="WritinganexecutablespecificationwiththeListof-Otherrows%3AAsetofelements">Other rows: A set of elements</h2>
+<p>From the third row, we specify the set of values to test. </p>
+
+<ul>
+	<li><b>Example - Provinces of Canada :</b>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>list of</td>
+<td class='confluenceTd'>Canada Province Codes</td>
+</tr>
+<tr>
+<td class='confluenceTd'>Name</td>
+<td class='confluenceTd'> Code </td>
+</tr>
+<tr>
+<td class='confluenceTd'>ALBERTA</td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'>BRITISH COLUMBIA </td>
+<td class='confluenceTd'> AB </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+
+<ul>
+	<li><b>Example - Phone Book :</b>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> list of  </td>
+<td class='confluenceTd'> phone book entries</td>
+</tr>
+<tr>
+<td class='confluenceTd'> FirstName </td>
+<td class='confluenceTd'> LastName </td>
+<td class='confluenceTd'> Phone Number </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fred  </td>
+<td class='confluenceTd'> Flintstone </td>
+<td class='confluenceTd'> (123) 456-7890 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Barney </td>
+<td class='confluenceTd'> Rubble </td>
+<td class='confluenceTd'> (123) 321-7666 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Great </td>
+<td class='confluenceTd'> Gazoo </td>
+<td class='confluenceTd'> (123) 989-4455 </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h2 id="WritinganexecutablespecificationwiththeListof-Executionofspecification">Execution of specification</h2>
+
+<p>Once the developers have coded the functionality and the <a href="/web/20090106230448/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixture" title="Fixture">fixture</a> (the fixture is the link between the system under development and the executable specification), the specification can be executed by clicking on the <b>Execute</b> button on the top of the page. </p>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<p>During execution, GreenPepper will color the rows in green if the rows are in the list of elements returned by the SUD as expected in the specification.<br/>
+If a row is missing or in surplus in the list returned by the SUD, then GreenPepper will color the entire row in red and specify if the row is <em><b>missing</b></em> or in <em><b>surplus</b></em>. </p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20090106230448im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Notes</b><br />
+<p>If GreenPepper specify that a row is <em><b>missing</b></em>, it means that the row is not in the list of elements provided by the system under development as it should be.<br/>
+If GreenPepper specify that a row is in <em><b>surplus</b></em>, it means that the row is in the list of elements provided by the system under development but it should not be.</p></td></tr></table>
+
+<p>Since the <tt>ListOfInterpreter</tt> expects to match exactly the list expected and the list returned by the SUD, GreenPepper compare each cell of the table separately. If the expected value is different from the returned value, GreenPepper color the cell in red and provide the two values.</p>
+
+<p>Since the <tt>SupersetOfInterpreter</tt> accept that the specification may contains rows that are not contained in the SUD, GreenPepper will not color the  rows in the specification but not returned by the SUD.</p>
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h3 id="WritinganexecutablespecificationwiththeListof-ExecutablespecificationfortheexampleProvincesofCanada">Executable specification for the example - Provinces of Canada</h3>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>list of</td>
+<td class='confluenceTd'>Canada Province Codes</td>
+</tr>
+<tr>
+<td class='confluenceTd'>Name</td>
+<td class='confluenceTd'> Code </td>
+</tr>
+<tr>
+<td class='confluenceTd'>ALBERTA</td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'>BRITISH COLUMBIA </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+<tr>
+<td class='confluenceTd'>MANITOBA </td>
+<td class='confluenceTd'> MB </td>
+</tr>
+<tr>
+<td class='confluenceTd'>NEW BRUNSWICK</td>
+<td class='confluenceTd'> NB </td>
+</tr>
+<tr>
+<td class='confluenceTd'>NEWFOUNDLAND and LABRADOR </td>
+<td class='confluenceTd'> NL </td>
+</tr>
+<tr>
+<td class='confluenceTd'>NOVA SCOTIA </td>
+<td class='confluenceTd'> NS </td>
+</tr>
+<tr>
+<td class='confluenceTd'>NUNAVUT </td>
+<td class='confluenceTd'> NU </td>
+</tr>
+<tr>
+<td class='confluenceTd'>ONTARIO </td>
+<td class='confluenceTd'> ON </td>
+</tr>
+<tr>
+<td class='confluenceTd'>PRINCE EDWARD ISLAND </td>
+<td class='confluenceTd'> PE </td>
+</tr>
+<tr>
+<td class='confluenceTd'>QUEBEC </td>
+<td class='confluenceTd'> QC </td>
+</tr>
+<tr>
+<td class='confluenceTd'>SASKATCHEWAN </td>
+<td class='confluenceTd'> SK </td>
+</tr>
+<tr>
+<td class='confluenceTd'>YUKON </td>
+<td class='confluenceTd'> YT </td>
+</tr>
+<tr>
+<td class='confluenceTd'>OTHER PROVINCE</td>
+<td class='confluenceTd'> OP </td>
+</tr>
+</tbody></table>
+
+<h3 id="WritinganexecutablespecificationwiththeListof-ExecutablespecificationfortheexamplePhoneBook">Executable specification for the example - Phone Book</h3>
+
+<p>Creating the collection of data<br/>
+We will use the <tt>DoWithInterpreter</tt> to create our personal phone book.</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>do with</td>
+<td class='confluenceTd'> phone book</td>
+</tr>
+<tr>
+<td class='confluenceTd'>insert </td>
+<td class='confluenceTd'> Fred  </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Flintstone </td>
+<td class='confluenceTd'> with number </td>
+<td class='confluenceTd'> (123) 456-7890 </td>
+</tr>
+<tr>
+<td class='confluenceTd'>insert </td>
+<td class='confluenceTd'> Barney</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Rubble </td>
+<td class='confluenceTd'> with number </td>
+<td class='confluenceTd'> (123) 321-7666 </td>
+</tr>
+<tr>
+<td class='confluenceTd'>insert </td>
+<td class='confluenceTd'> Great </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Gazoo </td>
+<td class='confluenceTd'> with number </td>
+<td class='confluenceTd'> (123) 989-4455 </td>
+</tr>
+</tbody></table>
+
+<p><b><tt>ListOfInterpreter</tt> : The requirement list should be the same as the SUD list.</b></p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>list of</td>
+<td class='confluenceTd'> Phone book entries</td>
+</tr>
+<tr>
+<td class='confluenceTd'> FirstName </td>
+<td class='confluenceTd'> LastName </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fred </td>
+<td class='confluenceTd'> Flintstone</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Betty </td>
+<td class='confluenceTd'> Rubble </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Great </td>
+<td class='confluenceTd'> Gazoo </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Wilma </td>
+<td class='confluenceTd'> Flintstone </td>
+</tr>
+</tbody></table>
+
+<p><b><tt>SetOfInterpreter</tt> : The requirement set should be the same as the SUD set.</b></p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>set of</td>
+<td class='confluenceTd'> Phone book entries</td>
+</tr>
+<tr>
+<td class='confluenceTd'> FirstName </td>
+<td class='confluenceTd'> LastName </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fred </td>
+<td class='confluenceTd'> Flintstone</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Betty </td>
+<td class='confluenceTd'> Rubble </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Great </td>
+<td class='confluenceTd'> Gazoo </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Wilma </td>
+<td class='confluenceTd'> Flintstone </td>
+</tr>
+</tbody></table>
+
+<p><b><tt>SubsetOfInterpreter</tt> : The requirement set should be a subset of the SUD set.</b></p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>subset of</td>
+<td class='confluenceTd'> Phone book entries</td>
+</tr>
+<tr>
+<td class='confluenceTd'> FirstName </td>
+<td class='confluenceTd'> LastName </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fred </td>
+<td class='confluenceTd'> Flintstone</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Betty </td>
+<td class='confluenceTd'> Rubble </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Great </td>
+<td class='confluenceTd'> Gazoo </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Wilma </td>
+<td class='confluenceTd'> Flintstone </td>
+</tr>
+</tbody></table>
+
+<p><b><tt>SupersetOfInterpreter</tt> : The requirement set should be a superset of the SUD set.</b></p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>superset of</td>
+<td class='confluenceTd'> Phone book entries</td>
+</tr>
+<tr>
+<td class='confluenceTd'> FirstName </td>
+<td class='confluenceTd'> LastName </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fred </td>
+<td class='confluenceTd'> Flintstone</td>
+</tr>
+<tr>
+<td class='confluenceTd'> Betty </td>
+<td class='confluenceTd'> Rubble </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Great </td>
+<td class='confluenceTd'> Gazoo </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Wilma </td>
+<td class='confluenceTd'> Flintstone </td>
+</tr>
+</tbody></table>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20090106230448im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>The examples provided in this page are used to explain <a href="/web/20090106230448/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+List+of+Values" title="Fixtures for List of Values">how to write the fixture for the <tt>CollectionInterpreters</tt></a>.</p></td></tr></table>
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

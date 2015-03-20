@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fixtures for Business Flows</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h2 id="FixturesforBusinessFlows-WritingfixturesforBusinessFlows">Writing fixtures for Business Flows</h2>
+
+<p>As we've seen in the <a href="/web/20070512121927/http://www.greenpeppersoftware.com/confluence/display/GPO/Do+With+Definition" title="Do With Definition">Sequence of Actions documentation</a>, a sequence of tables is used to express a business flow in the application under development.</p>
+
+<p>When running the table, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20070512121927im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> uses a fixture to mediate between the example expressed in the sequence of tables and the system under development. The fixture code defines how the specific actions are mapped to the application code.</p>
+
+<p>This page shows the fixture code that supports the examples introduced in the <a href="/web/20070512121927/http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+an+executable+specification+with+the+Do+With" title="Writing an executable specification with the Do With">Writing a Do With Specification </a> documentation.</p>
+
+<table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.fixture.bank</td>
+		</tr>
+			<tr>
+			<td>com.greenpepper.samples.fixture.phonebook</td>
+		</tr>
+	</table>
+
+<h3 id="FixturesforBusinessFlows-FixtureforBank">Fixture for Bank</h3>
+
+<p>Consider the first example of business flow described in <a href="/web/20070512121927/http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+an+executable+specification+with+the+Do+With" title="Writing an executable specification with the Do With">Writing a Do With Specification </a> documentation, shown again below.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> do with </td>
+<td class='confluenceTd'> bank </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> open checking account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> under the name of </td>
+<td class='confluenceTd'> Spongebob </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Squarepants </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> that balance of account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> is </td>
+<td class='confluenceTd'> $0.00 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> end </td>
+</tr>
+</tbody></table>
+
+<p>The first table indicates to use a <tt>DoWithInterpreter</tt>, which handles a business flow expressed as a sequence of tables. The fixture <tt>Bank</tt> will do the mediation with the application under development. </p>
+
+<p>The interpreter will run all the tables until the end of the document. In this case, the second and third tables compose the business flow example.</p>
+
+<p>The second table indicates to perform the action <em><b>open checking account under the name of</b></em> on the system under development, with the parameters <b>12345-67890</b>, <b>Spongebob</b> and <b>Squarepants</b>. That action will result in a call to the method <tt>openCheckingAccountUnderTheNameOf()</tt> on the fixture with the parameters <tt>12345-67890</tt>, <tt>Spongebob</tt> and <tt>Squarepants</tt>.</p>
+
+<p>The third table indicates to check the result of the action <em><b>that balance of account is</b></em> on the system under development with the expected value <b>$0.00</b>. That action results in a call to the method <tt>thatBalanceOfAccountIs</tt> on the fixture with the parameter <tt>12345-67890</tt>. That method is expected to return a value, which will be asserted for equality against the domain representation for the value <tt>$0.00</tt>.</p>
+
+<p>The fixture code to support this example in Java is the class <tt>BankFixture</tt> shown below. </p>
+
+<h4 id="FixturesforBusinessFlows-Showmethecode">Show me the code</h4>
+
+<div class="code"><div class="codeHeader"><b>Code for the Bank fixture</b></div><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class BankFixture 
+{
+    <span class="code-keyword">private</span> Bank bank;
+
+    <span class="code-keyword">public</span> BankFixture()
+    {
+        bank = <span class="code-keyword">new</span> Bank();
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">boolean</span> openCheckingAccountUnderTheNameOf(<span class="code-object">String</span> number, <span class="code-object">String</span> firstName, <span class="code-object">String</span> lastName)
+    {
+        <span class="code-keyword">return</span> bank.openCheckingAccount(number, <span class="code-keyword">new</span> Owner(firstName, lastName)) != <span class="code-keyword">null</span>;
+    }
+
+    <span class="code-keyword">public</span> Money thatBalanceOfAccountIs(<span class="code-object">String</span> accountNumber) <span class="code-keyword">throws</span> Exception
+    {
+        BankAccount account = bank.getAccount(accountNumber);
+        <span class="code-keyword">return</span> account.getBalance();
+    }
+}</pre>
+</div></div>
+
+<p>That class follows the general rules of fixtures described in <span class="error">&#91;GREENPEPPER:Fixtures Conventions&#93;</span>. It provides public instance methods <tt>openCheckingAccount</tt> and <tt>thatBalanceOfAccount</tt> to map respectively to the actions <em><b>open checking account</b></em> and <em><b>that balance of account</b></em>.</p>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20070512121927im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Note</b><br />
+<p>The fixture does not much except from delegating the processing to the application code, in this case the <tt>Bank</tt> class.</p></td></tr></table>
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<div class="code"><div class="codeHeader"><b>Code for the Bank application code</b></div><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class Bank {
+
+    <span class="code-keyword">private</span> <span class="code-keyword">final</span> HashMap&lt;<span class="code-object">String</span>, BankAccount&gt; accounts;
+
+    <span class="code-keyword">public</span> Bank()
+    {
+        accounts = <span class="code-keyword">new</span> HashMap&lt;<span class="code-object">String</span>, BankAccount&gt;();
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">boolean</span> hasAccount(<span class="code-object">String</span> accountNumber)
+    {
+        <span class="code-keyword">return</span> accounts.containsKey(accountNumber);
+    }
+
+    <span class="code-keyword">public</span> BankAccount getAccount(<span class="code-object">String</span> accountNumber) <span class="code-keyword">throws</span> NoSuchAccountException
+    {
+         <span class="code-keyword">if</span> (!hasAccount(accountNumber)
+             <span class="code-keyword">throw</span> <span class="code-keyword">new</span> NoSuchAccountException(accountNumber);
+         <span class="code-keyword">return</span> accounts.get(accountNumber);
+    }
+
+    <span class="code-keyword">public</span> CheckingAccount openCheckingAccount(<span class="code-object">String</span> number, Owner owner)
+    {
+        <span class="code-keyword">if</span> (hasAccount(number)) <span class="code-keyword">return</span> <span class="code-keyword">null</span>;
+
+        CheckingAccount account = <span class="code-keyword">new</span> CheckingAccount(number, owner);
+        accounts.put(number, account);
+        <span class="code-keyword">return</span> account;
+    }
+}</pre>
+</div></div>
+
+<h4 id="FixturesforBusinessFlows-Howistheexampleinterpreted%3F">How is the example interpreted?</h4>
+
+<p>When it runs this example, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20070512121927im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> reads the first table to decide on the <em>interpreter</em> and <em>fixture</em> to use and start testing from the second table, which is the first test table. </p>
+
+<p>The second table is a <em>default action</em>, which <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20070512121927im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> carries out in the following sequence of steps:</p>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<ol>
+	<li>It calls the method <tt>openCheckingAccountUnderTheNameOf()</tt> with the parameters <tt>12345-67890</tt>, <tt>Spongebob</tt> and <tt>Squarepants</tt></li>
+	<li>Since the method returns <tt>true</tt>, indicating a success, it marks the keyword cells as <em>right</em>, resulting in the first cell of the row being colored green.</li>
+</ol>
+
+
+<p>The third table is a <em>check action</em>, which <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20070512121927im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> carries out in the following sequence of steps:</p>
+
+<ol>
+	<li>It calls the method <tt>thatBalanceOfAccountIs()</tt> with the parameter <tt>12345-67890</tt> to get the value calculated by the system under test</li>
+	<li>This is a <em><b>check</b></em> action, so it reads the value $0.00 from the last cell of the row and compares it to the value returned by the fixture. Since the values are equal, it annotates the last cell as <em>right</em>, which results in the cell being colored green.</li>
+</ol>
+
+
+<h4 id="FixturesforBusinessFlows-Whathappensforotherreturntypes%3F">What happens for other return types?</h4>
+
+<h5 id="FixturesforBusinessFlows-DefaultRows">Default Rows</h5>
+
+<p>Depending on the value returned by the system under test, <em>default actions</em> will annotate keyword cells following these rules:</p>
+
+<ul>
+	<li>If the value is <tt>true</tt>, it annotates keyword cells right, making them appear green.</li>
+	<li>If the value is <tt>false</tt> - indicating a failure - it annotates keywords cells wrong, making them appear red.</li>
+	<li>If the action throws an exception, it annotates the first keyword as an exception, making it appear yellow and display a stack trace of the error.</li>
+	<li>If the action returns another value or nothing, it ignores the result.</li>
+</ul>
+
+
+<h5 id="FixturesforBusinessFlows-CheckRows">Check Rows</h5>
+
+<p>Depending on the value returned by the system under test, <em>check actions</em> will annotate the row following these rules:</p>
+
+<ul>
+	<li>If the returned value matches the expected value, it annotates the last cell right, making it appear green.</li>
+	<li>If the action returns nothing or a value that does not match the expected value - indicating a failure - it annotates the last cell wrong, making it appear red.</li>
+	<li>If the action throws an exception, it annotates the first keyword as an exception, making it appear yellow and display a stack trace of the error.</li>
+</ul>
+
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h3 id="FixturesforBusinessFlows-BuildingontheBankexample">Building on the Bank example</h3>
+
+<p>The second example in <a href="/web/20070512121927/http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+an+executable+specification+with+the+Do+With" title="Writing an executable specification with the Do With">Writing a Do With Specification </a> documentation, shown again below, presents a more complete business flow using the bank fixture.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> do with </td>
+<td class='confluenceTd'> bank </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> open checking account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> under the name of </td>
+<td class='confluenceTd'> Spongebob </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Squarepants </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> that balance of account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> is </td>
+<td class='confluenceTd'> $0.00 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> deposit </td>
+<td class='confluenceTd'> $100.00 </td>
+<td class='confluenceTd'> in account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> that balance of account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> is </td>
+<td class='confluenceTd'> $100.00 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> withdraw </td>
+<td class='confluenceTd'> $50.00 </td>
+<td class='confluenceTd'> from account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> that balance of account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> is </td>
+<td class='confluenceTd'> $50.00 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> reject</td>
+<td class='confluenceTd'> withdraw </td>
+<td class='confluenceTd'> $75.00 </td>
+<td class='confluenceTd'> from account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> that balance of account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> is </td>
+<td class='confluenceTd'> $50.00 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> accept </td>
+<td class='confluenceTd'> withdraw </td>
+<td class='confluenceTd'> $25.00 </td>
+<td class='confluenceTd'>from account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> end </td>
+</tr>
+</tbody></table>
+
+<p>The fourth and last example tables contain more several rows. In a sequence of actions, all of the rows in a table are executed, so several actions can be grouped in a table if that helps improve clarity.</p>
+
+<p>In the first row of the last table, notice the use of the <em>reject</em> special keyword in the first cell. This indicates that the action for the row is expected to fail by either returning <tt>false</tt> or throwing an exception.</p>
+
+<p>In the last row of the last table, the <em>accept</em> special keyword is used to indicate that we expect the last call to succeed. Accept is the opposite of reject. That is, the last withdraw should not return <tt>false</tt> nor throw an exception. </p>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<h5 id="FixturesforBusinessFlows-RejectRows">Reject Rows</h5>
+
+<p>Depending on the value returned by the system under test, <em>reject actions</em> will annotate the row following these rules:</p>
+
+<ul>
+	<li>If the action returns <tt>false</tt> or throws an exception - indicating a success - it annotates the reject keyword right, making it appear green.</li>
+	<li>If the returned value is anything else or nothing - indicating a failure - , it annotates the reject keyword wrong, making it appear red.</li>
+</ul>
+
+
+<h5 id="FixturesforBusinessFlows-AcceptRows">Accept Rows</h5>
+
+<p>Depending on the value returned by the system under test, <em>accept actions</em> will annotate the row following these rules:</p>
+
+<ul>
+	<li>If the returned value is anything except <tt>false</tt> or an exception - indicating a success -, it annotates the accept keyword right, making it appear green.</li>
+	<li>If the action returns false or throws an exception - indicating a failure - it annotates the accept keyword wrong, making it appear red.</li>
+</ul>
+
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h4 id="FixturesforBusinessFlows-Showmethecode">Show me the code</h4>
+
+<p>The supporting code is here:</p>
+
+<div class="code"><div class="codeHeader"><b>Code for the Bank fixture</b></div><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class BankFixture 
+{
+    <span class="code-keyword">private</span> Bank bank;
+
+    <span class="code-keyword">public</span> BankFixture()
+    {
+        bank = <span class="code-keyword">new</span> Bank();
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">boolean</span> openCheckingAccountUnderTheNameOf(<span class="code-object">String</span> number, <span class="code-object">String</span> firstName, <span class="code-object">String</span> lastName)
+    {
+        <span class="code-keyword">return</span> bank.openCheckingAccount(number, <span class="code-keyword">new</span> Owner(firstName, lastName)) != <span class="code-keyword">null</span>;
+    }
+
+    <span class="code-keyword">public</span> Money thatBalanceOfAccountIs(<span class="code-object">String</span> accountNumber) <span class="code-keyword">throws</span> Exception
+    {
+        BankAccount account = bank.getAccount(accountNumber);
+        <span class="code-keyword">return</span> account.getBalance();
+    }
+
+    <span class="code-keyword">public</span> void depositInAccount(Money amount, <span class="code-object">String</span> accountNumber) <span class="code-keyword">throws</span> Exception
+    {
+        bank.deposit(amount, accountNumber);
+    }
+    
+    <span class="code-keyword">public</span> <span class="code-object">boolean</span> withdrawFromAccount(Money amount, <span class="code-object">String</span> accountNumber) <span class="code-keyword">throws</span> Exception
+    {
+        <span class="code-keyword">return</span> withdrawFromAccountUsing( amount, accountNumber, WithdrawType.ATM );
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">boolean</span> withdrawFromAccountUsing(Money amount, <span class="code-object">String</span> accountNumber, WithdrawType withdrawType) <span class="code-keyword">throws</span> Exception
+    {
+        <span class="code-keyword">try</span>
+        {
+            bank.withdraw(amount, accountNumber, withdrawType);
+        }
+        <span class="code-keyword">catch</span> (Exception e)
+        {
+            <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
+        }
+        <span class="code-keyword">return</span> <span class="code-keyword">true</span>;
+    }
+
+    <span class="code-keyword">public</span> Collection getOpenedAccounts()
+    {
+        <span class="code-keyword">return</span> bank.getAccounts();
+    }
+}</pre>
+</div></div>
+
+<h3 id="FixturesforBusinessFlows-Combiningwithothertypesofrules">Combining with other types of rules</h3>
+
+<p>An interesting characteristic of the <tt>DoWithInterpreter</tt> is the ability to delegate processing of part of the table to another interpreter. </p>
+
+<p>If an interpreter is specified in the first cell of a row, the remainder of the table will be processed by that interpreter. The action for the row must return a fixture that will be used to interpret the rest of the table.</p>
+
+<p>In the example show below, the first row of the second table indicates to process the rest of the table using a <tt>SetOfInterpreter</tt> on the value returned by the action <em>opened accounts</em>.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> do with </td>
+<td class='confluenceTd'> bank </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> open checking account </td>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> under the name of </td>
+<td class='confluenceTd'> Spongebob </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Squarepants </td>
+</tr>
+<tr>
+<td class='confluenceTd'> open savings account </td>
+<td class='confluenceTd'> 54321-09876 </td>
+<td class='confluenceTd'> under the name of </td>
+<td class='confluenceTd'> Patrick </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Star </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> set of </td>
+<td class='confluenceTd'> opened accounts </td>
+</tr>
+<tr>
+<td class='confluenceTd'> number </td>
+<td class='confluenceTd'> type </td>
+<td class='confluenceTd'> owner name </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 12345-67890 </td>
+<td class='confluenceTd'> checking </td>
+<td class='confluenceTd'> Spongebob Squarepants</td>
+</tr>
+<tr>
+<td class='confluenceTd'> 54321-09876 </td>
+<td class='confluenceTd'> savings </td>
+<td class='confluenceTd'> Patrick Star </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> end </td>
+</tr>
+</tbody></table>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<h5 id="FixturesforBusinessFlows-InterpretRows">Interpret Rows</h5>
+
+<p>Depending on the value returned by the system under test, <em>interpret actions</em> will annotate the row following these rules:</p>
+
+<ul>
+	<li>If the returned value is an object, it uses the interpreter specified in the first cell on that object to interpret the remainder of the table. The row is not annotated.</li>
+	<li>If the action returns nothing, it uses the interpreter without any fixture to interpret the remainder of the table. The row is not annotated.</li>
+	<li>If the action throws an exception - indicating a failure - it annotates the first action keyword as exception, making appear yellow and display a stack trace of the error. The remainder of the table is not interpreted.</li>
+</ul>
+
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

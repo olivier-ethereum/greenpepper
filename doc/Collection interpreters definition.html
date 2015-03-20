@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Collection interpreters definition</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+                                                        
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
+<p>The <tt>collection interpreters</tt> are used to express any kind of groups, lists or sets of values.</p>
+
+<p>When a collection interpreter is executed, GreenPepper compares the list of values expected with the list of values returned by the system under development. The test result depends on the specific collection interpreter selected.</p>
+
+<p><img src="/web/20070705195138im_/http://www.greenpeppersoftware.com/confluence/download/attachments/3297/LexicalFormOfCollectionInterpreters.bmp" align="absmiddle" border="0" /></p>
+
+<ul>
+	<li>As for all other interpreters, the first row of the <tt>collection interpreters</tt> specifies the name of the interpreter and the name of the collection to be tested.</li>
+	<li>The next row is used to define the name of each attribute related to the members of the collection of data.</li>
+	<li>The following rows are used to specify the set of values to test.</li>
+</ul>
+</div></div>
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h3 id="Collectioninterpretersdefinition-Specifickeywords">Specific keywords</h3>
+<p> None</p>
+
+<h3 id="Collectioninterpretersdefinition-Colouring">Colouring</h3>
+
+<p>GreenPepper will visually indicate the test result by colouring the rows:</p>
+<table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th><div class="error"><span class="error">Unknown macro: {tr}</span></th></tr><tr class="table-odd"><td><div class="error"><span class="error">Unknown macro: {td}</span>  <b>GREEN</b> </div></td></tr><tr class="table-even"><td><div class="error"><span class="error">Unknown macro: {td}</span> As expected, the row is returned by the system under development.</div></td></tr><tr class="table-odd"><td></div></td></tr><tr class="table-even"><td><div class="error"><span class="error">Unknown macro: {tr}</span></td></tr><tr class="table-odd"><td><div class="error"><span class="error">Unknown macro: {td}</span>  <b>RED</b> </div></td></tr><tr class="table-even"><td><div class="error"><span class="error">Unknown macro: {td}</span> A row is missing or in surplus in the list returned by the system under development.</div></td></tr><tr class="table-odd"><td></div></td></tr><tr class="table-even"><td><div class="error"><span class="error">Unknown macro: {tr}</span></td></tr><tr class="table-odd"><td><div class="error"><span class="error">Unknown macro: {td}</span>  <b>YELLOW</b> </div></td></tr><tr class="table-even"><td><div class="error"><span class="error">Unknown macro: {td}</span> If the system encounters an execution error, the cell is in yellow, and GreenPepper provides information about the error.</div></td></tr><tr class="table-odd"><td></div></td></tr></table>
+
+
+<p><em><b>Particular behaviour for the list of interpreters:</b></em><br/>
+Since the <tt>ListOfInterpreter</tt> expects to match exactly the expected list and the list returned by the SUD, GreenPepper compares each cell of the table separately. If the expected value is different from the returned value, GreenPepper colours the cell in red and provide the two values.</p>
+
+<p><em><b>Particular behaviour for the superset of interpreters:</b></em><br/>
+Since the <tt>SupersetOfInterpreter</tt> accepts that the specification may contain rows that are not contained in the SUD, GreenPepper will not colour the rows contained in the specification but not returned by the SUD.</p> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

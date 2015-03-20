@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Database</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <p>This list of specifications are taken from the dbfit project. It demonstrate the <span class="nobr"><a href="/web/20100922171642/http://www.greenpeppersoftware.com/svn/trunk/java/extensions-external/db" rel="nofollow">GreenPepper Extensions Db<sup><img class="rendericon" src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> (based on early work of dbfit for GreenPepper) using a MySql database.</p>
+
+<p>Here is the System Under Test information use for those examples :</p>
+
+<div class="panel"><div class="panelHeader"><b>Using a Java Runner</b></div><div class="panelContent">
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Fixture factory: </td>
+<td class='confluenceTd'> org.dbfit.greenpepper.DatabaseSystemUnderDevelopment </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fixture factory args: </td>
+<td class='confluenceTd'> None </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Project dependency descriptor: </td>
+<td class='confluenceTd'> None </td>
+</tr>
+<tr>
+<td class='confluenceTd'> System under test Classpaths </td>
+<td class='confluenceTd'> greenpepper-extensions-db-2.7m3-SNAPSHOT-complete.jar </td>
+</tr>
+<tr>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> mysql-connector-java-5.1.6.jar </td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="panel"><div class="panelHeader"><b>Using the Maven Runner</b></div><div class="panelContent">
+<p>You will need to configure a Maven Runner with <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Maven+Runner" title="Maven Runner">Confluence</a> or <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Maven+Runner+with+XWiki" title="Maven Runner with XWiki">XWiki</a></p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> Fixture factory: </td>
+<td class='confluenceTd'> org.dbfit.greenpepper.DatabaseSystemUnderDevelopment </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Fixture factory args: </td>
+<td class='confluenceTd'> None </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Project dependency descriptor: </td>
+<td class='confluenceTd'> /path/to/the/pom.xml </td>
+</tr>
+<tr>
+<td class='confluenceTd'> System under test Classpaths </td>
+<td class='confluenceTd'> None </td>
+</tr>
+</tbody></table>
+
+<p>The <em>pom.xml</em> use for those examples :</p>
+<div class="preformatted"><div class="preformattedContent">
+<pre>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;name&gt;GreenPepper Extensions Db for Maven Runner&lt;/name&gt;
+    &lt;groupId&gt;greenpepper-open&lt;/groupId&gt;
+    &lt;artifactId&gt;greenpepper-extensions-db&lt;/artifactId&gt;
+    &lt;version&gt;2.7m3-SNAPSHOT&lt;/version&gt;
+
+    &lt;dependencies&gt;
+        &lt;!-- GreenPepper Extensions Db --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;greenpepper-open&lt;/groupId&gt;
+            &lt;artifactId&gt;greenpepper-extensions-db&lt;/artifactId&gt;
+            &lt;version&gt;${project.version}&lt;/version&gt;
+            &lt;classifier&gt;complete&lt;/classifier&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- JDBC Driver (MySql) --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.6&lt;/version&gt;
+            &lt;scope&gt;runtime&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- Other project dependencies (commons-logging just as example!) --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-logging&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
+            &lt;version&gt;1.1.1&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</pre>
+</div></div>
+</div></div>
+
+<p>And the SQL to prepare the database :</p>
+<div class="panel"><div class="panelContent">
+<p>create table users(name varchar(50) unique, username varchar(50), userid int auto_increment primary key) type=InnoDB;</p>
+
+<p>CREATE PROCEDURE ConcatenateStrings (IN firststring varchar(100), IN secondstring varchar(100), OUT concatenated varchar(200)) set concatenated = concat(firststring , concat( ' ' , secondstring ));</p>
+
+<p>create procedure CalcLength(IN name varchar(100), OUT strlength int) set strlength =length(name);</p>
+
+<p>CREATE FUNCTION ConcatenateF (firststring  VARCHAR(100), secondstring varchar(100)) RETURNS VARCHAR(200) RETURN CONCAT(firststring,' ',secondstring);</p>
+
+<p>create procedure makeuser() insert into users (name,username) values ('user1','fromproc');</p>
+
+<p>create procedure createuser(IN newname varchar(100), IN newusername varchar(100)) insert into users (name,username) values (newname, newusername);</p>
+
+<p>create procedure Multiply(IN factor int, INOUT val int) set val =val*factor;</p>
+
+<p>grant select on mysql.* to dbgreenpepper;</p>
+</div></div>
+
+<div class="conf_pageMacro">
+	<table width="100%">
+		<tr style="display:none"><td colspan="2">Begin Info</td></tr>
+		<tr>
+			<td width="60%" class="conf_executionTitle">
+				GreenPepper Execution Macros
+								<span id="conf_waiting_display_PAGE_CHILDREN_381" style="vertical-align:bottom;"><img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/images/wait.gif" alt="" border="0"></span><span class="conf_executionTitle">&nbsp;</span>
+				<span id="conf_error_display_PAGE_CHILDREN_381" class="conf_smallErrMsg" style="display:none"></span>
+			</td>
+			<td id="conf_statusbar_PAGE_CHILDREN_381" align="right" width="40%" cellpadding="0" cellspaceing="0"  onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').statusBar.switchView();" style="display:none; cursor:pointer;"></td>
+		</tr>
+		<tr>
+			<td id="conf_PAGE_CHILDREN_381" colspan="2">	
+				<script language="JavaScript" type="text/javascript">addLoadEvent("GP.View.fade('conf_waiting_display_PAGE_CHILDREN_381', 0.3);");</script>
+<div class="conf_executionDetails" width="100%">
+	<span id="conf_exeButton_PAGE_CHILDREN_381" class="conf_button" onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').runAll();" ><img style="vertical-align:bottom;" src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/execute.gif" alt="" border="0"></span><span id="conf_exeButton_shadow_PAGE_CHILDREN_381" style="display:none"><img style="vertical-align:bottom;" src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/executing.gif" alt="" border="0"></span>
+	<span class="conf_exeLabel">
+		For 
+		 First level
+				Children of&nbsp;
+	</span>
+	<span style="white-space: nowrap;">
+		<span class="conf_exeItem">[</span>
+		<span id="conf_pageId_display_PAGE_CHILDREN_381" style="display:none">170328066</span>
+		<span id="conf_pageTitle_display_PAGE_CHILDREN_381" class="conf_exeItem">Database</span>
+		<span class="conf_exeItem">]</span>
+	</span>
+	<span style="white-space: nowrap;">
+		<span class="conf_exeLabel">on&nbsp;</span>
+					<span id="conf_spaceKey_display_PAGE_CHILDREN_381" class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+			</span>			
+			<span style="white-space: nowrap;">
+			<span class="conf_exeSpacer">&nbsp;</span>	
+			<span id="conf_expand_PAGE_CHILDREN_381"  class="conf_button" onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').show();" style="display:none"><img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/images/expand.gif" alt="" title="Expand List" border="0"></span>
+			<span id="conf_colapse_PAGE_CHILDREN_381"  class="conf_button" onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').hide();" ><img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/images/colapse.gif" alt="" title="Colapse List" border="0"></span>
+			<span class="conf_button" onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').refresh();"><img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/images/refresh.gif" alt="" title="Refresh List" border="0"></span>
+		</span>
+		<br>
+	<span class="conf_exeGroupLabel">
+		( Member of Group: <span id="conf_exeGroupItem_PAGE_CHILDREN_381" class="conf_exeGroupItem">PAGE</span> )
+		<span id="conf_statusbar_link_PAGE_CHILDREN_381" class="conf_smallGroupLinks" style="display:none;">
+			<span id="conf_showAllResult_link_PAGE_CHILDREN_381" class="conf_smallLinks" onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').showAll();">View All Results</span>
+			|
+			<span id="conf_hideAllResult_link_PAGE_CHILDREN_381" class="conf_smallLinks" onclick="conf_greenPepper.getList('PAGE', 'CHILDREN_381').hideAll();">Hide All Results</span>
+		</span>
+	</span>
+</div>
+<div id="conf_specificationList_display_PAGE_CHILDREN_381" class="conf_specificationListPane" >
+	
+<table class="conf_specificationList" cellspacing="0" cellpadding="0">
+	<input type="hidden" value="name" name="sortType" id="sortType_PAGE_CHILDREN_381">
+	<input type="hidden" value="false" name="reverse" id="reverse_PAGE_CHILDREN_381">
+	<input type="hidden" value="true" name="openInSameWindow" id="openInSameWindow_PAGE_CHILDREN_381">
+	<span id="conf_forcedSuts_display_PAGE_CHILDREN_381" style="display:none;"></span>
+															<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328067', '0', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_0" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_0" class="conf_blankBullet">1.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Basic Query"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Basic+Query'>Basic Query</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_0">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_0" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_0" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_0" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '0').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_0" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '0').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_0" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328067', '1', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_1" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_1" class="conf_blankBullet">2.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Basic Query"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Basic+Query'>Basic Query</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_1">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_1" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_1" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_1" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '1').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_1" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '1').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_1" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328069', '2', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_2" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_2" class="conf_blankBullet">3.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Executing statements"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Executing+statements'>Executing statements</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_2">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_2" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_2" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_2" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '2').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_2" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '2').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_2" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328069', '3', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_3" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_3" class="conf_blankBullet">4.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Executing statements"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Executing+statements'>Executing statements</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_3">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_3" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_3" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_3" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '3').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_3" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '3').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_3" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328071', '4', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_4" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_4" class="conf_blankBullet">5.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Inserting records"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Inserting+records'>Inserting records</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_4">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_4" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_4" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_4" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '4').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_4" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '4').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_4" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328071', '5', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_5" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_5" class="conf_blankBullet">6.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Inserting records"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Inserting+records'>Inserting records</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_5">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_5" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_5" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_5" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '5').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_5" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '5').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_5" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328072', '6', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_6" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_6" class="conf_blankBullet">7.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Insert with returning"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Insert+with+returning'>Insert with returning</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_6">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_6" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_6" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_6" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '6').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_6" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '6').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_6" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328072', '7', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_7" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_7" class="conf_blankBullet">8.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Insert with returning"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Insert+with+returning'>Insert with returning</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_7">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_7" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_7" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_7" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '7').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_7" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '7').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_7" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328073', '8', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_8" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_8" class="conf_blankBullet">9.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Null values"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Null+values'>Null values</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_8">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_8" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_8" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_8" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '8').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_8" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '8').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_8" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328073', '9', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_9" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_9" class="conf_blankBullet">10.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Null values"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Null+values'>Null values</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_9">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_9" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_9" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_9" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '9').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_9" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '9').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_9" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328074', '10', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_10" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_10" class="conf_blankBullet">11.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Parameters as bind variables"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Parameters+as+bind+variables'>Parameters as bind variables</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_10">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_10" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_10" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_10" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '10').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_10" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '10').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_10" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328074', '11', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_11" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_11" class="conf_blankBullet">12.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Parameters as bind variables"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Parameters+as+bind+variables'>Parameters as bind variables</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_11">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_11" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_11" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_11" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '11').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_11" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '11').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_11" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328075', '12', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_12" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_12" class="conf_blankBullet">13.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Query order is irrelevant"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Query+order+is+irrelevant'>Query order is irrelevant</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_12">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_12" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_12" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_12" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '12').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_12" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '12').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_12" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328075', '13', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_13" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_13" class="conf_blankBullet">14.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Query order is irrelevant"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Query+order+is+irrelevant'>Query order is irrelevant</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_13">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_13" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_13" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_13" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '13').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_13" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '13').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_13" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328076', '14', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_14" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_14" class="conf_blankBullet">15.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Literal processing of arguments"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Literal+processing+of+arguments'>Literal processing of arguments</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_14">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_14" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_14" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_14" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '14').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_14" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '14').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_14" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328076', '15', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_15" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_15" class="conf_blankBullet">16.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Literal processing of arguments"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Literal+processing+of+arguments'>Literal processing of arguments</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_15">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_15" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_15" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_15" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '15').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_15" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '15').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_15" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																								<tr>
+												<td class="conf_specificationListOddRow ">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328077', '16', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_16" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_16" class="conf_blankBullet">17.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Stored procedures and functions"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Stored+procedures+and+functions'>Stored procedures and functions</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_16">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_16" class="conf_exeItem">Extensions - Db</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_16" style="display:none">Documentation Examples@Extensions - Db</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_16" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '16').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_16" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '16').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_16" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+																<tr>
+												<td class=" conf_specificationListEvenRow">
+							<script language="JavaScript" type="text/javascript">conf_greenPepper.registerSpecification('PAGE', 'CHILDREN_381', '/confluence', '/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/', 'GPO', '170328077', '17', GP.ConfluenceActions);</script>
+<table id="conf_specification_PAGE_CHILDREN_381_17" class="conf_specificationOutputTable" cellspacing="0" cellpadding="0">
+	<tr>
+				<td id="conf_statusBullet_PAGE_CHILDREN_381_17" class="conf_blankBullet">18.</td>
+		<td class="conf_page">
+			            <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Stored procedures and functions"/>
+        			
+							<span class="conf_exeItem"><a href='/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Stored+procedures+and+functions'>Stored procedures and functions</a></span>
+						
+			<span class="conf_exeLabel">on&nbsp;</span>
+			<span class="conf_exeItem">GPO</span>
+			<span class="conf_exeLabel">Space</span>
+		</td>
+		<td class="conf_exeDetails">
+			<span class="conf_exeLabel">For &nbsp;</span>
+			<span id="conf_sut_display_PAGE_CHILDREN_381_17">
+						<span class="conf_exeItem">[</span>
+	<span id="conf_sutLabel_PAGE_CHILDREN_381_17" class="conf_exeItem">Extensions - Db - Maven</span>
+		<span class="conf_exeItem">]</span>
+	<span id="conf_sutInfo_display_PAGE_CHILDREN_381_17" style="display:none">Documentation Examples@Extensions - Db - Maven</span>
+				</span>
+		</td>
+		<td class="conf_specificationLinks">
+			<span id="conf_showResult_link_PAGE_CHILDREN_381_17" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '17').showResults();">View Results</span>
+			<span id="conf_hideResult_link_PAGE_CHILDREN_381_17" class="conf_button" style="display:none;" onclick="javascript:conf_greenPepper.getSpecification('PAGE', 'CHILDREN_381', '17').hideResults();">Hide Results</span>
+		</td>
+	</tr>
+	<tr align="center">
+		<td id="conf_results_PAGE_CHILDREN_381_17" align="left" colspan="4" class="conf_specificationOutputTable" style="display:none;"></td>
+	</tr>
+</table>						</td>
+					</tr>
+										</table>
+</div>
+			</td>
+		</tr>
+	</table>
+	<table style="display:none"><tr><td>End Info</td></tr></table>
+</div> </div>
+                            <!--
+<rdf:RDF xmlns:rdf="/web/20100922171642/http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="/web/20100922171642/http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="/web/20100922171642/http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+    rdf:about="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Database"
+    dc:identifier="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Database"
+    dc:title="Database"
+    trackback:ping="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/rpc/trackback/170328066"/>
+</rdf:RDF>
+-->
+
+                            
+                            <div class="tabletitle">
+                <a name="children">Children</a>
+
+                <span class="bodytext">
+                &nbsp;
+                <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Database?showChildren=false">Hide Children</a>
+                | <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/pages/listpages-dirview.action?key=GPO&amp;openId=170328066#selectedPageInHierarchy">View in hierarchy</a>
+                                </span>
+            </div>
+            <div class="greybox" align="left">
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Basic Query"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Basic+Query">Basic Query</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="database-connection"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/database-connection">database-connection</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Executing statements"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Executing+statements">Executing statements</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Insert with returning"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Insert+with+returning">Insert with returning</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Inserting records"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Inserting+records">Inserting records</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Literal processing of arguments"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Literal+processing+of+arguments">Literal processing of arguments</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Null values"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Null+values">Null values</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Parameters as bind variables"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Parameters+as+bind+variables">Parameters as bind variables</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Query order is irrelevant"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Query+order+is+irrelevant">Query order is irrelevant</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20100922171642im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Stored procedures and functions"/>
+                         <a href="/web/20100922171642/http://www.greenpeppersoftware.com/confluence/display/GPO/Stored+procedures+and+functions">Stored procedures and functions</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                            </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

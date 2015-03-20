@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Writing my first Executable Specification</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h3 id="WritingmyfirstExecutableSpecification-WritinganexecutablespecificationforaCalculatorprogram">Writing an executable specification for a Calculator program</h3>
+
+<p>Consider your customer wants to create a calculator.</p>
+
+<p>The business expert on Calculators explains to the developer the rules for calculation. The first specification is: The calculator should be able to add two numbers. To support the specification, the business expert also provide an example:  6 + 3 = 9.</p>
+
+<p>In order to be executable in GreenPepper, the specification must be expressed in a specific form :</p>
+<table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.application.calculator</td>
+		</tr>
+	</table>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Calculator </td>
+</tr>
+<tr>
+<td class='confluenceTd'> x </td>
+<td class='confluenceTd'> y </td>
+<td class='confluenceTd'> sum? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6 </td>
+<td class='confluenceTd'> 3 </td>
+<td class='confluenceTd'> 9 </td>
+</tr>
+</tbody></table>
+
+<p>The first line of the specification explains that we have particular <b>RULES FOR</b> our Calculator. The calculator receives two numbers and it gives you back the sum of those two numbers. Once the calculator will be developed, we will be able to execute the specification to test the functionality.</p>
+
+<h3 id="WritingmyfirstExecutableSpecification-Executethespecification">Execute the specification</h3>
+
+<p>If you hit the Execute button on the top of the page, you will get the result of your test.</p>
+
+<h3 id="WritingmyfirstExecutableSpecification-Howitworks%3F">How it works?</h3>
+
+<p>Once you click on the Execution button, GreenPepper calls the actual software containing the code for the Calculator. It sends the parameters x (equal to 6) and y (equal to 3) to the Calculator to obtain the resulting sum of those two numbers. The "?" symbol next to the word "sum" is a key-sign that indicates to GreenPepper that a test must be performed.</p>
+
+<p>In that particular example, GreenPepper will query the calculator application and compare the value returned by the system with the value specified by the business expert (in the "sum?" column). Since the result returned by the system is the same as the expected result, the cell is colored in green by GreenPepper. The business expert is now confident that the Calculator is able to add two numbers.</p>
+
+<h3 id="WritingmyfirstExecutableSpecification-Addinganotherexample">Adding another example</h3>
+
+<p>Once the Calculator is developed, the business expert may think about new examples that he would like to test. The business expert add new row in the Rule For table and execute the test (no coding is needed here).</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Calculator </td>
+</tr>
+<tr>
+<td class='confluenceTd'> x </td>
+<td class='confluenceTd'> y </td>
+<td class='confluenceTd'> sum? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6 </td>
+<td class='confluenceTd'> 3 </td>
+<td class='confluenceTd'> 9 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 7 </td>
+<td class='confluenceTd'> 0 </td>
+<td class='confluenceTd'> 8 </td>
+</tr>
+</tbody></table>
+<p>When there is an error, GreenPepper colors the cell in red.<br/>
+In the new example, it is clear that the expected value provided by the business expert is not correct. But the error could have been in the system.</p>
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20090107061307im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>The business expert should always be consulted before any changes are made in the executable specifications.</p></td></tr></table>
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h3 id="WritingmyfirstExecutableSpecification-AddingnewspecificationstoourCalculator">Adding new specifications to our Calculator</h3>
+
+<p>The business expert wants to improve the Calculator: The Calculator should be able to perform product and quotient of two numbers.<br/>
+The new rules can be written in a way similar to the "sum" specification. In case of an expected errors, the keyword <b>error</b> may be used in order to test those special cases.</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Calculator </td>
+</tr>
+<tr>
+<td class='confluenceTd'> x </td>
+<td class='confluenceTd'> y </td>
+<td class='confluenceTd'> sum? </td>
+<td class='confluenceTd'> product? </td>
+<td class='confluenceTd'> quotient? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> 8 </td>
+<td class='confluenceTd'> 12 </td>
+<td class='confluenceTd'> 3 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 7 </td>
+<td class='confluenceTd'> 0 </td>
+<td class='confluenceTd'> 7 </td>
+<td class='confluenceTd'> 0 </td>
+<td class='confluenceTd'> <b>error</b> </td>
+</tr>
+</tbody></table> </div>
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

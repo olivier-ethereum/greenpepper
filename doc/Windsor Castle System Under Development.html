@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Windsor Castle System Under Development</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h2 id="WindsorCastleSystemUnderDevelopment-TheWindsorcontainersystemunderdeveloppement">The Windsor container system under developpement</h2>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100802052012im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">New in GreenPepper .Net 1.3</b><br /></td></tr></table>
+<table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>GreenPepper.WindsorCastle.Fixtures</td>
+		</tr>
+	</table>
+
+<p><br clear="all" /></p>
+
+<h5 id="WindsorCastleSystemUnderDevelopment-ACastlebasicXmlconfigurationfile">A Castle basic Xml configuration file</h5>
+<div class="preformatted"><div class="preformattedContent">
+<pre>&lt;configuration&gt;
+    &lt;components&gt;
+        &lt;component id="Windsor.HelloWorld" type="GreenPepper.WindsorCastle.Fixtures.WindsorHelloWorld, GreenPepper.Extensions"&gt;
+            &lt;parameters&gt;
+            	&lt;injectedConstructor&gt;hello constructor&lt;/injectedConstructor&gt;
+                &lt;injectedProperty&gt;hello property&lt;/injectedProperty&gt;
+            &lt;/parameters&gt;
+        &lt;/component&gt;
+
+        &lt;component id="Windsor.component1" 
+        	type="GreenPepper.WindsorCastle.Fixtures.MyComponent1, GreenPepper.Extensions"&gt;
+        &lt;/component&gt;
+        
+        &lt;component id="Windsor.component2"
+        	type="GreenPepper.WindsorCastle.Fixtures.MyComponent2, GreenPepper.Extensions"&gt;
+        &lt;/component&gt;
+        
+        &lt;component id="Windsor.AutoWired" type="GreenPepper.WindsorCastle.Fixtures.WindsorAutoWiredFixture, GreenPepper.Extensions" /&gt;
+    &lt;/components&gt;
+&lt;/configuration&gt;
+</pre>
+</div></div>
+
+<p><br clear="all" /></p>
+
+<h5 id="WindsorCastleSystemUnderDevelopment-TheWindsorsystemunderdevelopmentuseWindsorContainertoresolvefixtureslikeinthisnextexample%3A">The Windsor system under development use WindsorContainer to resolve fixtures like in this next example :</h5>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> do with </th>
+<td class='confluenceTd'> windsor hello world </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> injected constructor </td>
+<td class='confluenceTd'> hello constructor </td>
+</tr>
+<tr>
+<td class='confluenceTd'> check </td>
+<td class='confluenceTd'> injected property </td>
+<td class='confluenceTd'>  hello property </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>end</th>
+</tr>
+</tbody></table>
+
+<h5 id="WindsorCastleSystemUnderDevelopment-TheCastlesystemunderdevelopmentcanuseautowiringsystemprovidedbyWindsor%3A">The Castle system under development can use auto-wiring system provided by Windsor:</h5>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> do with </th>
+<td class='confluenceTd'> Windsor auto wired fixture </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> check </th>
+<td class='confluenceTd'> getComponent1().ToString() </td>
+<td class='confluenceTd'> Hello from component 1 class </td>
+</tr>
+<tr>
+<th class='confluenceTh'> check </th>
+<td class='confluenceTd'> getComponent2().ToString() </td>
+<td class='confluenceTd'> Hello from component 2 class </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>end</th>
+</tr>
+</tbody></table>
+
+<p>If your fixture is not defined in xml configuration file, the system under development will try to load the fixture and to inject it data needed (if this data are defined in xml configuration file)</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> do with </th>
+<td class='confluenceTd'> standard fixture </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> check </th>
+<td class='confluenceTd'> getComponent1().ToString() </td>
+<td class='confluenceTd'> Hello from component 1 class </td>
+</tr>
+<tr>
+<th class='confluenceTh'> check </th>
+<td class='confluenceTd'> getComponent2().ToString() </td>
+<td class='confluenceTd'> Hello from component 2 class </td>
+</tr>
+</tbody></table>
+
+<p><br clear="all" /></p>
+
+<h5 id="WindsorCastleSystemUnderDevelopment-HowtouseWindsorsystemunderdevelopment%3A">How to use Windsor system under development :</h5>
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<ul>
+	<li>Requirements :</li>
+</ul>
+<ol>
+	<li>You must add GreenPepper.Extensions.Castle.Windsor assembly in your configuration assemblies</li>
+	<li>You must notify GreenPepper Core to use Windsor system under development : <b>GreenPepper.WindsorCastle.WindsorSystemUnderDevelopment</b></li>
+</ol>
+
+
+<p>(You can find more about system under development configuration here : <a href="/web/20100802052012/http://www.greenpeppersoftware.com/confluence/display/GPO/Using+a+custom+SystemUnderDevelopment" title="Using a custom SystemUnderDevelopment">Using a custom SystemUnderDevelopment</a>)</p>
+
+<ul>
+	<li>If you use a Windsor xml configuration file :<br/>
+Just add the path to your Windsor configuration file in the system under development arguments</li>
+</ul>
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

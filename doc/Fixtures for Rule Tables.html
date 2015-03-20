@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fixtures for Rule Tables</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.application.calculator</td>
+		</tr>
+	</table>
+<table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.fixture.mortgage</td>
+		</tr>
+	</table>
+
+<h2 id="FixturesforRuleTables-WritingfixturesforRuleTables">Writing fixtures for Rule Tables</h2>
+
+<p>As we've seen in <a href="/web/20071022111928/http://greenpeppersoftware.com/confluence/display/GPO/Rule+For+Definition" title="Rule For Definition">Table of Rules documentation</a>, a table of rules is used to express business rules of the application under development.</p>
+
+<p>A fixture for a table of rules defines how the specific <em>given</em> and <em>expected</em> columns of a rule table are mapped to the system under development.</p>
+
+<p>This page shows the fixture code that supports the examples introduced in the <a href="/web/20071022111928/http://greenpeppersoftware.com/confluence/display/GPO/Writing+an+executable+specification+with+the+Rule+For" title="Writing an executable specification with the Rule For">Writing a Rule For Specification </a> documentation.</p>
+
+<h3 id="FixturesforRuleTables-FixtureforCalculator">Fixture for Calculator</h3>
+
+<p>Consider the first example of business rule table described in Table of Rules documentation, shown again below.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Division </td>
+</tr>
+<tr>
+<td class='confluenceTd'> dividend </td>
+<td class='confluenceTd'> divisor </td>
+<td class='confluenceTd'> quotient? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6.0 </td>
+<td class='confluenceTd'> 2.0 </td>
+<td class='confluenceTd'> 3.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 7 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> 3.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 18 </td>
+<td class='confluenceTd'> 3.0 </td>
+<td class='confluenceTd'> 6 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 15 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> 8 </td>
+</tr>
+</tbody></table>
+
+<p>The first cell of the first row indicates that a <tt>RuleForInterpreter</tt> will be used to interpret the example table. The next cell says that the fixture to use is called <tt>Calculator</tt>. In Java, the name of the fixture is the name of a Java class.</p>
+
+<p>The second row, also know as the header row, designates the <tt>given</tt> columns and <tt>expected</tt> columns. In the example, <tt>dividend</tt> and <tt>divisor</tt> are <em>given</em> columns, whereas <tt>quotient?</tt> is an <em>expected</em> column.</p>
+
+<p>The fixture code to support this example in Java is the class <tt>Calculator</tt> shown below. </p>
+
+<h4 id="FixturesforRuleTables-Showmethecode">Show me the code</h4>
+
+<style type="text/css">
+@import url(/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shStyles.css);
+</style>
+<!--[if IE]>
+<style type="text/css">
+    .code textarea, .code input { padding: 0 !important; }
+</style>
+<![endif]-->
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shCore.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushCSharp.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushPhp.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushJScript.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushVb.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushSql.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushXml.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushShell.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushDelphi.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushPython.js"></script>
+<script class="javascript" src="/web/20071022111928js_/http://greenpeppersoftware.com/confluence/download/resources/confluence.ext.code:code/shBrushJava.js"></script><div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class Division
+{
+    public double dividend;
+    public double divisor;
+
+    public double quotient()
+    {
+        return dividend / divisor;
+    }
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+
+<p>That class follows the general rules of fixtures described in <span class="error">&#91;GREENPEPPER:Fixtures Conventions&#93;</span>. It exposes the instance variable <tt>dividend</tt> to map with the <em>given</em> column <b><em>dividend</em></b>. The <em>given</em> column <em><b>divisor</b></em> corresponds to the public instance variable <tt>divisor</tt>. The <em>expected</em> column <em><b>quotient?</b></em> is mapped to the public instance method <tt>quotient()</tt>.</p>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Note</b><br />
+<p>This is a very simple example in which the fixture object does not call on the system under development, but performs the calculation. The <tt>quotient()</tt> method uses the instance variables <tt>dividend</tt> and <tt>divisor</tt> to perform the calculation by itself.</p></td></tr></table>
+
+<h4 id="FixturesforRuleTables-Howisthetableprocessed%3F">How is the table processed?</h4>
+
+<p>When it runs this table, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the given and expected columns. Finally it starts testing from the third row down to the end of the table.</p>
+
+<p>For the third row <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> carries out the following sequence of steps:</p>
+
+<ol>
+	<li>It assigns the value 6.0 to the <tt>dividend</tt> instance variable</li>
+	<li>It assigns the value 2.0 to the <tt>divisor</tt> instance variable</li>
+	<li>It calls the method <tt>quotient()</tt> of the fixture to get the value calculated by the system under development.</li>
+	<li>It reads the value 3.0 from the <em>quotient?</em> column and compares it to the value returned by the fixture. Since the values are equal, it will annotate the cell as <em>right</em>, which results in the cell being colored green.</li>
+</ol>
+
+
+<p>Same goes for the fourth and fifth rows.</p>
+
+<p>On the other hand, on the last row the comparison will fail. <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will mark the <em>expected</em> cell wrong. That cell will be colored red and will display a message including the expected value and the actual value.</p>
+
+<h4 id="FixturesforRuleTables-Howarethetypesofthevalueshandled%3F">How are the types of the values handled?</h4>
+
+<p>The instance variables <tt>dividend</tt> and <tt>divisor</tt> are of type double, so the given values in the example table needs to be double as well. For the fourth row, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will automatically convert the <em>given</em> values 7 and 2 to doubles before assigning them to the instance variables.</p>
+
+<p>The return value of the <tt>quotient</tt> method is also a double, which means that the values provided in the <em><b>quotient?</b></em> <em>expected</em> column must be doubles as well. When <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> compares the value returned by the fixture with the value provided as an expectation, it will first convert the expected value to the type of the actual returned value. In the fifth row, it will convert the value 6 to a double and then do the comparison.</p>
+
+<h3 id="FixturesforRuleTables-AMoreRealisticExample">A More Realistic Example</h3>
+
+<p>The Calculator example is very simple. In a real world example, the fixture code would not perform any real work but would instead delegate to the application under development. In other words, if this was a real application the fixture would not carry out the division operation but call on the system under development. The general rule is to keep the fixture as thin as possible to be merely a mediator between the example table and the application code.</p>
+
+<p>The Mortgage example described in <a href="/web/20071022111928/http://greenpeppersoftware.com/confluence/display/GPO/Writing+an+executable+specification+with+the+Rule+For" title="Writing an executable specification with the Rule For">Writing a Rule For Specification </a> document better illustrates the role of the fixture and its interactions with the system under development. This example is shown again here:</p>
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'>rule for</td>
+<td class='confluenceTd'>insurance premium fee calculation</td>
+</tr>
+<tr>
+<td class='confluenceTd'>sale price</td>
+<td class='confluenceTd'>down payment</td>
+<td class='confluenceTd'>premium fee?</td>
+<td class='confluenceTd'>financed amount?</td>
+</tr>
+<tr>
+<td class='confluenceTd'>$100,000</td>
+<td class='confluenceTd'>$15,000</td>
+<td class='confluenceTd'>$2,125.00</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>$100,000</td>
+<td class='confluenceTd'>$30,000</td>
+<td class='confluenceTd'>$0.00</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>$100,000</td>
+<td class='confluenceTd'>$25,000</td>
+<td class='confluenceTd'>$0.00</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<p>This example uses the <tt>InsurancePremiumFeeCalculation</tt> fixture class. The two <em>given</em> columns, which are <em><b>sale price</b></em> and <em><b>down payment</b></em>, are mapped respectively to the instance variables <tt>salePrice</tt> and <tt>downPayment</tt>. The two <em>expected</em> columns, called <em><b>premium fee?</b></em> and <em><b>financed amount?</b></em>, correspond respectively to the methods <tt>premiumFee()</tt> and <tt>financedAmount()</tt>.</p>
+
+<h4 id="FixturesforRuleTables-Howarespacesbetweenwordshandled%3F">How are spaces between words handled?</h4>
+
+<p>You have noticed that you can separate words in the example table with spaces. <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will convert the sequence a space-separated words to a valid Java identifier by removing the spaces and capitalizing the first letter of every word except the first one. This is called camel casing.</p>
+
+<ul>
+	<li>For class names, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> uses <b>upper</b> camel casing with the first letter of the identifier capitalized as well. In our example, the label <em><b>insurance premium fee calculation</b></em> is converted to the class name <tt>InsurancePremiumFeeCalculation</tt>.</li>
+	<li>For method or instance variable names, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> uses <b>lower</b> camel casing where the first letter of the identifier is left in lowercase.</li>
+</ul>
+
+
+<p>To learn more about how columns are mapped to fixture code, see <a href="/web/20071022111928/http://greenpeppersoftware.com/confluence/display/GPO/Mapping+actions+to+fixture+code" title="Mapping actions to fixture code">Mapping actions to fixture code</a>.</p>
+
+<h4 id="FixturesforRuleTables-Showmethecode">Show me the code</h4>
+
+<p>The supporting code is here:</p>
+
+<div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class InsurancePremiumFeeCalculationFixture
+{
+    public Money salePrice;
+    public Money downPayment;
+
+    public Money premiumFee()
+    {
+        InsuranceFee insuranceFee = new InsuranceFee(salePrice);
+        return insuranceFee.forDownpayment(downPayment);
+    }
+
+    public Money financedAmount()
+    {
+        return salePrice.minus(downPayment);
+    }
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Note</b><br />
+<p>You might have noticed that the fixture class name is <tt>InsurancePremiumFeeCalculationFixture</tt> and not <tt>InsurancePremiumFeeCalculation</tt>. It does not matter to <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span>. For fixture class names, the <tt>Fixture</tt> suffix can be added to make it easier to differentiate from the application under development code. <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will deal with it automatically.</p></td></tr></table>
+
+<p>In this example, the fixture merely delegates the work to the application under development. Namely, the <tt>InsuranceFee</tt> domain object is responsible for performing the actual work.</p>
+
+<p>The code for the system under development is:</p>
+
+<div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class InsuranceFee
+{
+    private final Money salePrice;
+
+    public InsuranceFee(Money salePrice)
+    {
+        this.salePrice = salePrice;
+    }
+
+    public Money forDownpayment(Money downPayment)
+    {
+        return downPayment.greaterThan(salePrice.times(Ratio.percent(25))) ? Money.zero() : financedAmount( downPayment ).times( Ratio.of(25, 1000) );
+    }
+
+    private Money financedAmount(Money downPayment)
+    {
+        return salePrice.minus( downPayment );
+    }
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+
+<h4 id="FixturesforRuleTables-Whatabouttheemptycolumn%3F">What about the empty column?</h4>
+
+<p>The <em><b>financed amount?</b></em> expected value is left empty to tell <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> that this is an information column. We don't want to perform any test in that column, but rather show the value to help our understanding of the calculation. The calculated values will be shown when the example is run and marked with the ignored annotation, making them appear gray.</p>
+
+<h4 id="FixturesforRuleTables-Howareapplicationvaluetypeshandled%3F">How are application value types handled?</h4>
+
+<p>We've seen that <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will automatically convert the <em>given</em> values in the table to the type of the corresponding instance variable. </p>
+
+<p>This is done automatically for the most common built-in Java types. The mortgage example, however, uses a <em><b>money</b></em> type, which is defined by the application under development in the <tt>Money</tt> business domain class.</p>
+
+<p>When <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> encounters a custom type while performing conversion, it will look for a public static method called <em><b>parse</b></em> to handle the conversion from a <tt>String</tt> to the custom type. To do the conversion from the custom type to a <tt>String</tt>, it will call the method <tt>toString()</tt> on the custom type.</p>
+
+<p>When <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> verifies an <em>expected</em> value to an <em>actual</em> value for a custom type, it does the following steps. It:</p>
+
+<ol>
+	<li>Converts the expected value specified as a string in the table to the custom type using the <tt>parse(String text)</tt> method.</li>
+	<li>Compares the expected value and the actual value using the <tt>equals(Object other)</tt> method on the expected value, passing it the actual value.</li>
+</ol>
+
+
+<p>Here's the relevant part of the code for the <tt>Money</tt> class:</p>
+
+<div class="code">
+<textarea name="newcodemacro" class="java:nocontrols:nogutter" rows="10" readonly="readonly">public class Money
+{
+    private final BigDecimal dollars;
+
+    public Money(BigDecimal dollars)
+    {
+        this.dollars = dollars;
+    }
+
+    public static Money parse(String text)
+    {
+        return new Money( new BigDecimal( normalize( text ) ) );
+    }
+
+    private static String normalize(String text)
+    {
+        return text.replaceAll( "\\$", "").replaceAll( ",", "").replaceAll( "\\s", "");
+    }
+
+    // ...
+
+    public boolean equals(Object other)
+    {
+        if (other instanceof Money)
+        {
+            Money that = (Money) other;
+            return this.dollars.compareTo( that.dollars ) == 0;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int hashCode()
+    {
+        return dollars.hashCode();
+    }
+
+    public String toString()
+    {
+        return "$" + dollars;
+    }
+
+    // ...
+}</textarea>
+<script class="javascript">
+    if(!window.newcodemacro_initialised)
+    {
+        window.newcodemacro_initialised = true;
+        window.oldonloadmethod = window.onload;
+        window.onload = function(){
+            dp.SyntaxHighlighter.HighlightAll('newcodemacro');
+            if(window.oldonloadmethod)
+            {
+                window.oldonloadmethod();
+            }
+        }
+    }
+
+</script>
+</div>
+
+
+<h2 id="FixturesforRuleTables-Let%27sWrapUp">Let's Wrap Up</h2>
+
+<p>When <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> runs a rule table example, it creates a fixture class from the name indicated in the second cell of the first row. That class is used to mediate between the development table and the application code when checking the example against the system under development. </p>
+
+<p>The second row of the table is the header row and is read from left to right. Two types of columns are supported in rule tables:</p>
+
+<ul>
+	<li><em>given</em> values, which are mapped to public instance variables in the fixture class</li>
+	<li><em>expected</em> values, which are checked against values returned by the corresponding public instance methods</li>
+</ul>
+
+
+<h3 id="FixturesforRuleTables-Headers">Headers</h3>
+
+<p>For a <em>given</em> column header cell, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span>:</p>
+
+<ul>
+	<li>Figures out the public instance variable to use using camel casing rules.</li>
+	<li>If there is no instance variable that matches the label of the column header, it marks the cell with an error annotation, causing the cell to appear yellow and to display a stack trace of the error. That column will be ignored entirely.</li>
+</ul>
+
+
+<p>For an <em>expected</em> column header cell:</p>
+
+<ul>
+	<li>It figures out the public instance method to use using camel casing rules.</li>
+	<li>If there is no such method or if it's not publicly accessible, it marks the cell with an error annotation, causing the cell to appear yellow and to display a stack trace of the error. That column will be ignored entirely.</li>
+</ul>
+
+
+<h3 id="FixturesforRuleTables-Columns">Columns</h3>
+
+<p><span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20071022111928im_/http://greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will then run all remaining rows one at a time, going through all cells in the row from left to right.</p>
+
+<p>For a <em>given</em> column:</p>
+
+<ul>
+	<li>It converts the text entered in the cell to the type of the instance variable. To do that it uses either built-in converters (for basic Java types) or delegates to a method called <em><b>parse</b></em> (for domain types).</li>
+	<li>It assigns the converted value to the instance variable.</li>
+	<li>However, if type conversion fails, the cell is reported as an error.</li>
+</ul>
+
+
+<p>For an <em>expected</em> column:</p>
+
+<ul>
+	<li>It converts the text entered in the cell to the return type of the instance method. To do that it uses either built-in converters (for basic Java types) or delegates to a method called <em><b>parse</b></em> (for domain types).</li>
+	<li>It compares the actual value to the converted value based on the definition of the equality for the type.</li>
+	<li>If the values match, it marks the cell with a right annotation causing it to appear green.</li>
+	<li>If the values do not match, it marks the cell with a wrong annotation so that it appears red and displays the expected and actual values.</li>
+	<li>However, if type conversion fails or if the method throws an exception the cell is reported as an error.</li>
+</ul>
+
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

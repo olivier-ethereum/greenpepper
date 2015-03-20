@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fit Compliance</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h2 id="FitCompliance-Whatwesupport">What we support</h2>
+<p>The GreenPepper Fit compliance supports all Fit fixtures : </p>
+<ol>
+	<li>ActionFixture</li>
+	<li>ColumnFixture</li>
+	<li>RowFixture</li>
+</ol>
+
+
+<h2 id="FitCompliance-Whatwedon%27tsupport">What we don't support</h2>
+<p>Our compliance has some limits, </p>
+
+<ol>
+	<li>We don't support for now all the mechanisms offered by base classes : <br clear="all" /> You will not be able to use any protected variable like "args", or "cell" <br clear="all" /> You will not be able to use Fit base classes functions if they are working with the specification</li>
+	<li>We don't support the Fit.Summary but GreenPepper offers a similar system</li>
+</ol>
+
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20121008025235im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>We are compliant only with Fit version 1.1</p></td></tr></table>
+<h2 id="FitCompliance-HowtorunmyFitspecificationsonGreenPepper">How to run my Fit specifications on GreenPepper</h2>
+
+<h3 id="FitCompliance-1.Prepareyourspecification">1. Prepare your specification</h3>
+<h4 id="FitCompliance-UsingGreenPepperonConfluence">Using GreenPepper on Confluence</h4>
+<p>The easy way to have your Fit specifications on Confluence is to have it in a wiki format like provided by Fitness.<br/>
+Some changes have to be done because of Confluence wiki specificities.</p>
+
+<ol>
+	<li>Take your Fitness specification in wiki format</li>
+	<li>Add a new page on Confluence</li>
+	<li>Paste in your previously copied Fitness specification</li>
+</ol>
+
+
+<p>Now, your document needs some changes to be done </p>
+<ol>
+	<li>Delete everythings on your document that is not standard text or specification tables</li>
+	<li>Delete the <b>!</b> character in front of all your fixtures names</li>
+	<li>Make sure there is every time a space between two pipes <b>&#124; &#124;</b></li>
+</ol>
+
+
+<h4 id="FitCompliance-UsingGreenPepperbycommandline">Using GreenPepper by command line</h4>
+<p>The GreenPepper command line is expecting an html document.</p>
+
+<ol>
+	<li>Get your Fit specification in html format</li>
+	<li>Delete everythings on your document that is not standard text or specification tables</li>
+</ol>
+
+
+<h3 id="FitCompliance-2.ConfigureGreenPepper">2. Configure GreenPepper</h3>
+<h4 id="FitCompliance-UsingGreenPepperonConfluence">Using GreenPepper on Confluence</h4>
+
+<ul>
+	<li><b>In Java :</b></li>
+</ul>
+<ol>
+	<li>Get in your Confluence space admin</li>
+	<li>Get in GreenPepper configuration</li>
+	<li>Add a new Runner (see  <a href="/web/20121008025235/http://www.greenpeppersoftware.com/confluence/display/GP/GreenPepper+Runners+Configuration" title="GreenPepper Runners Configuration">GP:GreenPepper Runners Configuration</a> to do this)</li>
+	<li>Add in your runner command line the option <b>--selector com.greenpepper.extensions.fit.FitInterpreterSelector</b></li>
+	<li>Edit your Runner classpath by adding fit.jar and greenpepper-extensions-fit.jar if not already in.</li>
+</ol>
+
+
+<p>Now you have a runner configured to be Fit compliant, to be ready to run your specifications you have to configure your Fixtures classpath in the space registration tab, see <a href="/web/20121008025235/http://www.greenpeppersoftware.com/confluence/display/GP/System+Under+Test+Configuration" title="System Under Test Configuration">GP:System Under Test Configuration</a>to do this.</p>
+
+<ul>
+	<li><b>In .Net :</b><br/>
+Everything is the same as in Java but the command line option which is <b>--selector GreenPepper.Fit.FitInterpreterSelector</b> and use Fit.dll and GreenPepper.Extensions.FIT.dll in your runner classpath</li>
+</ul>
+
+
+
+<h4 id="FitCompliance-UsingGreenPepperbycommandline">Using GreenPepper by command line</h4>
+<ul>
+	<li><b>In Java :</b></li>
+</ul>
+<ol>
+	<li>Be sure to add the Fit.jar, greenpepper-extension-fit.jar and your fixtures libraries in your classpath (see <a href="/web/20121008025235/http://www.greenpeppersoftware.com/confluence/display/GPO/Executing+a+Specification+in+Java" title="Executing a Specification in Java">Executing a Specification in Java</a>)</li>
+	<li>Add this option on your command line <b>--selector com.greenpepper.extensions.fit.FitInterpreterSelector</b></li>
+</ol>
+
+
+<ul>
+	<li><b>In .Net :</b></li>
+</ul>
+<ol>
+	<li>Be sure to add the Fit.dll, Greenpepper.Extension.FIT.dll and your fixtures assemblies in your classpath (see <a href="/web/20121008025235/http://www.greenpeppersoftware.com/confluence/display/GPO/Executing+a+specification+in+.NET" title="Executing a specification in .NET">Executing a Specification in .NET</a>)</li>
+	<li>Add this option on your command line <b>--selector GreenPepper.Fit.FitInterpreterSelector</b></li>
+</ol> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

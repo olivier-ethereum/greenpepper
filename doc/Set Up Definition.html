@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Set Up Definition</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
+<p>The <tt>SetUpInterpreter</tt> is used to simplify the creation of a particular state for the system under development. Once the state is created, we can focus on the business process to test.</p>
+
+<p>When a setup table is executed, GreenPepper enter data in the system under development to create the desired state.</p>
+
+<p><img src="/web/20080915031117im_/http://www.greenpeppersoftware.com/confluence/download/attachments/4547/LexicalFormOfSetUp.bmp" align="absmiddle" border="0" /></p>
+
+<ul>
+	<li>The first row of the table indicates the name of the interpreter and the name of the desired state.</li>
+	<li>The second row is called the header row and serves to identify the data to be inserted in the system under development.</li>
+	<li>Finally, the remaining rows captures the data to be inserted.</li>
+</ul>
+</div></div>
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h3 id="SetUpDefinition-Coloring">Coloring</h3>
+
+<p>GreenPepper will visually show the test result by coloring each testing cell:</p>
+
+<table border="1">
+ <tr>
+  <td align="center"> <b>GREEN</b> </td>
+  <td bgcolor="#98FB98">When the insertion has been executed successfully, GreenPepper add a green cell at the end of the data row with the word <b>entered</b>.</td>
+</tr>
+ <tr>
+  <td align="center"> <b>RED</b> </td>
+  <td bgcolor="#F08080">If the insertion has failed because the values specified does not respect a business rule, GreenPepper add a red cell at the end of the row with the word <b>not entered</b>.</td>
+</tr>
+ <tr>
+  <td align="center"> <b>YELLOW</b> </td>
+  <td bgcolor="#F0E68C">If the insertion has failed because a specified value generates an error, GreenPepper colors the cell of the data in error yellow and provides information about the error. <br/>
+If the system encounters an error not related to a specific data, GreenPepper add a yellow cell at the end of the data row and provides information about the error.</td>
+</tr></table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

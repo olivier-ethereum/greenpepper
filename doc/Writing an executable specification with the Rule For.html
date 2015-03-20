@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Writing an executable specification with the Rule For</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.application.calculator</td>
+		</tr>
+	</table>
+<table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.samples.fixture.mortgage</td>
+		</tr>
+	</table><table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+
+<h2 id="WritinganexecutablespecificationwiththeRuleFor-Whendoweusethe%7B%7BRuleForInterpreter%7D%7D%3F">When do we use the <tt>RuleForInterpreter</tt>?</h2>
+
+<p>The <tt>RuleForInterpreter</tt> is used to express concrete and measurable business rules. The business rules are often related to all kind of calculations.</p>
+
+<p>When a table of rule is executed, GreenPepper compares the values returned by the system under development against the expected values defined by the Business Expert.</p>
+
+<h2 id="WritinganexecutablespecificationwiththeRuleFor-Firstrow%3AIdentificationoftheRuleFor">First row: Identification of the Rule For</h2>
+
+<p>In a Rule For table, the first row specifies the name of the <a href="/web/20080502170155/http://www.greenpeppersoftware.com/confluence/display/GPO/Interpreters" title="Interpreters">interpreter</a> and the name of the rules to be tested.<br/>
+The business expert should be clear in the identification of the set of rules.</p>
+<ul>
+	<li><b>Example Division :</b> A simple system performing divisions. In that particular case, we could define the set of rules as Division which leads to:
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Division </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+<ul>
+	<li><b>Example Mortgage :</b> A Mortgage management system with the following specifications:<br/>
+<font color="#0033ff"><em>"Whenever the down payment on the property is less than 25% of the sale price, the buyer has to pay a premium for insuring the mortgage. The premium fee amount is 2.5% of the financed amount (which is sale price - down payment)."</em></font><br/>
+For that particular calculation we could identify the set of rules as:
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> insurance premium fee calculation </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+<h2 id="WritinganexecutablespecificationwiththeRuleFor-Secondrow%3AtheHeader">Second row: the Header</h2>
+
+<p>The second row is called the header row and serves to distinguish between the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve as comparison values against values that are actually returned by the system. When a column header ends with special characters ? or (), it denotes an expected value.</p>
+<ul>
+	<li><b>Example Division :</b> The given values for that example are the dividend and the divisor. The expected value is the quotient.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Division </td>
+</tr>
+<tr>
+<td class='confluenceTd'> dividend </td>
+<td class='confluenceTd'> divisor </td>
+<td class='confluenceTd'> quotient? </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+
+<ul>
+	<li><b>Example Mortgage :</b> The given values for that example are the sale price and the down payment. The expected value is the premium fee.
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> insurance premium fee calculation </td>
+</tr>
+<tr>
+<td class='confluenceTd'> sale price </td>
+<td class='confluenceTd'> down payment </td>
+<td class='confluenceTd'> premium fee? </td>
+</tr>
+</tbody></table></li>
+</ul>
+
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<h2 id="WritinganexecutablespecificationwiththeRuleFor-Thirdandfollowingrows%3AExamples">Third and following rows: Examples</h2>
+
+<p>The remaining rows capture the examples. They are the executable test rows.</p>
+
+<h4 id="WritinganexecutablespecificationwiththeRuleFor-FinalexpressionoftheDivisionexample">Final expression of the Division example</h4>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> Division </td>
+</tr>
+<tr>
+<td class='confluenceTd'> dividend </td>
+<td class='confluenceTd'> divisor </td>
+<td class='confluenceTd'> quotient? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 6.0 </td>
+<td class='confluenceTd'> 2.0 </td>
+<td class='confluenceTd'> 3.0 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 7 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> 3.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 18 </td>
+<td class='confluenceTd'> 3.0 </td>
+<td class='confluenceTd'> 6 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> 15 </td>
+<td class='confluenceTd'> 2 </td>
+<td class='confluenceTd'> 8 </td>
+</tr>
+</tbody></table>
+
+<h4 id="WritinganexecutablespecificationwiththeRuleFor-FinalexpressionoftheMortgageexample">Final expression of the Mortgage example</h4>
+
+<p>Specification: <em>"Whenever the down payment on the property is less than 25% of the sale price, the buyer has to pay a premium for insuring the mortgage. The premium fee amounts is 2.5% of the financed amount (which is sale price - down payment)."</em></p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> insurance premium fee calculation </td>
+</tr>
+<tr>
+<td class='confluenceTd'> sale price </td>
+<td class='confluenceTd'> down payment </td>
+<td class='confluenceTd'> premium fee? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> $100,000 </td>
+<td class='confluenceTd'> $15,000 </td>
+<td class='confluenceTd'> $2,125.00 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> $100,000 </td>
+<td class='confluenceTd'> $30,000 </td>
+<td class='confluenceTd'> $0.00 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> $100,000 </td>
+<td class='confluenceTd'> $25,000 </td>
+<td class='confluenceTd'> $0.00 </td>
+</tr>
+</tbody></table>
+<p>When there is no expected value specified in a cell, GreenPepper provides the value calculated by the system under development. The business expert could use that functionality to facilitate the comprehension of a rule. In this example, the financed amount of mortgage can be evaluated as an intermediate result.</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<td class='confluenceTd'> rule for </td>
+<td class='confluenceTd'> insurance premium fee calculation </td>
+</tr>
+<tr>
+<td class='confluenceTd'> sale price </td>
+<td class='confluenceTd'> down payment </td>
+<td class='confluenceTd'> premium fee? </td>
+<td class='confluenceTd'> financed amount? </td>
+</tr>
+<tr>
+<td class='confluenceTd'> $100,000 </td>
+<td class='confluenceTd'> $15,000 </td>
+<td class='confluenceTd'> $2,125.00 </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> $100,000 </td>
+<td class='confluenceTd'> $30,000 </td>
+<td class='confluenceTd'> $0.00 </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'> $100,000 </td>
+<td class='confluenceTd'> $25,000 </td>
+<td class='confluenceTd'> $0.00 </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<h2 id="WritinganexecutablespecificationwiththeRuleFor-Executionofspecifications">Execution of specifications</h2>
+
+<p>Based on those executable specifications, the developers are now ready to code the functionality and the <a href="/web/20080502170155/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixture" title="Fixture">fixture</a> (the fixture is the link between the system under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.</p>
+
+<p>During execution, GreenPepper colors only the cells of the column "expected values". GreenPepper will color the cell green if the returned value equals the expected value. If the returned value is not the same, GreenPepper will color the cell red and will show the expected and the returned values. Finally, if an expected value is left blank by the business expert, GreenPepper colors the cell in gray to signify that no test was performed and shows the returned value. <table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20080502170155im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><br/>
+The examples provided in this page are used to explain <a href="/web/20080502170155/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+Rule+Tables" title="Fixtures for Rule Tables">how to write the fixture for the <tt>RuleForInterpreter</tt></a>.</td></tr></table></p> </div>
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RestFixture</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.extensions</td>
+		</tr>
+	</table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>do with </th>
+<td class='confluenceTd'> Rest Fixture </td>
+<th class='confluenceTh'> on </th>
+<td class='confluenceTd'> <span class="nobr"><a href="/web/20101126133947/http://localhost:9998/" rel="nofollow">http://localhost:9998<sup><img class="rendericon" src="/web/20101126133947im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> </td>
+</tr>
+</tbody></table>
+
+<h3 id="RestFixture-GETexample">GET example</h3>
+
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> GET </th>
+<td class='confluenceTd'> /helloworld </td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status         </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response header         </td>
+<th class='confluenceTh'> Content-Type </th>
+<td class='confluenceTd'> text/plain  </td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response body           </td>
+<td class='confluenceTd'> Hello World </td>
+</tr>
+</tbody></table></blockquote>
+
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> GET </th>
+<td class='confluenceTd'> /unknown</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 404 </td>
+</tr>
+</tbody></table></blockquote>
+
+<h3 id="RestFixture-POSTexample%28createresource%29">POST example (create resource)</h3>
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>set request body</th>
+<td class='confluenceTd'> Hello GreenPepper </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>POST  </th>
+<td class='confluenceTd'> /messages</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 201 </td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response header </td>
+<th class='confluenceTh'> Location </th>
+<td class='confluenceTd'> <span class="nobr"><a href="/web/20101126133947/http://localhost:9998/messages/0" rel="nofollow">http://localhost:9998/messages/0<sup><img class="rendericon" src="/web/20101126133947im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>GET   </th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response body </td>
+<td class='confluenceTd'> Hello GreenPepper </td>
+</tr>
+</tbody></table></blockquote>
+
+<h3 id="RestFixture-Requestwithcustomheaderexample">Request with custom header example</h3>
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> set request header </th>
+<td class='confluenceTd'>Accept</td>
+<th class='confluenceTh'> as </th>
+<td class='confluenceTd'> application/xml</td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>GET   </th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response body </td>
+<td class='confluenceTd'> <div class="code"><div class="codeContent">
+<pre class="code-xml">&amp;#60;?xml version=<span class="code-quote">"1.0"</span>&amp;#62;&amp;#60;message id=<span class="code-quote">"0"</span> value=<span class="code-quote">"Hello GreenPepper"</span> /&amp;#62;</pre>
+</div></div></td>
+</tr>
+</tbody></table></blockquote>
+
+<h3 id="RestFixture-PUTexample%28updateresource%29">PUT example (update resource)</h3>
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>set request body</th>
+<td class='confluenceTd'> Hello from GreenPepper </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>PUT  </th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>GET   </th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response body </td>
+<td class='confluenceTd'> Hello from GreenPepper </td>
+</tr>
+</tbody></table></blockquote>
+
+<h3 id="RestFixture-HEADexample%28checkifspecifiedresourceexists%29">HEAD example (check if specified resource exists)</h3>
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>HEAD  </th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>HEAD  </th>
+<td class='confluenceTd'> /messages/1</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 404 </td>
+</tr>
+</tbody></table></blockquote>
+
+<h3 id="RestFixture-DELETEexample">DELETE example</h3>
+<blockquote>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>DELETE</th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 200 </td>
+</tr>
+</tbody></table>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>GET   </th>
+<td class='confluenceTd'> /messages/0</td>
+</tr>
+<tr>
+<th class='confluenceTh'>check </th>
+<td class='confluenceTd'> response status </td>
+<td class='confluenceTd'> 404 </td>
+</tr>
+</tbody></table></blockquote>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>end</th>
+</tr>
+</tbody></table> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

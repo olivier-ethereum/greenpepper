@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Executing a Specification in Java</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h1 id="ExecutingaSpecificationinJava-ExecutingaSpecificationinJava">Executing a Specification in Java</h1>
+
+<h2 id="ExecutingaSpecificationinJava-Introduction">Introduction</h2>
+
+<p>This page describes how to execute a specification using the command line interface that comes with GreenPepper.</p>
+
+<h2 id="ExecutingaSpecificationinJava-Features">Features</h2>
+
+<p><span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> provides a command line interface to execute specifications captured in HTML files. The command line interface has the following features:</p>
+
+<ul>
+	<li>Execution of a single specification file</li>
+	<li>Execution of a suite of specifications stored in a directory tree</li>
+</ul>
+
+
+<h2 id="ExecutingaSpecificationinJava-Runningthecommandlineapplication">Running the command line application</h2>
+
+<p>Running <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> requires Java JDK 5.0+.</p>
+
+<p>The following libraries are required on the classpath to run the command line interface:</p>
+
+<ul>
+	<li>greenpepper-core-2.4.jar</li>
+	<li>your fixture code</li>
+	<li>your system under test</li>
+	<li>all the external libraries your system under test depends upon</li>
+</ul>
+
+
+<p>The main class for the command line interface is <tt>com.greenpepper.runner.Main</tt>. </p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>An Example</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>Let's assume that our application is packaged in the <tt>system-under-test.jar</tt> library, our fixture code is packaged in the <tt>fixtures.jar</tt> archive and our application depends on the <tt>external-dependency.jar</tt> library. </p>
+
+<h5 id="ExecutingaSpecificationinJava-OnWindows%3A">On Windows:</h5>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp greenpepper-core-2.4.jar;fixtures.jar;system-under-test.jar;external-dependency.jar com.greenpepper.runner.Main &lt;arguments&gt;
+</pre>
+</div></div>
+
+<h5 id="ExecutingaSpecificationinJava-OnLinux%2FUnix%2FOSX%3A">On Linux/Unix/OS X:</h5>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp greenpepper-core-2.4.jar:fixtures.jar:system-under-test.jar:external-dependency.jar com.greenpepper.runner.Main &lt;arguments&gt;
+</pre>
+</div></div>
+</div></div>
+
+<h2 id="ExecutingaSpecificationinJava-Arguments">Arguments</h2>
+
+<p>Invoking the command line interface with the <tt>--help</tt> option brings up the usual help message:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>Usage: greenpepper [options] input [ouput]
+Run the input specification and produce a report in output file or in directory specified by -o
+
+Options:
+    --lazy                    Execute document in lazy mode
+-l, --locale LANG             Set application language (en, fr, ...)
+-f, --sud CLASS;ARGS          Use CLASS as the system under development and instantiate it with ARGS
+-o DIRECTORY                  Produce reports in DIRECTORY (defaults to current directory)
+-r CLASS;ARGS                 Use CLASS as the document repository and instantiate it with ARGS (defaults to com.greenpepper.repository.FileSystemRepository)
+    --selector CLASS          Use CLASS as the interpreter selector (defaults to com.greenpepper.document.GreenPepperInterpreterSelector)
+-s, --suite                   Run a suite rather than a single test (output must refer to a directory)
+-t SECTIONS                   Filter input specification to only execute SECTIONS (comma separated list of sections)
+    --xml                     Generate XML report (defaults to plain)
+    --help                    Display this help and exit
+    --version                 Output version information and exit
+    --debug                   Enable debug mode
+    --stop                    Stop the execution of the specification on the first failure
+</pre>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Defaultoptions">Default options</h3>
+
+<p>When no option is given, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> defaults to the following rules:</p>
+
+<ul>
+	<li>Input is a single specification, not a suite</li>
+	<li>If output is not specified, reports are produced in the current directory</li>
+	<li>Report is in plain format</li>
+	<li>The operating system locale is used</li>
+	<li>The input specification is not filtered</li>
+	<li>The specification file must be located on the file system</li>
+	<li>Fixtures are created using the default built-in mechanism</li>
+	<li>Tables use <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> formalism</li>
+	<li>Lazy mode is disabled</li>
+	<li>Debug mode is disabled</li>
+	<li>Will not stop the execution on first failure</li>
+</ul>
+
+
+<p>Any of the rules above can be overridden using command line switches.</p>
+
+<h3 id="ExecutingaSpecificationinJava-Runningwiththedefaultoptions">Running with the default options</h3>
+
+<p>By default <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> executes the specification file given as an input and produces a report in the current directory. The name of the report is constructed from the name of the specification. </p>
+
+<p>The specification file has to be an HTML file (with the .html extension) accessible on the file system. <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will execute the specification and produce both:</p>
+
+<ul>
+	<li>an execution summary displayed in the terminal window</li>
+	<li>a report file, which contains the executed specification annotated with test results</li>
+</ul>
+
+
+<p>Here's an example:</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Running with default options</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>Executing the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main example.html
+</pre>
+</div></div>
+
+<p>might display the following in the terminal window:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>Running example.html
+14 example(s): 9 right, 3 wrong, 1 ignored, 1 exception(s) &lt;&lt;&lt; FAILURE!
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Specifyinganoutputdirectory%7B%7Bo%7D%7D">Specifying an output directory <tt>-o</tt></h3>
+
+<p>The destination directory for report files can be specified using the <tt>-o</tt> option. </p>
+
+<p>Alternatively, the <tt>output</tt> argument can be used to specify the absolute path of the report file.</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Specifying an output directory</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>Executing the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main -o reports example.html
+</pre>
+</div></div>
+
+<p>might display the following in the terminal window:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>Running example.html
+14 test(s): 9 right, 3 wrong, 1 ignored, 1 exception(s)
+</pre>
+</div></div>
+
+<p>and produce a report file named <tt>example.html</tt> in the <tt>reports</tt> directory.</p>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Executingasetofspecificationfiles%28%7B%7Bs%2Csuite%7D%7D%29">Executing a set of specification files (<tt>-s, --suite</tt>)</h3>
+
+<p><span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> can execute all specification files found in a given directory (recursively) and produce result files in the specified output directory. The suite mode is activated using the <tt>-s</tt> option.</p>
+
+<p>If the output directory does not exist, <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will try to create it. Input files need to be in HTML form and have the <tt>.html</tt> extension. </p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Running a suite of specifications</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>To execute all specification files found in the <tt>/home/myuser/workspace/myprojects/specs</tt> directory and produce output in the <tt>/home/myuser/workspace/myprojects/reports</tt> directory, use the following command from the <tt>/home/myuser/workspace/myprojects</tt> directory:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main -s -o reports specs
+</pre>
+</div></div>
+
+<p>If the <tt>specs</tt> directory looks like this:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>home
+  |
+  |____ myuser
+           |
+           |____ workspace
+                     |
+                     |____ myproject
+                               |
+                               |____ specs
+                                       |
+                                       |____ Authentication
+                                       |           | 
+                                       |           |____ Login.html
+                                       | 
+                                       |
+                                       |____ Authorization
+                                                   |
+                                                   |____ AccessControl.html                
+</pre>
+</div></div>
+
+<p>The <tt>reports</tt> directory would then contain the following files:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>home
+  |
+  |____ myuser
+           |
+           |____ workspace
+                     |
+                     |____ myproject
+                               |
+                               |____ reports
+                                       |
+                                       |____ Authentication.Login_html.html
+                                       |
+                                       |____ Authorization.AccessControl_html.html
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-ChangingthedefaultLocale%28%7B%7Blocale%2Cl%7D%7D%29">Changing the default Locale (<tt>--locale, -l</tt>)</h3>
+
+<p>It is possible to change the current locale with the <tt>--locale</tt> or <tt>-l</tt> option, followed by a valid java 2 letters locale code.</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Changing the locale</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>Running the application in french is done like this:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main --locale fr example.html result.html
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Filteringoutpartsofthespecification%28%7B%7Bt%7D%7D%29">Filtering out parts of the specification (<tt>-t</tt>)</h3>
+
+<p>When the specification file contains sections identified by tags, it is possible to execute only those parts of the specification that are relevant using the <tt>-t</tt> option. The <tt>-t</tt> switch has to be followed by a comma separated list of tags to consider for execution.</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Filtering the specification</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>We can execute only the sections of the specification marked with the <tt>authentication</tt> and <tt>authorization</tt> tags like this:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main -t authentication,authorization example.html result.html
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-ProducingXMLreports%28%7B%7Bxml%7D%7D%29">Producing XML reports (<tt>--xml</tt>)</h3>
+
+<p>It is possible to produce the report file in XML format using the <tt>--xml</tt> option. The XML format produces an output file that contains both execution statistics and the annotated HTML specification.</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Producing XML reports</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main --xml example.html result.html
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Usingacustomspecificationrepository%28%7B%7Br%7D%7D%29">Using a custom specification repository (<tt>-r</tt>)</h3>
+
+<p>The default is for <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> to look for specifications on the file system. When you want to use a different specification repository, use the <tt>-r</tt> option followed by the fully qualified class name of the <tt>Repository</tt> class and a semi-colon separated list of constructor parameters for that class.</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Changing the specification repository</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>To use the <tt>VFSRepository</tt> issue the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main -r com.greenpepper.runner.repository.VFSRepository example.html result.html
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Specifyingacustomsystemunderdevelopment%28%7B%7Bsud%7D%7D%29">Specifying a custom system under development (<tt>--sud</tt>)</h3>
+
+<p><span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will use the <tt>DefaultSystemUnderDevelopment</tt> unless told otherwise. To specify a different system under development class, use the <tt>--sud</tt> option followed by the fully qualified class name and a semi-colon separated list of constructor parameters for that class. </p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Changing the system under development</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>To use the <tt>SpringSystemUnderDevelopment</tt> with the <tt>application-context.xml</tt> file located in the <tt>conf</tt> directory, use the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main --sud com.greenpepper.systemunderdevelopment.SpringSystemUnderDevelopment;conf/application-context.xml example.html result.html
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Changingtableformalism%28e.g.forFitcompliance%29">Changing table formalism (e.g. for Fit compliance)</h3>
+
+<p>It is possible to change <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> table formalism by specifying an <tt>InterpreterSelector</tt> class with the <tt>--selector</tt> option. By default <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> will use its own formalism. </p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Enabling Fit compliance mode</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>As an example, to enable Fit compliance, use the class <tt>com.greenpepper.fit.FitInterpreterSelector</tt> available in the <tt>greenpepper-extensions-fit.jar</tt>. This will cause <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> to use Fit formalism for tables and support Fit basic interpreters:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp greenpepper-extensions-fit.jar;... com.greenpepper.runner.Main --selector com.greenpepper.fit.FitInterpreterSelector example.html result.html
+</pre>
+</div></div>
+<p>For more informations see <a href="/web/20121008005641/http://www.greenpeppersoftware.com/confluence/display/GPO/Fit+Compliance" title="Fit Compliance">Fit Compliance</a></p>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Settinglazymode%28%7B%7Blazy%7D%7D%29">Setting lazy mode  (<tt>--lazy</tt>)</h3>
+
+<p>Enabling lazy mode changes <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> behaviour :</p>
+<ul>
+	<li>Lazy mode : On a <b>greenpepperized</b> document, all tables that are contained in documents will be skipped until you specify a <span class="error">&#91;greenpepper-example&#93;</span> macro for the table or group of tables you want to be not skipped.</li>
+	<li>Not lazy mode (default) : this mode is an Eager mode, it means that all tables will be interpreted.</li>
+</ul>
+
+
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Enabling lazy mode</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>To enable lazy mode, use the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main --lazy
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Settingdebugmode%28%7B%7Bdebug%7D%7D%29">Setting debug mode  (<tt>--debug</tt>)</h3>
+
+<p>Enabling debug mode allows you to have a full view of exceptions stack trace in your <span style="font-family: Arial, sans-serif; font-size: 1em; font-weight: bold; padding: 0px 3px;"><img src="/web/20121008005641im_/http://www.greenpeppersoftware.com/confluence/download/resources/com.greenpepper.confluence.plugin:greenpepper-logo/images/greenpepper_12.gif" alt="" border="0">&nbsp;<span style="color:#003300;">Green</span><span style="color:#8CC06D;">Pepper</span></span> specifications documents. Note that in the normal mode the stack trace are limited.</p>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Enabling debug mode</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>To enable debug mode, use the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main --debug
+</pre>
+</div></div>
+</div></div>
+
+<h3 id="ExecutingaSpecificationinJava-Stoponfirstfailure%28%7B%7Bstop%7D%7D%29">Stop on first failure  (<tt>--stop</tt>)</h3>
+
+<div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>Stop on first failure</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
+<p>To stop the execution of a specification when a failure is detected, use the command:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>java -cp ... com.greenpepper.runner.Main --stop
+</pre>
+</div></div>
+</div></div>
+
+<p>Note : Only the current specification execution will be stopped, the suite will continue for the remaining specifications</p> </div>
+
+
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+</body>
+</html>

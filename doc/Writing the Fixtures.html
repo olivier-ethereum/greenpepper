@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Writing the Fixtures</title>
+  <link rel="stylesheet" href="greenpepper-doc.css" type="text/css" />
+</head>
+<body>
+<div id="PageContent">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" class="pagebody">
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+<div id="body" class="wiki-content"> <!-- wiki content -->
+            <h1 id="WritingtheFixtures-WritingtheFixtures">Writing the Fixtures</h1>
+
+<ul>
+	<li><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Interpreters" title="Interpreters">What is an interpreter?</a></li>
+	<li><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixture" title="Fixture">What is a fixture?</a></li>
+</ul>
+
+
+<ul>
+	<li><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+Rule+Tables" title="Fixtures for Rule Tables">Writing fixtures for business rule tables</a></li>
+	<li><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+Business+Flows" title="Fixtures for Business Flows">Writing fixtures for business flows</a></li>
+	<li><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+List+of+Values" title="Fixtures for List of Values">Writing fixtures for list of values</a></li>
+</ul>
+
+
+<ul>
+	<li><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Type+Conversion" title="Type Conversion">Type conversion</a></li>
+	<li>Fixture factory (Spring)</li>
+</ul>
+
+
+<p><a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Mapping+actions+to+fixture+code" title="Mapping actions to fixture code">Mapping actions to fixture code</a>:</p>
+<ul>
+	<li>Order of name resolution (with <span class="error">&#91;OGNL&#93;</span>)</li>
+	<li>Public fields / getters / setters</li>
+	<li><img class="emoticon" src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/warning.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> overlaoding method in the Fixtures (types, arrity)</li>
+	<li>Annotation <b>@SUT</b></li>
+	<li>Fixtureless ? how ...</li>
+	<li>Camel Casing</li>
+</ul>
+
+
+<p>Errors:</p>
+<ul>
+	<li>Throwing an Exception</li>
+	<li>Framework Exception vs SUT Exception</li>
+</ul> </div>
+                            <!--
+<rdf:RDF xmlns:rdf="/web/20121008025305/http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="/web/20121008025305/http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="/web/20121008025305/http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+    rdf:about="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+the+Fixtures"
+    dc:identifier="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+the+Fixtures"
+    dc:title="Writing the Fixtures"
+    trackback:ping="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/rpc/trackback/2418"/>
+</rdf:RDF>
+-->
+
+                            
+                            <div class="tabletitle">
+                <a name="children">Children</a>
+
+                <span class="bodytext">
+                &nbsp;
+                <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+the+Fixtures?showChildren=false">Hide Children</a>
+                | <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/pages/listpages-dirview.action?key=GPO&amp;openId=2418#selectedPageInHierarchy">View in hierarchy</a>
+                                </span>
+            </div>
+            <div class="greybox" align="left">
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Fixture"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixture">Fixture</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Fixtures for Business Flows"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+Business+Flows">Fixtures for Business Flows</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Fixtures for List of Values"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+List+of+Values">Fixtures for List of Values</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Fixtures for Rule Tables"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+for+Rule+Tables">Fixtures for Rule Tables</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Fixtures to Setup the executable specification"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Fixtures+to+Setup+the+executable+specification">Fixtures to Setup the executable specification</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Mapping actions to fixture code"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Mapping+actions+to+fixture+code">Mapping actions to fixture code</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                                                         <img src="/web/20121008025305im_/http://www.greenpeppersoftware.com/confluence/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" title="Type Conversion"/>
+                         <a href="/web/20121008025305/http://www.greenpeppersoftware.com/confluence/display/GPO/Type+Conversion">Type Conversion</a>
+                                 <span class="smalltext">(GreenPepperOpen)</span>
+              <br/>
+                            </div>
+
+                                                            </td>
+
+
+                                                    </tr>
+        </table>
+
+        
+        </td>
+    </tr>
+</table>
+
+    </div>
+
+</body>
+</html>

@@ -229,7 +229,6 @@ public class DemoSpaceAction
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void doGreenPepperizedPage(Space demoSpace, Repository demoRepository)
 			throws GreenPepperServerException
 	{
@@ -265,7 +264,7 @@ public class DemoSpaceAction
 
 	private void doAddRemoteUserToGreenPepperUserGroup()
 	{
-		final User remoteUser = this.getRemoteUser();
+        final User remoteUser = this.getAuthenticatedUser();
 
 		if (!gpUtil.getGreenPepperUserGroup().hasMembership(remoteUser))
 		{

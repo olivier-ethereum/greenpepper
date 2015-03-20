@@ -22,7 +22,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.atlassian.config.bootstrap.AtlassianBootstrapManager;
 import com.atlassian.config.util.BootstrapUtils;
-import com.atlassian.confluence.content.render.xhtml.DefaultRenderer;
 import com.atlassian.confluence.content.render.xhtml.Renderer;
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.core.ContentEntityManager;
@@ -851,7 +850,7 @@ public class ConfluenceGreenPepper
     public Renderer getViewRenderer()
     {
         if (viewRenderer != null){return viewRenderer;}
-        viewRenderer = (DefaultRenderer) ContainerManager.getComponent("viewRenderer");
+        viewRenderer = (Renderer) ContainerManager.getComponent("viewRenderer");
         return viewRenderer;
     }
 

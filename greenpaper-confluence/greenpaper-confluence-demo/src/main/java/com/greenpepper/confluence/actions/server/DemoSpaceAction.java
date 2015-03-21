@@ -354,7 +354,7 @@ public class DemoSpaceAction
 			throw new FileNotFoundException("Cannot find demo-site.zip");
 		}
 
-		DefaultImportContext ctx = new DefaultImportContext(demoSiteZipUrl, null);
+        DefaultImportContext ctx = new DefaultImportContext(demoSiteZipUrl, getAuthenticatedUser());
 		final Date importStart = new Date();
 
 		ctx.setPostProcessor(new ImportedObjectPostProcessor()

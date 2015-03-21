@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
@@ -46,11 +47,9 @@ public class InstallationAction
 
 	public String config() {
 
-		if (!gpUtil.isPluginInstalledUnderWebInfLib())
-		{
-			addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB,
-								   new String[]{gpUtil.getWebInfLibDirectory()}));
-		}
+        if (!gpUtil.isPluginInstalledUnderWebInfLib()) {
+            addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new String[] {gpUtil.getWebInfLibDirectory()}));
+        }
 
 		return SUCCESS;
 	}

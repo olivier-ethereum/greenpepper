@@ -1,3 +1,8 @@
+<html>
+  <head>
+  </head>
+  <body>
+  
 <div class="conf_pageGPHeaderItem">
 	<table width="100%" cellpadding="0" cellspacing="0">
 		<tr>
@@ -72,3 +77,5 @@
 	#elseif($action.retrieveBody)<script language="JavaScript" type="text/javascript">conf_greenPepper.getSpecification('$action.bulkUID', '$action.executionUID', '$action.fieldId').retrieveBody(false);</script>
 	#end
 #end
+</body>
+</html>

@@ -235,12 +235,12 @@ public class GreenPepperServerConfigurationActivator implements StateAware
 		setValue(GreenPepperServerConfiguration.class, configuration);
 	}
 
-	private Object getValue(Class classKey)
+    private Object getValue(Class<?> classKey)
 	{
 		return bandanaManager.getValue(bandanaContext, classKey.getName());
 	}
 
-	private void setValue(Class classKey, Object value)
+    private void setValue(Class<?> classKey, Object value)
 	{
 		bandanaManager.setValue(bandanaContext, classKey.getName(), value);
 	}
@@ -310,7 +310,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware
 	
 	private String getConfluenceHome()
 	{
-		return bootstrapManager.getConfluenceHome();
+        return bootstrapManager.getLocalHome().getAbsolutePath();
 	}
 
 	private ServletContext getServletContext()

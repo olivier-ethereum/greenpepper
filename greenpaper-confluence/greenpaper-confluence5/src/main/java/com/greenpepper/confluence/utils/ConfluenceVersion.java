@@ -32,6 +32,8 @@ public final class ConfluenceVersion
 	public static final ConfluenceVersion V29X = new ConfluenceVersion(2, 9);
 	public static final ConfluenceVersion V210X = new ConfluenceVersion(2, 10);
 	public static final ConfluenceVersion V30X = new ConfluenceVersion(3, 0);
+    public static final ConfluenceVersion V40X = new ConfluenceVersion(4, 0);
+    public static final ConfluenceVersion V50X = new ConfluenceVersion(5, 0);
 
 	private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+).(\\d+)(.\\d+)?");
 

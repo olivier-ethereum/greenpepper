@@ -4,7 +4,7 @@ var conf_greenPepper = new function()
 	
 	this.loadHeader=function(ctx, spaceKey, pageId)
 	{ 
-		new Ajax.Updater('greenpepper_header_display', ctx + "/greenpepper/GreenPepperHeader.action", {method: 'post', parameters: "decorator=none&spaceKey=" + spaceKey + "&pageId=" + pageId, evalScripts: true});
+		new Ajax.Updater('greenpepper_header_display', ctx + "/ajax/greenpepper/GreenPepperHeader.action", {method: 'post', parameters: "decorator=none&spaceKey=" + spaceKey + "&pageId=" + pageId, evalScripts: true});
 	};
 	this.greenPepperize=function(ctx, bUID, exeUID, spaceKey, pageId, refresh)
 	{
@@ -14,7 +14,7 @@ var conf_greenPepper = new function()
 			GP.View.switchView('body', 'conf_results_'+bUID+'_'+exeUID+'_0');
 		}
 		GP.View.switchView('conf_waiting_display_'+bUID+'_'+exeUID, 'conf_actionError_display_'+ bUID + '_'  + exeUID);
-		new Ajax.Updater('greenpepper_header_display', ctx + "/greenpepper/GreenPepperize.action", {method: 'post', parameters: "decorator=none&spaceKey=" + spaceKey + "&pageId=" + pageId + "&refreshAll=true&pepperize=" + $('conf_exeflag').checked, evalScripts: true});
+		new Ajax.Updater('greenpepper_header_display', ctx + "/ajax/greenpepper/GreenPepperize.action", {method: 'post', parameters: "decorator=none&spaceKey=" + spaceKey + "&pageId=" + pageId + "&refreshAll=true&pepperize=" + $('conf_exeflag').checked, evalScripts: true});
 	};
 	this.search=function(ctx, bUID, exeUID, openInSameWindow, forcedSuts, spaceKey)
 	{ 
@@ -26,7 +26,7 @@ var conf_greenPepper = new function()
 		GP.View.hide('conf_actionError_display_'+ bUID + '_'  + exeUID);
 		GP.View.switchView('conf_waiting_display_'+bUID+'_'+exeUID, 'conf_actionError_display_'+ bUID + '_'  + exeUID);
 		
-		new Ajax.Updater('conf_' + bUID + '_' + exeUID, ctx + "/greenpepper/RefreshLabels.action", {method: 'post', parameters: "decorator=none&spaceKey=" + spaceKey + "&labels=" + $F('conf_labels_' + bUID + '_' + exeUID).replace(/&/g, "&amp;") + "&bulkUID=" + bUID + "&executionUID=" + exeUID + "&forcedSuts=" + forcedSuts +"&searchQuery=true" + "&openInSameWindow=" + openInSameWindow, evalScripts: true});
+		new Ajax.Updater('conf_' + bUID + '_' + exeUID, ctx + "/ajax/greenpepper/RefreshLabels.action", {method: 'post', parameters: "decorator=none&spaceKey=" + spaceKey + "&labels=" + $F('conf_labels_' + bUID + '_' + exeUID).replace(/&/g, "&amp;") + "&bulkUID=" + bUID + "&executionUID=" + exeUID + "&forcedSuts=" + forcedSuts +"&searchQuery=true" + "&openInSameWindow=" + openInSameWindow, evalScripts: true});
 	};
 	
 	this.registerBulk=function(bUID, actions)

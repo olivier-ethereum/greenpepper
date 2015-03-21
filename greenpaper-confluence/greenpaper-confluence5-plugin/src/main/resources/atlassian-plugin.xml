@@ -346,6 +346,12 @@
         </package>
     	<package name="greenpepper" extends="default" namespace="/greenpepper">
         	<default-interceptor-ref name="defaultStack" />
+			<action name="GreenPepperServer" class="com.greenpepper.confluence.actions.server.GreenPepperServerAction">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/greenPepperConfig.vm</result>
+			</action>
+    	</package>
+    	<package name="greenpepperAjax" extends="default" namespace="/ajax/greenpepper">
+        	<default-interceptor-ref name="defaultStack" />
 			<action name="GetDbmsPane" class="com.greenpepper.confluence.actions.server.InstallationAction">
 				<result name="success" type="velocity">/templates/greenpepper/configuration/installation/greenPepperDbmsConfig.vm</result>
 			</action>
@@ -369,9 +375,6 @@
 				<result name="success" type="velocity">/templates/greenpepper/configuration/demo/demoPane.vm</result>
 			</action>
 
-			<action name="GreenPepperServer" class="com.greenpepper.confluence.actions.server.GreenPepperServerAction">
-				<result name="success" type="velocity">/templates/greenpepper/configuration/greenPepperConfig.vm</result>
-			</action>
 			<!-- License Management -->
 			<action name="GetLicensePane" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="verifyServerReady">
 				<result name="success" type="velocity">/templates/greenpepper/configuration/licensePane.vm</result>

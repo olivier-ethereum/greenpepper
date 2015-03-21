@@ -1,5 +1,7 @@
 package com.greenpepper.confluence.actions.server;
 
+import static com.greenpepper.confluence.utils.HtmlUtils.stringSetToTextArea;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -18,8 +20,6 @@ import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.server.domain.component.ContentType;
 import com.greenpepper.server.license.GreenPepperLicenceException;
 import com.greenpepper.util.StringUtil;
-
-import static com.greenpepper.confluence.utils.HtmlUtils.stringSetToTextArea;
 
 /**
  * Action for the <code>GreenPepper Server Properties</code>.
@@ -64,15 +64,13 @@ public class RegistrationAction extends GreenPepperServerAction
 
 	public String doGetRegistration()
     {
-		if (!isPluginInstalledUnderWebInfLib())
-		{
-			addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB,
-								   new String[]{gpUtil.getWebInfLibDirectory()}));
-			readonly = true;
-			editMode = false;
-			addMode = false;
-			return SUCCESS;
-		}
+        if (!isPluginInstalledUnderWebInfLib()) {
+            addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new String[] {gpUtil.getWebInfLibDirectory()}));
+            readonly = true;
+            editMode = false;
+            addMode = false;
+            return SUCCESS;
+        }
 
 		if (!isServerReady())
 		{
@@ -88,7 +86,7 @@ public class RegistrationAction extends GreenPepperServerAction
 			/* BEGIN : COMMENT THIS FOR DEPLOYING TO GPS  */
 			if (gpUtil.isCommercialLicense())
 			{
-				final User activeUser = getRemoteUser();
+                final User activeUser = getAuthenticatedUser();
 
 				if (activeUser == null)
 				{

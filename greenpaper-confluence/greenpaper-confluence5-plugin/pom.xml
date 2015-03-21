@@ -11,6 +11,54 @@
 	<artifactId>greenpepper-confluence5-plugin</artifactId>
 	<name>GreenPepper Confluence 5 Plugin</name>
 
+
+	<profiles>
+		<profile>
+			<id>refapp</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>maven-refapp-plugin</artifactId>
+						<version>${amps.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<productVersion>${refapp.version}</productVersion>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>confluence</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>maven-confluence-plugin</artifactId>
+						<version>${amps.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<productVersion>${confluence.version}</productVersion>
+							<productDataVersion>${confluence.data.version}</productDataVersion>
+							<instructions>
+							</instructions>
+						</configuration>
+						<executions>
+							<execution>
+								<id>ensure-deps-are-there</id>
+								<goals>
+									<goal>copy-bundled-dependencies</goal>
+								</goals>
+								<phase>compile</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<build>
 		<resources>
 			<resource>
@@ -114,17 +162,60 @@
 			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-confluence5</artifactId>
 			<version>${project.version}</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>cglib</artifactId>
+					<groupId>cglib</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>cglib</artifactId>
+					<groupId>cglib</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
 			<classifier>fixtures</classifier>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- WIRED TEST RUNNER DEPENDENCIES -->
+		<dependency>
+			<groupId>com.atlassian.plugins</groupId>
+			<artifactId>atlassian-plugins-osgi-testrunner</artifactId>
+			<version>${plugin.testrunner.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2-atlassian-1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

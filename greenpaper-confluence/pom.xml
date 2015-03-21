@@ -11,17 +11,23 @@
 
 	<artifactId>greenpepper-confluence</artifactId>
 	<packaging>pom</packaging>
-	<name>GreenPepper</name>
+	<name>GreenPepper Confluence</name>
 
 	<properties>
 		<!-- Confluence version -->
-		<atlassian.product.version>5.7</atlassian.product.version>
+		<atlassian.product.version>5.7</atlassian.product.version>        
+		<confluence.version>5.7</confluence.version>
+        <confluence.data.version>5.7</confluence.data.version>
+        <amps.version>5.0.13</amps.version>
+        <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
+        <refapp.version>2.22.0</refapp.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -46,6 +52,18 @@
 		</dependency>
 	</dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.refapp</groupId>
+                <artifactId>atlassian-platform</artifactId>
+                <version>${refapp.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
 	<modules>
 		<module>greenpaper-confluence5</module>
 		<module>greenpaper-confluence5-plugin</module>

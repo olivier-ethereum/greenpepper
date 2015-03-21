@@ -126,7 +126,6 @@ public class GreenPepperServerAction extends AbstractSpaceAction
 	    return homeRepository;
     }
     
-    @SuppressWarnings("unchecked")
     public List<SystemUnderTest> getSystemUnderTests()
     {
         try 
@@ -249,7 +248,6 @@ public class GreenPepperServerAction extends AbstractSpaceAction
 		return resourceBundle;
 	}
 
-	@SuppressWarnings("unchecked")
 	public LinkedList<Project> getProjects() {
 	    if(projects != null) return projects;
 	    try

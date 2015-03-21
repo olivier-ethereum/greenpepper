@@ -11,7 +11,7 @@
     <name>GreenPepper Confluence 5 Code</name>
 
     <dependencies>
-        <dependency>
+        <!-- <dependency>
             <groupId>greenpepper</groupId>
             <artifactId>greenpepper-client</artifactId>
             <version>${project.version}</version>
@@ -21,7 +21,7 @@
             		<groupId>commons-logging</groupId>
             	</exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>greenpepper</groupId>
             <artifactId>greenpepper-server</artifactId>

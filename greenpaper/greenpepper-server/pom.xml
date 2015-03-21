@@ -24,11 +24,6 @@
 		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
-			<artifactId>greenpepper-client</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-license</artifactId>
 			<version>${project.version}</version>
 		</dependency>

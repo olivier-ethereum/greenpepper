@@ -16,10 +16,8 @@
 			
 			function updateTabsUI(selectedTab)
 			{
-				$$('#tabMenu a').each(function(s){s.className="";s.style.color='';});
-				selectedTab.className='current';
-				//selectedTab.style.color="black";
-				$$('#paneGroup div').each(function(s){s.innerHTML='';})
+				$$('#gpconfig-tabs .tabs-menu li').each(function(s){s.className="menu-item";});
+				selectedTab.className='menu-item active-tab';
 			}
 		</script>
 		<link rel="stylesheet" href="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/css/server-properties.css" type="text/css"/>
@@ -27,32 +25,36 @@
 			#parse ( "/template/includes/actionerrors.vm" )
 
 			#if (!${action.hasActionErrors()})
-			<div style="padding-bottom: 5px;">
-				##2.6+<ul class="tabnav" onclick="">
-				##2.6-<ul id="foldertab">
-				<ul #if(${greenPepper.isConfluenceMajorVersionLessThan_2_6()})id="foldertab"#end class="tabnav">
-				    ##2.6+<li id="tabMenu" class="tabs" style="color:white; cursor:pointer;">
-				    ##2.6-<li id="tabMenu" style="color:white; cursor:pointer;">
-				    <li id="tabMenu" class="tabs" style="color:white; cursor:pointer;">
-						<a id="tabMenu_dbms" onclick="updateTabsUI(this);gpProperties.getDbmsConfigPane();">$action.getText('greenpepper.install.tabmenu.dbms')</a>
-						<a id="tabMenu_license" onclick="updateTabsUI(this);gpProperties.getLicensePane();">$action.getText('greenpepper.install.tabmenu.license')</a>
-						<a id="tabMenu_runners" onclick="updateTabsUI(this);gpProperties.getRunnersPane();">$action.getText('greenpepper.install.tabmenu.runners')</a>
-						<a id="tabMenu_projects" onclick="updateTabsUI(this);gpProperties.getGpProjectPane();">$action.getText('greenpepper.install.tabmenu.gpproject')</a>
-						<a id="tabMenu_fsRegistration" onclick="updateTabsUI(this);gpProperties.getFileSystemRegistration();">$action.getText('greenpepper.install.tabmenu.fsregister')</a>
-						<a id="tabMenu_demo" onclick="updateTabsUI(this);gpProperties.getDemoPane();">$action.getText('greenpepper.install.tabmenu.demo')</a>
+			<div id="gpconfig-tabs" class="aui-tabs horizontal-tabs">
+				<ul class="tabs-menu">
+					<li class="menu-item">
+						<a id="tabMenu_dbms" href="#dbmsConfigPane_display" onclick="updateTabsUI(this);gpProperties.getDbmsConfigPane();">$action.getText('greenpepper.install.tabmenu.dbms')</a>
+                    </li>
+					<li class="menu-item">
+						<a id="tabMenu_license" href="#license_display" onclick="updateTabsUI(this);gpProperties.getLicensePane();">$action.getText('greenpepper.install.tabmenu.license')</a>
+					</li>
+					<li class="menu-item">
+						<a id="tabMenu_runners" href="#runnersPane_display" onclick="updateTabsUI(this);gpProperties.getRunnersPane();">$action.getText('greenpepper.install.tabmenu.runners')</a>
+					</li>
+					<li class="menu-item">
+						<a id="tabMenu_projects" href="#GpProjectPane_display" onclick="updateTabsUI(this);gpProperties.getGpProjectPane();">$action.getText('greenpepper.install.tabmenu.gpproject')</a>
+					</li>
+					<li class="menu-item">
+						<a id="tabMenu_fsRegistration" href="#fileSystemPane_display" onclick="updateTabsUI(this);gpProperties.getFileSystemRegistration();">$action.getText('greenpepper.install.tabmenu.fsregister')</a>
+					</li>
+					<li class="menu-item">
+						<a id="tabMenu_demo" href="#demoPane_display" onclick="updateTabsUI(this);gpProperties.getDemoPane();">$action.getText('greenpepper.install.tabmenu.demo')</a>
 				    </li>
 				</ul>
-				<!-- clears the floated elements above -->
-				<br class="after-tabnav" />
+				
+				<div id="dbmsConfigPane_display" class="tabs-pane"></div>
+				<div id="license_display" class="tabs-pane"></div>
+				<div id="runnersPane_display" class="tabs-pane"></div>
+				<div id="GpProjectPane_display" class="tabs-pane"></div>
+				<div id="fileSystemPane_display" class="tabs-pane"></div>
+				<div id="demoPane_display" class="tabs-pane"></div>
+				
 			</div>
-			<span id="paneGroup">			
-				<div id="dbmsConfigPane_display"></div>
-				<div id="license_display"></div>
-				<div id="runnersPane_display"></div>
-				<div id="GpProjectPane_display"></div>
-				<div id="fileSystemPane_display"></div>
-				<div id="demoPane_display"></div>
-			</span>
         	<br />
 			#end
 			#parse('templates/greenpepper/configuration/poweredByGPFooter.vm')
@@ -62,6 +64,9 @@
                 <p> $action.getText('greenpepper.install.adminuseronly') </p>
             </div>
         #end
-        	<script  language="JavaScript" type="text/javascript">$$('#tabMenu a')[0].onclick()</script>
+        	<script language="JavaScript" type="text/javascript">
+				$$('#gpconfig-tabs .tabs-menu .menu-item a')[0].onclick();
+				jQuery($$('#gpconfig-tabs .tabs-menu .menu-item')[0]).addClass("active-tab");
+			</script>
     </body>
 </html>

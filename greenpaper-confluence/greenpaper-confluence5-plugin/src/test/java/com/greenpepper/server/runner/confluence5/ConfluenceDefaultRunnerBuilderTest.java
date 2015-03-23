@@ -55,7 +55,7 @@ public class ConfluenceDefaultRunnerBuilderTest {
 
     @After
     public void cleanup() {
-        FileUtils.deleteQuietly(new File(properties.getProperty("confluence.home") + "/plugins-cache"));
+        FileUtils.deleteQuietly(new File(properties.getProperty("confluence.home") + "/plugins-data"));
         File testclassesDir = FileUtils.toFile(getClass().getResource("/"));
         FileUtils.deleteQuietly(new File(testclassesDir, clientJarFileName));
         FileUtils.deleteQuietly(new File(testclassesDir, demoJarFileName));

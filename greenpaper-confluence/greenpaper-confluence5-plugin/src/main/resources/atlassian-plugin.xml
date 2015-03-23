@@ -543,11 +543,6 @@
 	<component key="greenPepperXmlRpcServerService" name="GreenPepper XML-RPC Server"
 			   class="com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer"/>
 
-	<listener key="greenPepperServer.listener" name="GreenPepper Plugin Listener"
-			  class="com.greenpepper.confluence.listeners.GreenPepperPluginListener">
-		<description/>
-	</listener>
-
 	<rpc-xmlrpc key="greenpepper.xmlrpcService" alias="greenPepperService" name="GreenPepper XML-RPC Service Delegator"
 				class="com.greenpepper.confluence.rpc.xmlrpc.GreenPepperXmlRpcServerDelegator">
 		<description/>

@@ -16,7 +16,7 @@ GPProperties.prototype =
 	},
 	
 	getRunnersPane:function(id){
-		GP.View.showPane('runnersPane_display','paneGroup','div');
+		GP.View.showPane('runnersPane_display','gpconfig-tabs','div');
 		this.action.getRunnersPane(this.createParams({id:'none'}));
 	},
 	getRunner:function(id, selectedRunnerName){ this.action.getRunnersPane(this.createParams({id:id, selectedRunnerName:(selectedRunnerName ? selectedRunnerName : $F('selectedRunner'))})); },
@@ -87,7 +87,7 @@ GPProperties.prototype =
 	removeSystemUnderTest:function(id, projectName){ this.action.removeSystemUnderTest(this.createParams({id:id, projectName:projectName, selectedSutName:$F('selectedSut')})); },
 	setSutAsDefault:function(id, projectName){ this.action.setSutAsDefault(this.createParams({id:id, projectName:projectName, selectedSutName:$F('selectedSut')})); },
 	getFileSystemRegistration:function(){
-		GP.View.showPane('fileSystemPane_display','paneGroup','div');
+		GP.View.showPane('fileSystemPane_display','gpconfig-tabs','div');
 		this.action.getFileSystemRegistration(this.createParams({editMode:false}));
 	},
 	editFileSystem:function(){this.action.editFileSystem(this.createParams({editMode:true})); },
@@ -101,16 +101,16 @@ GPProperties.prototype =
 	removeFileSystem:function(repositoryUid){this.action.removeFileSystem(this.createParams({repositoryUid:repositoryUid, editMode:true})); },
 	
 	getLicensePane:function(){
-		GP.View.showPane('license_display','paneGroup','div');
+		GP.View.showPane('license_display','gpconfig-tabs','div');
 		this.action.getLicensePane(this.createParams({id:'none'}));		
 	},
 	
 	editDbms:function(){
-		GP.View.showPane('dbmsConfigPane_display','paneGroup','div');
+		GP.View.showPane('dbmsConfigPane_display','gpconfig-tabs','div');
 		this.action.getInstallWizardPane(this.createParams({editMode:true}));		
 	},
 	getDbmsConfigPane:function(){
-		GP.View.showPane('dbmsConfigPane_display','paneGroup','div');
+		GP.View.showPane('dbmsConfigPane_display','gpconfig-tabs','div');
 		this.action.getInstallWizardPane(this.createParams({id:'none'}));
 	},
 	updateQuickDbmsConfiguration:function(){ this.action.updateDbmsConfiguration(this.createParams({installType:$F('installType_Cmb'), hibernateDialect:'org.hibernate.dialect.HSQLDialect'})); },
@@ -122,23 +122,23 @@ GPProperties.prototype =
 		GP.View.write('testConnection_display', ''); this.action.testDbmsConnection(this.createParams({jndiUrl:$F('jndi_txtfield'), hibernateDialect:$F('dbms')})); },
 	changeInstallationType:function(){ GP.View.write('dbmsChoice_display', ''); this.action.changeInstallationType(this.createParams({installType:$F('installType_Cmb')}));},
 	getGpProjectPane:function(){
-		GP.View.showPane('GpProjectPane_display','paneGroup','div');
+		GP.View.showPane('GpProjectPane_display','gpconfig-tabs','div');
 		this.action.getGpProjectPane(this.createParams({id:'none'}));
 	},
 
 	getDemoPane:function() {
-		GP.View.showPane('demoPane_display','paneGroup','div');
+		GP.View.showPane('demoPane_display','gpconfig-tabs','div');
 		this.action.getDemoPane(this.createParams({id:'none'}));
 	},
 	createDemoSpace:function(checkUsername) {
 		if (checkUsername == 'true') {
 			if ($F('username') == ''){return;}
 		}
-		GP.View.showPane('demoPane_display','paneGroup','div');
+		GP.View.showPane('demoPane_display','gpconfig-tabs','div');
 		this.action.createDemoSpace(this.createParams({username:$F('username'), pwd:$F('pwd')}));
 	},
 	removeDemoSpace:function() {
-		GP.View.showPane('demoPane_display','paneGroup','div');
+		GP.View.showPane('demoPane_display','gpconfig-tabs','div');
 		this.action.removeDemoSpace(this.createParams({}));
 	},
 

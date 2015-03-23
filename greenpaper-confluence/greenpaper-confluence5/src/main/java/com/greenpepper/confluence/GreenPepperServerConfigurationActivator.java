@@ -1,16 +1,13 @@
 /*
  * Copyright (c) 2008 Pyxis Technologies inc.
- *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
@@ -52,284 +49,254 @@ import com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer;
 import com.greenpepper.util.URIUtil;
 import com.opensymphony.webwork.ServletActionContext;
 
-public class GreenPepperServerConfigurationActivator implements StateAware
-{
-	private static final Logger log = Logger.getLogger(GreenPepperServerConfigurationActivator.class);
-	
-	private final BandanaContext bandanaContext = new ConfluenceBandanaContext("_GREENPEPPER");
+public class GreenPepperServerConfigurationActivator implements StateAware {
 
-	private BandanaManager bandanaManager;
+    private static final Logger log = Logger.getLogger(GreenPepperServerConfigurationActivator.class);
 
-	private BootstrapManager bootstrapManager;
+    private final BandanaContext bandanaContext = new ConfluenceBandanaContext("_GREENPEPPER");
 
-	private GreenPepperServerConfiguration configuration;
+    private BandanaManager bandanaManager;
 
-	private HibernateSessionService hibernateSessionService;
+    private BootstrapManager bootstrapManager;
 
-	private ServletContext servletContext;
+    private GreenPepperServerConfiguration configuration;
 
-	private boolean isPluginEnabled = false;
+    private HibernateSessionService hibernateSessionService;
 
-	private boolean isServerStarted = false;
+    private ServletContext servletContext;
 
-	public GreenPepperServerConfigurationActivator()
-	{
-	}
+    private boolean isPluginEnabled = false;
 
-	public void enabled()
-	{
-		isPluginEnabled = true;
-	}
+    private boolean isServerStarted = false;
 
-	public void disabled()
-	{
-		isPluginEnabled = false;
-		closeSession();
-	}
+    public GreenPepperServerConfigurationActivator() {
+    }
 
-	public void setBandanaManager(BandanaManager bandanaManager)
-	{
-		this.bandanaManager = bandanaManager;
-	}
+    public void enabled() {
+        try {
+            log.info("Enabling GreenPepper Plugin");
+            isPluginEnabled = true;
+            startup(false);
+        } catch (GreenPepperServerException e) {
+            log.error("Post-install : startup failed", e);
+            throw new RuntimeException(e);
+        }
+    }
 
-	public void setBootstrapManager(BootstrapManager bootstrapManager)
-	{
-		this.bootstrapManager = bootstrapManager;
-	}
+    public void disabled() {
+        log.info("Disabling GreenPepper Plugin");
+        isPluginEnabled = false;
+        shutdown();
+    }
 
-	public void setServletContext(ServletContext servletContext)
-	{
-		this.servletContext = servletContext;
-	}
+    public void setBandanaManager(BandanaManager bandanaManager) {
+        this.bandanaManager = bandanaManager;
+    }
 
-	public boolean isReady()
-	{
-		return isPluginEnabled && hibernateSessionService != null;
-	}
+    public void setBootstrapManager(BootstrapManager bootstrapManager) {
+        this.bootstrapManager = bootstrapManager;
+    }
 
-	public void startup(boolean forceStartup)
-			throws GreenPepperServerException
-	{
-		if (!isPluginEnabled) return;
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
 
-		final GreenPepperServerConfiguration configuration = getConfiguration();
+    public boolean isReady() {
+        return isPluginEnabled && hibernateSessionService != null;
+    }
 
-		if ((configuration.isSetupComplete() && !isServerStarted) || forceStartup)
-		{
-			isServerStarted = false;
+    public void startup(boolean forceStartup) throws GreenPepperServerException {
+        if (!isPluginEnabled)
+            return;
 
-			try
-			{
-				closeSession();
+        final GreenPepperServerConfiguration configuration = getConfiguration();
 
-				Properties properties = configuration.getProperties();
+        if ((configuration.isSetupComplete() && !isServerStarted) || forceStartup) {
+            isServerStarted = false;
 
-				injectAdditionalProperties(properties);
+            try {
+                closeSession();
 
-				HibernateSessionService sessionService = new HibernateSessionService(properties);
+                Properties properties = configuration.getProperties();
+
+                injectAdditionalProperties(properties);
+
+                HibernateSessionService sessionService = new HibernateSessionService(properties);
 
                 log.info("Boostrapping datas");
-				new BootstrapData(sessionService, properties).execute();
-				new GreenPepperUserGroup().createIfNeeded();
+                new BootstrapData(sessionService, properties).execute();
+                new GreenPepperUserGroup().createIfNeeded();
 
                 // TODO Use a more intelligent way of doing things
                 Authorizer authorizer = new OpenSourceAuthorizer(sessionService, properties);
                 // Authorizer authorizer = new DefaultAuthorizer(sessionService, properties);
-				authorizer.initialize(GreenPepperServer.versionDate());
+                authorizer.initialize(GreenPepperServer.versionDate());
 
-				ProjectDao projectDao = new HibernateProjectDao(sessionService);
-				RepositoryDao repositoryDao = new HibernateRepositoryDao(sessionService);
-				SystemUnderTestDao sutDao = new HibernateSystemUnderTestDao(sessionService);
-				DocumentDao documentDao = new HibernateDocumentDao(sessionService);
+                ProjectDao projectDao = new HibernateProjectDao(sessionService);
+                RepositoryDao repositoryDao = new HibernateRepositoryDao(sessionService);
+                SystemUnderTestDao sutDao = new HibernateSystemUnderTestDao(sessionService);
+                DocumentDao documentDao = new HibernateDocumentDao(sessionService);
 
-				Object object = ContainerManager.getComponent("greenPepperServerService");
-				GreenPepperServerServiceImpl service = (GreenPepperServerServiceImpl)object;
+                Object object = ContainerManager.getComponent("greenPepperServerService");
+                GreenPepperServerServiceImpl service = (GreenPepperServerServiceImpl) object;
 
-				service.setAuthorizer(authorizer);
-				service.setDocumentDao(documentDao);
-				service.setProjectDao(projectDao);
-				service.setRepositoryDao(repositoryDao);
-				service.setSessionService(sessionService);
-				service.setSutDao(sutDao);
+                service.setAuthorizer(authorizer);
+                service.setDocumentDao(documentDao);
+                service.setProjectDao(projectDao);
+                service.setRepositoryDao(repositoryDao);
+                service.setSessionService(sessionService);
+                service.setSutDao(sutDao);
 
-				object = ContainerManager.getComponent("greenPepperXmlRpcServerService");
-				GreenPepperXmlRpcServer xmlRpcServer = (GreenPepperXmlRpcServer)object;
-				xmlRpcServer.setService(service);
+                object = ContainerManager.getComponent("greenPepperXmlRpcServerService");
+                GreenPepperXmlRpcServer xmlRpcServer = (GreenPepperXmlRpcServer) object;
+                xmlRpcServer.setService(service);
 
-				hibernateSessionService = sessionService;
+                hibernateSessionService = sessionService;
 
-				configuration.setSetupComplete(true);
-				storeConfiguration(configuration);
+                configuration.setSetupComplete(true);
+                storeConfiguration(configuration);
 
-				isServerStarted = true;
-			}
-			catch (Exception ex)
-			{
-				log.error("Starting up GreenPepper plugin", ex);
-				throw new GreenPepperServerException(GreenPepperServerErrorKey.GENERAL_ERROR, ex);
-			}
-		}
-	}
+                isServerStarted = true;
+            } catch (Exception ex) {
+                log.error("Starting up GreenPepper plugin", ex);
+                throw new GreenPepperServerException(GreenPepperServerErrorKey.GENERAL_ERROR, ex);
+            }
+        }
+    }
 
-	public void shutdown()
-	{
-		closeSession();
-	}
+    public void shutdown() {
+        closeSession();
+    }
 
-	private void closeSession()
-	{
-		if (hibernateSessionService != null)
-		{
-			hibernateSessionService.close();
-		}
+    private void closeSession() {
+        if (hibernateSessionService != null) {
+            hibernateSessionService.close();
+        }
 
-		hibernateSessionService = null;
-		isServerStarted = false;
-	}
-	
-	private void injectAdditionalProperties(Properties sProperties)
-	{
-		final ServletContext servletContext = getServletContext();
-		
-		String dialect = servletContext.getInitParameter("hibernate.dialect");
-		if(dialect != null) sProperties.setProperty("hibernate.dialect", dialect);
-		if(servletContext.getRealPath("/") != null)
-		{
-			sProperties.setProperty("baseUrl", URIUtil.decoded(servletContext.getRealPath("/")));
-		}
+        hibernateSessionService = null;
+        isServerStarted = false;
+    }
 
-		sProperties.setProperty("confluence.home", getConfluenceHome());
-	}
+    private void injectAdditionalProperties(Properties sProperties) {
+        final ServletContext servletContext = getServletContext();
 
-	public GreenPepperServerConfiguration getConfiguration()
-	{
-		if (configuration == null)
-		{
-			configuration = getConfigurationFromBandana();
-		}
-		
-		return configuration;
-	}
+        String dialect = servletContext.getInitParameter("hibernate.dialect");
+        if (dialect != null)
+            sProperties.setProperty("hibernate.dialect", dialect);
+        if (servletContext.getRealPath("/") != null) {
+            sProperties.setProperty("baseUrl", URIUtil.decoded(servletContext.getRealPath("/")));
+        }
 
-	public void storeConfiguration(GreenPepperServerConfiguration configuration)
-	{
-		// @todo : sanity check over the previous configuration
-		
-		storeConfigurationToBandana(configuration);
-	}
+        sProperties.setProperty("confluence.home", getConfluenceHome());
+    }
 
-	private GreenPepperServerConfiguration getConfigurationFromBandana()
-	{
-		GreenPepperServerConfiguration configuration = (GreenPepperServerConfiguration)getValue(
-				GreenPepperServerConfiguration.class);
+    public GreenPepperServerConfiguration getConfiguration() {
+        if (configuration == null) {
+            configuration = getConfigurationFromBandana();
+        }
 
-		if (configuration == null)
-		{
-			configuration = new GreenPepperServerConfiguration();
-			storeConfigurationToBandana(configuration);
-		}
+        return configuration;
+    }
 
-		return configuration;
-	}
+    public void storeConfiguration(GreenPepperServerConfiguration configuration) {
+        // @todo : sanity check over the previous configuration
 
-	private void storeConfigurationToBandana(GreenPepperServerConfiguration configuration)
-	{
-		setValue(GreenPepperServerConfiguration.class, configuration);
-	}
+        storeConfigurationToBandana(configuration);
+    }
 
-    private Object getValue(Class<?> classKey)
-	{
-		return bandanaManager.getValue(bandanaContext, classKey.getName());
-	}
+    private GreenPepperServerConfiguration getConfigurationFromBandana() {
+        GreenPepperServerConfiguration configuration = (GreenPepperServerConfiguration) getValue(GreenPepperServerConfiguration.class);
 
-    private void setValue(Class<?> classKey, Object value)
-	{
-		bandanaManager.setValue(bandanaContext, classKey.getName(), value);
-	}
+        if (configuration == null) {
+            configuration = new GreenPepperServerConfiguration();
+            storeConfigurationToBandana(configuration);
+        }
 
-	public String getConfigJnriUrl()
-	{
-		return (String)getConfiguration().getProperties().get("config$hibernate.connection.datasource");
-	}
+        return configuration;
+    }
 
-	public String getConfigDialect()
-	{
-		return (String)getConfiguration().getProperties().get("config$hibernate.dialect");
-	}
+    private void storeConfigurationToBandana(GreenPepperServerConfiguration configuration) {
+        setValue(GreenPepperServerConfiguration.class, configuration);
+    }
 
-	public void initQuickInstallConfiguration()
-			throws GreenPepperServerException
-	{
-		GreenPepperServerConfiguration configuration = getConfiguration();
-		
-		Properties properties = new DefaultServerProperties();
+    private Object getValue(Class<?> classKey) {
+        return bandanaManager.getValue(bandanaContext, classKey.getName());
+    }
 
-		properties.put("hibernate.c3p0.acquire_increment", "1");
-		properties.put("hibernate.c3p0.idle_test_period", "100");
-		properties.put("hibernate.c3p0.max_size", "15");
-		properties.put("hibernate.c3p0.max_statements", "0");
-		properties.put("hibernate.c3p0.min_size", "0");
-		properties.put("hibernate.c3p0.timeout", "30");
-		properties.remove("hibernate.connection.datasource"); // direct jdbc
-		properties.put("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver");
-		properties.put("hibernate.connection.url", "jdbc:hsqldb:" + getConfluenceHome() + "/database/gpsdb");
-		properties.put("hibernate.connection.username", "sa");
-		properties.put("hibernate.connection.password", "");
-		properties.put("hibernate.dialect", HSQLDialect.class.getName());
+    private void setValue(Class<?> classKey, Object value) {
+        bandanaManager.setValue(bandanaContext, classKey.getName(), value);
+    }
 
-		configuration.setProperties(properties);
+    public String getConfigJnriUrl() {
+        return (String) getConfiguration().getProperties().get("config$hibernate.connection.datasource");
+    }
 
-		startup(true);
-	}
+    public String getConfigDialect() {
+        return (String) getConfiguration().getProperties().get("config$hibernate.dialect");
+    }
 
-	public void initCustomInstallConfiguration(String hibernateDialect, String jndiUrl)
-			throws GreenPepperServerException
-	{
-		GreenPepperServerConfiguration configuration = getConfiguration();
+    public void initQuickInstallConfiguration() throws GreenPepperServerException {
+        GreenPepperServerConfiguration configuration = getConfiguration();
 
-		Properties properties = new DefaultServerProperties();
+        Properties properties = new DefaultServerProperties();
 
-		properties.put("hibernate.connection.datasource", jndiUrl);
-		properties.put("config$hibernate.connection.datasource", jndiUrl);
-		properties.put("hibernate.dialect", hibernateDialect);
-		properties.put("config$hibernate.dialect", hibernateDialect);
-		//properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.c3p0.acquire_increment", "1");
+        properties.put("hibernate.c3p0.idle_test_period", "100");
+        properties.put("hibernate.c3p0.max_size", "15");
+        properties.put("hibernate.c3p0.max_statements", "0");
+        properties.put("hibernate.c3p0.min_size", "0");
+        properties.put("hibernate.c3p0.timeout", "30");
+        properties.remove("hibernate.connection.datasource"); // direct jdbc
+        properties.put("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver");
+        properties.put("hibernate.connection.url", "jdbc:hsqldb:" + getConfluenceHome() + "/database/gpsdb");
+        properties.put("hibernate.connection.username", "sa");
+        properties.put("hibernate.connection.password", "");
+        properties.put("hibernate.dialect", HSQLDialect.class.getName());
 
-		if (hibernateDialect.indexOf("Oracle") != -1)
-		{
-			//The Oracle JDBC driver doesn't like prepared statement caching very much.
-			properties.put("hibernate.statement_cache.size", "0");
-			// or baching with BLOBs very much.
-			properties.put("hibernate.jdbc.batch_size", "0");
-			// http://www.jroller.com/dashorst/entry/hibernate_3_1_something_performance1
-			properties.put("hibernate.jdbc.wrap_result_sets", "true");
-		}
+        configuration.setProperties(properties);
 
-		configuration.setProperties(properties);
+        startup(true);
+    }
 
-		startup(true);
-	}
-	
-	private String getConfluenceHome()
-	{
+    public void initCustomInstallConfiguration(String hibernateDialect, String jndiUrl) throws GreenPepperServerException {
+        GreenPepperServerConfiguration configuration = getConfiguration();
+
+        Properties properties = new DefaultServerProperties();
+
+        properties.put("hibernate.connection.datasource", jndiUrl);
+        properties.put("config$hibernate.connection.datasource", jndiUrl);
+        properties.put("hibernate.dialect", hibernateDialect);
+        properties.put("config$hibernate.dialect", hibernateDialect);
+        // properties.put("hibernate.show_sql", "true");
+
+        if (hibernateDialect.indexOf("Oracle") != -1) {
+            // The Oracle JDBC driver doesn't like prepared statement caching very much.
+            properties.put("hibernate.statement_cache.size", "0");
+            // or baching with BLOBs very much.
+            properties.put("hibernate.jdbc.batch_size", "0");
+            // http://www.jroller.com/dashorst/entry/hibernate_3_1_something_performance1
+            properties.put("hibernate.jdbc.wrap_result_sets", "true");
+        }
+
+        configuration.setProperties(properties);
+
+        startup(true);
+    }
+
+    private String getConfluenceHome() {
         return bootstrapManager.getLocalHome().getAbsolutePath();
-	}
+    }
 
-	private ServletContext getServletContext()
-	{
-		if (servletContext == null)
-		{
-			try
-			{
-				return ServletActionContext.getServletContext();
-			}
-			catch (Throwable t)
-			{
-				log.warn("Cannot retrieve servlet context", t);
-				return null;
-			}
-		}
+    private ServletContext getServletContext() {
+        if (servletContext == null) {
+            try {
+                return ServletActionContext.getServletContext();
+            } catch (Throwable t) {
+                log.warn("Cannot retrieve servlet context", t);
+                return null;
+            }
+        }
 
-		return servletContext;
-	}
+        return servletContext;
+    }
 }

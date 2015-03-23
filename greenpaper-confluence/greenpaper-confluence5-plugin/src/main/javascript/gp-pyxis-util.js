@@ -58,7 +58,7 @@ GP.View =
 	verifyKeyCode: function(evt){
 		var charCode = (evt.which) ? evt.which : evt.keyCode;
 		if (charCode == 95 || charCode == 33 || charCode == 32 || charCode == 8){ return true; }
-		//Permet les touches home, end, les flèches et le tab
+		//Permet les touches home, end, les flï¿½ches et le tab
 		if (charCode ==  9 || (charCode >= 35 && charCode <= 40)){ return true; }
 		if (charCode > 43 && charCode < 60){ return true; }
 		if (charCode > 64 && charCode < 91){ return true; }
@@ -79,7 +79,8 @@ GP.View =
 	},
 	showPane: function(paneToShow, paneContainerID, panesTagType){
 		if ($(paneContainerID) && panesTagType != '' && $(paneToShow)){
-			$$('#'+ $(paneContainerID).id + ' ' + panesTagType).each(function(s){GP.View.hide(s)});
+			$$('#'+ $(paneContainerID).id + ' ' + panesTagType).each(function(s){ jQuery(s).removeClass('active-pane'); });
+			jQuery('#'+ $(paneContainerID).id + ' #' + paneToShow).addClass('active-pane');
 			this.show(paneToShow);
 		}
 	}

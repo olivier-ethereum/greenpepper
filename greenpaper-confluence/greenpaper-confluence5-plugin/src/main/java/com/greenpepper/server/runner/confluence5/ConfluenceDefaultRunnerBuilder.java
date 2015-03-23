@@ -38,7 +38,7 @@ public class ConfluenceDefaultRunnerBuilder implements DefaultRunnerBuilder {
     public void buildAndRegisterRunner(SystemUnderTestDao systemUnderTestDao, Properties properties) {
         String confluenceHome = properties.getProperty("confluence.home", null);
         if (confluenceHome != null) {
-            File pluginsCacheDir = new File(confluenceHome, "plugins-cache");
+            File pluginsCacheDir = new File(confluenceHome, "plugins-data");
             insertJavaRunnerFromPackagedJar(pluginsCacheDir, systemUnderTestDao);
         }
     }

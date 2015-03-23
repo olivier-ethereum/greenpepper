@@ -2,6 +2,7 @@ package com.greenpepper.server;
 
 import java.net.URL;
 import java.util.Properties;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,7 +11,7 @@ import com.greenpepper.server.configuration.ServerConfiguration;
 import com.greenpepper.server.database.hibernate.BootstrapData;
 import com.greenpepper.server.database.hibernate.HibernateSessionService;
 import com.greenpepper.server.license.Authorizer;
-import com.greenpepper.server.license.DefaultAuthorizer;
+import com.greenpepper.server.license.OpenSourceAuthorizer;
 import com.greenpepper.util.URIUtil;
 
 public class GPServletContextListener implements ServletContextListener
@@ -33,7 +34,9 @@ public class GPServletContextListener implements ServletContextListener
             ctx.log("Boostrapping datas");
             new BootstrapData(service, sProperties).execute();
             
-            Authorizer authorizer = new DefaultAuthorizer(service, sProperties);
+            // TODO Use a more intelligent way of doing things
+            // Authorizer authorizer = new DefaultAuthorizer(service, sProperties);
+            Authorizer authorizer = new OpenSourceAuthorizer(service, sProperties);
             authorizer.initialize(GreenPepperServer.versionDate());
             ctx.setAttribute(ServletContextKeys.AUTHORIZER, authorizer);
         }

@@ -38,7 +38,6 @@ import com.atlassian.confluence.spaces.Space;
 import com.atlassian.confluence.velocity.htmlsafe.HtmlSafe;
 import com.atlassian.spring.container.ContainerManager;
 import com.atlassian.user.User;
-import com.greenpepper.confluence.demo.phonebook.PhoneBookSystemUnderDevelopment;
 import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.EnvironmentType;
@@ -56,6 +55,11 @@ import com.greenpepper.util.StringUtil;
 public class DemoSpaceAction
 		extends GreenPepperServerAction
 {
+
+    private static final long serialVersionUID = 6646642827806562030L;
+
+    private static final String PHONEBOOK_SUD_CLASS = "com.greenpepper.confluence.demo.phonebook.PhoneBookSystemUnderDevelopment";
+
 
     /**
      * Logger for this class
@@ -221,7 +225,7 @@ public class DemoSpaceAction
 		{
 			phoneBookSut = SystemUnderTest.newInstance(PHONEBOOK_SUT_NAME);
 
-			phoneBookSut.setFixtureFactory(PhoneBookSystemUnderDevelopment.class.getName());
+			phoneBookSut.setFixtureFactory(PHONEBOOK_SUD_CLASS);
 			phoneBookSut.setRunner(getJavaRunner());
 			phoneBookSut.setProject(getDemoProject());
 

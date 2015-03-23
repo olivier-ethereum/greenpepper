@@ -28,13 +28,31 @@
 		<dependency>
 			<groupId>com.atlassian.confluence</groupId>
 			<artifactId>confluence</artifactId>
-            <version>${atlassian.product.version}</version>
+			<version>${atlassian.product.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.9.1</version>
+				<executions>
+					<execution>
+						<id>add-fixtures-to-test-sources</id>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/fixture/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
@@ -85,7 +103,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 </project>

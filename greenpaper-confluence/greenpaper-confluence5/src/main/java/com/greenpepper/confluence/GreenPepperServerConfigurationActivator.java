@@ -47,7 +47,7 @@ import com.greenpepper.server.domain.dao.hibernate.HibernateProjectDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateRepositoryDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
 import com.greenpepper.server.license.Authorizer;
-import com.greenpepper.server.license.DefaultAuthorizer;
+import com.greenpepper.server.license.OpenSourceAuthorizer;
 import com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer;
 import com.greenpepper.util.URIUtil;
 import com.opensymphony.webwork.ServletActionContext;
@@ -132,7 +132,9 @@ public class GreenPepperServerConfigurationActivator implements StateAware
 				new BootstrapData(sessionService, properties).execute();
 				new GreenPepperUserGroup().createIfNeeded();
 
-				Authorizer authorizer = new DefaultAuthorizer(sessionService, properties);
+                // TODO Use a more intelligent way of doing things
+                Authorizer authorizer = new OpenSourceAuthorizer(sessionService, properties);
+                // Authorizer authorizer = new DefaultAuthorizer(sessionService, properties);
 				authorizer.initialize(GreenPepperServer.versionDate());
 
 				ProjectDao projectDao = new HibernateProjectDao(sessionService);

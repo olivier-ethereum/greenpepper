@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
+
 import com.greenpepper.runner.Main;
 import com.greenpepper.server.GreenPepperServer;
 import com.greenpepper.server.configuration.ServerConfiguration;
@@ -15,10 +17,12 @@ import com.greenpepper.server.database.hibernate.hsqldb.AbstractDBUnitHibernateM
 import com.greenpepper.server.domain.Runner;
 import com.greenpepper.server.domain.dao.SystemUnderTestDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
+import com.greenpepper.server.runner.spi.DefaultRunnerBuilder;
 import com.greenpepper.util.URIUtil;
 
 public class DefaultRunnersTest extends AbstractDBUnitHibernateMemoryTest
 {
+
     private static final String DATAS = "/dbunit/datas/InitializedDataBase-latest.xml";
     private URL configURL = DefaultRunnersTest.class.getResource("configuration-test.xml");
 	private Properties properties;
@@ -40,6 +44,14 @@ public class DefaultRunnersTest extends AbstractDBUnitHibernateMemoryTest
 		sutDao = new HibernateSystemUnderTestDao(this);
     }
     
+    protected void tearDown() throws Exception {
+        super.tearDown();
+
+        File testDir = FileUtils.toFile(getClass().getResource("/"));
+        File metainfDir = new File(testDir, "META-INF");
+        FileUtils.deleteQuietly(metainfDir);
+    }
+
     public void testTheJavaCurrentVersionRunnerIsProperlyRegisteredAndAllLibsAreCopiedIntoTheRunnersDirectory() throws Exception
     {  
         List<String> expectedCp = new ArrayList<String>();
@@ -63,6 +75,7 @@ public class DefaultRunnersTest extends AbstractDBUnitHibernateMemoryTest
         assertTrue(expectedCp.containsAll(asPathList((runnerDir.listFiles()))));
     }
     
+
     public void testTheJavaCurrentVersionRunnerIsProperlyRegisteredAndAllLibsAreCopiedIntoTheRunnersDirectoryConfluence5() throws Exception {
         String absolutePath = new File(basePath, "confluence5").getAbsolutePath();
         properties.setProperty("baseUrl", absolutePath);
@@ -167,6 +180,19 @@ public class DefaultRunnersTest extends AbstractDBUnitHibernateMemoryTest
 		})))));
 	}
 
+    public void testServiceLoader() throws Exception {
+        properties.remove("baseUrl");
+        File testDir = FileUtils.toFile(getClass().getResource("/"));
+        File servicesDir = new File(testDir, "META-INF/services");
+        servicesDir.mkdirs();
+        FileUtils.writeStringToFile(new File(servicesDir, DefaultRunnerBuilder.class.getCanonicalName()), DummyRunnerBuilder.class.getCanonicalName(), "UTF-8");
+
+        new InitialDatas(this).insert();
+        new DefaultRunners(this, properties).insert();
+
+        assertNotNull(sutDao.getRunnerByName("Dummy Runner"));
+    }
+
     private List<String> toUpperCaseList(Collection<String> classpaths) {
         List<String> paths = new ArrayList<String>();
         for(String path :classpaths)
@@ -187,4 +213,5 @@ public class DefaultRunnersTest extends AbstractDBUnitHibernateMemoryTest
         
         return paths;
     }
+
 }

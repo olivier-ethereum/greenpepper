@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 
 import com.atlassian.confluence.velocity.htmlsafe.HtmlSafe;
 import com.greenpepper.confluence.GreenPepperServerConfigurationActivator;
-import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.database.SupportedDialects;
 import com.greenpepper.util.I18nUtil;
@@ -46,11 +45,12 @@ public class InstallationAction
 	}
 
 	public String config() {
-
-        if (!gpUtil.isPluginInstalledUnderWebInfLib()) {
-            addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new String[] {gpUtil.getWebInfLibDirectory()}));
-        }
-
+        /*
+         * if (!gpUtil.isPluginInstalledUnderWebInfLib()) {
+         * addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new
+         * String[] {gpUtil.getWebInfLibDirectory()}));
+         * }
+         */
 		return SUCCESS;
 	}
 

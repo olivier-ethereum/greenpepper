@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <!--
-       - Basic Project Information
-        -->
+	<!-- - Basic Project Information -->
 	<groupId>greenpepper</groupId>
 	<artifactId>greenpepper-base</artifactId>
 	<packaging>pom</packaging>
@@ -14,11 +13,9 @@
 		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
 
-    <!--
-       - Dependencies that we want for all modules
-       -->
+	<!-- - Dependencies that we want for all modules -->
 	<dependencies>
-        <!-- **** Test level (not distributed) dependencies  **** -->
+		<!-- **** Test level (not distributed) dependencies **** -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -26,7 +23,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<!-- Logs -->
@@ -58,19 +55,22 @@
 				<artifactId>slf4j-simple</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-				
+
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
 				<version>0.9.28</version>
 				<scope>runtime</scope>
 			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.4</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-    <!--
-       - Extra project information
-       -->
+	<!-- - Extra project information -->
 	<url>https://www.greenpeppersoftware.com</url>
 	<inceptionYear>2005</inceptionYear>
 	<organization>
@@ -132,7 +132,7 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
-		
+
 		<developer>
 			<id>vtence</id>
 			<name>Vincent Tence</name>
@@ -177,15 +177,13 @@
 			<organization>Pyxis Technologies</organization>
 		</contributor>
 	</contributors>
-	
+
 	<scm>
 		<connection>https://github.com/greenpeppersoftware/greenpepper-base.git</connection>
 		<url>https://github.com/greenpeppersoftware/greenpepper-base</url>
 	</scm>
 
-    <!--
-       - Configure the build plugins
-       -->
+	<!-- - Configure the build plugins -->
 	<build>
 		<plugins>
 			<plugin>
@@ -200,15 +198,13 @@
 	</build>
 
 	<repositories>
-         <repository>
-           <id>atlassian-public-m1</id>
-           <url>https://maven.atlassian.com/content/groups/public</url>
-         </repository>
+		<repository>
+			<id>atlassian-public-m1</id>
+			<url>https://maven.atlassian.com/content/groups/public</url>
+		</repository>
 	</repositories>
-	  
-    <!--
-       - Configure the reporting plugins
-       -->
+
+	<!-- - Configure the reporting plugins -->
 	<reporting>
 		<plugins>
 			<plugin>
@@ -219,7 +215,8 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jxr-maven-plugin</artifactId>
 				<configuration>
-					<bottom>Copyright &amp;copy; 2005-2009 ${project.organization.name}. All Rights Reserved.</bottom>
+					<bottom>Copyright &amp;copy; 2005-2009
+						${project.organization.name}. All Rights Reserved.</bottom>
 				</configuration>
 			</plugin>
 			<plugin>

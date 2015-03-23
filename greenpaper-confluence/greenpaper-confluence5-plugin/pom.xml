@@ -107,6 +107,15 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<descriptor>src/main/assembly/dep.xml</descriptor>
+					<archive>
+						<manifestEntries>
+							<Require-Capability>osgi.extender;
+      filter:="(osgi.extender=osgi.serviceloader.processor)",
+    osgi.serviceloader;
+      filter:="(osgi.serviceloader=com.greenpepper.server.runner.spi.DefaultRunnerBuilder)";
+      cardinality:=multiple</Require-Capability>
+						</manifestEntries>
+					</archive>
 				</configuration>
 				<executions>
 					<execution>
@@ -158,6 +167,13 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>greenpepper</groupId>
+			<artifactId>greenpepper-client</artifactId>
+			<classifier>complete</classifier>
+			<version>${project.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-confluence5</artifactId>
@@ -255,6 +271,24 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.2-atlassian-1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-inject</artifactId>
+			<version>3.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-easymock</artifactId>
+			<version>3.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

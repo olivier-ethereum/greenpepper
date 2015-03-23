@@ -25,6 +25,10 @@
 				<include>truelicense:truelicense</include>
 				<include>truelicense:truexml</include>
 			</includes>
+			<excludes>
+				<exclude>greenpepper:greenpepper-client:jar:complete</exclude>
+				<exclude>greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
+			</excludes>
 			<unpack>true</unpack>
 			<unpackOptions>
 				<excludes>
@@ -40,6 +44,13 @@
 				</excludes>
 			</unpackOptions>
 			<outputFileNameMapping/>
+		</dependencySet>
+		<dependencySet>
+			<includes>
+				<include>greenpepper:greenpepper-client:jar:complete</include>
+				<include>greenpepper:greenpepper-confluence-demo:jar:fixtures</include>
+			</includes>
+			<unpack>false</unpack>
 		</dependencySet>
 	</dependencySets>
 	<fileSets>

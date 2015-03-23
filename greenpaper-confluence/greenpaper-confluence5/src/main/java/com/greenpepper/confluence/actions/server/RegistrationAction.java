@@ -64,13 +64,14 @@ public class RegistrationAction extends GreenPepperServerAction
 
 	public String doGetRegistration()
     {
-        if (!isPluginInstalledUnderWebInfLib()) {
-            addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new String[] {gpUtil.getWebInfLibDirectory()}));
-            readonly = true;
-            editMode = false;
-            addMode = false;
-            return SUCCESS;
-        }
+        // if (!isPluginInstalledUnderWebInfLib()) {
+        // addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new
+        // String[] {gpUtil.getWebInfLibDirectory()}));
+        // readonly = true;
+        // editMode = false;
+        // addMode = false;
+        // return SUCCESS;
+        // }
 
 		if (!isServerReady())
 		{

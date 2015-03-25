@@ -14,7 +14,7 @@
 	<tr class="sp_configClasspathsTitle">
 		<td class="sp_cplabels">$action.ClasspathTitle</td>
 		<td class="sp_cplinksView">
-			<span id="classpathsEditSave"class="sp_configLinks" onclick="gpProperties.editRunnerClasspath('$action.spaceKey', $('editClasspathInput').value);">$action.getText('greenpepper.classpath.update')</span>
+			<span id="classpathsEditSave"class="sp_configLinks" onclick="gpProperties.editRunnerClasspath('$action.spaceKey', $('#editClasspathInput').val());">$action.getText('greenpepper.classpath.update')</span>
 			|
 			<span id="classpathsEditCancel" class="sp_configLinks" onclick="gpProperties.getRunner('$action.spaceKey');">$action.getText('greenpepper.classpath.cancel')</span>
 		</td>

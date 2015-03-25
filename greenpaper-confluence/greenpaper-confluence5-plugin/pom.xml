@@ -170,6 +170,11 @@
 		<dependency>
 			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>greenpepper</groupId>
+			<artifactId>greenpepper-client</artifactId>
 			<classifier>complete</classifier>
 			<version>${project.version}</version>
 			<scope>runtime</scope>

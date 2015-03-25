@@ -1,11 +1,15 @@
 package com.greenpepper.server.domain;
 
+import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.*;
+import static com.greenpepper.util.IOUtils.uniquePath;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,24 +23,17 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenpepper.report.XmlReport;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_CLASSPATH_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_CMDLINE_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_ENVTYPE_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_MAINCLASS_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_NAME_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_SECURED_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_SERVER_NAME_IDX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.RUNNER_SERVER_PORT_IDX;
 import com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutor;
 import com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutorFactory;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.ExceptionUtils;
 import com.greenpepper.util.IOUtil;
-import static com.greenpepper.util.IOUtils.uniquePath;
 import com.greenpepper.util.StringUtil;
 import com.greenpepper.util.URIUtil;
 import com.greenpepper.util.cmdline.CommandLineBuilder;
@@ -55,6 +52,8 @@ import com.greenpepper.util.cmdline.CommandLineExecutor;
 @SuppressWarnings("serial")
 public class Runner extends AbstractVersionedEntity implements Comparable
 {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 	private static final String AGENT_HANDLER = "greenpepper-agent1";
     private String name;
     private String cmdLineTemplate;
@@ -188,6 +187,8 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     @SuppressWarnings("unchecked")
 	private Execution executeRemotely(Specification specification, SystemUnderTest systemUnderTest, boolean implementedVersion, String sections, String locale)
     {
+        LOG.debug("Execute Remotely {} on agentURL {}", specification.getName(), agentUrl());
+
         try
         {
         	sections = (String)XmlRpcDataMarshaller.padNull(sections);
@@ -196,6 +197,7 @@ public class Runner extends AbstractVersionedEntity implements Comparable
 	        XmlRpcClientExecutor xmlrpc = XmlRpcClientExecutorFactory.newExecutor(agentUrl());
 
 	        Vector params = CollectionUtil.toVector(marshallize(), systemUnderTest.marshallize(), specification.marshallize(), implementedVersion, sections, locale);
+
 	        Vector<Object> execParams = (Vector<Object>)xmlrpc.execute(AGENT_HANDLER+".execute", params);
 	        
 			Execution execution = XmlRpcDataMarshaller.toExecution(execParams);

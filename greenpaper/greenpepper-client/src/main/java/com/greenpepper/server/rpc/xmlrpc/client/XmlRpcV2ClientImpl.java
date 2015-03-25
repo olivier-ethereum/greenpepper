@@ -18,6 +18,10 @@
  */
 package com.greenpepper.server.rpc.xmlrpc.client;
 
+import static com.greenpepper.server.GreenPepperServerErrorKey.CALL_FAILED;
+import static com.greenpepper.server.GreenPepperServerErrorKey.CONFIGURATION_ERROR;
+import static com.greenpepper.server.GreenPepperServerErrorKey.XML_RPC_URL_NOTFOUND;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Vector;
@@ -25,13 +29,14 @@ import java.util.Vector;
 import org.apache.xmlrpc.XmlRpcClient;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.secure.SecureXmlRpcClient;
-
-import static com.greenpepper.server.GreenPepperServerErrorKey.CALL_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.CONFIGURATION_ERROR;
-import static com.greenpepper.server.GreenPepperServerErrorKey.XML_RPC_URL_NOTFOUND;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlRpcV2ClientImpl
 		implements XmlRpcClientExecutor {
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlRpcV2ClientImpl.class);
 
 	private final XmlRpcClient client;
 
@@ -50,9 +55,9 @@ public class XmlRpcV2ClientImpl
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public Object execute(String method, Vector params)
 			throws XmlRpcClientExecutorException {
+        LOGGER.debug("executing method {} , with params {}", method, params);
 
 		try {
 			return client.execute(method, params);

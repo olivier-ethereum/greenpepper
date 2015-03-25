@@ -26,7 +26,7 @@ Sound = {
 
     if(options.replace && this.tracks[options.track]) {
       $R(0, this.tracks[options.track].id).each(function(id){
-        var sound = $('sound_'+options.track+'_'+id);
+        var sound = _prototype_$('sound_'+options.track+'_'+id);
         sound.Stop && sound.Stop();
         sound.remove();
       });
@@ -39,7 +39,7 @@ Sound = {
       this.tracks[options.track].id++;
 
     options.id = this.tracks[options.track].id;
-    $$('body')[0].insert(
+    _prototype_$$('body')[0].insert(
       Prototype.Browser.IE ? new Element('bgsound',{
         id: 'sound_'+options.track+'_'+options.id,
         src: options.url, loop: 1, autostart: true

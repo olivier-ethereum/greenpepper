@@ -109,7 +109,7 @@ var Builder = {
   },
   build: function(html) {
     var element = this.node('div');
-    $(element).update(html.strip());
+    _prototype_$(element).update(html.strip());
     return element.down();
   },
   dump: function(scope) { 

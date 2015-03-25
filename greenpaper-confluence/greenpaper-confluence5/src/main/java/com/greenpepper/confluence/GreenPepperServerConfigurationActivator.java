@@ -73,14 +73,9 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     }
 
     public void enabled() {
-        try {
-            log.info("Enabling GreenPepper Plugin");
-            isPluginEnabled = true;
-            startup(false);
-        } catch (GreenPepperServerException e) {
-            log.error("Post-install : startup failed", e);
-            throw new RuntimeException(e);
-        }
+        log.info("Enabling GreenPepper Plugin");
+        isPluginEnabled = true;
+
     }
 
     public void disabled() {
@@ -106,6 +101,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     }
 
     public void startup(boolean forceStartup) throws GreenPepperServerException {
+        log.info("Starting Plugin");
         if (!isPluginEnabled)
             return;
 
@@ -165,6 +161,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     }
 
     public void shutdown() {
+        log.info("Shutting down Plugin");
         closeSession();
     }
 
@@ -180,11 +177,13 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     private void injectAdditionalProperties(Properties sProperties) {
         final ServletContext servletContext = getServletContext();
 
-        String dialect = servletContext.getInitParameter("hibernate.dialect");
-        if (dialect != null)
-            sProperties.setProperty("hibernate.dialect", dialect);
-        if (servletContext.getRealPath("/") != null) {
-            sProperties.setProperty("baseUrl", URIUtil.decoded(servletContext.getRealPath("/")));
+        if (servletContext != null) {
+            String dialect = servletContext.getInitParameter("hibernate.dialect");
+            if (dialect != null)
+                sProperties.setProperty("hibernate.dialect", dialect);
+            if (servletContext.getRealPath("/") != null) {
+                sProperties.setProperty("baseUrl", URIUtil.decoded(servletContext.getRealPath("/")));
+            }
         }
 
         sProperties.setProperty("confluence.home", getConfluenceHome());

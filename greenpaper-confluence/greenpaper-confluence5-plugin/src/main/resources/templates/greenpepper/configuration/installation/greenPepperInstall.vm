@@ -16,7 +16,7 @@
 			
 			function updateTabsUI(selectedTab)
 			{
-				$$('#gpconfig-tabs .tabs-menu li').each(function(s){s.className="menu-item";});
+				_prototype_$$('#gpconfig-tabs .tabs-menu li').each(function(s){s.className="menu-item";});
 				selectedTab.className='menu-item active-tab';
 			}
 		</script>
@@ -65,8 +65,8 @@
             </div>
         #end
         	<script language="JavaScript" type="text/javascript">
-				$$('#gpconfig-tabs .tabs-menu .menu-item a')[0].onclick();
-				jQuery($$('#gpconfig-tabs .tabs-menu .menu-item')[0]).addClass("active-tab");
+				_prototype_$$('#gpconfig-tabs .tabs-menu .menu-item a')[0].onclick();
+				jQuery(_prototype_$$('#gpconfig-tabs .tabs-menu .menu-item')[0]).addClass("active-tab");
 			</script>
     </body>
 </html>

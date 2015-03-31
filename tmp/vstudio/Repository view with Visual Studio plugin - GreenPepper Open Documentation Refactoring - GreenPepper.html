@@ -1,0 +1,714 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- initpage.vm
+  themebuilder : 'com.adaptavist.confluence.builder.theme.VelocityHelper@193d23b'
+  layout : 'com.adaptavist.confluence.builder.layouts.model.Layout@10554cf'
+  layoutId : 'DOCUMENTATION'
+  spaceKey : 'GPWODOC'
+  currentURL : '/confluence/pages/viewpage.action?spaceKey=GPWODOC&title=Repository+view+with+Visual+Studio+plugin'
+  contextPath : '/confluence'
+  spaceName : 'GreenPepper Open Documentation Refactoring '
+  printable : '$printable'
+  mode : 'view'
+  context : 'page'
+  decorator : '$decorator'
+  page title : 'Repository view with Visual Studio plugin'
+  action name : 'viewpage'
+-->
+<html  debug="true">
+<head>
+
+
+<script type="text/javascript" src="/static/js/analytics.js"></script>
+<script type="text/javascript">archive_analytics.values.server_name="wwwb-app19.us.archive.org";archive_analytics.values.server_ms=136;</script>
+<link type="text/css" rel="stylesheet" href="/static/css/banner-styles.css"/>
+
+
+       <link rel="stylesheet" href="/web/20100510070818cs_/http://www.greenpeppersoftware.com/confluence/s/705/1/2/_/styles/main-action.css?spaceKey=GPWODOC" type="text/css" />
+         <link rel="stylesheet" type="text/css" href="/web/20100510070818cs_/http://www.greenpeppersoftware.com/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/hmenu/src/skin-longhorn.css">
+   <link rel="stylesheet" type="text/css" href="/web/20100510070818cs_/http://www.greenpeppersoftware.com/confluence/plugins/builder/layout-resources.action?layoutId=DOCUMENTATION&amp;key=GPWODOC&amp;resource=combinedcss&amp;hash=-1783347401confluences70512_">
+    <!--[if gte IE 5.5000]>
+     <link rel="stylesheet" type="text/css" href="/confluence/plugins/builder/layout-resources.action?layoutId=DOCUMENTATION&amp;key=GPWODOC&amp;resource=iecss&amp;hash=-1783347401confluences70512_">
+     <![endif]-->
+    <title>Repository view with Visual Studio plugin - GreenPepper Open Documentation Refactoring  -&nbsp;GreenPepper</title>
+    <META name="Generator" content="Adaptavist Theme Builder 3.1.4">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+    <META name="ROBOTS" content="NOYDIR,NOODP">
+    <META name="DESCRIPTION" content="Repository view  You can view all the specifications for your project using the repository view.   Show the repository view window Choose GreenPepper RepositoryView \\  !vsshowview.JPG align=center! \\ \\  The Repository View The Repository view is a JUnit like view. You ... ">
+    <link rel="shortcut icon" href="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/images/icons/favicon.ico">
+    <link rel="icon" type="image/png" href="/confluence/images/icons/favicon.png">
+<script type="text/javascript" language="JavaScript">
+    var contextPath = '/confluence';
+    var i18n = [];
+    var _dynarch_menu_url = "/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/hmenu/src/";
+    document.write("<style>.menulist {display:none;}<\/style>");
+</script>
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/plugins/builder/layout-resources.action?layoutId=DOCUMENTATION&amp;resource=javascript&amp;hash=-1783347401"></script>
+<style type="text/css" media="screen">
+@import url(/web/20100510070818im_/http://www.greenpeppersoftware.com/lib/css/headers.css);
+@import url(/web/20100510070818im_/http://www.greenpeppersoftware.com/lib/css/headers_gp_confuence.css);
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6 {background-color: transparent;}
+</style>
+
+</head>
+<!--themebody.vm-->
+<body onload="BuilderEvents.onPageLoad();" onunload="BuilderEvents.onPageUnload();" class="atb-body layout-DOCUMENTATION spacekey-GPWODOC mode-view context-page action-viewpage" id="atb-document">
+
+
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">//<![CDATA[
+var __wm = (function(){
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Repository+view+with+Visual+Studio+plugin";
+
+var firstYear = 1996;
+var imgWidth = 500,imgHeight = 27;
+var yearImgWidth = 25,monthImgWidth = 2;
+var displayDay = "10";
+var displayMonth = "mai";
+var displayYear = "2010";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var $D=document,$=function(n){return document.getElementById(n)};
+var trackerVal,curYear = -1,curMonth = -1;
+var yearTracker,monthTracker;
+function showTrackers(val) {
+  if (val===trackerVal) return;
+  var $ipp=$("wm-ipp");
+  var $y=$("displayYearEl"),$m=$("displayMonthEl"),$d=$("displayDayEl");
+  if (val) {
+    $ipp.className="hi";
+  } else {
+    $ipp.className="";
+    $y.innerHTML=displayYear;$m.innerHTML=displayMonth;$d.innerHTML=displayDay;
+  }
+  yearTracker.style.display=val?"inline":"none";
+  monthTracker.style.display=val?"inline":"none";
+  trackerVal = val;
+}
+function getElementX2(obj) {
+  var $e=jQuery(obj);
+  return (typeof $e=="undefined"||typeof $e.offset=="undefined")?
+    getElementX(obj):Math.round($e.offset().left);
+}
+function trackMouseMove(event,element) {
+  var eventX = getEventX(event);
+  var elementX = getElementX2(element);
+  var xOff = Math.min(Math.max(0, eventX - elementX),imgWidth);
+  var monthOff = xOff % yearImgWidth;
+
+  var year = Math.floor(xOff / yearImgWidth);
+  var monthOfYear = Math.min(11,Math.floor(monthOff / monthImgWidth));
+  // 1 extra border pixel at the left edge of the year:
+  var month = (year * 12) + monthOfYear;
+  var day = monthOff % 2==1?15:1;
+  var dateString = zeroPad(year + firstYear) + zeroPad(monthOfYear+1,2) +
+    zeroPad(day,2) + "000000";
+
+  $("displayYearEl").innerHTML=year+firstYear;
+  $("displayMonthEl").innerHTML=prettyMonths[monthOfYear];
+  // looks too jarring when it changes..
+  //$("displayDayEl").innerHTML=zeroPad(day,2);
+  var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+  $("wm-graph-anchor").href=url;
+
+  if(curYear != year) {
+    var yrOff = year * yearImgWidth;
+    yearTracker.style.left = yrOff + "px";
+    curYear = year;
+  }
+  if(curMonth != month) {
+    var mtOff = year + (month * monthImgWidth) + 1;
+    monthTracker.style.left = mtOff + "px";
+    curMonth = month;
+  }
+}
+function hideToolbar() {
+  $("wm-ipp").style.display="none";
+}
+function bootstrap() {
+  var $spk=$("wm-ipp-sparkline");
+  yearTracker=$D.createElement('div');
+  yearTracker.className='yt';
+  with(yearTracker.style){
+    display='none';width=yearImgWidth+"px";height=imgHeight+"px";
+  }
+  monthTracker=$D.createElement('div');
+  monthTracker.className='mt';
+  with(monthTracker.style){
+    display='none';width=monthImgWidth+"px";height=imgHeight+"px";
+  }
+  $spk.appendChild(yearTracker);
+  $spk.appendChild(monthTracker);
+
+  var $ipp=$("wm-ipp");
+  $ipp&&disclaimElement($ipp);
+}
+return{st:showTrackers,mv:trackMouseMove,h:hideToolbar,bt:bootstrap};
+})();//]]>
+</script>
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  min-width:800px !important;
+}
+</style>
+<div id="wm-ipp" lang="en" style="display:none;">
+
+<div style="position:fixed;left:0;top:0;width:100%!important">
+<div id="wm-ipp-inside">
+   <table style="width:100%;"><tbody><tr>
+   <td id="wm-logo">
+       <a href="/web/" title="Wayback Machine home page"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0" /></a>
+   </td>
+   <td class="c">
+       <table style="margin:0 auto;"><tbody><tr>
+       <td class="u" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Repository+view+with+Visual+Studio+plugin" style="width:400px;" onfocus="this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100510070818" /><input type="submit" value="Go" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td class="n" rowspan="2">
+           <table><tbody>
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr class="m">
+           	<td class="b" nowrap="nowrap">
+		
+		    avr.
+		
+		</td>
+		<td class="c" id="displayMonthEl" title="You are here: 7:08:18 mai 10, 2010">MAI</td>
+		<td class="f" nowrap="nowrap">
+		
+		    juin
+		
+                </td>
+	    </tr>
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr class="d">
+               <td class="b" nowrap="nowrap">
+               
+                       <img src="/static/images/toolbar/wm_tb_prv_off.png" alt="Previous capture" width="14" height="16" border="0" />
+               
+               </td>
+               <td class="c" id="displayDayEl" style="width:34px;font-size:24px;" title="You are here: 7:08:18 mai 10, 2010">10</td>
+	       <td class="f" nowrap="nowrap">
+               
+                   <img src="/static/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
+               
+	       </td>
+           </tr>
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr class="y">
+	       <td class="b" nowrap="nowrap">
+               
+                   2009
+               
+               </td>
+               <td class="c" id="displayYearEl" title="You are here: 7:08:18 mai 10, 2010">2010</td>
+	       <td class="f" nowrap="nowrap">
+               
+                   2011
+               
+	       </td>
+           </tr>
+           </tbody></table>
+       </td>
+       </tr>
+       <tr>
+       <td class="s">
+           <a class="t" href="/web/20100510070818*/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Repository+view+with+Visual+Studio+plugin" title="See a list of every capture for this URL">1 captures</a>
+           <div class="r" title="Timespan for captures of this URL">10 mai 10 - 10 mai 10</div>
+       </td>
+       <td class="k">
+       <a href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" title="Explore captures for this URL">
+	 <img id="sparklineImgId" alt="sparklines"
+		 onmouseover="__wm.st(1)" onmouseout="__wm.st(0)"
+		 onmousemove="__wm.mv(event,this)"
+		 width="500"
+		 height="27"
+		 border="0"
+		 src="/web/jsp/graph.jsp?graphdata=500_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:4:000010000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000000000_2014:-1:000000000000_2015:-1:000000000000" />
+       </div>
+       </a>
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td class="r">
+       <a href="#close" onclick="__wm.h();return false;" style="background-image:url(/static/images/toolbar/wm_tb_close.png);top:5px;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="background-image:url(/static/images/toolbar/wm_tb_help.png);bottom:5px;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+</div>
+</div>
+</div>
+<script type="text/javascript">__wm.bt();</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/includes/js/scriptaculous/lib/prototype.js"></script>
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/includes/js/scriptaculous/src/util.js"></script>
+<!--[if lt IE 7.0000]>
+    <script type="text/javascript" language="JavaScript" src="/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/js/PieNG.js"></script>
+<![endif]-->
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/decorators/effects.js"></script>
+<dl id="atb-accessKeys">
+  <dt>Access Keys:</dt>
+  <dd><a href="#content" accesskey="0">Skip to content (Access Key - 0)</a></dd>
+</dl>
+
+<script type="text/javascript" language="JavaScript">
+    var log = (typeof(console)!="undefined") ? function(){console.log.apply(arguments);} : function(){};
+    BuilderEvents.addCopyTask({source:"breadcrumb-data", target:"breadcrumb-display"});
+</script>
+<table align="left" width="90%" cellspacing="0" cellpadding="0" class="atb-shell">
+    <tr>
+        <td style="vertical-align:top;"><div class="atb-p1"><div class="atb-p2"><div class="atb-p3">
+            <table class="layout atb-page" width="100%" height="100%" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td class="layout atb-upper"><div class="atb-u1"><div class="atb-u2">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr><td id="atb-header" class="layout atb-header"><div id="atb-headerdiv" class="layout atb-headerdiv"><table align="center" width="100%" cellpadding="0" cellspacing="0">
+ <tr>
+  <td width="500" valign="middle">
+   <a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC"  rel=" home"><img border="0" title="Click this logo to return to the home page" class="builder-logo space-logo" src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/s/705/1/GPWODOC/_/download/userResources/GPWODOC/logo" alt="space logo"/></a>
+</td>
+  <td width="260" align="right" valign="middle">
+<a href="/web/20100510070818/http://www.greenpeppersoftware.com/blog/"  target="_blank" class="site-logo" rel=""><img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/158269938/header_greenpepper_right.png" align="absmiddle" border="0" /></a>
+</td>
+</tr></table></div></td></tr>
+                                <tr><td id="atb-menu" class="layout atb-menu"><div id="atb-menudiv" class="layout atb-menudiv"><table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td width="100">
+<div id="menu1" class="menubar menubar1">
+    <ul id="menu1-data" class="menulist">
+    
+
+
+
+
+
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/Home"  rel="">What's about</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/Quick+start"  rel="">Free Trial</a></li>
+<li class="menuitem stab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Documentation"  rel="">Documentation</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/Download"  rel="">Download</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/Purchase"  rel="">Purchase</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/FAQ"  rel="">FAQ</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/site/forums/list.page"  target="_blank" rel="">Forum</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/blog/"  target="_blank" rel="">Blog</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/Services"  rel="">Services &amp; Partners</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPW/About+us"  rel="">About us</a></li>
+<li class="menuitem ntab"><a href="/web/20100510070818/http://store.greenpeppersoftware.com/account"  rel="">My Account</a></li>
+
+
+
+
+
+
+
+
+
+    </ul>
+</div>
+<script type="text/javascript" language="JavaScript">
+function initmenu_1() {
+    if (DynarchMenu!=undefined) {
+        var menuOpts={electric:250, tooltips:true, shadows:[4,6], smoothShadows:true, blink:false, lazy:false, setFocus:false, scrolling:true};
+        if (document.browserInfo.isOpera) menuOpts["scrolling"]=false;
+        document.getElementById("menu1-data").className="";
+        DynarchMenu.setup("menu1-data", menuOpts);
+    }
+}
+if (document.browserInfo.isIE) {
+    window.attachEvent("onload", initmenu_1);
+} else {
+    BuilderEvents.addDefermentListener("menu",initmenu_1,"initmenu_1");
+}
+</script></td>
+<td align="right" class="ntab" valign="middle">
+<form method="get" class="confluence-searchbox marginlessForm " action="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/dosearchsite.action">
+    <input type="hidden" name="searchQuery.spaceKey" value="GPWODOC" />
+    <input type="text" name="searchQuery.queryString" />
+    <input type="submit" value="Search" />
+</form></td></tr>
+<tr bgcolor="#3E7428">
+<td colspan="2" height="25">
+<div id="menuGPSubMenu" class="menubar menubarGPSubMenu">
+    <ul id="menuGPSubMenu-data" class="menulist">
+    
+
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Customer+Guide"  rel="">Customer guide</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Developer+Guide"  rel="">Developer guide</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Visual+Studio+plugin"  rel="">Visual Studio</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Eclipse+plugin"  rel="">Eclipse</a></li>
+
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/NAnt+plugin"  rel="">NAnt</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/MSBuild+plugin"  rel="">MSBuild</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Bamboo+plugin"  rel="">Bamboo</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Jira+plugin"  rel="">Jira</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Confluence+plugin"  rel="">Confluence</a></li>
+<li class="menuitem "><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/XWiki+plugin"  rel="">XWiki</a></li>
+
+    </ul>
+</div>
+<script type="text/javascript" language="JavaScript">
+function initmenu_GPSubMenu() {
+    if (DynarchMenu!=undefined) {
+        var menuOpts={electric:250, tooltips:true, shadows:[4,6], smoothShadows:true, blink:false, lazy:false, setFocus:false, scrolling:true};
+        if (document.browserInfo.isOpera) menuOpts["scrolling"]=false;
+        document.getElementById("menuGPSubMenu-data").className="";
+        DynarchMenu.setup("menuGPSubMenu-data", menuOpts);
+    }
+}
+if (document.browserInfo.isIE) {
+    window.attachEvent("onload", initmenu_GPSubMenu);
+} else {
+    BuilderEvents.addDefermentListener("menu",initmenu_GPSubMenu,"initmenu_GPSubMenu");
+}
+</script></td></tr></table></div></td></tr>
+                            </table></div></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="layout atb-lower"><div class="atb-l1"><div class="atb-l2">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr><td colspan="2" id="atb-navigation" class="layout atb-navigation"><div id="atb-navigationdiv" class="layout atb-navigationdiv"><table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td valign="middle">
+<span id='breadcrumb-display' class='breadcrumbs'>&nbsp;</span></td>
+<td align="right" valign="middle">
+
+
+
+<a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/pages/doexportpage.action?pageId=159220054&amp;type=TYPE_PDF"  title="export to pdf" rel="nofollow"><img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/icons/pdf.png" width="16px" height="16px" align="absmiddle" alt="" title="export to pdf"/></a>
+
+
+
+
+
+
+
+</td></tr></table></div></td></tr>
+
+                                <tr class="layout">
+                                    <td rowspan="2" id="atb-leftSidebar" class="layout atb-sidebar atb-leftSidebar"><div id="atb-leftSidebardiv" class="layout atb-sidebardiv atb-leftSidebardiv">
+                                         <div>
+<img src="/web/20100510070818im_/http://greenpeppersoftware.com/confluence/download/attachments/158826534/browse.png"/></div>
+<div class="widget">
+ <script type="text/javascript" language="JavaScript" src='/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/plugins/servlet/builder/dwr/engine.js'></script>
+<script type="text/javascript" language="JavaScript" src='/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/plugins/servlet/builder/dwr/interface/PageTreeDWR.js'></script>
+
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/nlstree/nlstree.js"></script>
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/nlstree/nlstreeext_dd.js"></script>
+<link rel="stylesheet" type="text/css" href="/web/20100510070818cs_/http://www.greenpeppersoftware.com/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/css/nlstree.css"/>
+
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/js/pagetree.js"></script>
+<div class="pagetree ">
+  <script type="text/javascript">
+    (function () {
+        function init() {
+            if (typeof(PageTreeManager)=="undefined") return setTimeout(init,250);
+            PageTreeManager.generateTree({id:"158826534", title:"Documentation",  type:"page",  tooltip:"Modified by 'eetasse' on 2009-12-07 04:08:02.0",  url:"/confluence/display/GPWODOC/Documentation",  editPermission:false, createPermission:false, administerPermission:false},{target:"_self", showIcons:true, selectionMode:"node", autoCollapse:false, indent:true, showRoot:true, branchStyle:"", iconStyle:"computer", openpage:true, name:"", preload:['159219794','159220052','159220054'], allowdrag:false, titletip:false, iconpath:"/s/705/1/3.1.4/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/icons/"},"/confluence").render();
+        }
+        init();
+    })();
+  </script>
+</div></div>                                     </div></td>
+                                    <td class="layout atb-titlecontent">
+                                        <div id="atb-title" class="atb-title"><div id="atb-titlediv" class="atb-titlediv">  </div></div>
+                                        <div id="atb-content" class="layout atb-content"><div id="atb-contentdiv" class="layout atb-contentdiv">
+                                            <!--
+    Root decorator: all decisions about how a page is to be decorated via the
+                    inline decoration begins here.
+-->
+
+
+
+<!--
+    Switch based upon the context. However, for now, just delegate to a decorator
+    identified directly by the context.
+-->
+
+
+    
+    <!--page.vmd-->
+
+
+    
+    
+        
+    
+    <!-- initpage.vm
+  themebuilder : 'com.adaptavist.confluence.builder.theme.VelocityHelper@193d23b'
+  layout : 'com.adaptavist.confluence.builder.layouts.model.Layout@10554cf'
+  layoutId : 'DOCUMENTATION'
+  spaceKey : 'GPWODOC'
+  currentURL : '$currentURL'
+  contextPath : '/confluence'
+  spaceName : '$spaceName'
+  printable : '$printable'
+  mode : 'view'
+  context : 'page'
+  decorator : '$decorator'
+  page title : ''
+  action name : 'viewpage'
+-->
+
+
+<div id="actionerrors" class="actionerrors">
+    </div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" class="pagebody">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
+                <tr>
+                    <td width='100%' class="pagecontent" valign="top">
+     
+                         <div class="wiki-content">
+                           <!-- wiki content -->
+            <h2 id="RepositoryviewwithVisualStudioplugin-Repositoryview">Repository view</h2>
+
+<p>You can view all the specifications for your project using the repository view.</p>
+
+<h3 id="RepositoryviewwithVisualStudioplugin-Showtherepositoryviewwindow">Show the repository view window</h3>
+<p>Choose GreenPepper RepositoryView
+<br clear="all" /></p>
+
+<p><div align="center"><img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/vs-showview.JPG" border="0" /></div>
+<br clear="all" />
+<br clear="all" /></p>
+<h3 id="RepositoryviewwithVisualStudioplugin-TheRepositoryView">The Repository View</h3>
+<p>The Repository view is a JUnit like view.<br/>
+You will be able to launch executions, view documents and results and work on both Implemented and Working copies of the documents.<br/>
+Careful ! the Green bar might be addictive after a while ...
+<br clear="all" /> <br clear="all" /></p>
+
+<p><div align="center"><img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/vs-repositoryview.jpg" border="0" /></div></p>
+<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
+<td class="confluenceTd"  valign="top" width="50%">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>&nbsp;</th>
+<th class='confluenceTh'> <b>project</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/project.gif" align="absmiddle" border="0" />            </td>
+<td class='confluenceTd'> GreenPepperised </td>
+</tr>
+<tr>
+<th class='confluenceTh'>&nbsp;</th>
+<th class='confluenceTh'> <b>Repositories</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/jira.gif" align="absmiddle" border="0" />               </td>
+<td class='confluenceTd'> A JIRA Repository </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/confluence.gif" align="absmiddle" border="0" />         </td>
+<td class='confluenceTd'> A Confluence Repository </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/xwiki.gif" align="absmiddle" border="0" />              </td>
+<td class='confluenceTd'> A XWiki Repository </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/file.gif" align="absmiddle" border="0" />               </td>
+<td class='confluenceTd'> A Remote File Repository </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/repository_local.gif" align="absmiddle" border="0" />   </td>
+<td class='confluenceTd'> A Local directory </td>
+</tr>
+<tr>
+<th class='confluenceTh'>&nbsp;</th>
+<th class='confluenceTh'> Documents </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/notexecutable.gif" align="absmiddle" border="0" />      </td>
+<td class='confluenceTd'> Plain </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/executable.gif" align="absmiddle" border="0" />         </td>
+<td class='confluenceTd'> Executable </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/executable_diff.gif" align="absmiddle" border="0" />    </td>
+<td class='confluenceTd'> Working differs from the Implemented copy </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/executable_working.gif" align="absmiddle" border="0" /> </td>
+<td class='confluenceTd'> Working copy  </td>
+</tr>
+</tbody></table></td><td class="confluenceTd"  valign="top" width="50%">
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>&nbsp;</th>
+<th class='confluenceTh'> <b>Actions</b> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/working.png" align="absmiddle" border="0" />                  </td>
+<td class='confluenceTd'> Will tell Eclipse to work on the <b>Working</b> copy of the Document </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/implemented.png" align="absmiddle" border="0" />              </td>
+<td class='confluenceTd'> Will tell Eclipse to work on the <b>Implemented</b> copy of the Document </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/tagimplemented.png" align="absmiddle" border="0" />           </td>
+<td class='confluenceTd'> Will Ask the Repository to <b>MERGE</b> the <b>Working</b> copy with the <br clear="all" /> <b>Implemented</b> copy of the Document </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/document_execute_enabled.png" align="absmiddle" border="0" /> </td>
+<td class='confluenceTd'> Executes The selected Document </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/document_view_enabled.png" align="absmiddle" border="0" />    </td>
+<td class='confluenceTd'> Reloads The selected Document from the repository </td>
+</tr>
+<tr>
+<td class='confluenceTd'> <img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/download/attachments/159220054/refresh_tree.gif" align="absmiddle" border="0" />             </td>
+<td class='confluenceTd'> Refreshes the Tree </td>
+</tr>
+</tbody></table></td></tr></tbody></table>
+<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">By default Visual Studio plugin will work on the Implemented copy of the document.</b><br /></td></tr></table>
+                        </div>
+ <!--
+<rdf:RDF xmlns:rdf="/web/20100510070818/http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="/web/20100510070818/http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="/web/20100510070818/http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+    rdf:about="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Repository+view+with+Visual+Studio+plugin"
+    dc:identifier="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Repository+view+with+Visual+Studio+plugin"
+    dc:title="Repository view with Visual Studio plugin"
+    trackback:ping="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/rpc/trackback/159220054"/>
+</rdf:RDF>
+-->
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+    
+    
+
+    
+    
+    
+
+<!--END page.vmd-->
+                                        </div></div>
+                                    </td>
+                                </tr>
+                                <tr><td id="atb-footnote" class="layout atb-footnote"><div id="atb-footnotediv" class="layout atb-footnotediv"> 
+                    
+<div class="commentsBlock">
+<!--
+    Root decorator: all decisions about how a page is to be decorated via the
+                    inline decoration begins here.
+-->
+
+
+
+<!--
+    Switch based upon the context. However, for now, just delegate to a decorator
+    identified directly by the context.
+-->
+
+
+    
+    
+
+<div class="wiki-content" style="margin-right:10px;">
+    <p style="clear: both"/><!-- comments should always display underneath the content. we should have a 'clear:both' here just in case there are floats or aligned images in the content -->
+
+    
+    
+    
+    
+                                    </div>
+
+
+</div>
+  </div></td></tr>
+                            </table></div></div>
+                        </td>
+                    </tr>
+                    <tr><td id="atb-footer" class="layout atb-footer"><div id="atb-footerdiv" class="layout atb-footerdiv"> <b>greenpepper is grown by <span class="nobr"><a href="/web/20100510070818/http://www.pyxis-tech.com/" rel="nofollow">Pyxis Technologies<sup><img class="rendericon" src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></b><br/>
+Pyxis Technologies, Suite 120, 440, Armand-Frappier Blvd. Laval, Quebec H7V 4B4, CANADA<br/>
+Phone: +1 450.681.9094 Toll-free: 1.888.681.9094 Fax: 450.681.5758<br/>
+Email : <span class="nobr"><a href="mailto:info@pyxis-tech.com" rel="nofollow">info@pyxis-tech.com<sup><img class="rendericon" src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/images/icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="" border="0"/></sup></a></span> <span class="nobr"><a href="mailto:info@greenpeppersoftware.com" rel="nofollow">info@greenpeppersoftware.com<sup><img class="rendericon" src="/web/20100510070818im_/http://www.greenpeppersoftware.com/confluence/images/icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="" border="0"/></sup></a></span>  </div></td></tr>
+                </tbody>
+            </table></div></div></div>
+            <script type="text/javascript" language="JavaScript">
+                Visibility.restoreSidebar('leftSidebar',false,false);
+            </script>
+        </td>
+    </tr>
+    <tr>
+        <td id="poweredby" class="poweredby" align="center"><div>
+            <a href="/web/20100510070818/https://www.adaptavist.com/">Adaptavist Theme Builder</a> (3.1.4) Powered by <a href="/web/20100510070818/http://www.atlassian.com/wiki/?clicked=footer" class="smalltext">Atlassian Confluence</a>, the <a href="/web/20100510070818/http://www.atlassian.com/wiki/?clicked=footer" class="smalltext">Enterprise Wiki</a>. (Version: 2.4.3 Build:#705 Mar 21, 2007)         </div></td>
+    </tr>
+
+<tr><td align="center"><div class="license-free">Free theme builder license</div></td></tr></table>
+<div id="breadcrumb-data" style="display:none">
+<ol class="breadcrumbs ellipsis" id="breadcrumbs.list"><a href="#" onclick="showBreadcrumbsEllipsis();return false;" title="Documentation &gt; Visual Studio plugin">...</a><li class="breadcrumb breadcrumb2 breadcrumbsExpansion"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Documentation">Documentation</a> &gt; </li><li class="breadcrumb breadcrumb3 breadcrumbsExpansion"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Visual+Studio+plugin">Visual Studio plugin</a> &gt; </li><li class="breadcrumb breadcrumb4"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/3.+Use+GreenPepper+Visual+Studio+plugin">3. Use GreenPepper Visual Studio plugin</a> &gt; </li><li class="breadcrumb breadcrumb5"><a href="/web/20100510070818/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Repository+view+with+Visual+Studio+plugin">Repository view with Visual Studio plugin</a></li></ol>
+</div>
+<!--END themebody.vm-->
+<!--footer.vmd-->
+<script type="text/javascript" language="JavaScript">
+var domainName = "/web/20100510070818/http://www.greenpeppersoftware.com/confluence";
+var entityId = "159220054";
+var spaceKey = "GPWODOC";
+</script>
+<script type="text/javascript" language="JavaScript" src="/web/20100510070818js_/http://www.greenpeppersoftware.com/confluence/labels-javascript"></script>
+<script type="text/javascript" language="JavaScript">
+if (document.getElementById("labelsInfo")!=null) {
+    new Ajax.Autocompleter('labelName',
+        'labelsAutocompleteList',
+        '159220054',
+        {tokens: new Array(',', ' '),
+        dwrFunction: GenerateAutocompleteLabelsListForEntity.autocompleteLabels
+        });
+}
+</script>
+<!--[if gte IE 5.5000]>
+<script type="text/javascript" language="JavaScript">
+    if (DynarchMenu!=undefined) {
+        DynarchMenu.preloadImages(new RegExp("^/hmenu/"));
+    }
+</script>
+<![endif]-->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "/web/20100510070818/https://ssl." : "/web/20100510070818/http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+var pageTracker = _gat._getTracker("UA-6296232-2");
+pageTracker._trackPageview();
+} catch(err) {}
+function trackDownload(id) {
+    pageTracker._trackEvent('GreenPepper', 'Download', id);
+    return true;
+}</script>
+<script type="text/javascript" src="/web/20100510070818js_/http://s3.amazonaws.com/new.cetrk.com/pages/scripts/0010/6670.js"> </script>
+</body></html>
+<!--END footer.vmd-->
+
+
+
+
+<!--
+     FILE ARCHIVED ON 7:08:18 mai 10, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:36:13 mars 31, 2015.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->

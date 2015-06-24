@@ -22,9 +22,9 @@
 				<include>org.hibernate:hibernate-commons-annotations</include>
 				<include>org.hibernate:ejb3-persistence</include>
 				<!--  <include>javax.persistence:ejb</include>  -->
-				<include>truelicense:truelicense</include>
-				<include>truelicense:truexml</include>
-			</includes>
+			<include>de.schlichtherle.truelicense:truelicense-core</include>
+<include>de.schlichtherle.truelicense:truelicense-xml</include>
+                        </includes>
 			<excludes>
 				<exclude>greenpepper:greenpepper-client:jar:complete</exclude>
 				<exclude>greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>

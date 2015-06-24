@@ -27,17 +27,20 @@
             <artifactId>commons-io</artifactId>
             <version>1.2</version>
         </dependency>
-        <dependency>
-            <groupId>truelicense</groupId>
-            <artifactId>truelicense</artifactId>
-            <version>1.29</version>
-        </dependency>
-        <dependency>
-            <groupId>truelicense</groupId>
-            <artifactId>truexml</artifactId>
-            <version>1.29</version>
-        </dependency>
-        <dependency>
+        
+<dependency>
+        <groupId>de.schlichtherle.truelicense</groupId>
+        <artifactId>truelicense-core</artifactId>
+        <version>1.33</version>
+</dependency>
+
+<dependency>
+        <groupId>de.schlichtherle.truelicense</groupId>
+        <artifactId>truelicense-xml</artifactId>
+        <version>1.33</version>
+</dependency>
+
+<dependency>
             <groupId>greenpepper</groupId>
             <artifactId>greenpepper-client</artifactId>
             <version>${project.version}</version>

@@ -22,8 +22,8 @@
 				<include>org.hibernate:hibernate-commons-annotations</include>
 				<include>org.hibernate:ejb3-persistence</include>
 				<!--  <include>javax.persistence:ejb</include>  -->
-				<include>truelicense:truelicense</include>
-				<include>truelicense:truexml</include>
+				<include>de.schlichtherle.truelicense:truelicense-core</include>
+				<include>de.schlichtherle.truelicense:truelicense-xml</include>
 			</includes>
 			<unpack>true</unpack>
 			<unpackOptions>

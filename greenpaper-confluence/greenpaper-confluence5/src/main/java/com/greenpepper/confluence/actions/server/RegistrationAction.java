@@ -64,14 +64,7 @@ public class RegistrationAction extends GreenPepperServerAction
 
 	public String doGetRegistration()
     {
-        // if (!isPluginInstalledUnderWebInfLib()) {
-        // addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new
-        // String[] {gpUtil.getWebInfLibDirectory()}));
-        // readonly = true;
-        // editMode = false;
-        // addMode = false;
-        // return SUCCESS;
-        // }
+
 
 		if (!isServerReady())
 		{
@@ -408,7 +401,7 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public LinkedList<Project> getProjects()
     {
         if(projects != null) return projects;

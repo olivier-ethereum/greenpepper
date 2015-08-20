@@ -1,5 +1,7 @@
 package com.greenpepper.confluence.actions.server;
 
+import static com.greenpepper.confluence.utils.HtmlUtils.stringSetToTextArea;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -18,8 +20,6 @@ import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.server.domain.component.ContentType;
 import com.greenpepper.server.license.GreenPepperLicenceException;
 import com.greenpepper.util.StringUtil;
-
-import static com.greenpepper.confluence.utils.HtmlUtils.stringSetToTextArea;
 
 /**
  * Action for the <code>GreenPepper Server Properties</code>.
@@ -409,7 +409,7 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public LinkedList<Project> getProjects()
     {
         if(projects != null) return projects;

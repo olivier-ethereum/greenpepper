@@ -65,6 +65,11 @@
     </dependencyManagement>
     
 	<modules>
+		<module>greenpaper-confluence3</module>
+		<module>greenpaper-confluence3-demo</module>
+		<module>greenpaper-confluence3-plugin</module>
+		<module>greenpaper-confluence4</module>
+		<module>greenpaper-confluence4-plugin</module>
 		<module>greenpaper-confluence5</module>
 		<module>greenpaper-confluence5-plugin</module>
 		<module>greenpaper-confluence-demo</module>

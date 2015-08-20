@@ -13,7 +13,7 @@
 				<include>greenpepper:greenpepper-license</include>
 				<include>greenpepper:greenpepper-extensions-java</include>
 				<include>greenpepper:greenpepper-core</include>
-				<include>greenpepper:greenpepper-confluence-demo</include>
+				<include>greenpepper:greenpepper-confluence3-demo</include>
 				<include>greenpepper:greenpepper-confluence3</include>
 				<include>xmlrpc:xmlrpc</include>
 				<include>commons-codec:commons-codec</include>
@@ -21,10 +21,14 @@
 				<include>org.hibernate:hibernate-annotations</include>
 				<include>org.hibernate:hibernate-commons-annotations</include>
 				<include>org.hibernate:ejb3-persistence</include>
-				<!--  <include>javax.persistence:ejb</include>  -->
+				<!-- <include>javax.persistence:ejb</include> -->
 				<include>de.schlichtherle.truelicense:truelicense-core</include>
 				<include>de.schlichtherle.truelicense:truelicense-xml</include>
 			</includes>
+			<excludes>
+				<exclude>greenpepper:greenpepper-client:jar:complete</exclude>
+				<exclude>greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
+			</excludes>
 			<unpack>true</unpack>
 			<unpackOptions>
 				<excludes>
@@ -39,13 +43,20 @@
 					<exclude>META-INF/**</exclude>
 				</excludes>
 			</unpackOptions>
-			<outputFileNameMapping/>
+			<outputFileNameMapping />
+		</dependencySet>
+		<dependencySet>
+			<includes>
+				<include>greenpepper:greenpepper-client:jar:complete</include>
+				<include>greenpepper:greenpepper-confluence-demo:jar:fixtures</include>
+			</includes>
+			<unpack>false</unpack>
 		</dependencySet>
 	</dependencySets>
 	<fileSets>
 		<fileSet>
 			<directory>target/classes</directory>
-			<outputDirectory/>
+			<outputDirectory />
 		</fileSet>
 	</fileSets>
 </assembly>

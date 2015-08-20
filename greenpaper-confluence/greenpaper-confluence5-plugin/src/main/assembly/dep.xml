@@ -21,10 +21,10 @@
 				<include>org.hibernate:hibernate-annotations</include>
 				<include>org.hibernate:hibernate-commons-annotations</include>
 				<include>org.hibernate:ejb3-persistence</include>
-				<!--  <include>javax.persistence:ejb</include>  -->
-			<include>de.schlichtherle.truelicense:truelicense-core</include>
-<include>de.schlichtherle.truelicense:truelicense-xml</include>
-                        </includes>
+				<!-- <include>javax.persistence:ejb</include> -->
+				<include>de.schlichtherle.truelicense:truelicense-core</include>
+				<include>de.schlichtherle.truelicense:truelicense-xml</include>
+			</includes>
 			<excludes>
 				<exclude>greenpepper:greenpepper-client:jar:complete</exclude>
 				<exclude>greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
@@ -43,7 +43,7 @@
 					<exclude>META-INF/**</exclude>
 				</excludes>
 			</unpackOptions>
-			<outputFileNameMapping/>
+			<outputFileNameMapping />
 		</dependencySet>
 		<dependencySet>
 			<includes>
@@ -56,7 +56,7 @@
 	<fileSets>
 		<fileSet>
 			<directory>target/classes</directory>
-			<outputDirectory/>
+			<outputDirectory />
 		</fileSet>
 	</fileSets>
 </assembly>

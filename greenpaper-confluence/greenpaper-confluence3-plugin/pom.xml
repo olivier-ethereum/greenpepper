@@ -117,7 +117,7 @@
 		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
-			<artifactId>greenpepper-confluence-demo</artifactId>
+			<artifactId>greenpepper-confluence3-demo</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -125,6 +125,18 @@
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
 			<classifier>fixtures</classifier>
+		</dependency>
+		<dependency>
+			<groupId>greenpepper</groupId>
+			<artifactId>greenpepper-client</artifactId>
+			<classifier>complete</classifier>
+			<version>${project.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>greenpepper</groupId>
+			<artifactId>greenpepper-client</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 

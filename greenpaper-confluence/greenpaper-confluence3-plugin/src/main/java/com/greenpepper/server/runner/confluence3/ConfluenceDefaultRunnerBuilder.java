@@ -1,4 +1,4 @@
-package com.greenpepper.server.runner.confluence5;
+package com.greenpepper.server.runner.confluence3;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +31,7 @@ public class ConfluenceDefaultRunnerBuilder implements DefaultRunnerBuilder {
 
     @Override
     public String getRunnerName() {
-        return "GPCore JAVA v." + GreenPepperServer.VERSION + " (with DemoSpace Fixtures)";
+        return "GPCore JAVA v. " + GreenPepperServer.VERSION + " (with DemoSpace Fixtures)";
     }
 
     @Override

@@ -971,7 +971,7 @@ public class ConfluenceGreenPepper
 
 	public boolean isPluginInstalledUnderWebInfLib() {
 		URL root = getClass().getResource("/templates/greenpepper/confluence/blank.vm");
-		return root.toExternalForm().indexOf("WEB-INF/lib/greenpepper-confluence-plugin") != -1;
+		return root.toExternalForm().indexOf("WEB-INF/lib/greenpepper-confluence3-plugin") != -1;
 	}
 
 	public String getWebInfLibDirectory() {

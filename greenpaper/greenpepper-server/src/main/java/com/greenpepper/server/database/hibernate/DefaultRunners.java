@@ -56,13 +56,6 @@ public class DefaultRunners {
             insertJavaRunnerFromHome(greenPepperHomeDir);
         }
 
-        String basePath = properties.getProperty("baseUrl", null);
-        if (basePath != null) {
-            log.debug("Finding runner jars using 'baseUrl' : {}", basePath);
-            File libDir = new File(basePath, "WEB-INF/lib");
-            insertJavaRunnerFromDir(libDir);
-        }
-
         log.debug("Building DefaultRunners using ServiceLoader");
         // FIXME doesn't work when installing as confluence plugin.
         // Maybe get some help here :
@@ -73,6 +66,13 @@ public class DefaultRunners {
                 log.info("Registering {}", defaultRunnerBuilder.getRunnerName());
                 defaultRunnerBuilder.buildAndRegisterRunner(sutDao, properties);
             }
+        }
+
+        String basePath = properties.getProperty("baseUrl", null);
+        if (basePath != null) {
+            log.debug("Finding runner jars using 'baseUrl' : {}", basePath);
+            File libDir = new File(basePath, "WEB-INF/lib");
+            insertJavaRunnerFromDir(libDir);
         }
 
         // FIXME Remove me when serviceloader is solved
@@ -87,7 +87,7 @@ public class DefaultRunners {
             }
 
         } catch (ClassNotFoundException e) {
-            log.warn("Could not load com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder. If you are not on Confluence, forget this. Cause", e.getMessage());
+            log.warn("Could not load com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder. If you are not on Confluence, forget this. Cause : {}", e.getMessage());
         } catch (InstantiationException e) {
             log.error("Could not instanciate com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder", e);
         } catch (IllegalAccessException e) {

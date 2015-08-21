@@ -1,22 +1,29 @@
 package com.greenpepper.runner.repository;
 
-import com.greenpepper.document.Document;
-import com.greenpepper.repository.DocumentRepository;
 import static com.greenpepper.util.CollectionUtil.toVector;
-import com.greenpepper.util.TestCase;
-import junit.extensions.TestSetup;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import org.apache.xmlrpc.WebServer;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.server.PropertyHandlerMapping;
+import org.apache.xmlrpc.server.XmlRpcServer;
+import org.apache.xmlrpc.webserver.WebServer;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
-import java.util.Vector;
+import com.greenpepper.document.Document;
+import com.greenpepper.repository.DocumentRepository;
+import com.greenpepper.util.TestCase;
+
+import junit.extensions.TestSetup;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class GreenPepperRepositoryTest extends TestCase
 {
@@ -31,6 +38,12 @@ public class GreenPepperRepositoryTest extends TestCase
             protected void setUp() throws Exception
             {
                 ws = new WebServer( 9005 );
+                XmlRpcServer rpcServer = ws.getXmlRpcServer();
+                Map<String,String> handlersMap = new HashMap<String, String>();
+                handlersMap.put("greenpepper1", MockHandler.class.getName());
+                PropertyHandlerMapping phm = new PropertyHandlerMapping();
+                phm.load(Thread.currentThread().getContextClassLoader(), handlersMap);
+                rpcServer.setHandlerMapping(phm);
                 ws.start();
             }
 
@@ -45,8 +58,7 @@ public class GreenPepperRepositoryTest extends TestCase
     protected void setUp()
     {
         handler = context.mock( Handler.class );
-        ws.removeHandler( "greenpepper1" );
-        ws.addHandler( "greenpepper1", handler );
+        MockHandler.jmockHandler = handler;
 
         dummySpec = TestStringSpecifications.SimpleAlternateCalculatorTest;
     }
@@ -297,5 +309,27 @@ public class GreenPepperRepositoryTest extends TestCase
         Vector<Vector<String>> getListOfSpecificationLocations(String repoUID, String sutName);
         String getRenderedSpecification(String username, String password, Vector<?> args);
 		String saveExecutionResult(String username, String password, Vector<?> args);
+    }
+    
+    public static class MockHandler implements Handler
+    {
+
+        public static Handler jmockHandler;
+        
+        
+        @Override
+        public Vector<Vector<String>> getListOfSpecificationLocations(String repoUID, String sutName) {
+            return jmockHandler.getListOfSpecificationLocations(repoUID, sutName);
+        }
+
+        @Override
+        public String getRenderedSpecification(String username, String password, Vector<?> args) {
+            return jmockHandler.getRenderedSpecification(username, password, args);
+        }
+
+        @Override
+        public String saveExecutionResult(String username, String password, Vector<?> args) {
+            return jmockHandler.saveExecutionResult(username, password, args);
+        }
     }
 }

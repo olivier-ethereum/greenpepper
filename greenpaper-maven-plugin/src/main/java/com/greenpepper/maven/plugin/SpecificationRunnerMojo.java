@@ -324,7 +324,8 @@ public class SpecificationRunnerMojo extends AbstractMojo
 		}
 
         urls.add( getDependencyURL( "greenpepper-extensions-java" ) );
-        urls.add( getDependencyURL( "xmlrpc" ) );
+        urls.add( getDependencyURL( "xmlrpc-client" ) );
+        urls.add( getDependencyURL( "xmlrpc-common" ) );
         urls.add( getDependencyURL( "commons-codec" ) );
 
         URL[] classpath = (URL[]) urls.toArray( new URL[urls.size()] );

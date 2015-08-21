@@ -3,14 +3,15 @@ package com.greenpepper.runner.repository;
 import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
-import org.apache.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 import com.greenpepper.Example;
 import com.greenpepper.Statistics;
@@ -71,7 +72,6 @@ public class GreenPepperRepository implements DocumentRepository
 		throw new UnsupportedOperationException("Not supported");
 	}
 
-	@SuppressWarnings("unchecked")
     public List<String> listDocuments(String uri) throws Exception
     {
         List<String> documentsURI = new ArrayList<String>();
@@ -79,8 +79,8 @@ public class GreenPepperRepository implements DocumentRepository
         String repoUID = getPath(uri);
     	if (repoUID == null) throw new UnsupportedDocumentException("Missing repo UID");
 
-        Vector<Vector<String>> definitions = downloadSpecificationsDefinitions(repoUID);
-        for(Vector<String> definition : definitions)
+    	List<List<String>> definitions = downloadSpecificationsDefinitions(repoUID);
+        for(List<String> definition : definitions)
         {
         	String docName = repoUID + "/" + definition.get(4);
         	documentsURI.add(docName);
@@ -95,10 +95,10 @@ public class GreenPepperRepository implements DocumentRepository
     }
 
 	@SuppressWarnings("unchecked")
-    private Vector<Vector<String>> downloadSpecificationsDefinitions(String repoUID) throws Exception
+    private List<List<String>> downloadSpecificationsDefinitions(String repoUID) throws Exception
     {
-		Vector<Vector<String>> definitions = (Vector<Vector<String>>) getXmlRpcClient().execute(
-				new XmlRpcRequest( handler + ".getListOfSpecificationLocations", CollectionUtil.toVector(repoUID, sut)) );
+		Object callResult = getXmlRpcClient().execute(handler + ".getListOfSpecificationLocations", CollectionUtil.toVector(repoUID, sut) );
+		List<List<String>> definitions = (List<List<String>>) callResult;
         checkForErrors(definitions);
         return definitions;
     }
@@ -110,7 +110,7 @@ public class GreenPepperRepository implements DocumentRepository
 	
     public Document loadDocument(String location) throws Exception
 	{
-		Vector<String> definition = getDefinition(location);
+        List<String> definition = getDefinition(location);
 
 		DocumentRepository repository = getRepository(definition);
 		
@@ -126,7 +126,7 @@ public class GreenPepperRepository implements DocumentRepository
 		return document;
 	}
 
-	private DocumentRepository getRepository(Vector<String> definition)
+	private DocumentRepository getRepository(List<String> definition)
 			throws Exception
 	{
 		Class klass = ClassUtils.loadClass(definition.get(0)) ;
@@ -134,33 +134,38 @@ public class GreenPepperRepository implements DocumentRepository
 		return (DocumentRepository)constructor.newInstance(new Object[]{args(definition)});
 	}
 
-    private Vector<String> getDefinitionFor(Vector<Vector<String>> definitions, String location) throws DocumentNotFoundException
+    private List<String> getDefinitionFor(List<List<String>> definitions, String location) throws DocumentNotFoundException
     {
-        for(Vector<String> def : definitions)
+        for(List<String> def : definitions)
         {
             if (def.get(4).equals(location)) return def;
         }
         throw new DocumentNotFoundException(location);
     }
 
-	private Vector<String> getDefinition(String location) throws Exception
+	private List<String> getDefinition(String location) throws Exception
 	{
 		String path = getPath(location);
 		String[] parts  = path.split("/", 2);
 		String repoUID = parts[0];
 		if (parts.length == 1) throw new DocumentNotFoundException(location);
 
-		Vector<Vector<String>> definitions = downloadSpecificationsDefinitions(repoUID);
+		List<List<String>> definitions = downloadSpecificationsDefinitions(repoUID);
 		return getDefinitionFor(definitions, parts[1]);
 	}
 
 	private XmlRpcClient getXmlRpcClient()
 			throws MalformedURLException
 	{
-		return new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
+	    XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+        config.setServerURL(new URL(root.getScheme() + "://" + root.getAuthority() + root.getPath()));
+        XmlRpcClient xmlrpc = new XmlRpcClient();
+        xmlrpc.setConfig(config);
+        xmlrpc.setTypeFactory(new CompatTypeFactory(xmlrpc));
+		return xmlrpc;
 	}
 
-	private String[] args(Vector<String> definition)
+	private String[] args(List<String> definition)
 	{
 		String[] args = new String[3];
 		args[0] = includeStyle ? definition.get(1) : withNoStyle(definition.get(1));
@@ -190,12 +195,12 @@ public class GreenPepperRepository implements DocumentRepository
 	@SuppressWarnings("unchecked")
     private void checkForErrors(Object xmlRpcResponse) throws Exception
     {
-        if (xmlRpcResponse instanceof Vector)
+        if (xmlRpcResponse instanceof List)
         {
-            Vector temp = (Vector)xmlRpcResponse;
+            List temp = (List)xmlRpcResponse;
             if(!temp.isEmpty())
             {
-                checkErrors(temp.elementAt(0));
+                checkErrors(temp.get(0));
             }
         }
         else if (xmlRpcResponse instanceof Hashtable)
@@ -230,10 +235,10 @@ public class GreenPepperRepository implements DocumentRepository
 	private final class PostExecutionResultSpecificationListener
 			implements SpecificationListener
 	{
-		private final Vector<String> definitionRef;
+		private final List<String> definitionRef;
 		private final Document documentRef;
 
-		private PostExecutionResultSpecificationListener(Vector<String> definitionRef, Document documentRef)
+		private PostExecutionResultSpecificationListener(List<String> definitionRef, Document documentRef)
 		{
 			this.definitionRef = definitionRef;
 			this.documentRef = documentRef;
@@ -253,7 +258,7 @@ public class GreenPepperRepository implements DocumentRepository
 																			  sut,
 																			  XmlReport.toXml(documentRef)));
 
-				String msg = (String)getXmlRpcClient().execute( new XmlRpcRequest( handler + ".saveExecutionResult", args));
+				String msg = (String)getXmlRpcClient().execute( handler + ".saveExecutionResult", args);
 
                 if(!("<success>".equals(msg)))
                 {

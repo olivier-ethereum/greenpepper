@@ -1,21 +1,25 @@
 package com.greenpepper.runner.repository;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+
 import com.greenpepper.document.Document;
 import com.greenpepper.html.HtmlDocumentBuilder;
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.IOUtil;
 import com.greenpepper.util.URIUtil;
-import org.apache.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.XmlRpcRequest;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 public class AtlassianRepository implements DocumentRepository
 {
@@ -50,12 +54,15 @@ public class AtlassianRepository implements DocumentRepository
 
 	public void setDocumentAsImplemeted(String location) throws Exception
 	{
-    	Vector args = CollectionUtil.toVector( username , password, args(URI.create(URIUtil.raw(location))));
-        XmlRpcClient xmlrpc = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
-        String msg = (String)xmlrpc.execute( new XmlRpcRequest( handler + ".setSpecificationAsImplemented", args ) );
+    	Vector<Object> args2 = args(URI.create(URIUtil.raw(location)));
+    	String specific = ".setSpecificationAsImplemented";
+
+    	Object response = makeXMLRPCCall(args2, specific);
+        String msg = (String)response;
         
         if(!("<success>".equals(msg))) throw new Exception(msg);
 	}
+
 
     public List<String> listDocuments(String uri)
     {
@@ -65,18 +72,29 @@ public class AtlassianRepository implements DocumentRepository
 	@SuppressWarnings("unchecked")
 	public List<Object> listDocumentsInHierarchy() throws Exception
 	{
-    	Vector args = CollectionUtil.toVector( username , password, CollectionUtil.toVector(root.getFragment()));
-        XmlRpcClient xmlrpc = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
-        return (Vector<Object>)xmlrpc.execute( new XmlRpcRequest( handler + ".getSpecificationHierarchy", args ) );
+    	Vector<String> otherArgs = CollectionUtil.toVector(root.getFragment());
+    	Object response = makeXMLRPCCall(otherArgs, ".getSpecificationHierarchy");
+        return (List<Object>)response;
 	}
 
     private String retrieveSpecification(URI location) throws Exception
     {
-    	Vector args = CollectionUtil.toVector( username , password, args(location));
-        XmlRpcClient xmlrpc = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
-        return (String) xmlrpc.execute( new XmlRpcRequest( handler + ".getRenderedSpecification", args ) );
+    	Vector<Object> args2 = args(location);
+    	Object response = makeXMLRPCCall(args2, ".getRenderedSpecification");
+        return (String) response;
     }
 
+    private Object makeXMLRPCCall(Vector<?> options, String specificHandler) throws MalformedURLException, XmlRpcException {
+        Vector<?> args = CollectionUtil.toVector( username , password, options);
+        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+        config.setServerURL(new URL(root.getScheme() + "://" + root.getAuthority() + root.getPath()));
+        XmlRpcClient xmlrpc = new XmlRpcClient();
+        xmlrpc.setConfig(config);
+        xmlrpc.setTypeFactory(new CompatTypeFactory(xmlrpc));
+        Object response = xmlrpc.execute( handler + specificHandler, args );
+        return response;
+    }
+    
 	private Document loadHtmlDocument( String content ) throws IOException
     {
         Reader reader = new StringReader( content );

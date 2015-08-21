@@ -243,8 +243,8 @@
 	</reporting>
 
 	<modules>
-		<module>greenpaper</module>
-		<module>greenpaper-confluence</module>
-		<module>greenpaper-maven-plugin</module>
+		<module>greenpepper</module>
+		<module>greenpepper-confluence</module>
+		<module>greenpepper-maven-plugin</module>
 	</modules>
 </project>

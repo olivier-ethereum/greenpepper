@@ -65,14 +65,14 @@
     </dependencyManagement>
     
 	<modules>
-		<module>greenpaper-confluence3</module>
-		<module>greenpaper-confluence3-demo</module>
-		<module>greenpaper-confluence3-plugin</module>
-		<module>greenpaper-confluence4</module>
-		<module>greenpaper-confluence4-plugin</module>
-		<module>greenpaper-confluence5</module>
-		<module>greenpaper-confluence5-plugin</module>
-		<module>greenpaper-confluence-demo</module>
+		<module>greenpepper-confluence3</module>
+		<module>greenpepper-confluence3-demo</module>
+		<module>greenpepper-confluence3-plugin</module>
+		<module>greenpepper-confluence4</module>
+		<module>greenpepper-confluence4-plugin</module>
+		<module>greenpepper-confluence5</module>
+		<module>greenpepper-confluence5-plugin</module>
+		<module>greenpepper-confluence-demo</module>
 	</modules>
 
 </project>

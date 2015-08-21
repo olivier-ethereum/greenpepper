@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>complete</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<includes>
+				<include>greenpepper:greenpepper-client</include>
+				<include>greenpepper:greenpepper-server</include>
+				<include>greenpepper:greenpepper-license</include>
+				<include>greenpepper:greenpepper-extensions-java</include>
+				<include>greenpepper:greenpepper-core</include>
+				<include>greenpepper:greenpepper-confluence3-demo</include>
+				<include>greenpepper:greenpepper-confluence3</include>
+				<include>xmlrpc:xmlrpc</include>
+				<include>commons-codec:commons-codec</include>
+				<include>org.hibernate:hibernate</include>
+				<include>org.hibernate:hibernate-annotations</include>
+				<include>org.hibernate:hibernate-commons-annotations</include>
+				<include>org.hibernate:ejb3-persistence</include>
+				<!-- <include>javax.persistence:ejb</include> -->
+				<include>de.schlichtherle.truelicense:truelicense-core</include>
+				<include>de.schlichtherle.truelicense:truelicense-xml</include>
+			</includes>
+			<excludes>
+				<exclude>greenpepper:greenpepper-client:jar:complete</exclude>
+				<exclude>greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
+			</excludes>
+			<unpack>true</unpack>
+			<unpackOptions>
+				<excludes>
+					<exclude>org/xml/**</exclude>
+					<exclude>specs/**</exclude>
+					<exclude>ALongClassName.class</exclude>
+					<exclude>greenpepper-server.cfg.xml</exclude>
+					<exclude>results.txt</exclude>
+					<exclude>WithACustomFixtureFactory.html</exclude>
+					<exclude>log4j.properties</exclude>
+					<exclude>log4j.properties.template</exclude>
+					<exclude>META-INF/**</exclude>
+				</excludes>
+			</unpackOptions>
+			<outputFileNameMapping />
+		</dependencySet>
+		<dependencySet>
+			<includes>
+				<include>greenpepper:greenpepper-client:jar:complete</include>
+				<include>greenpepper:greenpepper-confluence-demo:jar:fixtures</include>
+			</includes>
+			<unpack>false</unpack>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>target/classes</directory>
+			<outputDirectory />
+		</fileSet>
+	</fileSets>
+</assembly>

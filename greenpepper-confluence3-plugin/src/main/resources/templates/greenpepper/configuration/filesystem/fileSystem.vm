@@ -1,0 +1,20 @@
+
+<table id="fileSystemEdit" width="90%" cellpadding="0" cellspacing="0">
+	#if(!$action.fileRepositories.isEmpty())
+		<tr>
+			<td class="sp_configSubTitle" style="width:15%">$action.getText('greenpepper.filesystem.project')</td>
+			<td class="sp_configSubTitle" style="width:15%">$action.getText('greenpepper.filesystem.name')</td>
+			<td class="sp_configSubTitle" style="width:70%">$action.getText('greenpepper.filesystem.path')</td>
+		</tr>
+		#foreach($repository in $action.fileRepositories)
+			#set($index = $velocityCount - 1)
+			<tr>
+				<td id="fileSystemEdit_project_$index" class="sp_configOutput">$repository.project.name</td>
+				<td id="fileSystemEdit_name_$index" class="sp_configOutput">$repository.name</td>
+				<td id="fileSystemEdit_url_$index" class="sp_configOutput">$repository.baseTestUrl</td>
+			</tr>
+		#end
+	#else
+		<tr><td id="fileSystemEdit_none" class="sp_configNoOutput">$action.getText('greenpepper.filesystem.none')</td></tr>
+	#end
+</table>

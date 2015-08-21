@@ -1,0 +1,85 @@
+<div class="sp_configItemView">
+	<div class="form-block greyboxfilled">
+		<table width="100%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="sp_configSubTitle">
+					<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+					$action.getText('greenpepper.project.name')
+				</td>
+				#if(!$action.registered)
+					<td class="sp_configNoOutput">
+						<span id="sutsPane_projectName">
+							$action.getText('greenpepper.project.none')
+						</span>
+					</td>
+				#else
+					<td class="sp_configOutput">
+						<span id="sutsPane_projectName">
+							$action.registeredRepository.project.name
+						</span>
+					</td>
+				#end
+			</tr>
+			<tr>
+				<td class="sp_configSubTitle">
+					<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+					$action.getText('greenpepper.project.alias')
+				</td>
+				#if(!$action.registered)
+					<td class="sp_configNoOutput">
+						<span id="sutsPane_repositoryName">
+							$action.getText('greenpepper.project.none')
+						</span>
+					</td>
+				#else
+					<td class="sp_configOutput">
+						<span id="sutsPane_repositoryName">
+							$action.registeredRepository.name
+						</span>
+					</td>
+				#end
+			</tr>
+			<tr>
+				<td class="sp_configSubTitle">
+					<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+					$action.getText('greenpepper.project.username')
+				</td>
+				#if(!$action.registered || !$action.registeredRepository.username)
+					<td class="sp_configNoOutput">
+						<span id="sutsPane_repositoryUser">
+							$action.getText('greenpepper.project.anonymous')
+						</span>
+					</td>
+				#else
+					<td class="sp_configOutput">
+						<span id="sutsPane_repositoryUser">
+							$action.registeredRepository.username
+						</span>
+					</td>
+				#end
+			</tr>
+			#if($action.registered)
+				<tr>
+					<td class="sp_configSubTitle">
+						<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+						$action.getText('greenpepper.registration.repouid')
+					</td>
+					<td class="sp_configOutput">
+						<span id="sutsPane_repositoryUid">
+							$action.registeredRepository.uid
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="sutsPane_display" width="100%" colspan="2">
+						#if(!$action.addMode)
+							#parse('templates/greenpepper/configuration/suts/systemUnderTest.vm')
+						#else
+							#parse('templates/greenpepper/configuration/suts/systemUnderTestInputs.vm')
+						#end
+					</td>
+				</tr>
+			#end
+		</table>
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<table class="sp_configPropertiesView" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.name')</td>
+		<td class="sp_configInput">
+			<input type="text" id="newSutName" class="sp_configInput" value="$action.selectedSut.name" size="40" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+			<span class="sp_configMandatory" title="$action.getText('greenpepper.suts.mandatorytxt')">$action.getText('greenpepper.suts.mandatory')<span>
+		</td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.runnername')</td>
+		<td class="sp_configInput" colspan="2">
+			<select name="sutRunnerName" id="sutRunnerName" class="sp_configSmallSelectOption">
+				#foreach($runner in $action.runners)
+					<option value="$runner.name" #if($runner.name.equals($action.selectedSut.runner.name)) selected #end>$runner.name&nbsp;&nbsp;&nbsp;</option>
+				#end
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.fixturefactory')</td>
+		<td class="sp_configInput" colspan="2"><input class="sp_configInput" type="text" id="fixtureFactory" value="$!action.selectedSut.fixtureFactory" size="85" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.fixturefactoryargs')</td>
+		<td class="sp_configInput" colspan="2"><input type="text" class="sp_configInput" id="fixtureFactoryArgs" value="$!action.selectedSut.fixtureFactoryArgs" size="85" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.projectdependencydescriptor')</td>
+		<td class="sp_configInput" colspan="2"><input type="text" class="sp_configInput" id="projectDependencyDescriptor" value="$!action.selectedSut.projectDependencyDescriptor" size="85"/></td>
+	</tr>
+</table>

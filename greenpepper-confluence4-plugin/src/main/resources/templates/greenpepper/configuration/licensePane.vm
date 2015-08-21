@@ -1,0 +1,103 @@
+<div class="steptitle">$action.getText('greenpepper.server.license.title')
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	<span  id="licensePaneError_display" class="gpErrMsg">
+		&nbsp;&nbsp;
+		#foreach($error in $action.actionErrors)
+			$action.getText($error)
+		#end
+	</span>
+#end
+</div>
+#if($action.isServerReady)
+	<div class="form-block greyboxfilled">
+		<div id="licensePreference"/>
+		<div id="licensePaneView_display" class="sp_configItemPane">
+			<table class="sp_configItemView" cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="sp_configSubTitle">
+						<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif">
+						$action.getText('greenpepper.configuration.version')
+					</td>
+					<td class="sp_configOutput">
+						<span id="sp_license_version">$action.license.version ($greenPepper.versionDate)</span>
+					</td>
+				</tr>
+				#if($action.license.hasHolderName())
+					<tr>
+						<td class="sp_configSubTitle">
+							<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif">
+							$action.getText('greenpepper.configuration.license.organisation')
+						</td>
+						<td class="sp_configOutput">
+							<span id="sp_license_organisation" >$action.license.holderName</span>
+						</td>
+					</tr>
+				#end
+				#if($action.license.hasNotBefore())
+					<tr>
+						<td class="sp_configSubTitle">
+							<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif">
+							$action.getText('greenpepper.configuration.license.datepurchased')
+						</td>
+						<td class="sp_configOutput">
+							<span id="sp_license_datepurchased">$action.license.notBefore</span>
+						</td>
+					</tr>
+				#end
+				#if($action.license.hasMaxUsers())
+					<tr>
+						<td class="sp_configSubTitle">
+							<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif">
+							$action.getText('greenpepper.configuration.licenseusers')
+						</td>
+						<td class="sp_configOutput">
+							<span id="sp_license_maxusers">$action.license.maxUsers</span>
+						</td>
+					</tr>
+				#end
+				#if($action.license.hasLicenseType())
+					<tr>
+						<td class="sp_configSubTitle">
+							<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif">
+							$action.getText('greenpepper.configuration.license.licensetype')
+						</td>
+						<td class="sp_configOutput">
+							<span id="sp_license_type">$action.license.licenseType</span>
+						</td>
+					</tr>
+				#end
+				#if($action.license.hasNoSupportAfter())
+					<tr>
+						<td class="sp_configSubTitle">
+							<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif">
+							$action.getText('greenpepper.configuration.license.supportperiod')
+						</td>
+						<td class="sp_configOutput">
+							<span id="sp_license_supportperiod">$action.license.noSupportAfter</span>
+						</td>
+					</tr>
+				#end
+				<tr>
+					<td class="sp_configSubTitle">&nbsp;</td>
+					<td class="sp_configOutput">
+						<span id="sp_license_desc" class="sp_licensedesc">$action.getText($action.license.info)</span>&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td class="sp_configSubTitle">
+						$action.getText('greenpepper.configuration.license.updatelicense')
+					</td>
+					<td class="sp_configOutput">
+						<span id="sp_license_upload" class="sp_configLinks" onclick="gpProperties.uploadLicense()">$action.getText('greenpepper.configuration.licenseupload')</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="sp_configOutput" colspan="2" align="center">
+						<textarea id="license_txt" cols="80" rows="6" wrap="virtual" style="width: 60%"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+#end

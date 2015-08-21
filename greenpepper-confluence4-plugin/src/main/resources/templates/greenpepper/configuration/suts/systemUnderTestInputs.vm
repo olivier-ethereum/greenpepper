@@ -1,0 +1,54 @@
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	<div  id="sutsPaneError_display" class="sp_configError" cellpadding="0" cellspacing="0">
+		#foreach($error in $action.actionErrors)
+			<span class="gpErrMsg">$action.getText($error)</span><br>
+		#end
+	</div>
+#end
+<div class="sp_configInputsView">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="sp_configInputTitle">
+				&nbsp;&nbsp;<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greypepper_16.gif" alt="" border="0">
+				&nbsp;$action.getText('greenpepper.runners.newsut')
+			</td>
+			<td>&nbsp;</td>
+			<td class="sp_configInputTxt">
+				<span id="systemUnderTestEdit_save" class="sp_configLinks" onclick="gpProperties.addSut('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.save')</span>
+				|
+				<span id="systemUnderTestEdit_cancel" class="sp_configLinks"  onclick="gpProperties.getSutsPane('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.cancel')</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.suts.name')</td>
+			<td class="sp_configInput" colspan="2">
+				<input type="text" id="newSutName" value="$action.newSutName" size="40" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+				<span class="sp_configMandatory" title="$action.getText('greenpepper.suts.mandatorytxt')">$action.getText('greenpepper.suts.mandatory')<span>
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.suts.runnername')</td>
+			<td class="sp_configInput" colspan="2">
+				<select id="sutRunnerName" class="sp_configSmallSelectOption">
+					#foreach($runner.name in $action.runners)
+						<option value="$runner.name" #if($runner.name.equals($action.newRunnerName)) selected #end>$runner.name</option>
+					#end
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.suts.fixturefactory')</td>
+			<td class="sp_configInput" colspan="2"><input class="sp_configInput" type="text" id="fixtureFactory" value="$!action.newFixtureFactory" size="75" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.suts.fixturefactoryargs')</td>
+			<td class="sp_configInput" colspan="2"><input class="sp_configInput" type="text" id="fixtureFactoryArgs" value="$!action.newFixtureFactoryArgs" size="75" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.suts.projectdependencydescriptor')</td>
+			<td class="sp_configInput" colspan="2"><input class="sp_configInput" type="text" id="projectDependencyDescriptor" value="$!action.newProjectDependencyDescriptor" size="75"/></td>
+		</tr>
+	</table>
+<div>

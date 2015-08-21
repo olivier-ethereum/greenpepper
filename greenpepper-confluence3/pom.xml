@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>greenpepper-confluence</artifactId>
+        <groupId>greenpepper</groupId>
+        <version>4.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>greenpepper-confluence3</artifactId>
+    <name>GreenPepper Confluence 3 Code</name>
+
+    <properties>
+        <!-- Confluence version -->
+        <!--<atlassian.product.version>2.7.4</atlassian.product.version>-->
+        <!--<atlassian.product.version>2.8.3</atlassian.product.version>-->
+        <!--<atlassian.product.version>2.9.3</atlassian.product.version>-->
+        <!--<atlassian.product.version>2.10</atlassian.product.version>-->
+        <!--<atlassian.product.version>3t0</atlassian.product.version>-->
+	<!--<atlassian.product.version>3.1</atlassian.product.version>-->
+	<atlassian.product.version>3.5</atlassian.product.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>greenpepper</groupId>
+            <artifactId>greenpepper-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>greenpepper</groupId>
+            <artifactId>greenpepper-server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>greenpepper</groupId>
+            <artifactId>greenpepper-license</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence</artifactId>
+            <version>${atlassian.product.version}</version>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.2.121</version>
+		</dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>logkit</groupId>
+                    <artifactId>logkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>avalon-framework</groupId>
+                    <artifactId>avalon-framework</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+</project>

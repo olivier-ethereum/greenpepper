@@ -1,0 +1,30 @@
+<div class="steptitle">$action.getText('greenpepper.spaceSelection.title')
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	<span  id="registrationPaneError_display" class="gpErrMsg">
+		&nbsp;&nbsp;
+		#foreach($error in $action.actionErrors)
+			$action.getText($error)
+		#end
+	</span>
+#end
+</div>
+#if($action.isServerReady)
+	<p class="stepdesc">$action.getText('greenpepper.spaceSelection.desc')</p>
+	#if($action.readonly)<span id="readonly" style="display:none"></span>#end
+	<div id="greyBox" class="form-block greyboxfilled">
+		<div class="form-element-small">
+			$action.getText('greenpepper.spaceSelection.spaceslist')
+			<select id="spaces" onchange="gpProperties.getRegistration(this.value)" class="sp_configSelectOption">
+				#set($firstSpace = '')
+				#foreach($space in $action.spaces)
+					#if($firstSpace == '')#set($firstSpace=$space.key)#end
+					<option value="$space.key" class="sp_configSelectOption" size=60>$space.name&nbsp;&nbsp;&nbsp;</option>
+				#end
+			</select>
+		</div>
+		<div id="registrationPane_display">
+			#if($firstSpace.length()>0)<script language="JavaScript" type="text/javascript">gpProperties.getRegistration('$firstSpace');</script>#end
+		</div>
+	</div>
+#end

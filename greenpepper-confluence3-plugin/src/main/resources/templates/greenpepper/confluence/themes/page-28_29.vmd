@@ -1,0 +1,91 @@
+## PAGE SPECIFIC DECORATOR
+## Here the context is the page. Modes are 'view', 'edit', 'edit-preview', 'view-information', and 'view-attachments'.
+
+#set ($helper = $params.get("helper"))
+#set ($mode = $params.get("mode"))
+#set ($context = $params.get("context"))
+#set ($confPage = $helper.page)
+
+#infoPanelInitFromParams()
+## GENERAL PAGE DECORATING BEGINS
+
+#if ($mode != "edit" && $mode != "edit-preview")
+    #parse ("/decorators/includes/content-navigation.vm")
+#end
+
+#if ($infoPanelRequired)
+<div id="sidebar">
+    <div id="info-panel">
+        #infoPanel(true true true true)
+    </div>
+</div>
+#end
+
+<div id="content" class="page $!mode">
+    #parse ("/template/includes/actionerrors.vm")
+
+    ## MODE SPECIFIC DECORATING BEGINS
+    #*
+        Display page based on mode: currently 'view', 'edit', 'preview-edit', 'info' and 'attachments.
+        See the individual page templates (viewpage.vm, editpage.vm, etc.) for the setting of the mode parameter.
+    *#
+    ## VIEW
+
+    #if ($mode == "view")
+        #set ($labelable = $page)
+        #permitSearchEngines()
+
+        #if ($helper.isHistoricalVersion())
+            <content tag="suppressPdfLink">true</content>
+        #end
+
+        #parse ("/decorators/includes/page-metadata.vm")
+        #if ($helper.isHistoricalVersion() || $helper.action.navigatingVersions)
+            #versionInfo()
+        #end
+
+        ## GREENPEPPER
+		<table cellspacing="0" width="100%">
+		  #parse($greenPepper.header)
+		</table>
+		#parse($greenPepper.body)
+
+        #trackbackRdf ($trackbackUtils.getContentIdentifier($page) $page.title $trackbackUtils.getPingUrl($page))
+
+        <div id="labels-section" class="pageSection">
+            #parse ("/labels/labels-include.vm")
+        </div>
+
+        #renderChildren()
+
+        #applyDecorator("root")
+            #decoratorParam("sitemeshPage" $sitemeshPage)
+            #decoratorParam("page" $page)
+            #decoratorParam("context" "comments")
+        #end
+
+    ## EDIT || PREVIEW-EDIT
+    #elseif ($mode == "edit" || $mode == "edit-preview")
+        $body
+
+    ## INFO
+    #elseif ($mode == "view-information")
+        $body
+
+    ## ATTACHMENTS
+    #elseif ($mode == "view-attachments" || $mode == "move-attachments")
+        $body
+
+    ## FOR CUSTOM WEB-ITEMS
+    #else
+        $body
+
+    #end
+    ## MODE SPECIFIC DECORATING ENDS
+
+</div>
+
+## GENERAL PAGE DECORATING ENDS
+
+#parse ("/pages/page-breadcrumbs.vm")
+#menuMacros_renderBrowseMenu()

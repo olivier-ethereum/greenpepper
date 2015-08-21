@@ -1,0 +1,64 @@
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	<div  id="runnersPaneError_display" class="sp_configError" cellpadding="0" cellspacing="0">
+		#foreach($error in $action.actionErrors)
+			<span class="gpErrMsg">$action.getText($error)</span><br>
+		#end
+	</div>
+#end
+<div class="sp_configInputsView">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="sp_configInputTitle">
+				&nbsp;&nbsp;<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greypepper_16.gif" alt="" border="0">
+				&nbsp;$action.getText('greenpepper.runners.newrunner')
+			</td>
+			<td>&nbsp;</td>
+			<td class="sp_configInputTxt">
+				<span id="runners_save" class="sp_configLinks" onclick="gpProperties.addRunner('$action.spaceKey');">$action.getText('greenpepper.runners.save')</span>
+				|
+				<span id="runners_cancel" class="sp_configLinks" onclick="gpProperties.getRunnersPane('$action.spaceKey');">$action.getText('greenpepper.runners.cancel')</span>
+				&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.name')</td>
+			<td class="sp_configInput" colspan="2">
+				<input type="text" id="runnerName" class="sp_configInput" value="$action.newRunnerName" size="40" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+				<span class="sp_configMandatory" title="$action.getText('greenpepper.runners.mandatorytxt')">$action.getText('greenpepper.runners.mandatory')<span>
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.cmdline')</td>
+			<td class="sp_configSmallInput" colspan="2">
+				<input type="text" id="cmdLineTemplate" class="sp_configSmallInput" value="$!action.newCmdLineTemplate" size="90"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.mainclass')</td>
+			<td class="sp_configInput" colspan="2"><input type="text" id="mainClass" class="sp_configInput" value="$!action.newMainClass" size="80" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.envtype')</td>
+			<td class="sp_configInput" colspan="2">
+				<select id="envType" class="sp_configSmallSelectOption">
+					#foreach($envType in $action.envTypes)
+						<option value="$envType.name" #if($envType.name.equals($action.newEnvType.name)) selected #end>$envType.name</option>
+					#end
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.servername')</td>
+			<td class="sp_configInput" colspan="2"><input type="text" id="serverName" class="sp_configInput" value="$!action.newServerName" size="40" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.serverport')</td>
+			<td class="sp_configInput" colspan="2"><input type="text" id="serverPort" class="sp_configInput" value="$!action.newServerPort" size="20" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+		</tr>
+		<tr>
+			<td class="sp_configLabels">$action.getText('greenpepper.runners.secured')</td>
+			<td class="sp_configInput" colspan="2"><input type="checkbox" id="secured" class="sp_configInput" #if($action.secured) checked="checked" #end size="20"/>$action.getText('greenpepper.runners.secured.desc')</td>
+		</tr>
+	</table>
+</div>

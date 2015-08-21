@@ -1,0 +1,556 @@
+<atlassian-plugin key="com.greenpepper.confluence.plugin" name="GreenPepper Toolbox">
+    <plugin-info>
+        <description><![CDATA[Provides various GreenPepper functionnalities and more.<br>Please visite our website: <a href="http://www.greenpeppersoftware.com">http://www.greenpeppersoftware.com</a>]]></description>
+        <vendor name="Pyxis Technologies inc." url="http://www.greenpepppersoftware.com"/>
+        <version>${pom.version}</version>
+        <param name="configure.url">/admin/plugins/greenpepper/config.action</param>
+    </plugin-info>
+
+    <web-resource key="scriptaculous" name="Scriptaculous" >
+        <!-- resource type="download" name="scriptaculous.js" location="includes/js/effects/scriptaculous.js" / -->
+        <resource type="download" name="effects.js" location="includes/js/effects/effects.js" />
+		<context>greenpepper-resources</context>
+    </web-resource>
+
+    <resource type="download" name="js/" location="includes/js/"/>
+    <resource type="download" name="css/" location="includes/css/"/>
+    <resource type="download" name="images/" location="includes/images/"/>
+    <resource type="download" name="CONFLUENCE" location="includes/images/conf.gif"/>
+    <resource type="download" name="FILE" location="includes/images/file.gif"/>
+    <resource type="download" name="JIRA" location="includes/images/jira.gif"/>
+
+	<resource type="download" name="icons/" key="icons" location="includes/images/"/>
+
+	<resource type="i18n" name="macros-i18n" location="com/greenpepper/confluence/macros/macros" />
+	
+	<!-- GREENPEPPER THEME -->
+
+    <theme key="greenpepper.colourtheme" name="GreenPepper Colour Theme" class="com.atlassian.confluence.themes.BasicTheme">
+        <description>Default GreenPepper Colour Theme</description>
+		<colour-scheme key="com.greenpepper.confluence.plugin:greenpepper.colours"/>
+        <resource type="stylesheet" name="greenpepper-theme.css" location="templates/greenpepper/confluence/themes/greenpepper-theme-css.vm"/>
+    </theme>
+    <theme key="greenpepper.theme" name="GreenPepper Theme" class="com.atlassian.confluence.themes.BasicTheme">
+        <description>Default confluence page decorator with GreenPepper functionalities.</description>
+		<colour-scheme key="com.greenpepper.confluence.plugin:greenpepper.colours"/>
+        <layout key="com.greenpepper.confluence.plugin:greenpepper.page"/>
+		<resource type="stylesheet" name="greenpepper-theme.css" location="templates/greenpepper/confluence/themes/greenpepper-theme-css.vm"/>
+	</theme>
+    <colour-scheme key="greenpepper.colours" name="GreenPepper Colours" class="com.atlassian.confluence.themes.BaseColourScheme">
+		<colour key="topbar" value="#8CC06D"/>
+		<colour key="spacename" value="#999999"/>
+		<colour key="headingtext" value="#006600"/>
+		<colour key="link" value="#663300"/>
+		<colour key="border" value="#006600"/>
+		<colour key="navbg" value="#8CC06D"/>
+		<colour key="navtext" value="#ffffff"/>
+		<colour key="navselectedbg" value="#006600"/>
+ 		<colour key="navselectedtext" value="#ffffff"/>
+	</colour-scheme>
+	<layout key="greenpepper.page" name="GreenPepper Page Decorator" class="com.atlassian.confluence.themes.VelocityDecorator" overrides="/decorators/page.vmd">
+        <resource type="velocity" name="decorator" location="templates/greenpepper/confluence/themes/page.vmd"/>
+	</layout>
+
+	<web-section key="greenpepper.section" name="GreenPepper Space Admin" location="system.space.admin" weight="300">
+    	<label key="GreenPepper" />
+    	<condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.NotPersonalSpaceCondition"/>
+    	<condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpacePermissionCondition">
+    		<param name="permission">edit</param>
+		</condition>
+	</web-section>
+	<web-item key="greenpepper.configuration" name="GreenPepper Configuration" section="system.space.admin/greenpepper.section" weight="3">
+    	<label key="Space Registration" />
+    	<link>/greenpepper/GreenPepperServer.action?key=$helper.spaceKey</link>
+    	<icon height="16" width="12">
+        	<link>/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_16.gif</link>
+    	</icon>
+    	<condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.SpacePermissionCondition">
+    		<param name="permission">edit</param>
+		</condition>
+	</web-item>
+
+	<!-- WIKI MACRO-->
+
+    <macro name='greenpepper-logo' class='com.greenpepper.confluence.macros.GreenPepperLogo' key='greenpepper-logo'/>
+    <macro name='greenpepper-group' class='com.greenpepper.confluence.macros.GreenPepperGroup' key='greenpepper-group'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperGroup-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-include' class='com.greenpepper.confluence.macros.GreenPepperInclude' key='greenpepper-include'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperInclude-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-children' class='com.greenpepper.confluence.macros.GreenPepperChildren' key='greenpepper-children'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperChildren-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-labels' class='com.greenpepper.confluence.macros.GreenPepperLabels' key='greenpepper-labels'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperLabels-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-info' class='com.greenpepper.confluence.macros.GreenPepperInfo' key='greenpepper-info'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperInfo-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-example' class='com.greenpepper.confluence.macros.GreenPepperExample' key='greenpepper-example'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperExample-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-import' class='com.greenpepper.confluence.macros.GreenPepperImport' key='greenpepper-import'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperImport-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-manage' class='com.greenpepper.confluence.macros.GreenPepperManage' key='greenpepper-manage'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperManage-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+    <macro name='greenpepper-hierarchy' class='com.greenpepper.confluence.macros.GreenPepperHierarchy' key='greenpepper-hierarchy'>
+        <param name="help-section" value="external"/>
+        <description/>
+        <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperHierarchy-help.vm">
+            <param name="help-section" value="misc"/>
+        </resource>
+    </macro>
+	<macro name='greenpepper-historic' class='com.greenpepper.confluence.macros.GreenPepperHistoric' key='greenpepper-historic'>
+		<param name="help-section" value="external"/>
+		<description/>
+		<resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperHistoric-help.vm">
+			<param name="help-section" value="misc"/>
+		</resource>
+	</macro>
+
+	<!-- XHTML MACRO-->
+    
+    <xhtml-macro name='greenpepper-logo' class='com.greenpepper.confluence.macros.GreenPepperLogo' key='greenpepper-logo-xhtml' hidden='true'>
+		<category name="development"/>
+		<parameters/>
+    </xhtml-macro>
+    <xhtml-macro name='greenpepper-group' class='com.greenpepper.confluence.macros.GreenPepperGroup' key='greenpepper-group-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Group+macro">
+        <category name="development"/>
+		<parameters>
+			<parameter name="title" type="string">
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+			<parameter name="group" type="string">
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+	    </parameters>
+    </xhtml-macro>
+    <xhtml-macro name='greenpepper-include' class='com.greenpepper.confluence.macros.GreenPepperInclude' key='greenpepper-include-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Include+Macro">
+        <category name="development"/>
+		<parameters>
+			<parameter name="pageTitle" type="string" required="true">
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+		    <parameter name="spaceKey" type="spacekey"/>
+			<parameter name="title" type="string" />
+		    <parameter name="expanded" type="boolean"/>
+	    </parameters>
+    </xhtml-macro>
+    <xhtml-macro name='greenpepper-children' class='com.greenpepper.confluence.macros.GreenPepperChildren' key='greenpepper-children-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Children+Macro">
+        <category name="development"/>
+		<parameters>
+		    <parameter name="all" type="boolean"/>
+		    <parameter name="spaceKey" type="spacekey"/>
+			<parameter name="pageTitle" type="string"/>
+			<parameter name="title" type="string" >
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+		    <parameter name="expanded" type="boolean"/>
+			<parameter name="suts" type="string"/>
+			<parameter name="group" type="string"/>
+			<parameter name="sort" type="string"/>
+		    <parameter name="reverse" type="boolean"/>
+		    <parameter name="openInSameWindow" type="boolean"/>
+		</parameters>
+    </xhtml-macro>
+    <xhtml-macro name='greenpepper-labels' class='com.greenpepper.confluence.macros.GreenPepperLabels' key='greenpepper-labels-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Labels+macro">
+        <category name="development"/>
+		<parameters>
+		    <parameter name="spaceKey" type="spacekey"/>
+		    <parameter name="labels" type="string"/>
+			<parameter name="title" type="string" >
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+		    <parameter name="expanded" type="boolean"/>
+			<parameter name="suts" type="string"/>
+			<parameter name="group" type="string"/>
+			<parameter name="sort" type="string"/>
+		    <parameter name="reverse" type="boolean"/>
+		    <parameter name="openInSameWindow" type="boolean"/>
+		</parameters>
+    </xhtml-macro>
+    
+    <xhtml-macro name='greenpepper-info' class='com.greenpepper.confluence.macros.GreenPepperInfo' key='greenpepper-info-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Info+macro">
+        <category name="development"/>
+		<parameters>
+			<parameter name="title" type="string" >
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+			<parameter name="bgcolor" type="string"/>
+		</parameters>
+    </xhtml-macro>
+    
+    <xhtml-macro name='greenpepper-example' class='com.greenpepper.confluence.macros.GreenPepperExample' key='greenpepper-example-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Example+macro">
+        <category name="development"/>
+		<parameters>
+			<parameter name="title" type="string" >
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+			<parameter name="bgcolor" type="string"/>
+		</parameters>
+    </xhtml-macro>
+    
+	<xhtml-macro name="greenpepper-import"
+	             class="com.greenpepper.confluence.macros.GreenPepperImport"
+	             key="greenpepper-import-xhtml"
+	             icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+	             documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Import+macro">
+	    <category name="development"/>
+	    <param name="help-section" value="external"/>
+	    <description/>
+	    <resource type="velocity" name="help" location="/templates/greenpepper/confluence/macros/greenPepperImport-help.vm">
+	        <param name="help-section" value="misc"/>
+    	</resource>
+        <parameters>
+	        <parameter name="imports" type="string" multiple="true" >
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+    	</parameters>
+	</xhtml-macro>
+
+    <xhtml-macro name='greenpepper-manage' class='com.greenpepper.confluence.macros.GreenPepperManage' key='greenpepper-manage-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Manage+macro">
+		<category name="development"/>
+		<parameters>
+			<parameter name="gpUrl" type="string" required="true">
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+		    <parameter name="gpService" type="string" required="true"/>
+		    <parameter name="jiraUid" type="string" required="true"/>
+		    <parameter name="versionName" type="string" required="true"/>
+		    <parameter name="user" type="string"/>
+		    <parameter name="pwd" type="string"/>
+	    </parameters>
+    </xhtml-macro>
+    <xhtml-macro name='greenpepper-hierarchy' class='com.greenpepper.confluence.macros.GreenPepperHierarchy' key='greenpepper-hierarchy-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Hierarchy+macro">
+        <category name="development"/>
+		<parameters>
+			<parameter name="gpUrl" type="string" required="true">
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+		    <parameter name="gpService" type="string" required="true"/>
+		    <parameter name="jiraUid" type="string" required="true"/>
+		    <parameter name="versionName" type="string" required="true"/>
+		    <parameter name="linkName" type="string" required="true"/>
+		    <parameter name="user" type="string"/>
+		    <parameter name="pwd" type="string"/>
+	    </parameters>
+    </xhtml-macro>
+	<xhtml-macro name='greenpepper-historic' class='com.greenpepper.confluence.macros.GreenPepperHistoric' key='greenpepper-historic-xhtml'
+			icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+			documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Historic+Macro">
+		<category name="development"/>
+		<parameters>
+			<parameter name="pageTitle" type="string">
+	            <option key="showNameInPlaceholder" value="false" />
+	            <option key="showValueInPlaceholder" value="true" />
+	        </parameter>
+		    <parameter name="spaceKey" type="spacekey"/>
+			<parameter name="sut" type="string"/>
+		    <parameter name="maxresult" type="string" default="30"/>
+		    <parameter name="width" type="string" default="500"/>
+		    <parameter name="height" type="string" default="500"/>
+		    <parameter name="border" type="boolean"/>
+		    <parameter name="showignored" type="boolean"/>
+		    <parameter name="children" type="boolean"/>
+		    <parameter name="labels" type="string"/>
+		</parameters>
+	</xhtml-macro>
+
+	<macro-migrator key="greenpepper-info-migrator"
+                	macro-name="greenpepper-info"
+                class="com.greenpepper.confluence.macros.migrator.GreenPepperMacroWithBodyMigrator"/>
+                
+	<macro-migrator key="greenpepper-example-migrator"
+                	macro-name="greenpepper-example"
+                class="com.greenpepper.confluence.macros.migrator.GreenPepperMacroWithBodyMigrator"/>
+
+	<macro-migrator key="greenpepper-import-migrator"
+                	macro-name="greenpepper-import"
+                class="com.greenpepper.confluence.macros.migrator.GreenPepperImportMigrator"/>
+
+	<!--
+	<macro-migrator key="greenpepper-children-migrator"
+                	macro-name="greenpepper-children"
+                class="com.greenpepper.confluence.macros.migrator.GreenPepperChildrenMigrator"/>
+	-->
+	<!-- GREENPEPPER CORE -->
+	<velocity-context-item key="greenpepper.velocity" name="GreenPepper velocity" context-key="greenPepper" class="com.greenpepper.confluence.velocity.ConfluenceGreenPepper" />
+
+	<xwork key="greenpepper.webactions" name="GreenPepper Web Actions">
+        <package name="GPInstall" extends="default" namespace="/admin/plugins/greenpepper">
+            <default-interceptor-ref name="defaultStack"/>
+			<action name="config" class="com.greenpepper.confluence.actions.server.InstallationAction" method="config">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/installation/greenPepperInstall.vm</result>
+			</action>
+        </package>
+    	<package name="greenpepper" extends="default" namespace="/greenpepper">
+        	<default-interceptor-ref name="defaultStack" />
+			<action name="GetDbmsPane" class="com.greenpepper.confluence.actions.server.InstallationAction">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/installation/greenPepperDbmsConfig.vm</result>
+			</action>
+			<action name="EditDbmsConfiguration" class="com.greenpepper.confluence.actions.server.InstallationAction" method="editDbmsConfiguration">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/installation/greenPepperDbmsConfig.vm</result>
+			</action>
+			<action name="ChangeInstallType" class="com.greenpepper.confluence.actions.server.InstallationAction" method="changeInstallationType">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/installation/configurationDbmsEdit.vm</result>
+			</action>
+			<action name="TestDbmsConnection" class="com.greenpepper.confluence.actions.server.InstallationAction" method="testDbmsConnection">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/installation/configurationDbmsTest.vm</result>
+			</action>
+			<!-- Actions managing the Demo -->
+			<action name="GetDemoPane" class="com.greenpepper.confluence.actions.server.DemoSpaceAction" method="doGetDemo">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/demo/demoPane.vm</result>
+			</action>
+			<action name="CreateDemoSpace" class="com.greenpepper.confluence.actions.server.DemoSpaceAction" method="doCreateDemoSpace">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/demo/demoPane.vm</result>
+			</action>
+			<action name="RemoveDemoSpace" class="com.greenpepper.confluence.actions.server.DemoSpaceAction" method="doRemoveDemoSpace">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/demo/demoPane.vm</result>
+			</action>
+
+			<action name="GreenPepperServer" class="com.greenpepper.confluence.actions.server.GreenPepperServerAction">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/greenPepperConfig.vm</result>
+			</action>
+			<!-- License Management -->
+			<action name="GetLicensePane" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="verifyServerReady">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/licensePane.vm</result>
+			</action>
+			<action name="UploadLicense" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="uploadLicense">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/licensePane.vm</result>
+        	</action>
+<!-- Actions managing the GreenPepper's Runners -->
+            <action name="GetRunnersPane" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doGetRunners">
+              	<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+        	</action>
+        	<action name="AddRunner" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doAddRunner">
+              	<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+        	</action>
+       		<action name="RemoveRunner" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doRemoveRunner">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+       		</action>
+       		<action name="EditRunnerProperties" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doGetRunners">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+       		</action>
+       		<action name="UpdateRunnerProperties" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doUpdateRunner">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+      		</action>
+       		<action name="EditRunnerClasspaths" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doGetRunners">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+       		</action>
+       		<action name="EditRunnerClasspath" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="doEditClasspath">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/runners/runnersPane.vm</result>
+       		</action>
+<!-- Actions managing the Confluence's project Registration -->
+			<action name="GetGpProjectPane" class="com.greenpepper.confluence.actions.server.ConfigurationAction" method="verifyServerReady">
+				<result name="success" type="velocity">/templates/greenpepper/configuration/registration/ProjectManagementPane.vm</result>
+			</action>
+            <action name="GetRegistration" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doGetRegistration">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/registration/registrationPane.vm</result>
+       		</action>
+       		<action name="EditRegistration" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doGetRegistration">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/registration/registrationPane.vm</result>
+       		</action>
+       		<action name="Register" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doRegister">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/registration/registrationPane.vm</result>
+       		</action>
+       		<action name="UpdateRegistration" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doUpdateRegistration">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/registration/registrationPane.vm</result>
+       		</action>
+<!-- Actions managing the System Under Tests -->
+       		<action name="GetSutsPane" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doGetSystemUnderTests">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="AddSystemUnderTest" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doAddSystemUnderTest">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="RemoveSystemUnderTest" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doRemoveSystemUnderTest">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="EditSutProperties" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doGetSystemUnderTests">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="UpdateSystemUnderTest" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doUpdateSystemUnderTest">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="EditSutClasspaths" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doGetSystemUnderTests">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="EditSutClasspath" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doEditClasspath">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="EditSutFixtures" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doGetSystemUnderTests">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="EditSutFixture" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doEditFixture">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+       		<action name="SetAsDefault" class="com.greenpepper.confluence.actions.server.RegistrationAction" method="doSetAsDefault">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/suts/systemUnderTestPane.vm</result>
+       		</action>
+<!-- Actions managing the File System Repositories -->
+       		<action name="GetFileSystemRegistration" class="com.greenpepper.confluence.actions.server.FileSystemRegistration" method="doGetFileSystemRegistration">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/filesystem/fileSystemPane.vm</result>
+       		</action>
+       		<action name="EditFileSystem" class="com.greenpepper.confluence.actions.server.FileSystemRegistration" method="doGetFileSystemRegistration">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/filesystem/fileSystemPane.vm</result>
+       		</action>
+       		<action name="AddFileSystem" class="com.greenpepper.confluence.actions.server.FileSystemRegistration" method="doAddFileSystem">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/filesystem/fileSystemPane.vm</result>
+       		</action>
+       		<action name="RemoveFileSystem" class="com.greenpepper.confluence.actions.server.FileSystemRegistration" method="doRemoveFileSystem">
+           		<result name="success" type="velocity">/templates/greenpepper/configuration/filesystem/fileSystemPane.vm</result>
+       		</action>
+<!-- END -->
+            <action name="GreenPepperHeader" class="com.greenpepper.confluence.actions.execution.HeaderExecutionAction" method="loadHeader">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/header.vm</result>
+            </action>
+            <action name="GreenPepperize" class="com.greenpepper.confluence.actions.execution.HeaderExecutionAction" method="greenPepperize">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/header.vm</result>
+            </action>
+            <action name="SetAsImplemented" class="com.greenpepper.confluence.actions.execution.HeaderExecutionAction" method="setAsImplemented">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/header.vm</result>
+            </action>
+            <action name="Revert" class="com.greenpepper.confluence.actions.execution.HeaderExecutionAction" method="revert">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/header.vm</result>
+            </action>
+            <action name="RetrieveBody" class="com.greenpepper.confluence.actions.execution.HeaderExecutionAction">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/body.vm</result>
+            </action>
+            <action name="UpdateExecuteChildren" class="com.greenpepper.confluence.actions.execution.HeaderExecutionAction" method="updateExecuteChildren">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/header-execution.vm</result>
+            </action>
+            <action name="GetSutSelection" class="com.greenpepper.confluence.actions.SpecificationAction" method="loadSpecification">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/systemUnderTest.vm</result>
+            </action>
+            <action name="UpdateSelectedSut" class="com.greenpepper.confluence.actions.SpecificationAction" method="updateSelectedSystemUndertTest">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/systemUnderTest.vm</result>
+            </action>
+            <action name="RetrieveSutConfiguration" class="com.greenpepper.confluence.actions.SpecificationAction" method="getSystemUndertTestSelection">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/sut-configuration.vm</result>
+            </action>
+            <action name="AddSpecSystemUnderTest" class="com.greenpepper.confluence.actions.SpecificationAction" method="addSystemUnderTest">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/sut-configuration.vm</result>
+            </action>
+            <action name="RemoveSpecSystemUnderTest" class="com.greenpepper.confluence.actions.SpecificationAction" method="removeSystemUnderTest">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/sut-configuration.vm</result>
+            </action>
+            <action name="RetrieveReferenceList" class="com.greenpepper.confluence.actions.SpecificationAction" method="retrieveReferenceList">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/referenceList.vm</result>
+            </action>
+            <action name="AddReference" class="com.greenpepper.confluence.actions.SpecificationAction" method="addReference">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/referenceList.vm</result>
+            </action>
+            <action name="RemoveReference" class="com.greenpepper.confluence.actions.SpecificationAction" method="removeReference">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/referenceList.vm</result>
+            </action>
+            <action name="RefreshChildren" class="com.greenpepper.confluence.actions.execution.ChildrenExecutionAction">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/children-execution.vm</result>
+            </action>
+            <action name="RefreshLabels" class="com.greenpepper.confluence.actions.execution.LabelExecutionAction">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/label-execution.vm</result>
+            </action>
+            <action name="Run" class="com.greenpepper.confluence.actions.SpecificationAction" method="run">
+                <result name="success" type="velocity">/templates/greenpepper/confluence/execution/execution-result.vm</result>
+            </action>
+			<action name="ShowExecutionResult" class="com.greenpepper.confluence.actions.execution.ShowExecutionResultAction" method="show">
+				<result name="success" type="velocity">/templates/greenpepper/confluence/execution/execution-result-historic.vm</result>
+			</action>
+			<action name="ShowHistoricChart" class="com.greenpepper.confluence.actions.execution.ChildrenExecutionResultAction" method="show">
+				<result name="success" type="velocity">/templates/greenpepper/confluence/execution/children-execution-historic.vm</result>
+			</action>
+        </package>
+    </xwork>
+
+    <listener key='greenpepper.listener' name='GreenPepper Listener' class='com.greenpepper.confluence.listeners.GreenPepperPageListener'>
+        <description/>
+    </listener>
+
+	<!-- GreenPepper Confluence PlugIn as GPS -->
+	<component key="greenPepperServerConfigurationActivator" name="GreenPepper Server Configuration Activator"
+			   class="com.greenpepper.confluence.GreenPepperServerConfigurationActivator"/>
+
+	<lifecycle key="greenpepper.lifeCycle" name="GreenPepper Server LifeCycle"
+			   class="com.greenpepper.confluence.GreenPepperLifeCycle" sequence="800">
+		<description/>
+	</lifecycle>
+
+	<component key="greenPepperServerService" name="GreenPepper Server Service"
+			   class="com.greenpepper.server.GreenPepperServerServiceImpl"/>
+	<component key="greenPepperXmlRpcServerService" name="GreenPepper XML-RPC Server"
+			   class="com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer"/>
+
+	<listener key="greenPepperServer.listener" name="GreenPepper Plugin Listener"
+			  class="com.greenpepper.confluence.listeners.GreenPepperPluginListener">
+		<description/>
+	</listener>
+
+	<rpc-xmlrpc key="greenpepper.xmlrpcService" alias="greenPepperService" name="GreenPepper XML-RPC Service Delegator"
+				class="com.greenpepper.confluence.rpc.xmlrpc.GreenPepperXmlRpcServerDelegator">
+		<description/>
+		<service-path>greenpepper1</service-path>
+		<published-interface>com.greenpepper.confluence.rpc.RpcClientService</published-interface>
+		<authenticate>false</authenticate>
+	</rpc-xmlrpc>
+
+</atlassian-plugin>

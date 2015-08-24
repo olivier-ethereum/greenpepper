@@ -1,0 +1,17 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.team-member {
+	max-height: 100px;
+} 
+.team-member-pict {
+	height: 80px;
+}
+
+.headings-glyph {
+	text-align: center;
+	font-size: 5em;
+}

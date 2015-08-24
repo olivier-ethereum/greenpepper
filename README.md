@@ -1,6 +1,6 @@
 # greenpepper-doc
 
-Documentation for Greenpepper
+Documentation for Greenpepper [Visible sur Github](http://strator-dev.github.io/greenpepper-doc/)
 
 ## Want to Contribute ? 
 
@@ -14,5 +14,3 @@ Documentation for Greenpepper
 
 ### Submit patches/merge request by forking the code
 
-
-## Follow the evolution 

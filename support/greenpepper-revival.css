@@ -4,6 +4,11 @@ body {
   padding-bottom: 20px;
 }
 
+gpname {
+    font-family: fantasy;
+    color: green;
+}
+
 .team-member {
 	max-height: 100px;
 } 
@@ -14,4 +19,41 @@ body {
 .headings-glyph {
 	text-align: center;
 	font-size: 5em;
+}
+
+#sidebar-menu ul {
+    list-style-type: none;
+	padding: 0;
+}
+
+#sidebar-menu .main-menu a {
+    display: block;
+	font-size: 13px;
+	font-weight: 500;
+	color: #999;
+	padding: 4px 20px;
+}
+#sidebar-menu .main-menu a:hover {
+	color: #11427D;
+	text-decoration: none;
+	background-color: transparent;
+	border-left: 1px solid #11427D;
+}
+
+#sidebar-menu .sub-menu a {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 30px;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+#sidebar-menu .nav-header {
+    border-left: 5px solid #eee;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+#sidebar-menu .main-menu .active>a {
+	background-color: #eee; 
 }

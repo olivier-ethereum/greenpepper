@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="gprApp">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +32,7 @@
 
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="menuCtrl">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -46,90 +46,18 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="projects.html">Projects</a></li>
-					<li><a href="documentation.html">Documentation</a></li>
-					<li><a href="downloads.html">Downloads</a></li>
-					<li><a href="about.html">About</a></li>
+					<li ng-class="activateMenu('home')"><a href="#/home">Home</a></li>
+					<li ng-class="activateMenu('projects')"><a href="#/projects">Projects</a></li>
+					<li ng-class="activateMenu('documentation')"><a href="#/documentation">Documentation</a></li>
+					<li ng-class="activateMenu('downloads')"><a href="#/downloads">Downloads</a></li>
+					<li ng-class="activateMenu('about')"><a href="#/about">About</a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
 		</div>
 	</nav>
-
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Revive GreenPepper !</h1>
-			<p>GreenPepper is a collaboration platform to help business
-				experts and developers create executable specificatons in order to
-				build the right software.</p>
-			<p>
-				<a class="btn btn-primary btn-lg" href="about.html" role="button">Learn
-					more about GreenPepper &raquo;</a>
-			</p>
-		</div>
-	</div>
-
-	<div class="container">
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="col-md-4">
-				<div>
-					<div class="headings-glyph">
-						<i class="icon-mootoolsthree"></i>
-					</div>
-					<div>
-						<h2>Want to Help ?</h2>
-						<p>We absolutely need help on this project. We split it into sub projects that you can find on this website: GreenPepper Core, Documentation, extensions ...</p>
-						<p>
-							<a class="btn btn-default" href="projects.html" role="button">View
-								details &raquo;</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div>
-					<div class="headings-glyph">
-						<i class="icon-keyboard"></i>
-					</div>
-					<div>
-						<h2>Want to use ?</h2>
-						<p>You may start by looking at the documentation. A 10 minutes tutorial will help you set GreenPepper up and test it.</p>
-						<p>
-							<a class="btn btn-default" href="#" role="button">View the
-								docs &raquo;</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div>
-					<div class="headings-glyph">
-						<i class="icon-commentsmiley"></i>
-					</div>
-					<div>
-						<h2>Want to Discuss ?</h2>
-						<p>We want some information about the projects? give us some
-							feedbacks? offer us a beer ?</p>
-						<p>
-							<a class="btn btn-default"
-								href="https://gitter.im/strator-dev/greenpepper" role="button">Come
-								on Gitter &raquo;</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<hr>
-
-		<footer>
-			<p>&copy; 2015 Strator, a Logista Trademark</p>
-		</footer>
-	</div>
-	<!-- /container -->
+	
+	<div ui-view></div>
 
 
 	<!-- Bootstrap core JavaScript
@@ -143,5 +71,10 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+	<script src="support/greenpepper-revival.js"></script>
+	<script src="components/documentation/documentation.js"></script>
 </body>
 </html>

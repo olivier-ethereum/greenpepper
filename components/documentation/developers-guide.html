@@ -1,504 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-
-
-<script type="text/javascript" src="/static/js/analytics.js"></script>
-<script type="text/javascript">archive_analytics.values.server_name="wwwb-app12.us.archive.org";archive_analytics.values.server_ms=258;</script>
-<link type="text/css" rel="stylesheet" href="/static/css/banner-styles.css"/>
-
-
-            <title>Full developer guide - HTML - GreenPepper Open Documentation Refactoring  - GreenPepper</title>
-            
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <META HTTP-EQUIV="Expires" CONTENT="-1">
-    <script language="javascript">
-      var contextPath = '/confluence';
-    </script>
-
-                            <link rel="stylesheet" href="/web/20121008025351cs_/http://www.greenpeppersoftware.com/confluence/s/705/1/2/_/styles/main-action.css?spaceKey=GPWODOC" type="text/css" />
-            
-        <link rel="shortcut icon" href="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/images/icons/favicon.ico">
-    <link rel="icon" type="image/png" href="/confluence/images/icons/favicon.png">
-        
-            <script type="text/javascript" src="/web/20121008025351js_/http://www.greenpeppersoftware.com/confluence/s/705/1/_/decorators/effects.js"></script>
-    
-
-        
-
-    <style type="text/css" media="screen">
-@import url(/web/20121008025351im_/http://www.greenpeppersoftware.com/lib/css/headers.css);
-@import url(/web/20121008025351im_/http://www.greenpeppersoftware.com/lib/css/headers_gp_confuence.css);
-.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6 {background-color: transparent;}
-</style>
-
-</head>
-
-            <body onload="placeFocus()">
-
-
-<!-- BEGIN WAYBACK TOOLBAR INSERT -->
-<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
-<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
-<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
-<script type="text/javascript">//<![CDATA[
-var __wm = (function(){
-var wbPrefix = "/web/";
-var wbCurrentUrl = "http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML";
-
-var firstYear = 1996;
-var imgWidth = 500,imgHeight = 27;
-var yearImgWidth = 25,monthImgWidth = 2;
-var displayDay = "8";
-var displayMonth = "oct.";
-var displayYear = "2012";
-var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-var $D=document,$=function(n){return document.getElementById(n)};
-var trackerVal,curYear = -1,curMonth = -1;
-var yearTracker,monthTracker;
-function showTrackers(val) {
-  if (val===trackerVal) return;
-  var $ipp=$("wm-ipp");
-  var $y=$("displayYearEl"),$m=$("displayMonthEl"),$d=$("displayDayEl");
-  if (val) {
-    $ipp.className="hi";
-  } else {
-    $ipp.className="";
-    $y.innerHTML=displayYear;$m.innerHTML=displayMonth;$d.innerHTML=displayDay;
-  }
-  yearTracker.style.display=val?"inline":"none";
-  monthTracker.style.display=val?"inline":"none";
-  trackerVal = val;
-}
-function getElementX2(obj) {
-  var $e=jQuery(obj);
-  return (typeof $e=="undefined"||typeof $e.offset=="undefined")?
-    getElementX(obj):Math.round($e.offset().left);
-}
-function trackMouseMove(event,element) {
-  var eventX = getEventX(event);
-  var elementX = getElementX2(element);
-  var xOff = Math.min(Math.max(0, eventX - elementX),imgWidth);
-  var monthOff = xOff % yearImgWidth;
-
-  var year = Math.floor(xOff / yearImgWidth);
-  var monthOfYear = Math.min(11,Math.floor(monthOff / monthImgWidth));
-  // 1 extra border pixel at the left edge of the year:
-  var month = (year * 12) + monthOfYear;
-  var day = monthOff % 2==1?15:1;
-  var dateString = zeroPad(year + firstYear) + zeroPad(monthOfYear+1,2) +
-    zeroPad(day,2) + "000000";
-
-  $("displayYearEl").innerHTML=year+firstYear;
-  $("displayMonthEl").innerHTML=prettyMonths[monthOfYear];
-  // looks too jarring when it changes..
-  //$("displayDayEl").innerHTML=zeroPad(day,2);
-  var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
-  $("wm-graph-anchor").href=url;
-
-  if(curYear != year) {
-    var yrOff = year * yearImgWidth;
-    yearTracker.style.left = yrOff + "px";
-    curYear = year;
-  }
-  if(curMonth != month) {
-    var mtOff = year + (month * monthImgWidth) + 1;
-    monthTracker.style.left = mtOff + "px";
-    curMonth = month;
-  }
-}
-function hideToolbar() {
-  $("wm-ipp").style.display="none";
-}
-function bootstrap() {
-  var $spk=$("wm-ipp-sparkline");
-  yearTracker=$D.createElement('div');
-  yearTracker.className='yt';
-  with(yearTracker.style){
-    display='none';width=yearImgWidth+"px";height=imgHeight+"px";
-  }
-  monthTracker=$D.createElement('div');
-  monthTracker.className='mt';
-  with(monthTracker.style){
-    display='none';width=monthImgWidth+"px";height=imgHeight+"px";
-  }
-  $spk.appendChild(yearTracker);
-  $spk.appendChild(monthTracker);
-
-  var $ipp=$("wm-ipp");
-  $ipp&&disclaimElement($ipp);
-}
-return{st:showTrackers,mv:trackMouseMove,h:hideToolbar,bt:bootstrap};
-})();//]]>
-</script>
-<style type="text/css">
-body {
-  margin-top:0 !important;
-  padding-top:0 !important;
-  min-width:800px !important;
-}
-</style>
-<div id="wm-ipp" lang="en" style="display:none;">
-
-<div style="position:fixed;left:0;top:0;width:100%!important">
-<div id="wm-ipp-inside">
-   <table style="width:100%;"><tbody><tr>
-   <td id="wm-logo">
-       <a href="/web/" title="Wayback Machine home page"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0" /></a>
-   </td>
-   <td class="c">
-       <table style="margin:0 auto;"><tbody><tr>
-       <td class="u" colspan="2">
-       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML" style="width:400px;" onfocus="this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20121008025351" /><input type="submit" value="Go" /><span id="wm_tb_options" style="display:block;"></span></form>
-       </td>
-       <td class="n" rowspan="2">
-           <table><tbody>
-           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
-           <tr class="m">
-           	<td class="b" nowrap="nowrap">
-		
-		    <a href="/web/20111124055801/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML" title="24 nov. 2011">NOV.</a>
-		
-		</td>
-		<td class="c" id="displayMonthEl" title="You are here: 2:53:51 oct. 8, 2012">OCT.</td>
-		<td class="f" nowrap="nowrap">
-		
-		    nov.
-		
-                </td>
-	    </tr>
-           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
-           <tr class="d">
-               <td class="b" nowrap="nowrap">
-               
-                   <a href="/web/20111124055801/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML" title="5:58:01 nov. 24, 2011"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
-               
-               </td>
-               <td class="c" id="displayDayEl" style="width:34px;font-size:24px;" title="You are here: 2:53:51 oct. 8, 2012">8</td>
-	       <td class="f" nowrap="nowrap">
-               
-                   <img src="/static/images/toolbar/wm_tb_nxt_off.png" alt="Next capture" width="14" height="16" border="0"/>
-               
-	       </td>
-           </tr>
-           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
-           <tr class="y">
-	       <td class="b" nowrap="nowrap">
-               
-                   <a href="/web/20090914023943/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML" title="14 sept. 2009"><strong>2009</strong></a>
-               
-               </td>
-               <td class="c" id="displayYearEl" title="You are here: 2:53:51 oct. 8, 2012">2012</td>
-	       <td class="f" nowrap="nowrap">
-               
-                   2013
-               
-	       </td>
-           </tr>
-           </tbody></table>
-       </td>
-       </tr>
-       <tr>
-       <td class="s">
-           <a class="t" href="/web/20121008025351*/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML" title="See a list of every capture for this URL">3 captures</a>
-           <div class="r" title="Timespan for captures of this URL">14 sept. 09 - 8 oct. 12</div>
-       </td>
-       <td class="k">
-       <a href="" id="wm-graph-anchor">
-       <div id="wm-ipp-sparkline" title="Explore captures for this URL">
-	 <img id="sparklineImgId" alt="sparklines"
-		 onmouseover="__wm.st(1)" onmouseout="__wm.st(0)"
-		 onmousemove="__wm.mv(event,this)"
-		 width="500"
-		 height="27"
-		 border="0"
-		 src="/web/jsp/graph.jsp?graphdata=500_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000001000_2010:-1:000000000000_2011:-1:000000000010_2012:9:000000000100_2013:-1:000000000000_2014:-1:000000000000_2015:-1:000000000000" />
-       </div>
-       </a>
-       </td>
-       </tr></tbody></table>
-   </td>
-   <td class="r">
-       <a href="#close" onclick="__wm.h();return false;" style="background-image:url(/static/images/toolbar/wm_tb_close.png);top:5px;" title="Close the toolbar">Close</a>
-       <a href="http://faq.web.archive.org/" style="background-image:url(/static/images/toolbar/wm_tb_help.png);bottom:5px;" title="Get some help using the Wayback Machine">Help</a>
-   </td>
-   </tr></tbody></table>
-</div>
-</div>
-</div>
-<script type="text/javascript">__wm.bt();</script>
-<!-- END WAYBACK TOOLBAR INSERT -->
-
-    
-
-
-    <script type="text/javascript">
-        function hideMessage(messageId)
-        {
-            var message = document.getElementById(messageId)
-            message.style.display = "none";
-            setCookie(messageId, true);
-        }
-    </script>
-
-        
-<div id="PageContent">
-
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-
-                <tr class="topBar">
-            <td align="left">
-                &nbsp;
-                <span class="topBarDiv">             
-    <script language="JavaScript">
-        function showBreadcrumbsEllipsis()
-        {
-            document.getElementById('breadcrumbsEllipsis').style.display = 'none';
-            document.getElementById('breadcrumbsExpansion').style.display = 'inline';
-        }
-    </script>
-
-                <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/dashboard.action">Dashboard</a>
-     &gt;
-
-                        <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC">GreenPepper Open Documentation Refactoring </a> &gt;
-        
-        
-        
-        
-        
-                                    <span id="breadcrumbs"><span id="breadcrumbsEllipsis"/><a href="#" onclick="showBreadcrumbsEllipsis();return false;" title="Documentation">...</a></span><span id="breadcrumbsExpansion" style="display:none;"><a href='/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Documentation'>Documentation</a></span>&nbsp;&gt;&nbsp;</span><a href='/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Developer+Guide'>Developer Guide</a>&nbsp;&gt;&nbsp;<a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML">Full developer guide - HTML</a>
-                                                                        
-     </span>
-            </td>
-
-            <td align="right" valign="middle" style="white-space:nowrap">
-                    <form method="POST" action="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/dosearchsite.action" name="searchForm" style="padding: 1px; margin: 1px">
-        <input type="hidden" name="quickSearch" value="true" />
-        
-        <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
-        <input type="text" accessKey="s" name="searchQuery.queryString" size="25"/>
-        <input type="submit" value="Search"/>
-    </form>
-            </td>
-        </tr>
-        
-                <tr>
-            <td style="padding: 5px" colspan="2">
-            <table style="padding: 0px; margin: 0px 5px; width: 100%;" cellspacing="0" cellpadding="1" border="0">
-                <tr>
-										<td rowspan="2" valign="bottom" width="1%"><a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC"><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/download/userResources/GPWODOC/logo" align="absmiddle" border="0"></a></td>
-										<td valign="bottom" align="left" width="1%" nowrap>&nbsp;
-                        <span class="logoSpaceLink">            <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC">GreenPepper Open Documentation Refactoring </a>    </span>
-                    </td>
-                    <td align="right" valign="top" width="98%">
-                                                    
-    <span class="smalltext" id="userNavBar">
-                    
-
-            <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/login.action?os_destination=%2Fdisplay%2FGPWODOC%2FFull%2Bdeveloper%2Bguide%2B-%2BHTML">Log In</a>
-
-                        </span>
-    						
-						        <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML?decorator=printable" rel="nofollow"><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/images/icons/print_16.gif" width="16" height="16" hspace="1" vspace="1" align="absmiddle" border="0" alt="View a printable version of the current page." title="View a printable version of the current page."/></a>
-
-                                                        
-            <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/pages/doexportpage.action?pageId=158827462&amp;type=TYPE_PDF" rel="nofollow">
-        <img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/images/icons/attachments/pdf.gif" height="16" width="16" border="0" align="absmiddle" title="Export Page as PDF"></a>
-                                                                                &nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td height="22" align="left" colspan="2">&nbsp;
-                        <span class="pagetitle" style="line-height: 1; margin: 0px; text-decoration: none">
-                                        Full developer guide - HTML
-                            </span>
-                    </td>
-                </tr>
-            </table>
-            </td>
-        </tr>
-            </table>
-
-        <!--
-    Root decorator: all decisions about how a page is to be decorated via the
-                    inline decoration begins here.
--->
-
-
-
-<!--
-    Switch based upon the context. However, for now, just delegate to a decorator
-    identified directly by the context.
--->
-
-
-    
-    
-
-
-    
-    
-        
-    
-    
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-
-    <tr>
-        <td>
-            <div class="greynavbar">
-                <span style="float:right; padding: 6px 10px 4px 0px">
-								
-        
-        
-        
-        						    <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/spaces/browsespace.action?key=GPWODOC"><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/images/icons/browse_space.gif" height="16" width="16" border="0" align="absmiddle" title="Browse Space"></a>&nbsp;<a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/spaces/browsespace.action?key=GPWODOC">Browse Space</a>
-					    				</span>
-
-				<ul id="foldertab" style="margin-bottom: 0px; padding-top: 10px;">
-											<li><a  id="viewPageLink"  href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML"  class="current"    accessKey="v">View</a></li>
-											<li><a  id="viewPageLink"  href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/pages/pageinfo.action?pageId=158827462"    accessKey="i"><u>I</u>nfo</a></li>
-									</ul>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td valign="top" class="pagebody">
-
-                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="clear: both">
-                <tr>
-                    <td width='100%' class="pagecontent" valign="top">
-
-                    
-                    
-                    
-                                                    
-                            <table width="100%" style="margin-bottom: 5px" cellspacing="0">
-                                <tr>
-                                    <td align="left" valign="top">
-                                        <span class="smalltext">
-                                                        Added by     <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/~lcobos">Laurent Cobos</a>, last edited by     <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/~fdenommee">Francois Denommee</a> on Oct 29, 2009
-                      &nbsp;(<a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/pages/diffpages.action?pageId=158827462&amp;originalId=163840011">view change</a>)
-              
-                                            
- 
-<style type="text/css">
-div.auto_complete {
-    width: 350px;
-    background: #fff;
-}
-
-div.auto_complete ul {
-    border: 1px solid #888;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    list-style-type: none;
-}
-
-div.auto_complete ul li {
-    margin: 0;
-    padding: 3px;
-}
-
-div.auto_complete ul li.selected {
-    background-color: #ffb;
-}
-
-div.auto_complete ul strong.highlight {
-    color: #800;
-    margin: 0;
-    padding: 0;
-}
-</style>
-
-
-<!-- Delay the loading of the external javascript file needed for labels (as it takes too long to load and visibly holds loading of the page body) -->
-<!-- To do this without javascript errors over undefined functions, we need to declare stubs here (that are overrided later by the proper implementations) -->
-<script language="JavaScript" type="text/javascript">
-    function doAddLabel(hideTextfieldAfterAddParam)
-    {
-        // stub
-    }
-
-    function onAddLabel()
-    {
-        // stub
-    }
-
-    function showLabelsInput()
-    {
-        // stub
-    }
-</script>
-
-<!-- This is a hack to work around an apparent SiteMesh bug - /web/20121008025351/http://jira.opensymphony.com/browse/SIM-198 -->
-
-
-<span class="error"><span class="errorMessage" id="errorSpan"></span></span>
-<form name="addLabelForm" method="" action="" onSubmit="doAddLabel(false); return false;" style="margin: 0px; padding: 0px">
-    <div style="float: left">Labels:&nbsp;</div>
-    <div id="labelsInfo" style="float: left; width: 90%">
-        <span id="labelsList">
-                    (None)
-                </span>
-            </div>
-    <br clear="all"/><!-- Do not remove this line-break. You will make Safari cry. -->
-    <div id="labelInputSpan" style="display: none; clear: both;">
-        <br/>
-        <div style="border: 1px solid #cccccc; padding: 8px; align: center; background-color: #f0f0f0">
-
-        <div id="labelOperationErrorContainer" style="display: none"><span class="error"><span class="errorMessage" id="labelOperationErrorMessage"></span></span></div>
-
-        <table width="100%">
-            <tr>
-                <td>
-                    <div class="formtitle" style="padding-bottom: 3px; font-size: 13px;">Add Labels</div>
-                </td>
-                <td align="right"><div id="waitImageAndStatus" style="display: none; height: 16px;"><img alt="Wait Image" border=0 align="absmiddle" src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/images/icons/wait.gif">&nbsp;<span id="labelOperationStatus" class="smalltext" style="vertical-align: middle"></span></div></td>
-            </tr>
-            <tr><td width="50%">
-                    Enter labels to add to this page:<br/>
-        <input autocomplete="off" type="text" id="labelName" name="labelsString" value="" class="monospaceInput" size="40">
-        <input type="submit" onclick="doAddLabel(false); return false;" value="Add"><input type="button" onclick="doAddLabel(true); return false;" value="Done">
-        <div class="auto_complete" id="labelsAutocompleteList"></div>
-        <div class="smalltext">
-            <em>Tip:</em> Looking for a label? Just start typing.
-        </div>
-        </td>
-            <td width="50%" valign="top">
-                <div id="suggestedLabelsSpan"></div>
-            </td>
-        </tr></table>
-        </div>
-    </div>
-</form>
-    <script type="text/javascript">
-        // if there is javascript support, enable the [Edit] link that enables AJAX label adding/removing functionality
-        if (document.getElementById('editLabelsLink'))
-        {
-            document.getElementById('editLabelsLink').style.display = 'inline';
-        }
-    </script>
-                                        </span>
-                                    </td>
-                                    <td align="right" valign="top">
-                                                                            </td>
-                                </tr>
-                            </table>
-
-                                                        
+     
                             <div class="wiki-content">
                                <!-- wiki content -->
             <h1 id="Fulldeveloperguide-HTML-Fulldeveloperguide">Full developer guide </h1>
 <h1 id="Fulldeveloperguide-HTML-1.FixturesConventions">1. Fixtures Conventions</h1>
 <h3 id="Fulldeveloperguide-HTML-Introduction">Introduction</h3>
 
-<p>Even though one of the objectives of <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> is to create a common language between the business experts and the development team, there will always be a certain degree of difference between the natural language and the programing language.</p>
+<p>Even though one of the objectives of <gpname>GreenPepper</gpname> is to create a common language between the business experts and the development team, there will always be a certain degree of difference between the natural language and the programing language.</p>
 
 <p>Hence comes the reason for having fixtures. Fixtures are the glue between the business expert examples and the software being developed.</p>
 
-<p>When running the table, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> uses a fixture to mediate between the example expressed in the table and the system under test.</p>
+<p>When running the table, <gpname>GreenPepper</gpname> uses a fixture to mediate between the example expressed in the table and the system under test.</p>
 
 <h4 id="Fulldeveloperguide-HTML-Collaborationdemandscompromise">Collaboration demands compromise</h4>
 
@@ -737,10 +248,10 @@ explicit package won't work ex: <font color="red">&#124;list of &#124; com.xyz.s
 <h2 id="Fulldeveloperguide-HTML-Definition">Definition</h2>
 <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
 <p>The <tt>RuleForInterpreter</tt> is used to express concrete and measurable business rules.<br/>
-During the execution of the specification, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> compares the values returned by the system under development against the expected values defined by the Business Expert.<br/>
+During the execution of the specification, <gpname>GreenPepper</gpname> compares the values returned by the system under development against the expected values defined by the Business Expert.<br/>
 <img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/download/attachments/158827471/LexicalFormOfRuleFor.jpg" align="absmiddle" border="0" /></p>
 <ul>
-	<li>The first row of the table indicates the set of rules to be tested by <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>.</li>
+	<li>The first row of the table indicates the set of rules to be tested by <gpname>GreenPepper</gpname>.</li>
 	<li>The next row is called the <b>header row</b> and serves to distinguish the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve as comparison values against values that are actually returned by the system. When a column header ends with special characters <b>?</b> or <b>()</b>, it denotes an expected value.</li>
 	<li>Finally, the remaining rows capture the examples. They are the executable test rows.</li>
 </ul>
@@ -748,11 +259,11 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h3 id="Fulldeveloperguide-HTML-SpecificKeywordsforexpectedvalues">Specific Keywords for expected values</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> offers a list of useful keywords to support the Business Expert.</p>
+<p><gpname>GreenPepper</gpname> offers a list of useful keywords to support the Business Expert.</p>
 <table class='confluenceTable'><tbody>
 <tr>
 <th class='confluenceTh'> Empty cells </th>
-<td class='confluenceTd'> When a test cell is left blank, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> only shows the returned value </td>
+<td class='confluenceTd'> When a test cell is left blank, <gpname>GreenPepper</gpname> only shows the returned value </td>
 </tr>
 <tr>
 <th class='confluenceTh'> <b>error</b> </th>
@@ -762,7 +273,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h3 id="Fulldeveloperguide-HTML-Coloring">Coloring</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will visually show the test result by coloring each testing cell:</p>
+<p><gpname>GreenPepper</gpname> will visually show the test result by coloring each testing cell:</p>
 <div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
 <p>When the expected value match the returned value, the <tt>RuleForInterpreter</tt> colors the cell as "right" by coloring it green.</p>
 </div></div>
@@ -770,7 +281,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 <p>If the values don't match, the <tt>RuleForInterpreter</tt> colors the cell as "wrong" in red.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the cell is colored yellow and <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides information about the error.</p>
+<p>If the system encounters an execution error, the cell is colored yellow and <gpname>GreenPepper</gpname> provides information about the error.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #D3D3D3; "><b><b>GRAY</b></b></div><div class="panelContent" style="background-color: #D3D3D3; ">
 <p>If no expected value is specified in a test, the <tt>RuleForInterpreter</tt> colors the cell in gray.</p>
@@ -876,9 +387,9 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h4 id="Fulldeveloperguide-HTML-Howisthetableprocessed%3F">How is the table processed?</h4>
 
-<p>When it runs this table, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the given and expected columns. Finally it starts testing from the third row down to the end of the table.</p>
+<p>When it runs this table, <gpname>GreenPepper</gpname> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the given and expected columns. Finally it starts testing from the third row down to the end of the table.</p>
 
-<p>For the third row <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> carries out the following sequence of steps:</p>
+<p>For the third row <gpname>GreenPepper</gpname> carries out the following sequence of steps:</p>
 
 <ol>
 	<li>It assigns the value 6.0 to the <tt>dividend</tt> instance variable</li>
@@ -890,13 +401,13 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <p>Same goes for the fourth and fifth rows.</p>
 
-<p>On the other hand, on the last row the comparison will fail. <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will mark the <em>expected</em> cell wrong. That cell will be colored red and will display a message including the expected value and the actual value.</p>
+<p>On the other hand, on the last row the comparison will fail. <gpname>GreenPepper</gpname> will mark the <em>expected</em> cell wrong. That cell will be colored red and will display a message including the expected value and the actual value.</p>
 
 <h4 id="Fulldeveloperguide-HTML-Howarethetypesofthevalueshandled%3F">How are the types of the values handled?</h4>
 
-<p>The instance variables <tt>dividend</tt> and <tt>divisor</tt> are of type double, so the given values in the example table needs to be double as well. For the fourth row, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will automatically convert the <em>given</em> values 7 and 2 to doubles before assigning them to the instance variables.</p>
+<p>The instance variables <tt>dividend</tt> and <tt>divisor</tt> are of type double, so the given values in the example table needs to be double as well. For the fourth row, <gpname>GreenPepper</gpname> will automatically convert the <em>given</em> values 7 and 2 to doubles before assigning them to the instance variables.</p>
 
-<p>The return value of the <tt>quotient</tt> method is also a double, which means that the values provided in the <em><b>quotient?</b></em> <em>expected</em> column must be doubles as well. When <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> compares the value returned by the fixture with the value provided as an expectation, it will first convert the expected value to the type of the actual returned value. In the fifth row, it will convert the value 6 to a double and then do the comparison.</p>
+<p>The return value of the <tt>quotient</tt> method is also a double, which means that the values provided in the <em><b>quotient?</b></em> <em>expected</em> column must be doubles as well. When <gpname>GreenPepper</gpname> compares the value returned by the fixture with the value provided as an expectation, it will first convert the expected value to the type of the actual returned value. In the fifth row, it will convert the value 6 to a double and then do the comparison.</p>
 
 <h3 id="Fulldeveloperguide-HTML-AMoreRealisticExample">A More Realistic Example</h3>
 
@@ -955,11 +466,11 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h4 id="Fulldeveloperguide-HTML-Howarespacesbetweenwordshandled%3F">How are spaces between words handled?</h4>
 
-<p>You have noticed that you can separate words in the example table with spaces. <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will convert the sequence a space-separated words to a valid Java identifier by removing the spaces and capitalizing the first letter of every word except the first one. This is called camel casing.</p>
+<p>You have noticed that you can separate words in the example table with spaces. <gpname>GreenPepper</gpname> will convert the sequence a space-separated words to a valid Java identifier by removing the spaces and capitalizing the first letter of every word except the first one. This is called camel casing.</p>
 
 <ul>
-	<li>For class names, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> uses <b>upper</b> camel casing with the first letter of the identifier capitalized as well. In our example, the label <em><b>insurance premium fee calculation</b></em> is converted to the class name <tt>InsurancePremiumFeeCalculation</tt>.</li>
-	<li>For method or instance variable names, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> uses <b>lower</b> camel casing where the first letter of the identifier is left in lowercase.</li>
+	<li>For class names, <gpname>GreenPepper</gpname> uses <b>upper</b> camel casing with the first letter of the identifier capitalized as well. In our example, the label <em><b>insurance premium fee calculation</b></em> is converted to the class name <tt>InsurancePremiumFeeCalculation</tt>.</li>
+	<li>For method or instance variable names, <gpname>GreenPepper</gpname> uses <b>lower</b> camel casing where the first letter of the identifier is left in lowercase.</li>
 </ul>
 
 
@@ -987,7 +498,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 </div></div>
 
 <table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Note</b><br />
-<p>You might have noticed that the fixture class name is <tt>InsurancePremiumFeeCalculationFixture</tt> and not <tt>InsurancePremiumFeeCalculation</tt>. It does not matter to <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>. For fixture class names, the <tt>Fixture</tt> suffix can be added to make it easier to differentiate from the application under development code. <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will deal with it automatically.</p></td></tr></table>
+<p>You might have noticed that the fixture class name is <tt>InsurancePremiumFeeCalculationFixture</tt> and not <tt>InsurancePremiumFeeCalculation</tt>. It does not matter to <gpname>GreenPepper</gpname> will deal with it automatically.</p></td></tr></table>
 
 <p>In this example, the fixture merely delegates the work to the application under development. Namely, the <tt>InsuranceFee</tt> domain object is responsible for performing the actual work.</p>
 
@@ -1017,17 +528,17 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h4 id="Fulldeveloperguide-HTML-Whatabouttheemptycolumn%3F">What about the empty column?</h4>
 
-<p>The <em><b>financed amount?</b></em> expected value is left empty to tell <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> that this is an information column. We don't want to perform any test in that column, but rather show the value to help our understanding of the calculation. The calculated values will be shown when the example is run and marked with the ignored annotation, making them appear gray.</p>
+<p>The <em><b>financed amount?</b></em> expected value is left empty to tell <gpname>GreenPepper</gpname> that this is an information column. We don't want to perform any test in that column, but rather show the value to help our understanding of the calculation. The calculated values will be shown when the example is run and marked with the ignored annotation, making them appear gray.</p>
 
 <h4 id="Fulldeveloperguide-HTML-Howareapplicationvaluetypeshandled%3F">How are application value types handled?</h4>
 
-<p>We've seen that <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will automatically convert the <em>given</em> values in the table to the type of the corresponding instance variable. </p>
+<p>We've seen that <gpname>GreenPepper</gpname> will automatically convert the <em>given</em> values in the table to the type of the corresponding instance variable. </p>
 
 <p>This is done automatically for the most common built-in Java types. The mortgage example, however, uses a <em><b>money</b></em> type, which is defined by the application under development in the <tt>Money</tt> business domain class.</p>
 
-<p>When <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> encounters a custom type while performing conversion, it will look for a public static method called <em><b>parse</b></em> to handle the conversion from a <tt>String</tt> to the custom type. To do the conversion from the custom type to a <tt>String</tt>, it will call the method <tt>toString()</tt> on the custom type.</p>
+<p>When <gpname>GreenPepper</gpname> encounters a custom type while performing conversion, it will look for a public static method called <em><b>parse</b></em> to handle the conversion from a <tt>String</tt> to the custom type. To do the conversion from the custom type to a <tt>String</tt>, it will call the method <tt>toString()</tt> on the custom type.</p>
 
-<p>When <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> verifies an <em>expected</em> value to an <em>actual</em> value for a custom type, it does the following steps. It:</p>
+<p>When <gpname>GreenPepper</gpname> verifies an <em>expected</em> value to an <em>actual</em> value for a custom type, it does the following steps. It:</p>
 
 <ol>
 	<li>Converts the expected value specified as a string in the table to the custom type using the <tt>parse(String text)</tt> method.</li>
@@ -1153,7 +664,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h2 id="Fulldeveloperguide-HTML-Let%27sWrapUp">Let's Wrap Up</h2>
 
-<p>When <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> runs a rule table example, it creates a fixture class from the name indicated in the second cell of the first row. That class is used to mediate between the development table and the application code when checking the example against the system under development. </p>
+<p>When <gpname>GreenPepper</gpname> runs a rule table example, it creates a fixture class from the name indicated in the second cell of the first row. That class is used to mediate between the development table and the application code when checking the example against the system under development. </p>
 
 <p>The second row of the table is the header row and is read from left to right. Two types of columns are supported in rule tables:</p>
 
@@ -1165,7 +676,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h3 id="Fulldeveloperguide-HTML-Headers">Headers</h3>
 
-<p>For a <em>given</em> column header cell, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>:</p>
+<p>For a <em>given</em> column header cell, <gpname>GreenPepper</gpname>:</p>
 
 <ul>
 	<li>Figures out the public instance variable to use using camel casing rules.</li>
@@ -1183,7 +694,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h3 id="Fulldeveloperguide-HTML-Columns">Columns</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will then run all remaining rows one at a time, going through all cells in the row from left to right.</p>
+<p><gpname>GreenPepper</gpname> will then run all remaining rows one at a time, going through all cells in the row from left to right.</p>
 
 <p>For a <em>given</em> column:</p>
 
@@ -1209,7 +720,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
 <p>The <tt>collection interpreters</tt> are used to express any kind of groups, lists or sets of values.</p>
 
-<p>When a collection interpreter is executed, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> compares the list of values expected with the list of values returned by the system under development. The test result depends on the specific collection interpreter selected.</p>
+<p>When a collection interpreter is executed, <gpname>GreenPepper</gpname> compares the list of values expected with the list of values returned by the system under development. The test result depends on the specific collection interpreter selected.</p>
 
 <p><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/download/attachments/158827473/LexicalFormOfCollectionInterpreters.jpg" align="absmiddle" border="0" /></p>
 
@@ -1226,7 +737,7 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 
 <h3 id="Fulldeveloperguide-HTML-Colouring">Colouring</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will visually indicate the test result by colouring the rows:</p>
+<p><gpname>GreenPepper</gpname> will visually indicate the test result by colouring the rows:</p>
 <div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
 <p>As expected, the row is returned by the system under development.</p>
 </div></div>
@@ -1234,21 +745,21 @@ During the execution of the specification, <img src="/web/20121008025351im_/http
 <p>A row is missing or in surplus in the list returned by the system under development.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b>* YELLOW*</b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the cell is in yellow, and <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides information about the error.</p>
+<p>If the system encounters an execution error, the cell is in yellow, and <gpname>GreenPepper</gpname> provides information about the error.</p>
 </div></div>
 
 <p><em><b>Particular behaviour for the list of interpreters:</b></em><br/>
-Since the <tt>ListOfInterpreter</tt> expects to match exactly the expected list and the list returned by the SUD, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> compares each cell of the table separately. If the expected value is different from the returned value, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> colours the cell in red and provide the two values.</p>
+Since the <tt>ListOfInterpreter</tt> expects to match exactly the expected list and the list returned by the SUD, <gpname>GreenPepper</gpname> colours the cell in red and provide the two values.</p>
 
 <p><em><b>Particular behaviour for the superset of interpreters:</b></em><br/>
-Since the <tt>SupersetOfInterpreter</tt> accepts that the specification may contain rows that are not contained in the SUD, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will not colour the rows contained in the specification but not returned by the SUD.</p>
+Since the <tt>SupersetOfInterpreter</tt> accepts that the specification may contain rows that are not contained in the SUD, <gpname>GreenPepper</gpname> will not colour the rows contained in the specification but not returned by the SUD.</p>
 <h2 id="Fulldeveloperguide-HTML-WritingfixturesforListtables">Writing fixtures for List tables</h2>
 
 <h2 id="Fulldeveloperguide-HTML-WritingfixturesforListofValue">Writing fixtures for List of Value</h2>
 
 <p>As we've seen in the <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Collection+definition" title="Collection definition">Collection Interpreters definition</a>, the collection interpreters are used to express a collection of data to be compared with the system under development.</p>
 
-<p>When running the table, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> uses a fixture to mediate between the example expressed in collection of values tables and the system under development. The fixture code defines how the specific lists of values are mapped to the application code.</p>
+<p>When running the table, <gpname>GreenPepper</gpname> uses a fixture to mediate between the example expressed in collection of values tables and the system under development. The fixture code defines how the specific lists of values are mapped to the application code.</p>
 
 <p>This page shows the fixture code that supports the examples introduced in the</p>
 <ul>
@@ -1431,7 +942,7 @@ or
 
 <h4 id="Fulldeveloperguide-HTML-Howisthetableprocessed%3F">How is the table processed?</h4>
 
-<p>When it runs this table, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the attribute columns. Finally it starts testing from the third row down to the end of the table. <table style="display:none">
+<p>When it runs this table, <gpname>GreenPepper</gpname> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the attribute columns. Finally it starts testing from the third row down to the end of the table. <table style="display:none">
 	<tr>
 		<td>Begin Info</td>
 	</tr>
@@ -1439,7 +950,7 @@ or
 <div style="padding:0px; margin:0px; ">
 		
 
-<p>For the third row <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> carries out the following sequence of steps:</p>
+<p>For the third row <gpname>GreenPepper</gpname> carries out the following sequence of steps:</p>
 <ol>
 	<li>It calls the method <tt>query()</tt> of the fixture <tt>CanadaProvinceCodesFixture</tt> to retrieve the Collection to test.</li>
 	<li>It reads the value <em>ALBERTA</em> from the column Name and compares it to the attribute <tt>Name</tt> of the first element of the List.<br/>
@@ -1456,10 +967,10 @@ Since the values are equal, it will annotate the cell as <em>right</em>, which r
 </table>
 <br/>
 Step 2 and 3 are repeated through the remaining rows of the table.<br/>
-For the fourth row, the Codes are not the same so <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will mark the expected cell wrong. The cell will be colored red and will display a message including the expected value and the actual value.<br/>
-The order of Provinces NEW BRUNSWICK and MANITOBA are inverted compared to the alphabetical sorting. <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will annotate both rows as <em>wrong</em>. Each cell will be colored red and will display a message including the expected value and the actual value.</p>
+For the fourth row, the Codes are not the same so <gpname>GreenPepper</gpname> will mark the expected cell wrong. The cell will be colored red and will display a message including the expected value and the actual value.<br/>
+The order of Provinces NEW BRUNSWICK and MANITOBA are inverted compared to the alphabetical sorting. <gpname>GreenPepper</gpname> will annotate both rows as <em>wrong</em>. Each cell will be colored red and will display a message including the expected value and the actual value.</p>
 
-<p>The last row is not part the set of Province returned by the system under development. In that particular case, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will insert the keyword <em>missing</em> and color the row in red.</p>
+<p>The last row is not part the set of Province returned by the system under development. In that particular case, <gpname>GreenPepper</gpname> will insert the keyword <em>missing</em> and color the row in red.</p>
 
 <h2 id="Fulldeveloperguide-HTML-Usinga%7B%7BCollectionInterpreter%7D%7Djoinedwiththe%7B%7BDoWithInterpreter%7D%7D">Using a <tt>CollectionInterpreter</tt> joined with the <tt>DoWithInterpreter</tt></h2>
 
@@ -1584,7 +1095,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
 <p>The <tt>DoWithInterpreter</tt> is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.</p>
 
-<p>When a sequence of action is executed, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> confirms that each action has successfully been performed.</p>
+<p>When a sequence of action is executed, <gpname>GreenPepper</gpname> confirms that each action has successfully been performed.</p>
 
 <p><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/download/attachments/158827475/LexicalFormOfDoWith.jpg" align="absmiddle" border="0" /></p>
 
@@ -1607,7 +1118,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 <h3 id="Fulldeveloperguide-HTML-SpecificKeywords">Specific Keywords</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> offers a list of useful keywords to support the Business Expert. Those keywords are placed at the beginning of an action row.</p>
+<p><gpname>GreenPepper</gpname> offers a list of useful keywords to support the Business Expert. Those keywords are placed at the beginning of an action row.</p>
 <table class='confluenceTable'><tbody>
 <tr>
 <th class='confluenceTh'> Accept</th>
@@ -1629,19 +1140,19 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 <h3 id="Fulldeveloperguide-HTML-Coloring">Coloring</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will visually show the test result by coloring each testing cell:</p>
+<p><gpname>GreenPepper</gpname> will visually show the test result by coloring each testing cell:</p>
 
 <div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the action has been executed successfully, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> color the cell(s) in green.</p>
+<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> color the cell(s) in green.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the action execution has failed, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> color the cell(s) in red.</p>
+<p>If the action execution has failed, <gpname>GreenPepper</gpname> color the cell(s) in red.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the cell is colored yellow and <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides information about the error.</p>
+<p>If the system encounters an execution error, the cell is colored yellow and <gpname>GreenPepper</gpname> provides information about the error.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #CCCCCC; "><b><b>GRAY</b></b></div><div class="panelContent" style="background-color: #CCCCCC; ">
-<p>When the action has been executed successfully, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will display the returned value in gray.</p>
+<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> will display the returned value in gray.</p>
 </div></div>
 
 <p><br clear="all" /></p>
@@ -1656,7 +1167,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 </tr>
 <tr>
 <th class='confluenceTh'> Check </th>
-<td class='confluenceTd'> The cell containning the expected value will be colored. In the case of a failure, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will show the expected and the returned values.</td>
+<td class='confluenceTd'> The cell containning the expected value will be colored. In the case of a failure, <gpname>GreenPepper</gpname> will show the expected and the returned values.</td>
 </tr>
 <tr>
 <th class='confluenceTh'> Reject </th>
@@ -1671,7 +1182,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 <p>As we've seen in the <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Do+With+definition" title="Do With definition">Do With definition</a>, a sequence of tables is used to express a business flow in the application under development.</p>
 
-<p>When running the table, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> uses a fixture to mediate between the example expressed in the sequence of tables and the system under development. The fixture code defines how the specific actions are mapped to the application code.</p>
+<p>When running the table, <gpname>GreenPepper</gpname> uses a fixture to mediate between the example expressed in the sequence of tables and the system under development. The fixture code defines how the specific actions are mapped to the application code.</p>
 
 <p>This page shows the fixture code that supports the examples introduced in the <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Writing+a+Do+With+specification" title="Writing a Do With specification">Writing a Do With specification</a>.</p>
 
@@ -1804,9 +1315,9 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 <h4 id="Fulldeveloperguide-HTML-Howistheexampleinterpreted%3F">How is the example interpreted?</h4>
 
-<p>When it runs this example, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> reads the first table to decide on the <em>interpreter</em> and <em>fixture</em> to use and start testing from the second table, which is the first test table. </p>
+<p>When it runs this example, <gpname>GreenPepper</gpname> reads the first table to decide on the <em>interpreter</em> and <em>fixture</em> to use and start testing from the second table, which is the first test table. </p>
 
-<p>The second table is a <em>default action</em>, which <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> carries out in the following sequence of steps:</p>
+<p>The second table is a <em>default action</em>, which <gpname>GreenPepper</gpname> carries out in the following sequence of steps:</p>
 
 <table style="display:none">
 	<tr>
@@ -1822,7 +1333,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 </ol>
 
 
-<p>The third table is a <em>check action</em>, which <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> carries out in the following sequence of steps:</p>
+<p>The third table is a <em>check action</em>, which <gpname>GreenPepper</gpname> carries out in the following sequence of steps:</p>
 
 <ol>
 	<li>It calls the method <tt>thatBalanceOfAccountIs()</tt> with the parameter <tt>12345-67890</tt> to get the value calculated by the system under test</li>
@@ -2146,7 +1657,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
 <p>The <tt>ScenarioInterpreter</tt> is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.</p>
 
-<p>When a sequence of action is executed, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> confirms that each action has successfully been performed.</p>
+<p>When a sequence of action is executed, <gpname>GreenPepper</gpname> confirms that each action has successfully been performed.</p>
 
 <hr />
 <table class='confluenceTable'><tbody>
@@ -2177,26 +1688,26 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 <h3 id="Fulldeveloperguide-HTML-Coloring">Coloring</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will visually show the test result by coloring a complete row or words inside the row:</p>
+<p><gpname>GreenPepper</gpname> will visually show the test result by coloring a complete row or words inside the row:</p>
 
 <div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the action has been executed successfully, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> color the row or words inside the row in green.</p>
+<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> color the row or words inside the row in green.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the action execution has failed, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> color the the row or words inside the row in red.</p>
+<p>If the action execution has failed, <gpname>GreenPepper</gpname> color the the row or words inside the row in red.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the row is colored yellow and <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides information about the error.</p>
+<p>If the system encounters an execution error, the row is colored yellow and <gpname>GreenPepper</gpname> provides information about the error.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #CCCCCC; "><b><b>GRAY</b></b></div><div class="panelContent" style="background-color: #CCCCCC; ">
-<p>When the action has been executed successfully, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will display the returned value in gray.</p>
+<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> will display the returned value in gray.</p>
 </div></div>
 <h2 id="Fulldeveloperguide-HTML-WritingfixturesforScenariotables">Writing fixtures for Scenario tables</h2>
 
 <p>As we've seen in the <a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Scenario+definition" title="Scenario definition">Scenario definition</a>, a sequence of tables is used to express a business flow in the application under development.</p>
 
 <p>When running the table,</p>
-<img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>
+<gpname>GreenPepper</gpname>
 <p>uses a fixture to mediate between the example expressed in the sequence of tables and the system under development. The fixture code defines how the specific actions are mapped to the application code.
 <br clear="all" /></p>
 
@@ -2359,12 +1870,12 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 <h4 id="Fulldeveloperguide-HTML-Howistheexampleinterpreted%3F">How is the example interpreted?</h4>
 
 <p>When it runs this example,</p>
-<img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>
+<gpname>GreenPepper</gpname>
 <p>reads the first table to decide on the <em>interpreter</em> and <em>fixture</em> to use and start testing from the second table, which is the first test table.
 <br clear="all" /></p>
 
 <p>The second table is an action which</p>
-<img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>
+<gpname>GreenPepper</gpname>
 <p>carries out in the following sequence of steps:
 <br clear="all" /></p>
 <ol>
@@ -2376,7 +1887,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 
 <p>The third table is an action which</p>
-<img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>
+<gpname>GreenPepper</gpname>
 <p>carries out in the following sequence of steps:
 <br clear="all" /></p>
 <ol>
@@ -2586,7 +2097,7 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 <div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
 <p>The <tt>SetUpInterpreter</tt> is used to simplify the creation of a particular state for the system under development. Once the state is created, we can focus on the business process to test.</p>
 
-<p>When a setup table is executed, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> enter data in the system under development to create the desired state.</p>
+<p>When a setup table is executed, <gpname>GreenPepper</gpname> enter data in the system under development to create the desired state.</p>
 
 <p><img src="/web/20121008025351im_/http://www.greenpeppersoftware.com/confluence/download/attachments/158827477/LexicalFormOfSetUp.jpg" align="absmiddle" border="0" /></p>
 
@@ -2600,17 +2111,17 @@ Of course the behavior of the test will varry see <a href="/web/20121008025351/h
 
 <h3 id="Fulldeveloperguide-HTML-Coloring">Coloring</h3>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will visually show the test result by coloring each testing cell:</p>
+<p><gpname>GreenPepper</gpname> will visually show the test result by coloring each testing cell:</p>
 
 <div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the insertion has been executed successfully, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> add a green cell at the end of the data row with the word <b>entered</b>.</p>
+<p>When the insertion has been executed successfully, <gpname>GreenPepper</gpname> add a green cell at the end of the data row with the word <b>entered</b>.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the insertion has failed because the values specified does not respect a business rule, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> add a red cell at the end of the row with the word <b>not entered</b>.</p>
+<p>If the insertion has failed because the values specified does not respect a business rule, <gpname>GreenPepper</gpname> add a red cell at the end of the row with the word <b>not entered</b>.</p>
 </div></div>
 <div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the insertion has failed because a specified value generates an error, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> colors the cell of the data in error yellow and provides information about the error. <br/>
-If the system encounters an error not related to a specific data, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> add a yellow cell at the end of the data row and provides information about the error.</p>
+<p>If the insertion has failed because a specified value generates an error, <gpname>GreenPepper</gpname> colors the cell of the data in error yellow and provides information about the error. <br/>
+If the system encounters an error not related to a specific data, <gpname>GreenPepper</gpname> add a yellow cell at the end of the data row and provides information about the error.</p>
 </div></div>
 <h1 id="Fulldeveloperguide-HTML-WritingfixturesforSetuptables">Writing fixtures for Setup tables</h1>
 
@@ -2708,7 +2219,7 @@ If the system encounters an error not related to a specific data, <img src="/web
 
 <h4 id="Fulldeveloperguide-HTML-Howisthetableprocessed%3F">How is the table processed?</h4>
 
-<p>When it runs this table, <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the attribute columns. Finally it starts creation of entries from the third row down to the end of the table.</p>
+<p>When it runs this table, <gpname>GreenPepper</gpname> reads the first row to select the <em>interpreter</em> and <em>fixture</em>. It then reads the second to know what are the attribute columns. Finally it starts creation of entries from the third row down to the end of the table.</p>
 
 <table style="display:none">
 	<tr>
@@ -2717,7 +2228,7 @@ If the system encounters an error not related to a specific data, <img src="/web
 </table>
 <div style="padding:0px; margin:0px; ">
 		
-<p>For the third row <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> carries out the following sequence of steps:<br/>
+<p>For the third row <gpname>GreenPepper</gpname> carries out the following sequence of steps:<br/>
 It assigns the data <em>11111-11111</em> to <b>number</b>, <em>checking</em> to <b>type</b>, <em>Fred</em> to <b>first name</b>, <em>Flintstone</em> to <b>last name</b> and  <em>$250.00</em> to <b>balance</b>.<br/>
 It then  calls the method <tt>enterRow()</tt> of the fixture <tt>AGroupOfCustomersFixture</tt> to open a bank account with the given datas.</p>
 
@@ -2734,7 +2245,7 @@ It then  calls the method <tt>enterRow()</tt> of the fixture <tt>AGroupOfCustome
 
 <h3 id="Fulldeveloperguide-HTML-Why%3F">Why ?</h3>
 <p>The system under development is a bridge between your Fixtures and the system your testing.<br/>
-If you want to change the way <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> is finding/instanciating your fixtures, or if you need to hook the document execution then you can define a Custom System Under Development.</p>
+If you want to change the way <gpname>GreenPepper</gpname> is finding/instanciating your fixtures, or if you need to hook the document execution then you can define a Custom System Under Development.</p>
 
 <p><b>To change the system under development :</b></p>
 <ul>
@@ -2747,7 +2258,7 @@ If you want to change the way <img src="/web/20121008025351im_/http://greenpeppe
 
 <p>All the examples in the documents are in strings, but fixtures want to process and return other data types.</p>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides a mechanism to help conversion from String to other data types and back again.</p>
+<p><gpname>GreenPepper</gpname> provides a mechanism to help conversion from String to other data types and back again.</p>
 
 
 <div class="panel" style="border-style: solid; border-color: #ccc; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #ccc; background-color: #8CC06D; "><b>so an example that look likes</b></div><div class="panelContent" style="background-color: #FFFFCE; ">
@@ -2788,7 +2299,7 @@ If you want to change the way <img src="/web/20121008025351im_/http://greenpeppe
 </div></div>
 </div></div>
 
-<p>Lets look at how <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will match these.</p>
+<p>Lets look at how <gpname>GreenPepper</gpname> will match these.</p>
 
 <h2 id="Fulldeveloperguide-HTML-Converters">Converters</h2>
 
@@ -2818,7 +2329,7 @@ namespace GreenPepper.Converters
 </div></div>
 
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides out of the box type converters for the following types</p>
+<p><gpname>GreenPepper</gpname> provides out of the box type converters for the following types</p>
 <ul>
 	<li>Integer</li>
 	<li>Long</li>
@@ -2860,7 +2371,7 @@ namespace GreenPepper.Converters
     }</pre>
 </div></div>
 
-<p>The converters are always check in an LIFO manners. If two converters can process a data type the last one that has been register will be used. That way, you can provides your own converters in place of the standard <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> converters.</p>
+<p>The converters are always check in an LIFO manners. If two converters can process a data type the last one that has been register will be used. That way, you can provides your own converters in place of the standard <gpname>GreenPepper</gpname> converters.</p>
 
 
 <h2 id="Fulldeveloperguide-HTML-Selfconversion">Self conversion</h2>
@@ -2897,14 +2408,14 @@ namespace GreenPepper.Converters
 <h3 id="Fulldeveloperguide-HTML-Fromexampletofixture">From example to fixture</h3>
 
 
-<p>1 First <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will verify if the type is can self convert (ie <em>public static T parse(String)</em>  or <em>public static T ValueOf(string)</em>)<br/>
+<p>1 First <gpname>GreenPepper</gpname> will verify if the type is can self convert (ie <em>public static T parse(String)</em>  or <em>public static T ValueOf(string)</em>)<br/>
 2 If not, look for a registered TypeConverter that can handles the type.<br/>
 3 An UnsupportedOperationException will be thrown</p>
 
 
 <h3 id="Fulldeveloperguide-HTML-FromfixturereturnvaluetoString">From fixture return value to String</h3>
 
-<p>1 First <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> will verify if the type is can self revert (ie <em>public static String toString(T)</em> or <em>public static T ToString(string)</em>)<br/>
+<p>1 First <gpname>GreenPepper</gpname> will verify if the type is can self revert (ie <em>public static String toString(T)</em> or <em>public static T ToString(string)</em>)<br/>
 2 If not, look for a registered TypeConverter that can handles the type.<br/>
 3 Use the toString() or ToString() method on the data itself.</p>
 
@@ -2914,8 +2425,8 @@ namespace GreenPepper.Converters
 <h3 id="Fulldeveloperguide-HTML-Prerequisite">Prerequisite </h3>
 <p>To change fixtures resolutions you need to <b><a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Defining+a+custom+system+under+development" title="Defining a custom system under development">define a custom system under development</a></b></p>
 
-<h3 id="Fulldeveloperguide-HTML-ChanginghowisfindingyourFixtures">Changing how <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> is finding your Fixtures </h3>
-<p>This could be useful when you are using for example an IOC, like Spring or just when you want to add locations (packages in java, namespaces in .Net) for <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> can resolve your fixtures.</p>
+<h3 id="Fulldeveloperguide-HTML-ChanginghowisfindingyourFixtures">Changing how <gpname>GreenPepper</gpname> is finding your Fixtures </h3>
+<p>This could be useful when you are using for example an IOC, like Spring or just when you want to add locations (packages in java, namespaces in .Net) for <gpname>GreenPepper</gpname> can resolve your fixtures.</p>
 
 <h4 id="Fulldeveloperguide-HTML-Onlyforspecifyinglocationtoresolvefixtures%28packagesinjava%2Cnamespacesin.Net%29">Only for specifying location to resolve fixtures (packages in java, namespaces in .Net)</h4>
 <div class="code"><div class="codeContent">
@@ -2928,7 +2439,7 @@ namespace GreenPepper.Converters
         }
     }</pre>
 </div></div>
-<p>By this custom system under development you tell <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> to look in "com.mycompany.fixtures" and "com.mycompany.specials.fixtures" to resolve fixtures in specfications that your are running.</p>
+<p>By this custom system under development you tell <gpname>GreenPepper</gpname> to look in "com.mycompany.fixtures" and "com.mycompany.specials.fixtures" to resolve fixtures in specfications that your are running.</p>
 
 <h4 id="Fulldeveloperguide-HTML-ChangingFixtureinstanciationmechanism%28Springexample%29">Changing Fixture instanciation mechanism (Spring example)</h4>
 <h2 id="Fulldeveloperguide-HTML-TheSpringcontainersystemunderdevelopment">The Spring container system under development</h2>
@@ -3034,11 +2545,11 @@ namespace GreenPepper.Converters
 
 <h2 id="Fulldeveloperguide-HTML-Introduction">Introduction</h2>
 
-<p>This page describes how to execute a specification using the command line interface that comes with <img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/>.</p>
+<p>This page describes how to execute a specification using the command line interface that comes with <gpname>GreenPepper</gpname>.</p>
 
 <h2 id="Fulldeveloperguide-HTML-Features">Features</h2>
 
-<p><img src="/web/20121008025351im_/http://greenpeppersoftware.com/confluence/download/attachments/158269938/greenpepper-text.png"  style="margin: 0 0 -4 0;display:inline;"/> provides a command line interface to execute specifications captured in HTML files. The command line interface has the following features:</p>
+<p><gpname>GreenPepper</gpname> provides a command line interface to execute specifications captured in HTML files. The command line interface has the following features:</p>
 
 <ul>
 	<li>Execution of a single specification file</li>
@@ -3578,106 +3089,3 @@ namespace GreenPepper.WindsorCastle
 }</pre>
 </div></div>
                             </div>
-
-                            <!--
-<rdf:RDF xmlns:rdf="/web/20121008025351/http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:dc="/web/20121008025351/http://purl.org/dc/elements/1.1/"
-         xmlns:trackback="/web/20121008025351/http://madskills.com/public/xml/rss/module/trackback/">
-<rdf:Description
-    rdf:about="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML"
-    dc:identifier="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/display/GPWODOC/Full+developer+guide+-+HTML"
-    dc:title="Full developer guide - HTML"
-    trackback:ping="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/rpc/trackback/158827462"/>
-</rdf:RDF>
--->
-
-                            
-                    
-                                <!--
-    Root decorator: all decisions about how a page is to be decorated via the
-                    inline decoration begins here.
--->
-
-
-
-<!--
-    Switch based upon the context. However, for now, just delegate to a decorator
-    identified directly by the context.
--->
-
-
-    
-    
-
-<div class="wiki-content" style="margin-right:10px;">
-    <p style="clear: both"/><!-- comments should always display underneath the content. we should have a 'clear:both' here just in case there are floats or aligned images in the content -->
-
-    
-    
-    
-    
-                                    </div>
-
-
-
-                                                            </td>
-
-
-                                                    </tr>
-        </table>
-
-        
-        </td>
-    </tr>
-</table>
-
-    </div>
-
-  	                                                    <div class="license license-demonstration">
-                      <b>DEMONSTRATION LICENSE</b> - This Confluence site is for demonstration purposes only. <a href="/web/20121008025351/http://www.atlassian.com/c/conf/11462">Evaluate Confluence today</a>.<br>
-                    </div>
-                                            <div class="bottomshadow"></div>
-  	<div id="poweredby" class="smalltext">
-		Powered by <a href="/web/20121008025351/http://www.atlassian.com/wiki/?clicked=footer" class="smalltext">Atlassian Confluence</a>, the <a href="/web/20121008025351/http://www.atlassian.com/wiki/?clicked=footer" class="smalltext">Enterprise Wiki</a>. (Version: 2.4.3 Build:#705 Mar 21, 2007)
-		-
-		<a href="/web/20121008025351/http://jira.atlassian.com/secure/BrowseProject.jspa?id=10470" class="smalltext">Bug/feature request</a>
-		-
-		<a href="/web/20121008025351/http://www.greenpeppersoftware.com/confluence/administrators.action">Contact Administrators</a>
-		<br/>
-	</div>
-
-<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
-<span style="display: none">
-    <script type="text/javascript" language="JavaScript">var domainName = '/web/20121008025351/http://www.greenpeppersoftware.com/confluence'; var entityId = '158827462'; var spaceKey = 'GPWODOC'</script>
-    <script type="text/javascript" language="JavaScript" src="/web/20121008025351js_/http://www.greenpeppersoftware.com/confluence/s/705/1/_/labels-javascript"></script>
-    <script>new Ajax.Autocompleter('labelName', 'labelsAutocompleteList', '158827462', { tokens: new Array(',', ' '), dwrFunction: GenerateAutocompleteLabelsListForEntity.autocompleteLabels});</script>
-</span>
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "/web/20121008025351/https://ssl." : "/web/20121008025351/http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try{
-var pageTracker = _gat._getTracker("UA-17361539-1");
-pageTracker._trackPageview();
-} catch(err) {}
-function trackDownload(id) {
-    pageTracker._trackEvent('GreenPepper', 'Download', id);
-    return true;
-}</script>
-<script type="text/javascript" src="/web/20121008025351js_/http://s3.amazonaws.com/new.cetrk.com/pages/scripts/0010/6670.js"> </script>
-</body>
-</html>
-
-
-
-
-<!--
-     FILE ARCHIVED ON 2:53:51 oct. 8, 2012 AND RETRIEVED FROM THE
-     INTERNET ARCHIVE ON 19:26:50 mars 31, 2015.
-     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
-
-     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
-     SECTION 108(a)(3)).
--->

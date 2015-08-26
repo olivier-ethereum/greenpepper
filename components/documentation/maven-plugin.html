@@ -1,28 +1,51 @@
-
-                         <div class="wiki-content">
-                           <!-- wiki content -->
-            <h1 id="FullMavenpluginguide-HTML-FullMavenpluginguide">Full Maven plugin guide</h1>
-<h1 id="FullMavenpluginguide-HTML-1.InstallGreenPepperMavenplugin">1. Install GreenPepper Maven plugin</h1>
-<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
-<td class="confluenceTd"  valign="top" width="7%"></td>
-<td class="confluenceTd"  valign="top">
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Download </th>
-<th class='confluenceTh'> Versions </th>
-</tr>
-<tr>
-<td class='confluenceTd'> Manven2 plugin </td>
-<td class='confluenceTd'> binairies <a href="/web/20090928082809/http://www.greenpeppersoftware.com/confluence/display/GPW/Download" title="Download">here</a></td>
-</tr>
-</tbody></table></td></tr></tbody></table>
-<p><table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Maven versions supported:</b><br /></td></tr></table>The plugin was tested on version 2.0.4+
-<br clear="all" />
-or<br/>
-You may add our repository to your project <b>Pom.xml</b> for automatic download and upgrade. (See <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/guides/getting-started/index.html" rel="nofollow">add repositories<sup><img class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span>.)
-<br clear="all" /></p>
-<div class="preformatted"><div class="preformattedHeader"><b>Example</b></div><div class="preformattedContent">
-<pre>  &lt;repositories&gt;
+<div id="confluence-imported-doc">
+	<div class="wiki-content">
+		<!-- wiki content -->
+		<h1 id="FullMavenpluginguide-HTML-FullMavenpluginguide">Full Maven plugin guide</h1>
+		<h1 id="FullMavenpluginguide-HTML-1.InstallGreenPepperMavenplugin">1. Install GreenPepper Maven plugin</h1>
+		<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%">
+			<tbody>
+				<tr>
+					<td class="confluenceTd" valign="top" width="7%"></td>
+					<td class="confluenceTd" valign="top">
+						<table class='confluenceTable'>
+							<tbody>
+								<tr>
+									<th class='confluenceTh'>Download</th>
+									<th class='confluenceTh'>Versions</th>
+								</tr>
+								<tr>
+									<td class='confluenceTd'>Manven2 plugin</td>
+									<td class='confluenceTd'>binairies <a href="/web/20090928082809/http://www.greenpeppersoftware.com/confluence/display/GPW/Download" title="Download">here</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+		<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt=""
+					border="0"></td>
+				<td><b class="strong">Maven versions supported:</b><br /></td>
+			</tr>
+		</table>
+		The plugin was tested on version 2.0.4+ <br clear="all" /> or<br /> You may add our repository to your project <b>Pom.xml</b> for automatic download and upgrade. (See <span class="nobr"><a
+			href="/web/20090928082809/http://maven.apache.org/guides/getting-started/index.html" rel="nofollow">add repositories<sup><img class="rendericon"
+					src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>.) <br clear="all" />
+		</p>
+		<div class="preformatted">
+			<div class="preformattedHeader">
+				<b>Example</b>
+			</div>
+			<div class="preformattedContent">
+				<pre>  &lt;repositories&gt;
     &lt;repository&gt;
       &lt;id&gt;GreenPepper&lt;/id&gt;
       &lt;name&gt;GreenPepper&lt;/name&gt;
@@ -38,21 +61,20 @@ You may add our repository to your project <b>Pom.xml</b> for automatic download
     &lt;/pluginRepository&gt;
   &lt;/pluginRepositories&gt;
 </pre>
-</div></div>
-<h1 id="FullMavenpluginguide-HTML-2.ConfigureGreenPepperMavenplugin">2. Configure GreenPepper Maven plugin</h1>
-<p>The <font color="green"><b>GreenPepper Maven plugin</b></font> is used during the <b>Preintegration test</b> phase of the build lifecycle to compile and copy the fixtures classes of an application. By default, it copies the classes to:<br/>
-<font color="blue"><b>${project.build.directory}/fixture-test-classes/</b></font>
-<br clear="all" />
-<br clear="all" />
-The <font color="green"><b>GreenPepper Maven plugin</b></font> is then used during the <b>Integration test</b> phase of the build lifecycle to execute the specifications of an application. It generates reports in plain HTML file format (*.html). By default, these files are generated in:<br/>
-<font color="blue"><b>$basedir/target/greenpepper-reports/</b></font>.
-<br clear="all" />
-<br clear="all" />
-The <font color="green"><b>GreenPepper Maven plugin</b></font> is used during the <b>Postintegration test</b> phase of the build lifecycle to create the fixtures jar of an application. By default, it generates a jar in:<br/>
-<font color="blue"><b>$basedir/target/</b></font>.</p>
+			</div>
+		</div>
+		<h1 id="FullMavenpluginguide-HTML-2.ConfigureGreenPepperMavenplugin">2. Configure GreenPepper Maven plugin</h1>
+		<p>
+			The <font color="green"><b>GreenPepper Maven plugin</b></font> is used during the <b>Preintegration test</b> phase of the build lifecycle to compile and copy the fixtures classes of an application.
+			By default, it copies the classes to:<br /> <font color="blue"><b>${project.build.directory}/fixture-test-classes/</b></font> <br clear="all" /> <br clear="all" /> The <font color="green"><b>GreenPepper
+					Maven plugin</b></font> is then used during the <b>Integration test</b> phase of the build lifecycle to execute the specifications of an application. It generates reports in plain HTML file format (*.html).
+			By default, these files are generated in:<br /> <font color="blue"><b>$basedir/target/greenpepper-reports/</b></font>. <br clear="all" /> <br clear="all" /> The <font color="green"><b>GreenPepper
+					Maven plugin</b></font> is used during the <b>Postintegration test</b> phase of the build lifecycle to create the fixtures jar of an application. By default, it generates a jar in:<br /> <font color="blue"><b>$basedir/target/</b></font>.
+		</p>
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>&lt;plugin&gt;
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>&lt;plugin&gt;
 	&lt;groupId&gt;GreenPepper&lt;/groupId&gt;
 	&lt;artifactId&gt;GreenPepper Maven plugin&lt;/artifactId&gt;
 	&lt;version&gt;2.0&lt;/version&gt;
@@ -87,349 +109,394 @@ The <font color="green"><b>GreenPepper Maven plugin</b></font> is used during th
 	&lt;/configuration&gt;
 &lt;plugin&gt;
 </pre>
-</div></div>
-<h1 id="FullMavenpluginguide-HTML-3.UseGreenPepperMavenplugin">3. Use GreenPepper Maven plugin</h1>
-<h2 id="FullMavenpluginguide-HTML-Executingspecificationfixtures">Executing specification fixtures</h2>
-<p>Except for the <b>Freeze</b> goal, the goals for the <font color="green"><b>GreenPepper Maven plugin</b></font> are bound to their respective phases in the build lifecycle. So, to compile your fixture sources, you only need to indicate Maven until which lifecycle to execute.</p>
+			</div>
+		</div>
+		<h1 id="FullMavenpluginguide-HTML-3.UseGreenPepperMavenplugin">3. Use GreenPepper Maven plugin</h1>
+		<h2 id="FullMavenpluginguide-HTML-Executingspecificationfixtures">Executing specification fixtures</h2>
+		<p>
+			Except for the <b>Freeze</b> goal, the goals for the <font color="green"><b>GreenPepper Maven plugin</b></font> are bound to their respective phases in the build lifecycle. So, to compile your
+			fixture sources, you only need to indicate Maven until which lifecycle to execute.
+		</p>
 
-<p>Providing you have configured your plugin (see section below):</p>
-<ul>
-	<li>The following will compile your fixture sources:</li>
-</ul>
+		<p>Providing you have configured your plugin (see section below):</p>
+		<ul>
+			<li>The following will compile your fixture sources:</li>
+		</ul>
 
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>mvn greenpepper:compile
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>mvn greenpepper:compile
 </pre>
-</div></div>
-<ul>
-	<li>The following will copy your resources:</li>
-</ul>
+			</div>
+		</div>
+		<ul>
+			<li>The following will copy your resources:</li>
+		</ul>
 
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>mvn greenpepper:resources
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>mvn greenpepper:resources
 </pre>
-</div></div>
-<ul>
-	<li>The following will execute your specifications:</li>
-</ul>
+			</div>
+		</div>
+		<ul>
+			<li>The following will execute your specifications:</li>
+		</ul>
 
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>mvn greenpepper:run
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>mvn greenpepper:run
 </pre>
-</div></div>
-<ul>
-	<li>The following will create you fixture jar:</li>
-</ul>
+			</div>
+		</div>
+		<ul>
+			<li>The following will create you fixture jar:</li>
+		</ul>
 
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>mvn greenpepper:fixture-jar
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>mvn greenpepper:fixture-jar
 </pre>
-</div></div>
-<ul>
-	<li>The following will download the specification files:</li>
-</ul>
+			</div>
+		</div>
+		<ul>
+			<li>The following will download the specification files:</li>
+		</ul>
 
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>mvn greenpepper:freeze
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>mvn greenpepper:freeze
 </pre>
-</div></div>
-<h2 id="FullMavenpluginguide-HTML-Goals">Goals</h2>
-<h3 id="FullMavenpluginguide-HTML-greenpepper%3Acompile"><ins>greenpepper:compile</ins></h3>
-<p>It compiles fixtures of an application.</p>
+			</div>
+		</div>
+		<h2 id="FullMavenpluginguide-HTML-Goals">Goals</h2>
+		<h3 id="FullMavenpluginguide-HTML-greenpepper%3Acompile">
+			<ins>greenpepper:compile</ins>
+		</h3>
+		<p>It compiles fixtures of an application.</p>
 
-<p>Mojo attributes:</p>
-<ul>
-	<li>Requires a Maven 2.0 project to execute</li>
-	<li>Requires dependency resolution of artifacts in scope: test</li>
-	<li>Automatically executes within the lifecycle phase: preintegration test
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
-
-
-<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Name </th>
-<th class='confluenceTh'> Type </th>
-<th class='confluenceTh'> Description </th>
-</tr>
-<tr>
-<td class='confluenceTd'> fixtureSourceDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The source directory containing the fixture sources to be compiled. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> fixtureOutputDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The output directory into which to copy the resources. </td>
-</tr>
-</tbody></table>
-
-<h3 id="FullMavenpluginguide-HTML-Optionalparameters">Optional parameters</h3>
-
-<p>Same as <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html" rel="nofollow">Maven compiler plugin<sup><img class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span>.</p>
-
-<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
-
-<p><b>fixtureSourceDirectory:</b> The source directory containing the fixture sources to be compiled.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression:
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<p>Mojo attributes:</p>
+		<ul>
+			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Requires dependency resolution of artifacts in scope: test</li>
+			<li>Automatically executes within the lifecycle phase: preintegration test <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
 
-<hr />
-<p><b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${project.build.directory}/fixture-test-classes</li>
-</ul>
+		<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
 
-<h3 id="FullMavenpluginguide-HTML-greenpepper%3Aresources"><ins>greenpepper:resources</ins></h3>
-<p>It copies resources for the main source code to the main output directory.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Name</th>
+					<th class='confluenceTh'>Type</th>
+					<th class='confluenceTh'>Description</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>fixtureSourceDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The source directory containing the fixture sources to be compiled.</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>fixtureOutputDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The output directory into which to copy the resources.</td>
+				</tr>
+			</tbody>
+		</table>
 
-<p>Mojo attributes:</p>
-<ul>
-	<li>Requires a Maven 2.0 project to execute</li>
-	<li>Automatically executes within the lifecycle phase: preintegration test
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<h3 id="FullMavenpluginguide-HTML-Optionalparameters">Optional parameters</h3>
 
+		<p>
+			Same as <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html" rel="nofollow">Maven compiler plugin<sup><img
+						class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>.
+		</p>
 
-<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
+		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
 
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Name </th>
-<th class='confluenceTh'> Type </th>
-<th class='confluenceTh'> Description </th>
-</tr>
-<tr>
-<td class='confluenceTd'> fixtureOutputDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The output directory into which to copy the resources. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> resources </td>
-<td class='confluenceTd'> List </td>
-<td class='confluenceTd'> The list of resources to be transfered. </td>
-</tr>
-</tbody></table>
-
-<h3 id="FullMavenpluginguide-HTML-Optionalparameters">Optional parameters</h3>
-
-<p>Same as <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html" rel="nofollow">Maven 2 resources plugin<sup><img class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></p>
-
-<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
-
-<p><b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${project.build.directory}/fixture-test-classes
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<p>
+			<b>fixtureSourceDirectory:</b> The source directory containing the fixture sources to be compiled.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
 
-<hr />
-<p><b>Resources:</b> The list of resources we want to transfer.</p>
-<ul>
-	<li>Type: java.util.List</li>
-	<li>Required: Yes</li>
-	<li>Expression:</li>
-</ul>
+		<hr />
+		<p>
+			<b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${project.build.directory}/fixture-test-classes</li>
+		</ul>
 
-<h3 id="FullMavenpluginguide-HTML-greenpepper%3Arun"><ins>greenpepper:run</ins></h3>
-<p>It executes the GreenPepper specifications.</p>
+		<h3 id="FullMavenpluginguide-HTML-greenpepper%3Aresources">
+			<ins>greenpepper:resources</ins>
+		</h3>
+		<p>It copies resources for the main source code to the main output directory.</p>
 
-<p>Mojo attributes:</p>
-<ul>
-	<li>Requires a Maven 2.0 project to execute</li>
-	<li>Requires dependency resolution of artifacts in scope: test</li>
-	<li>Automatically executes within the lifecycle phase: integration test
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
-
-
-<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Name </th>
-<th class='confluenceTh'> Type </th>
-<th class='confluenceTh'> Description </th>
-</tr>
-<tr>
-<td class='confluenceTd'> basedir </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The base directory of the project being tested. This can be obtained in your unit test by <b>System.getProperty("basedir")</b>. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> classesDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The directory containing generated classes of the project being tested. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> fixtureOutputDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The directory containing generated fixture classes of the project being tested. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> repositories </td>
-<td class='confluenceTd'> Repository </td>
-<td class='confluenceTd'> <b>Suite</b> or <b>test</b> uri of specifications to test. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> reportsDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> Output directory of the generated reports. </td>
-</tr>
-<tr>
-<td class='confluenceTd'> stopOnFirstFailure </td>
-<td class='confluenceTd'> Boolean </td>
-<td class='confluenceTd'> Stop the execution of the specification on the first failure </td>
-</tr>
-</tbody></table>
-
-<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
-
-<p><b>basedir:</b> The base directory of the project being tested. This can be obtained in your unit test by <b>System.getProperty("basedir")</b>.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${basedir}
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<p>Mojo attributes:</p>
+		<ul>
+			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Automatically executes within the lifecycle phase: preintegration test <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
 
-<hr />
-<p><b>classesDirectory:</b> The directory containing generated classes of the project being tested.</p>
-<ul>
-	<li>Type: java.util.List</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${project.build.outputDirectory}
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Name</th>
+					<th class='confluenceTh'>Type</th>
+					<th class='confluenceTh'>Description</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>fixtureOutputDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The output directory into which to copy the resources.</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>resources</td>
+					<td class='confluenceTd'>List</td>
+					<td class='confluenceTd'>The list of resources to be transfered.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="FullMavenpluginguide-HTML-Optionalparameters">Optional parameters</h3>
+
+		<p>
+			Same as <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html" rel="nofollow">Maven 2 resources plugin<sup><img
+						class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>
+		</p>
+
+		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
+
+		<p>
+			<b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${project.build.directory}/fixture-test-classes <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
 
-<hr />
-<p><b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${project.build.directory}/fixture-test-classes
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<hr />
+		<p>
+			<b>Resources:</b> The list of resources we want to transfer.
+		</p>
+		<ul>
+			<li>Type: java.util.List</li>
+			<li>Required: Yes</li>
+			<li>Expression:</li>
+		</ul>
+
+		<h3 id="FullMavenpluginguide-HTML-greenpepper%3Arun">
+			<ins>greenpepper:run</ins>
+		</h3>
+		<p>It executes the GreenPepper specifications.</p>
+
+		<p>Mojo attributes:</p>
+		<ul>
+			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Requires dependency resolution of artifacts in scope: test</li>
+			<li>Automatically executes within the lifecycle phase: integration test <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
 
-<hr />
-<p><b>reportsDirectory:</b> Output directory of the generated reports.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: yes</li>
-	<li>Expression: ${project.build.directory}/greenpepper-reports</li>
-</ul>
+		<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
 
-<h3 id="FullMavenpluginguide-HTML-greenpepper%3Afixturejar"><ins>greenpepper:fixture-jar</ins></h3>
-<p>It builds the fixture jar.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Name</th>
+					<th class='confluenceTh'>Type</th>
+					<th class='confluenceTh'>Description</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>basedir</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The base directory of the project being tested. This can be obtained in your unit test by <b>System.getProperty("basedir")</b>.
+					</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>classesDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The directory containing generated classes of the project being tested.</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>fixtureOutputDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The directory containing generated fixture classes of the project being tested.</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>repositories</td>
+					<td class='confluenceTd'>Repository</td>
+					<td class='confluenceTd'><b>Suite</b> or <b>test</b> uri of specifications to test.</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>reportsDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>Output directory of the generated reports.</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>stopOnFirstFailure</td>
+					<td class='confluenceTd'>Boolean</td>
+					<td class='confluenceTd'>Stop the execution of the specification on the first failure</td>
+				</tr>
+			</tbody>
+		</table>
 
-<p>Mojo attributes:</p>
-<ul>
-	<li>Requires a Maven 2.0 project to execute</li>
-	<li>Requires dependency resolution of artifacts in scope: test</li>
-	<li>Automatically executes within the lifecycle phase: postintegration test
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
 
-
-<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Name </th>
-<th class='confluenceTh'> Type </th>
-<th class='confluenceTh'> Description </th>
-</tr>
-<tr>
-<td class='confluenceTd'> fixtureOutputDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The directory containing generated fixture classes of the project being tested. </td>
-</tr>
-</tbody></table>
-
-<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
-
-<p><b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${project.build.directory}/fixture-test-classes</li>
-</ul>
-
-<h3 id="FullMavenpluginguide-HTML-greenpepper%3Afreeze"><ins>greenpepper:freeze</ins></h3>
-<p>It downloads specification files from the remote repositories and stores them locally.</p>
-
-<p>Mojo attributes:</p>
-<ul>
-	<li>Requires a Maven 2.0 project to execute</li>
-	<li>Requires dependency resolution of artifacts in scope: test</li>
-	<li>Is not bound to any lifecycle phase
-<br clear="all" />
-<br clear="all" /></li>
-</ul>
+		<p>
+			<b>basedir:</b> The base directory of the project being tested. This can be obtained in your unit test by <b>System.getProperty("basedir")</b>.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${basedir} <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
 
-<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
+		<hr />
+		<p>
+			<b>classesDirectory:</b> The directory containing generated classes of the project being tested.
+		</p>
+		<ul>
+			<li>Type: java.util.List</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${project.build.outputDirectory} <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Name </th>
-<th class='confluenceTh'> Type </th>
-<th class='confluenceTh'> Description </th>
-</tr>
-<tr>
-<td class='confluenceTd'> specsDirectory </td>
-<td class='confluenceTd'> File </td>
-<td class='confluenceTd'> The directory where specification files should be downloaded. Default value: ${basedir}/src/specs </td>
-</tr>
-<tr>
-<td class='confluenceTd'> repositories </td>
-<td class='confluenceTd'> Repository </td>
-<td class='confluenceTd'> <b>Suite</b> or <b>test</b> uri of specifications to download. </td>
-</tr>
-</tbody></table>
 
-<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
+		<hr />
+		<p>
+			<b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${project.build.directory}/fixture-test-classes <br clear="all" /> <br clear="all" /></li>
+		</ul>
 
-<p><b>specsDirectory:</b> The destination directory for specifications. Specification files will be stored under a sub-directory named after the repository and optionally a sub-directory named after the suite.</p>
-<ul>
-	<li>Type: java.io.File</li>
-	<li>Required: Yes</li>
-	<li>Expression: ${basedir}/src/specs</li>
-</ul>
 
-<h2 id="FullMavenpluginguide-HTML-Examples">Examples</h2>
-<h3 id="FullMavenpluginguide-HTML-GreenPepperCorePom.xmlexample"><ins>GreenPepper Core Pom.xml example</ins></h3>
-<div class="preformatted"><div class="preformattedContent">
-<pre> &lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		<hr />
+		<p>
+			<b>reportsDirectory:</b> Output directory of the generated reports.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: yes</li>
+			<li>Expression: ${project.build.directory}/greenpepper-reports</li>
+		</ul>
+
+		<h3 id="FullMavenpluginguide-HTML-greenpepper%3Afixturejar">
+			<ins>greenpepper:fixture-jar</ins>
+		</h3>
+		<p>It builds the fixture jar.</p>
+
+		<p>Mojo attributes:</p>
+		<ul>
+			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Requires dependency resolution of artifacts in scope: test</li>
+			<li>Automatically executes within the lifecycle phase: postintegration test <br clear="all" /> <br clear="all" /></li>
+		</ul>
+
+
+		<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Name</th>
+					<th class='confluenceTh'>Type</th>
+					<th class='confluenceTh'>Description</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>fixtureOutputDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The directory containing generated fixture classes of the project being tested.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
+
+		<p>
+			<b>fixtureOutputDirectory:</b> The output directory into which to copy the resources.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${project.build.directory}/fixture-test-classes</li>
+		</ul>
+
+		<h3 id="FullMavenpluginguide-HTML-greenpepper%3Afreeze">
+			<ins>greenpepper:freeze</ins>
+		</h3>
+		<p>It downloads specification files from the remote repositories and stores them locally.</p>
+
+		<p>Mojo attributes:</p>
+		<ul>
+			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Requires dependency resolution of artifacts in scope: test</li>
+			<li>Is not bound to any lifecycle phase <br clear="all" /> <br clear="all" /></li>
+		</ul>
+
+
+		<h3 id="FullMavenpluginguide-HTML-Requiredparameters">Required parameters</h3>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Name</th>
+					<th class='confluenceTh'>Type</th>
+					<th class='confluenceTh'>Description</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>specsDirectory</td>
+					<td class='confluenceTd'>File</td>
+					<td class='confluenceTd'>The directory where specification files should be downloaded. Default value: ${basedir}/src/specs</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>repositories</td>
+					<td class='confluenceTd'>Repository</td>
+					<td class='confluenceTd'><b>Suite</b> or <b>test</b> uri of specifications to download.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
+
+		<p>
+			<b>specsDirectory:</b> The destination directory for specifications. Specification files will be stored under a sub-directory named after the repository and optionally a sub-directory named after
+			the suite.
+		</p>
+		<ul>
+			<li>Type: java.io.File</li>
+			<li>Required: Yes</li>
+			<li>Expression: ${basedir}/src/specs</li>
+		</ul>
+
+		<h2 id="FullMavenpluginguide-HTML-Examples">Examples</h2>
+		<h3 id="FullMavenpluginguide-HTML-GreenPepperCorePom.xmlexample">
+			<ins>GreenPepper Core Pom.xml example</ins>
+		</h3>
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre> &lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
@@ -505,13 +572,19 @@ The <font color="green"><b>GreenPepper Maven plugin</b></font> is used during th
 &lt;/project&gt;
 
 </pre>
-</div></div>
-<h3 id="FullMavenpluginguide-HTML-SpecificationsdocumentsasHTMLfiles"><ins>Specifications documents as HTML files</ins></h3>
-<p><b>Example of a file system repository:</b><br/>
-In this example, the specifications are under the directory <em>${basedir}\src\fixture\specs</em> (which correspond to the <em>root</em> element). For each repository, the specifications are under the directory <em>Demo</em> and <em>DemoPhoneBook</em>.</p>
+			</div>
+		</div>
+		<h3 id="FullMavenpluginguide-HTML-SpecificationsdocumentsasHTMLfiles">
+			<ins>Specifications documents as HTML files</ins>
+		</h3>
+		<p>
+			<b>Example of a file system repository:</b><br /> In this example, the specifications are under the directory <em>${basedir}\src\fixture\specs</em> (which correspond to the <em>root</em> element).
+			For each repository, the specifications are under the directory <em>Demo</em> and <em>DemoPhoneBook</em>.
+		</p>
 
-<div class="preformatted"><div class="preformattedContent">
-<pre>&lt;build&gt;
+		<div class="preformatted">
+			<div class="preformattedContent">
+				<pre>&lt;build&gt;
     &lt;plugins&gt;
         &lt;plugin&gt;
             &lt;groupId&gt;greenpepper&lt;/groupId&gt;
@@ -565,7 +638,12 @@ In this example, the specifications are under the directory <em>${basedir}\src\f
     &lt;/plugins&gt;
 &lt;/build&gt;
 </pre>
-</div></div>
+			</div>
+		</div>
 
-<p>You can found the project of this example <span class="nobr"><a href="/web/20090928082809/http://www.greenpeppersoftware.com/svn/trunk/java/confluence.demo" rel="nofollow">here<sup><img class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span>.</p>
-                        </div>
+		<p>
+			You can found the project of this example <span class="nobr"><a href="/web/20090928082809/http://www.greenpeppersoftware.com/svn/trunk/java/confluence.demo" rel="nofollow">here<sup><img
+						class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>.
+		</p>
+	</div>
+</div>

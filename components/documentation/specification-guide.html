@@ -1,1723 +1,2503 @@
-     
-                         <div class="wiki-content">
-                           <!-- wiki content -->
-            <h1 id="Fullcustomerguide-HTML-Fullcustomerguide">Full customer guide</h1>
-<h1 id="Fullcustomerguide-HTML-1.Writingmyfirstexecutablespecification">1. Writing my first executable specification</h1>
+<div id="confluence-imported-doc">
+	<div class="wiki-content">
+		<!-- wiki content -->
+		<h1 id="Fullcustomerguide-HTML-Fullcustomerguide">Full customer guide</h1>
+		<h1 id="Fullcustomerguide-HTML-1.Writingmyfirstexecutablespecification">1. Writing my first executable specification</h1>
 
-<h3 id="Fullcustomerguide-HTML-WritinganexecutablespecificationforaCalculatorprogram">Writing an executable specification for a Calculator program</h3>
+		<h3 id="Fullcustomerguide-HTML-WritinganexecutablespecificationforaCalculatorprogram">Writing an executable specification for a Calculator program</h3>
 
-<p>Consider your customer wants to create a calculator.</p>
+		<p>Consider your customer wants to create a calculator.</p>
 
-<p>The business expert on Calculators explains to the developer the rules for calculation. The first specification is: The calculator should be able to add two numbers. To support the specification, the business expert also provide an example:  6 + 3 = 9.</p>
+		<p>The business expert on Calculators explains to the developer the rules for calculation. The first specification is: The calculator should be able to add two numbers. To support the
+			specification, the business expert also provide an example: 6 + 3 = 9.</p>
 
-<p>In order to be executable in <gpname>GreenPepper</gpname>, the specification must be expressed in a specific form :</p>
-<table style="display:none">
-	<tr>
-		<td>Import</td>
-	</tr>
+		<p>
+			In order to be executable in
+			<gpname>GreenPepper</gpname>
+			, the specification must be expressed in a specific form :
+		</p>
+		<table style="display: none">
 			<tr>
-			<td>com.greenpepper.samples.application.calculator</td>
-		</tr>
-	</table>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> Calculator </td>
-</tr>
-<tr>
-<td class='confluenceTd'> x </td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 6 </td>
-<td class='confluenceTd'> 3 </td>
-<td class='confluenceTd'> 9 </td>
-</tr>
-</tbody></table>
+				<td>Import</td>
+			</tr>
+			<tr>
+				<td>com.greenpepper.samples.application.calculator</td>
+			</tr>
+		</table>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>Calculator</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>6</td>
+					<td class='confluenceTd'>3</td>
+					<td class='confluenceTd'>9</td>
+				</tr>
+			</tbody>
+		</table>
 
-<p>The first line of the specification explains that we have particular <b>RULES FOR</b> our Calculator. The calculator receives two numbers and it gives you back the sum of those two numbers. Once the calculator will be developed, we will be able to execute the specification to test the functionality.</p>
+		<p>
+			The first line of the specification explains that we have particular <b>RULES FOR</b> our Calculator. The calculator receives two numbers and it gives you back the sum of those two numbers. Once
+			the calculator will be developed, we will be able to execute the specification to test the functionality.
+		</p>
 
-<h3 id="Fullcustomerguide-HTML-Executethespecification">Execute the specification</h3>
+		<h3 id="Fullcustomerguide-HTML-Executethespecification">Execute the specification</h3>
 
-<p>If you hit the Execute button on the top of the page, you will get the result of your test.</p>
+		<p>If you hit the Execute button on the top of the page, you will get the result of your test.</p>
 
-<h3 id="Fullcustomerguide-HTML-Howitworks%3F">How it works?</h3>
+		<h3 id="Fullcustomerguide-HTML-Howitworks%3F">How it works?</h3>
 
-<p>Once you click on the Execution button, <gpname>GreenPepper</gpname> that a test must be performed.</p>
+		<p>
+			Once you click on the Execution button,
+			<gpname>GreenPepper</gpname>
+			that a test must be performed.
+		</p>
 
-<p>In that particular example, <gpname>GreenPepper</gpname>. The business expert is now confident that the Calculator is able to add two numbers.</p>
+		<p>
+			In that particular example,
+			<gpname>GreenPepper</gpname>
+			. The business expert is now confident that the Calculator is able to add two numbers.
+		</p>
 
-<h3 id="Fullcustomerguide-HTML-Addinganotherexample">Adding another example</h3>
+		<h3 id="Fullcustomerguide-HTML-Addinganotherexample">Adding another example</h3>
 
-<p>Once the Calculator is developed, the business expert may think about new examples that he would like to test. The business expert add new row in the Rule For table and execute the test (no coding is needed here).</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> Calculator </td>
-</tr>
-<tr>
-<td class='confluenceTd'> x </td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 6 </td>
-<td class='confluenceTd'> 3 </td>
-<td class='confluenceTd'> 9 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 7 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> 8 </td>
-</tr>
-</tbody></table>
-<p>When there is an error, <gpname>GreenPepper</gpname> colors the cell in red.<br/>
-In the new example, it is clear that the expected value provided by the business expert is not correct. But the error could have been in the system.</p>
-<table style="display:none">
-	<tr>
-		<td>Begin Info</td>
-	</tr>
-</table>
-<div style="padding:0px; margin:0px; ">
-		
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>The business expert should always be consulted before any changes are made in the executable specifications.</p></td></tr></table>
+		<p>Once the Calculator is developed, the business expert may think about new examples that he would like to test. The business expert add new row in the Rule For table and execute the test (no
+			coding is needed here).</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>Calculator</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>6</td>
+					<td class='confluenceTd'>3</td>
+					<td class='confluenceTd'>9</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>7</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'>8</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			When there is an error,			<gpname>GreenPepper</gpname>			colors the cell in red.<br /> In the new example, it is clear that the expected value provided by the business expert is not correct. But the error could have been in the system.
+		</p>
+		<table style="display: none">
+			<tr>
+				<td>Begin Info</td>
+			</tr>
+		</table>
+		<div style="padding: 0px; margin: 0px;">
+
+			<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+				<colgroup>
+					<col width='24'>
+					<col>
+				</colgroup>
+				<tr>
+					<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+					<td>
+						<p>The business expert should always be consulted before any changes are made in the executable specifications.</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<table style="display: none">
+			<tr>
+				<td>End Info</td>
+			</tr>
+		</table>
+
+
+		<h3 id="Fullcustomerguide-HTML-AddingnewspecificationstoourCalculator">Adding new specifications to our Calculator</h3>
+
+		<p>
+			The business expert wants to improve the Calculator: The Calculator should be able to perform product and quotient of two numbers.<br /> The new rules can be written in a way similar to the "sum"
+			specification. In case of an expected errors, the keyword <b>error</b> may be used in order to test those special cases.
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>Calculator</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+					<td class='confluenceTd'>product?</td>
+					<td class='confluenceTd'>quotient?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>6</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>8</td>
+					<td class='confluenceTd'>12</td>
+					<td class='confluenceTd'>3</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>7</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'>7</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'><b>error</b></td>
+				</tr>
+			</tbody>
+		</table>
+		<h1 id="Fullcustomerguide-HTML-2.RuleValidation%28RuleFor%29">2. Rule Validation (Rule For)</h1>
+		<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
+		<div class="panel" style="border-style: solid; border-color: #000000;">
+			<div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0;">
+				<b>DEFINITION</b>
+			</div>
+			<div class="panelContent" style="background-color: #ffffff;">
+				<p>
+					The
+					<tt>RuleForInterpreter</tt>
+					is used to express concrete and measurable business rules.<br /> During the execution of the specification,
+					<gpname>GreenPepper</gpname>
+					compares the values returned by the system under development against the expected values defined by the Business Expert.<br /> <img
+						src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827471/LexicalFormOfRuleFor.jpg" align="absmiddle" border="0" />
+				</p>
+				<ul>
+					<li>The first row of the table indicates the set of rules to be tested by <gpname>GreenPepper</gpname>.
+					</li>
+					<li>The next row is called the <b>header row</b> and serves to distinguish the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve
+						as comparison values against values that are actually returned by the system. When a column header ends with special characters <b>?</b> or <b>()</b>, it denotes an expected value.
+					</li>
+					<li>Finally, the remaining rows capture the examples. They are the executable test rows.</li>
+				</ul>
+			</div>
+		</div>
+
+		<h3 id="Fullcustomerguide-HTML-SpecificKeywordsforexpectedvalues">Specific Keywords for expected values</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			offers a list of useful keywords to support the Business Expert.
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Empty cells</th>
+					<td class='confluenceTd'>When a test cell is left blank, <gpname>GreenPepper</gpname> only shows the returned value
+					</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'><b>error</b></th>
+					<td class='confluenceTd'>When you expect an error, specify it in the cell to test that particular behavior</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will visually show the test result by coloring each testing cell:
+		</p>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #98FB98;">
+				<b><b>GREEN</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #98FB98;">
+				<p>
+					When the expected value match the returned value, the
+					<tt>RuleForInterpreter</tt>
+					colors the cell as "right" by coloring it green.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F08080;">
+				<b><b>RED</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F08080;">
+				<p>
+					If the values don't match, the
+					<tt>RuleForInterpreter</tt>
+					colors the cell as "wrong" in red.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F0E68C;">
+				<b><b>YELLOW</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F0E68C;">
+				<p>
+					If the system encounters an execution error, the cell is colored yellow and
+					<gpname>GreenPepper</gpname>
+					provides information about the error.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #D3D3D3;">
+				<b><b>GRAY</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #D3D3D3;">
+				<p>
+					If no expected value is specified in a test, the
+					<tt>RuleForInterpreter</tt>
+					colors the cell in gray.
+				</p>
+			</div>
+		</div>
+
+		<p>Here is an example of cell coloring:</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>calculator</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+					<td class='confluenceTd'>product()</td>
+					<td class='confluenceTd'>quotient?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>10</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'>10</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'>0</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>6</td>
+					<td class='confluenceTd'>3</td>
+					<td class='confluenceTd'>9</td>
+					<td class='confluenceTd'>-5</td>
+					<td class='confluenceTd'>&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Fullcustomerguide-HTML-WritingaRuleForSpecification">Writing a Rule For Specification</h2>
+		<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BRuleForInterpreter%7D%7D%3F">
+			When do we use the
+			<tt>RuleForInterpreter</tt>
+			?
+		</h2>
+
+		<p>
+			The
+			<tt>RuleForInterpreter</tt>
+			is used to express concrete and measurable business rules. The business rules are often related to all kind of calculations.
+		</p>
+
+		<p>
+			When a table of rule is executed,
+			<gpname>GreenPepper</gpname>
+			compares the values returned by the system under development against the expected values defined by the Business Expert.
+		</p>
+
+		<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheRuleFor">First row: Identification of the Rule For</h2>
+
+		<p>
+			In a Rule For table, the first row specifies the name of the interpreter and the name of the rules to be tested.<br /> The business expert should be clear in the identification of the set of rules.
+		</p>
+		<ul>
+			<li><b>Example Division :</b> A simple system performing divisions. In that particular case, we could define the set of rules as Division which leads to:
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>rule for</td>
+							<td class='confluenceTd'>Division</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<ul>
+			<li><b>Example Mortgage :</b> A Mortgage management system with the following specifications:<br /> <font color="#0033ff"><em>"Whenever the down payment on the property is less
+						than 25% of the sale price, the buyer has to pay a premium for insuring the mortgage. The premium fee amount is 2.5% of the financed amount (which is sale price - down payment)."</em></font><br /> For that
+				particular calculation we could identify the set of rules as:
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>rule for</td>
+							<td class='confluenceTd'>insurance premium fee calculation</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<h2 id="Fullcustomerguide-HTML-Secondrow%3AtheHeader">Second row: the Header</h2>
+
+		<p>The second row is called the header row and serves to distinguish between the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve
+			as comparison values against values that are actually returned by the system. When a column header ends with special characters ? or (), it denotes an expected value.</p>
+		<ul>
+			<li><b>Example Division :</b> The given values for that example are the dividend and the divisor. The expected value is the quotient.
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>rule for</td>
+							<td class='confluenceTd'>Division</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>dividend</td>
+							<td class='confluenceTd'>divisor</td>
+							<td class='confluenceTd'>quotient?</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<ul>
+			<li><b>Example Mortgage :</b> The given values for that example are the sale price and the down payment. The expected value is the premium fee.
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>rule for</td>
+							<td class='confluenceTd'>insurance premium fee calculation</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>sale price</td>
+							<td class='confluenceTd'>down payment</td>
+							<td class='confluenceTd'>premium fee?</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<h2 id="Fullcustomerguide-HTML-Thirdandfollowingrows%3AExamples">Third and following rows: Examples</h2>
+
+		<p>The remaining rows capture the examples. They are the executable test rows.</p>
+
+		<h4 id="Fullcustomerguide-HTML-FinalexpressionoftheDivisionexample">Final expression of the Division example</h4>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>Division</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>dividend</td>
+					<td class='confluenceTd'>divisor</td>
+					<td class='confluenceTd'>quotient?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>6.0</td>
+					<td class='confluenceTd'>2.0</td>
+					<td class='confluenceTd'>3.0</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>7</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>3.5</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>18</td>
+					<td class='confluenceTd'>3.0</td>
+					<td class='confluenceTd'>6</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>15</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>8</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4 id="Fullcustomerguide-HTML-FinalexpressionoftheMortgageexample">Final expression of the Mortgage example</h4>
+
+		<p>
+			Specification: <em>"Whenever the down payment on the property is less than 25% of the sale price, the buyer has to pay a premium for insuring the mortgage. The premium fee amounts is 2.5% of
+				the financed amount (which is sale price - down payment)."</em>
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>insurance premium fee calculation</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>sale price</td>
+					<td class='confluenceTd'>down payment</td>
+					<td class='confluenceTd'>premium fee?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>$100,000</td>
+					<td class='confluenceTd'>$15,000</td>
+					<td class='confluenceTd'>$2,125.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>$100,000</td>
+					<td class='confluenceTd'>$30,000</td>
+					<td class='confluenceTd'>$0.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>$100,000</td>
+					<td class='confluenceTd'>$25,000</td>
+					<td class='confluenceTd'>$0.00</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			When there is no expected value specified in a cell,
+			<gpname>GreenPepper</gpname>
+			provides the value calculated by the system under development. The business expert could use that functionality to facilitate the comprehension of a rule. In this example, the financed amount of
+			mortgage can be evaluated as an intermediate result.
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>rule for</td>
+					<td class='confluenceTd'>insurance premium fee calculation</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>sale price</td>
+					<td class='confluenceTd'>down payment</td>
+					<td class='confluenceTd'>premium fee?</td>
+					<td class='confluenceTd'>financed amount?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>$100,000</td>
+					<td class='confluenceTd'>$15,000</td>
+					<td class='confluenceTd'>$2,125.00</td>
+					<td class='confluenceTd'>&nbsp;</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>$100,000</td>
+					<td class='confluenceTd'>$30,000</td>
+					<td class='confluenceTd'>$0.00</td>
+					<td class='confluenceTd'>&nbsp;</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>$100,000</td>
+					<td class='confluenceTd'>$25,000</td>
+					<td class='confluenceTd'>$0.00</td>
+					<td class='confluenceTd'>&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Executionofspecifications">Execution of specifications</h2>
+
+		<p>
+			Based on those executable specifications, the developers are now ready to code the functionality and the <a
+				href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system
+			under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.
+		</p>
+
+		<p>
+			During execution,
+			<gpname>GreenPepper</gpname>
+			colors the cell in gray to signify that no test was performed and shows the returned value.
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td><br /> The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Rule+Tables"
+					title="Writing fixtures for Rule Tables">how to write the fixture for the <tt>RuleForInterpreter</tt></a>.</td>
+			</tr>
+		</table>
+		</p>
+		<h1 id="Fullcustomerguide-HTML-3.ListValidation%28Listof%2CSetof%2CSupersetof%2CSubsetof%29">3. List Validation (List of, Set of, Superset of, Subset of)</h1>
+		<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
+		<div class="panel" style="border-style: solid; border-color: #000000;">
+			<div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0;">
+				<b>DEFINITION</b>
+			</div>
+			<div class="panelContent" style="background-color: #ffffff;">
+				<p>
+					The
+					<tt>collection interpreters</tt>
+					are used to express any kind of groups, lists or sets of values.
+				</p>
+
+				<p>
+					When a collection interpreter is executed,
+					<gpname>GreenPepper</gpname>
+					compares the list of values expected with the list of values returned by the system under development. The test result depends on the specific collection interpreter selected.
+				</p>
+
+				<p>
+					<img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827473/LexicalFormOfCollectionInterpreters.jpg" align="absmiddle" border="0" />
+				</p>
+
+				<ul>
+					<li>As for all other interpreters, the first row of the <tt>collection interpreters</tt> specifies the name of the interpreter and the name of the collection to be tested.
+					</li>
+					<li>The next row is used to define the name of each attribute related to the members of the collection of data.</li>
+					<li>The following rows are used to specify the set of values to test.</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<h3 id="Fullcustomerguide-HTML-Specifickeywords">Specific keywords</h3>
+		<p>None</p>
+
+		<h3 id="Fullcustomerguide-HTML-Colouring">Colouring</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will visually indicate the test result by colouring the rows:
+		</p>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #98FB98;">
+				<b><b>GREEN</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #98FB98;">
+				<p>As expected, the row is returned by the system under development.</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F08080;">
+				<b><b>RED</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F08080;">
+				<p>A row is missing or in surplus in the list returned by the system under development.</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F0E68C;">
+				<b>* YELLOW*</b>
+			</div>
+			<div class="panelContent" style="background-color: #F0E68C;">
+				<p>
+					If the system encounters an execution error, the cell is in yellow, and
+					<gpname>GreenPepper</gpname>
+					provides information about the error.
+				</p>
+			</div>
+		</div>
+
+		<p>
+			<em><b>Particular behaviour for the list of interpreters:</b></em><br /> Since the
+			<tt>ListOfInterpreter</tt>
+			expects to match exactly the expected list and the list returned by the SUD,
+			<gpname>GreenPepper</gpname>
+			colours the cell in red and provide the two values.
+		</p>
+
+		<p>
+			<em><b>Particular behaviour for the superset of interpreters:</b></em><br /> Since the
+			<tt>SupersetOfInterpreter</tt>
+			accepts that the specification may contain rows that are not contained in the SUD,
+			<gpname>GreenPepper</gpname>
+			will not colour the rows contained in the specification but not returned by the SUD.
+		</p>
+		<h2 id="Fullcustomerguide-HTML-WritingaListspecification">Writing a List specification</h2>
+
+		<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BCollectionInterpreters%7D%7D">
+			When do we use the
+			<tt>CollectionInterpreters</tt>
+		</h2>
+
+		<p>
+			The
+			<tt>CollectionInterpreters</tt>
+			are used to express any kind of group, list or set of values.
+		</p>
+
+		<p>
+			When a
+			<tt>CollectionInterpreters</tt>
+			is executed,
+			<gpname>GreenPepper</gpname>
+			compares the list of expected values with the list of values returned by the system under development. The test result depends on the specific
+			<tt>CollectionInterpreters</tt>
+			selected.
+		</p>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			offers four different
+			<tt>CollectionInterpreters</tt>
+			:
+		</p>
+		<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%">
+			<tbody>
+				<tr>
+					<td class="confluenceTd" valign="top" width="80%">
+						<table class='confluenceTable'>
+							<tbody>
+								<tr>
+									<th class='confluenceTh'><tt>ListOfInterpreter</tt></th>
+									<td class='confluenceTd'>This interpreter expects to match the <b>content</b> and the <b>order</b> of the list returned by the system under development (SUD) with the expected list
+										defined in the specification.
+									</td>
+								</tr>
+								<tr>
+									<th class='confluenceTh'><tt>SetOfInterpreter</tt></th>
+									<td class='confluenceTd'>The <tt>SetOfInterpreter</tt> expects to match <b>only the content</b> of the list returned by the SUD with the expected list defined in the specification. The
+										order of the rows is not important.
+									</td>
+								</tr>
+								<tr>
+									<th class='confluenceTh'><tt>SubsetOfInterpreter</tt></th>
+									<td class='confluenceTd'>The <tt>SubsetOfInterpreter</tt> verifies that each row defined in the specification exists in the list returned by the SUD. In order to have a successful test,
+										the set of elements listed in the specification should be a <b>subset</b> of the list returned by the SUD.
+									</td>
+								</tr>
+								<tr>
+									<th class='confluenceTh'><tt>SupersetOfInterpreter</tt></th>
+									<td class='confluenceTd'>The <tt>SupersetOfInterpreter</tt> verifies that each row returned by the SUD exists in the list defined in the specification. In order to have a successful
+										test, the set of elements listed in the specification should be a <b>superset</b> of the list returned by the SUD. This means that the specification may contain rows that are not contained
+										in the SUD.
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td class="confluenceTd" valign="top" width="20%">
+						<p>
+							<img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827474/SubsetvsSuperset.jpg" align="absmiddle" border="0" /> <br /> A is a <b>subset</b> of B<br />
+							B is a <b>superset</b> of A
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheCollectionInterpreter">First row: Identification of the Collection Interpreter</h2>
+		<p>
+			As for all other interpreters, the first row of any
+			<tt>CollectionInterpreter</tt>
+			specifies the name of the interpreter and the name of the collection to be tested.
+		</p>
+
+		<ul>
+			<li><b>Example - Provinces of Canada:</b> A simple example would be a system containing the Canadian provinces name and code. In that particular case, we could define the collection as <em>Canada
+					Province Codes</em> :
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>list of</td>
+							<td class='confluenceTd'>Canada Province Codes</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<ul>
+			<li><b>Example - Phone Book :</b> A phone book application able to manage the first name, last name and the phone number of people. The <tt>ListOfInterpreter</tt> could be express as
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>list of</td>
+							<td class='confluenceTd'>phone book entries</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<h2 id="Fullcustomerguide-HTML-Secondrow%3AHeader">Second row: Header</h2>
+		<p>The second row is used to define the name of each attribute related to the members of the collection of data.</p>
+
+		<ul>
+			<li><b>Example - Provinces of Canada:</b> The attributes for that example are the name and the code.
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>list of</td>
+							<td class='confluenceTd'>Canada Province Codes</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Name</td>
+							<td class='confluenceTd'>Code</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+		<ul>
+			<li><b>Example - Phone Book :</b> The attributes for that example are the first name, the last name and the phone number.
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>list of</td>
+							<td class='confluenceTd'>phone book entries</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>FirstName</td>
+							<td class='confluenceTd'>LastName</td>
+							<td class='confluenceTd'>Phone Number</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+
+		<h2 id="Fullcustomerguide-HTML-Otherrows%3AAsetofelements">Other rows: A set of elements</h2>
+		<p>From the third row, we specify the set of values to test.</p>
+
+		<ul>
+			<li><b>Example - Provinces of Canada :</b>
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>list of</td>
+							<td class='confluenceTd'>Canada Province Codes</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Name</td>
+							<td class='confluenceTd'>Code</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>ALBERTA</td>
+							<td class='confluenceTd'>AB</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>BRITISH COLUMBIA</td>
+							<td class='confluenceTd'>AB</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+
+		<ul>
+			<li><b>Example - Phone Book :</b>
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>list of</td>
+							<td class='confluenceTd'>phone book entries</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>FirstName</td>
+							<td class='confluenceTd'>LastName</td>
+							<td class='confluenceTd'>Phone Number</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Fred</td>
+							<td class='confluenceTd'>Flintstone</td>
+							<td class='confluenceTd'>(123) 456-7890</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Barney</td>
+							<td class='confluenceTd'>Rubble</td>
+							<td class='confluenceTd'>(123) 321-7666</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Great</td>
+							<td class='confluenceTd'>Gazoo</td>
+							<td class='confluenceTd'>(123) 989-4455</td>
+						</tr>
+					</tbody>
+				</table></li>
+		</ul>
+
+
+
+
+		<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
+
+		<p>
+			Once the developers have coded the functionality and the <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions"
+				title="1. Fixtures Conventions">fixture</a>(the fixture is the link between the system under development and the executable specification), the specification can be executed by clicking on the <b>Execute</b>
+			button on the top of the page.
+		</p>
+
+
+		<p>
+			During execution,
+			<gpname>GreenPepper</gpname>
+			will color the rows in green if the rows are in the list of elements returned by the SUD as expected in the specification.<br /> If a row is missing or in surplus in the list returned by the SUD,
+			then
+			<gpname>GreenPepper</gpname>
+			will color the entire row in red and specify if the row is <em><b>missing</b></em> or in <em><b>surplus</b></em>.
+		</p>
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td><b class="strong">Notes</b><br />
+					<p>
+						If
+						<gpname>GreenPepper</gpname>
+						specify that a row is <em><b>missing</b></em>, it means that the row is not in the list of elements provided by the system under development as it should be.<br /> If
+						<gpname>GreenPepper</gpname>
+						specify that a row is in <em><b>surplus</b></em>, it means that the row is in the list of elements provided by the system under development but it should not be.
+					</p></td>
+			</tr>
+		</table>
+
+		<p>
+			Since the
+			<tt>ListOfInterpreter</tt>
+			expects to match exactly the list expected and the list returned by the SUD,
+			<gpname>GreenPepper</gpname>
+			color the cell in red and provide the two values.
+		</p>
+
+		<p>
+			Since the
+			<tt>SupersetOfInterpreter</tt>
+			accept that the specification may contains rows that are not contained in the SUD,
+			<gpname>GreenPepper</gpname>
+			will not color the rows in the specification but not returned by the SUD.
+		</p>
+
+
+		<h3 id="Fullcustomerguide-HTML-ExecutablespecificationfortheexampleProvincesofCanada">Executable specification for the example - Provinces of Canada</h3>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>list of</td>
+					<td class='confluenceTd'>Canada Province Codes</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Name</td>
+					<td class='confluenceTd'>Code</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>ALBERTA</td>
+					<td class='confluenceTd'>AB</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>BRITISH COLUMBIA</td>
+					<td class='confluenceTd'>BC</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>MANITOBA</td>
+					<td class='confluenceTd'>MB</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>NEW BRUNSWICK</td>
+					<td class='confluenceTd'>NB</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>NEWFOUNDLAND and LABRADOR</td>
+					<td class='confluenceTd'>NL</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>NOVA SCOTIA</td>
+					<td class='confluenceTd'>NS</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>NUNAVUT</td>
+					<td class='confluenceTd'>NU</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>ONTARIO</td>
+					<td class='confluenceTd'>ON</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>PRINCE EDWARD ISLAND</td>
+					<td class='confluenceTd'>PE</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>QUEBEC</td>
+					<td class='confluenceTd'>QC</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>SASKATCHEWAN</td>
+					<td class='confluenceTd'>SK</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>YUKON</td>
+					<td class='confluenceTd'>YT</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>OTHER PROVINCE</td>
+					<td class='confluenceTd'>OP</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="Fullcustomerguide-HTML-ExecutablespecificationfortheexamplePhoneBook">Executable specification for the example - Phone Book</h3>
+
+		<p>
+			Creating the collection of data<br /> We will use the
+			<tt>DoWithInterpreter</tt>
+			to create our personal phone book.
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>do with</td>
+					<td class='confluenceTd'>phone book</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>insert</td>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>&nbsp;</td>
+					<td class='confluenceTd'>Flintstone</td>
+					<td class='confluenceTd'>with number</td>
+					<td class='confluenceTd'>(123) 456-7890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>insert</td>
+					<td class='confluenceTd'>Barney</td>
+					<td class='confluenceTd'>&nbsp;</td>
+					<td class='confluenceTd'>Rubble</td>
+					<td class='confluenceTd'>with number</td>
+					<td class='confluenceTd'>(123) 321-7666</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>insert</td>
+					<td class='confluenceTd'>Great</td>
+					<td class='confluenceTd'>&nbsp;</td>
+					<td class='confluenceTd'>Gazoo</td>
+					<td class='confluenceTd'>with number</td>
+					<td class='confluenceTd'>(123) 989-4455</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<b><tt>ListOfInterpreter</tt> : The requirement list should be the same as the SUD list.</b>
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>list of</td>
+					<td class='confluenceTd'>Phone book entries</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>FirstName</td>
+					<td class='confluenceTd'>LastName</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Betty</td>
+					<td class='confluenceTd'>Rubble</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Great</td>
+					<td class='confluenceTd'>Gazoo</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Wilma</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<b><tt>SetOfInterpreter</tt> : The requirement set should be the same as the SUD set.</b>
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>set of</td>
+					<td class='confluenceTd'>Phone book entries</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>FirstName</td>
+					<td class='confluenceTd'>LastName</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Betty</td>
+					<td class='confluenceTd'>Rubble</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Great</td>
+					<td class='confluenceTd'>Gazoo</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Wilma</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<b><tt>SubsetOfInterpreter</tt> : The requirement set should be a subset of the SUD set.</b>
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>subset of</td>
+					<td class='confluenceTd'>Phone book entries</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>FirstName</td>
+					<td class='confluenceTd'>LastName</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Betty</td>
+					<td class='confluenceTd'>Rubble</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Great</td>
+					<td class='confluenceTd'>Gazoo</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Wilma</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<b><tt>SupersetOfInterpreter</tt> : The requirement set should be a superset of the SUD set.</b>
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>superset of</td>
+					<td class='confluenceTd'>Phone book entries</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>FirstName</td>
+					<td class='confluenceTd'>LastName</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Betty</td>
+					<td class='confluenceTd'>Rubble</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Great</td>
+					<td class='confluenceTd'>Gazoo</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>Wilma</td>
+					<td class='confluenceTd'>Flintstone</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td>
+					<p>
+						The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+List+tables"
+							title="Writing fixtures for List tables">how to write the fixture for the <tt>CollectionInterpreters</tt></a>.
+					</p>
+				</td>
+			</tr>
+		</table>
+		<h1 id="Fullcustomerguide-HTML-4.Workflowvalidation">4. Workflow validation</h1>
+		<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
+		<div class="panel" style="border-style: solid; border-color: #000000;">
+			<div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0;">
+				<b>DEFINITION</b>
+			</div>
+			<div class="panelContent" style="background-color: #ffffff;">
+				<p>
+					The
+					<tt>DoWithInterpreter</tt>
+					is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.
+				</p>
+
+				<p>
+					When a sequence of action is executed,
+					<gpname>GreenPepper</gpname>
+					confirms that each action has successfully been performed.
+				</p>
+
+				<p>
+					<img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827475/LexicalFormOfDoWith.jpg" align="absmiddle" border="0" />
+				</p>
+
+				<ul>
+					<li>As for all other interpreters, the first row of the <tt>DoWithInterpreter</tt> specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the
+						<tt>DoWithInterpreter</tt> particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the <tt>DoWithInterpreter</tt> must be define
+						before any sequence of actions.
+					</li>
+					<li>The following rows are used to express specific actions.</li>
+					<li>The form of each row of a <tt>DoWithInterpreter</tt> shall respect the following rules:
+						<ul>
+							<li>a row shall begin with a part of the action description,</li>
+							<li>each parameter shall be isolated in a cell,</li>
+							<li>each parameter shall be separated by parts of the action description.</li>
+						</ul>
+					</li>
+					<li>An action description can be left blank in order to separate two parameters.</li>
+					<li>The <tt>DoWithInterpreter</tt> provide a minimum of keyword used to define specific action.
+					</li>
+					<li>The <tt>DoWithInterpreter</tt> may also be expressed in Bullet List form or Number List form.
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<h3 id="Fullcustomerguide-HTML-SpecificKeywords">Specific Keywords</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			offers a list of useful keywords to support the Business Expert. Those keywords are placed at the beginning of an action row.
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Accept</th>
+					<td class='confluenceTd'>Confirm that the action as been executed by the system under development.</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Check</th>
+					<td class='confluenceTd'>Verify the specified expected value with the value returned by the system under development</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Reject</th>
+					<td class='confluenceTd'>The action should not be performed by the system under development (expected errors).</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Display</th>
+					<td class='confluenceTd'>Print the value returned by the system under development.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will visually show the test result by coloring each testing cell:
+		</p>
+
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #98FB98;">
+				<b><b>GREEN</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #98FB98;">
+				<p>
+					When the action has been executed successfully,
+					<gpname>GreenPepper</gpname>
+					color the cell(s) in green.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F08080;">
+				<b><b>RED</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F08080;">
+				<p>
+					If the action execution has failed,
+					<gpname>GreenPepper</gpname>
+					color the cell(s) in red.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F0E68C;">
+				<b><b>YELLOW</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F0E68C;">
+				<p>
+					If the system encounters an execution error, the cell is colored yellow and
+					<gpname>GreenPepper</gpname>
+					provides information about the error.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #CCCCCC;">
+				<b><b>GRAY</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #CCCCCC;">
+				<p>
+					When the action has been executed successfully,
+					<gpname>GreenPepper</gpname>
+					will display the returned value in gray.
+				</p>
+			</div>
+		</div>
+
+		<p>
+			<br clear="all" />
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Standard form (without keyword)</th>
+					<td class='confluenceTd'>Only the Action description will be colored.</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Accept</th>
+					<td class='confluenceTd'>Only the cell containing the keyword Accept will be colored.</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Check</th>
+					<td class='confluenceTd'>The cell containning the expected value will be colored. In the case of a failure, <gpname>GreenPepper</gpname> will show the expected and the returned values.
+					</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Reject</th>
+					<td class='confluenceTd'>Only the cell containing the keyword Reject will be colored.</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>Display</th>
+					<td class='confluenceTd'>A new cell at the end of the row will be colored containing the returned value.</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Fullcustomerguide-HTML-WritingaDoWithspecification">Writing a Do With specification</h2>
+
+
+		<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BDoWithInterpreter%7D%7D">
+			When do we use the
+			<tt>DoWithInterpreter</tt>
+		</h2>
+
+		<p>
+			The
+			<tt>DoWithInterpreter</tt>
+			is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.
+		</p>
+
+		<p>
+			When a sequence of action is executed,
+			<gpname>GreenPepper</gpname>
+			confirms that each action has successfully been performed.
+		</p>
+
+		<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheDoWith">First row: Identification of the Do With</h2>
+
+		<p>
+			As for all other interpreters, the first row of the
+			<tt>DoWithInterpreter</tt>
+			specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the
+			<tt>DoWithInterpreter</tt>
+			particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the
+			<tt>DoWithInterpreter</tt>
+			must be defined before any sequence of actions.
+		</p>
+
+		<h4 id="Fullcustomerguide-HTML-ExampleofabankAccountmanagementsystem">Example of a bank Account management system</h4>
+
+		<p>
+			<b>Example context :</b> <font color="#0033ff"><em>The system under development must be able to manage two different types of bank account. The system should allow to execute the usual
+					transactions within an account.</em></font>
+		</p>
+
+		<p>So the first line could be expressed as</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>do with</td>
+					<td class='confluenceTd'>bank account management</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>or more simply as</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>do with</td>
+					<td class='confluenceTd'>bank</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Followingrows%3AActions%26Verifications">Following rows: Actions &amp; Verifications</h2>
+		<p>The second and following rows are used to express specific actions or verifications. The business expert should express the action in human readable format rather than using computer like
+			language.</p>
+
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td>
+					<p>
+						The form of each row of a
+						<tt>DoWithInterpreter</tt>
+						must follow these rules:
+					</p>
+					<ul>
+						<li>a row begins with a part of the action description.</li>
+						<li>each parameter is isolated in a cell</li>
+						<li>each parameter is separated by parts of the action description.</li>
+						<li>an action description can be blank</li>
+					</ul>
+
+
+					<p>More visually:</p>
+					<table class='confluenceTable'>
+						<tbody>
+							<tr>
+								<td class='confluenceTd'>Action description part 1</td>
+								<td class='confluenceTd'><b>parameter 1</b></td>
+								<td class='confluenceTd'>Action description part 2</td>
+								<td class='confluenceTd'><b>parameter 2</b></td>
+								<td class='confluenceTd'>Action description part 3</td>
+								<td class='confluenceTd'><b>Parameter 3</b></td>
+								<td class='confluenceTd'>...</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		<h4 id="Fullcustomerguide-HTML-Example%3AInourbankexample%2Cthefirstactionwouldbetocreateabankaccount.">Example: In our bank example, the first action would be to create a bank account .</h4>
+
+		<p>If we want to take the account number as a parameter, we would have:</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>open checking account</td>
+					<td class='confluenceTd'><em>12345-67890</em></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>But, if we want to consider the type of account, the account number, the owner first name and last name as parameters, we would have:</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>open</td>
+					<td class='confluenceTd'><em>checking</em></td>
+					<td class='confluenceTd'>account</td>
+					<td class='confluenceTd'><em>12345-67890</em></td>
+					<td class='confluenceTd'>under the name of</td>
+					<td class='confluenceTd'><em>Spongebob</em></td>
+					<td class='confluenceTd'>&nbsp;</td>
+					<td class='confluenceTd'><em>Squarepants</em></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<h4 id="Fullcustomerguide-HTML-Example%3AVerifythebalanceofanaccount">Example: Verify the balance of an account</h4>
+		<p>
+			To verify the success of a particular action, we write the keyword <b>"Check"</b> prior to the first part of the action description.<br /> In our example, there would be two parameters: the account
+			number and the amount of balance.
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$0.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+		<h2 id="Fullcustomerguide-HTML-Finalexpressionofourexample">Final expression of our example</h2>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>do with</td>
+					<td class='confluenceTd'>bank</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>Our first business rule says that a new account should have a balance of 0.00 dollars.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>open</td>
+					<td class='confluenceTd'>checking</td>
+					<td class='confluenceTd'>account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>under the name of</td>
+					<td class='confluenceTd'>Spongebob</td>
+					<td class='confluenceTd'>&nbsp;</td>
+					<td class='confluenceTd'>Squarepants</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$0.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>Our next rule says that the bank should not take any fees when we deposit money in our account.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>deposit</td>
+					<td class='confluenceTd'>$100.00</td>
+					<td class='confluenceTd'>in account</td>
+					<td class='confluenceTd'>12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$100.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>The following rule says that a customer should be able to withdraw funds if the balance of his account is sufficient.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>withdraw</td>
+					<td class='confluenceTd'>$50.00</td>
+					<td class='confluenceTd'>from account</td>
+					<td class='confluenceTd'>12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$50.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>reject</td>
+					<td class='confluenceTd'>withdraw</td>
+					<td class='confluenceTd'>$75.00</td>
+					<td class='confluenceTd'>from account</td>
+					<td class='confluenceTd'>12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$50.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>accept</td>
+					<td class='confluenceTd'>withdraw</td>
+					<td class='confluenceTd'>$25.00</td>
+					<td class='confluenceTd'>from account</td>
+					<td class='confluenceTd'>12345-67890</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
+
+		<p>
+			Based on those executable specifications, the developers are now ready to code the functionality and the <a
+				href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system
+			under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.
+		</p>
+
+		<p>
+			During execution,
+			<gpname>GreenPepper</gpname>
+			will color cells in green if the execution has passed and color it in red if the execution has failed. The colored cells depends on the type of action described:
+		</p>
+		<ul>
+			<li>in a standard action row (without a keyword at the beginning), only the Action description will be colored,</li>
+			<li>if the action begins with the keyword <b>Check</b>, the value tested will be colored and in the case of a failure, <gpname>GreenPepper</gpname> will show the expected and the returned
+				values,
+			</li>
+			<li>if the action begins with the keywords <b>Reject</b> or <b>Accept</b>, only the cell containing the keyword will be colored.
+			</li>
+			<li>if the action begins with the keywords <b>Display</b> (<b><font color="blue">NEW in 2.4</font></b>), only a new cell at the end of the row containing the returned value will be colored.
+			</li>
+		</ul>
+
+
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td>
+					<p>
+						The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Do+With+tables"
+							title="Writing fixtures for Do With tables">how to write the fixture for the <tt>DoWithInterpreter</tt></a>.
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<h1 id="Fullcustomerguide-HTML-5.Scenariospecification">5. Scenario specification</h1>
+
+		<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
+
+		<div class="panel" style="border-style: solid; border-color: #000000;">
+			<div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0;">
+				<b>DEFINITION</b>
+			</div>
+			<div class="panelContent" style="background-color: #ffffff;">
+				<p>
+					The
+					<tt>ScenarioInterpreter</tt>
+					is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.
+				</p>
+
+				<p>
+					When a sequence of action is executed,
+					<gpname>GreenPepper</gpname>
+					confirms that each action has successfully been performed.
+				</p>
+
+				<hr />
+				<table class='confluenceTable'>
+					<tbody>
+						<tr>
+							<td class='confluenceTd'>Scenario</td>
+							<td class='confluenceTd'><font color="blue"></font> <em>Identification of the set of rule</em> <font color="blue"></font></td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Action 1</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Action 2</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>...</td>
+						</tr>
+						<tr>
+							<td class='confluenceTd'>Action i</td>
+						</tr>
+					</tbody>
+				</table>
+				<hr />
+
+				<ul>
+					<li>As for all other interpreters, the first row of the <tt>ScenarioInterpreter</tt> specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes
+						the <tt>ScenarioInterpreter</tt> particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the <tt>ScenarioInterpreter</tt> must be
+						define before any sequence of actions.
+					</li>
+					<li>The <tt>ScenarioInterpreter</tt> may also be expressed in Bullet List form or Number List form.
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will visually show the test result by coloring a complete row or words inside the row:
+		</p>
+
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #98FB98;">
+				<b><b>GREEN</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #98FB98;">
+				<p>
+					When the action has been executed successfully,
+					<gpname>GreenPepper</gpname>
+					color the row or words inside the row in green.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F08080;">
+				<b><b>RED</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F08080;">
+				<p>
+					If the action execution has failed,
+					<gpname>GreenPepper</gpname>
+					color the the row or words inside the row in red.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F0E68C;">
+				<b><b>YELLOW</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F0E68C;">
+				<p>
+					If the system encounters an execution error, the row is colored yellow and
+					<gpname>GreenPepper</gpname>
+					provides information about the error.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #CCCCCC;">
+				<b><b>GRAY</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #CCCCCC;">
+				<p>
+					When the action has been executed successfully,
+					<gpname>GreenPepper</gpname>
+					will display the returned value in gray.
+				</p>
+			</div>
+		</div>
+		<h2 id="Fullcustomerguide-HTML-WritingaScenariospecification">Writing a Scenario specification</h2>
+
+		<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BScenarioInterpreter%7D%7D">
+			When do we use the
+			<tt>ScenarioInterpreter</tt>
+		</h2>
+
+		<p>
+			The
+			<tt>ScenarioInterpreter</tt>
+			is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.
+		</p>
+
+		<p>
+			When a sequence of action is executed,
+			<gpname>GreenPepper</gpname>
+			confirms that each action has successfully been performed.
+		</p>
+
+		<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheScenario">First row: Identification of the Scenario</h2>
+
+		<p>
+			As for all other interpreters, the first row of the
+			<tt>ScenarioInterpreter</tt>
+			specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the
+			<tt>ScenarioInterpreter</tt>
+			particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the
+			<tt>ScenarioInterpreter</tt>
+			must be defined before any sequence of actions.
+		</p>
+
+		<h4 id="Fullcustomerguide-HTML-ExampleofabankAccountmanagementsystem">Example of a bank Account management system</h4>
+
+		<p>
+			<b>Example context :</b> <font color="#0033ff"><em>The system under development must be able to manage two different types of bank account. The system should allow to execute the usual
+					transactions within an account.</em></font>
+		</p>
+
+		<p>So the first line could be expressed as</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>scenario</td>
+					<td class='confluenceTd'>bank account management</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>or more simply as</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>scenario</td>
+					<td class='confluenceTd'>bank</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Followingrows%3AActions%26Verifications">Following rows: Actions &amp; Verifications</h2>
+		<p>The second and following rows are used to express specific actions or verifications. The business expert should express the action in human readable format rather than using computer like
+			language.</p>
+
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td>
+					<p>
+						With this interpreter, only 1 cell is required to express the action (in comparison to the
+						<tt>DoWithInterpreter</tt>
+						).
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<h4 id="Fullcustomerguide-HTML-Example%3AInourbankexample%2Cthefirstactionwouldbetocreateabankaccount.">Example: In our bank example, the first action would be to create a bank account .</h4>
+
+		<p>If we want to take the account number as a parameter, we would have:</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>open checking account <em>12345-67890</em>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>But, if we want to consider the type of account, the account number, the owner first name and last name as parameters, we would have:</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>open <em>checking</em> account <em>12345-67890</em> under the name of <em>Spongebob</em> <em>Squarepants</em>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<h4 id="Fullcustomerguide-HTML-Example%3AVerifythebalanceofanaccount">Example: Verify the balance of an account</h4>
+		<p>In our example, there would be two parameters: the account number and the amount of balance.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>verify that balance of account 12345-67890 is $0.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<h2 id="Fullcustomerguide-HTML-Finalexpressionofourexample">Final expression of our example</h2>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>scenario</td>
+					<td class='confluenceTd'>bank</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>Our first business rule says that a new account should have a balance of 0.00 dollars.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>open checking account 12345-67890 under the name of Spongebob Squarepants</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>verify that balance of account 12345-67890 is $0.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>Our next rule says that the bank should not take any fees when we deposit money in our account.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>deposit $100.00 in account 12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>verify that balance of account 12345-67890 is $100.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>The following rule says that a customer should be able to withdraw funds if the balance of his account is sufficient.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>withdraw $50.00 from account 12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>verify that balance of account 12345-67890 is $50.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>can't withdraw $75.00 from account 12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>verify that balance of account 12345-67890 is $50.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>can withdraw $25.00 from account 12345-67890</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
+
+		<p>
+			Based on those executable specifications, the developers are now ready to code the functionality and the <a
+				href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system
+			under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.
+		</p>
+
+		<p>
+			During execution,
+			<gpname>GreenPepper</gpname>
+			will color rows or words inside a row in green if the execution has passed and color it in red if the execution has failed.
+		</p>
+
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td>
+					<p>
+						The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Scenario+tables"
+							title="Writing fixtures for Scenario tables">how to write the fixture for the <tt>ScenarioInterpreter</tt></a>.
+					</p>
+				</td>
+			</tr>
+		</table>
+
+
+		<h1 id="Fullcustomerguide-HTML-6.Contextdefinition%28Setup%29">6. Context definition (Setup)</h1>
+		<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
+		<div class="panel" style="border-style: solid; border-color: #000000;">
+			<div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0;">
+				<b>DEFINITION</b>
+			</div>
+			<div class="panelContent" style="background-color: #ffffff;">
+				<p>
+					The
+					<tt>SetUpInterpreter</tt>
+					is used to simplify the creation of a particular state for the system under development. Once the state is created, we can focus on the business process to test.
+				</p>
+
+				<p>
+					When a setup table is executed,
+					<gpname>GreenPepper</gpname>
+					enter data in the system under development to create the desired state.
+				</p>
+
+				<p>
+					<img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827477/LexicalFormOfSetUp.jpg" align="absmiddle" border="0" />
+				</p>
+
+				<ul>
+					<li>The first row of the table indicates the name of the interpreter and the name of the desired state.</li>
+					<li>The second row is called the header row and serves to identify the data to be inserted in the system under development.</li>
+					<li>Finally, the remaining rows captures the data to be inserted.</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will visually show the test result by coloring each testing cell:
+		</p>
+
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #98FB98;">
+				<b><b>GREEN</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #98FB98;">
+				<p>
+					When the insertion has been executed successfully,
+					<gpname>GreenPepper</gpname>
+					add a green cell at the end of the data row with the word <b>entered</b>.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F08080;">
+				<b><b>RED</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F08080;">
+				<p>
+					If the insertion has failed because the values specified does not respect a business rule,
+					<gpname>GreenPepper</gpname>
+					add a red cell at the end of the row with the word <b>not entered</b>.
+				</p>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panelHeader" style="background-color: #F0E68C;">
+				<b><b>YELLOW</b></b>
+			</div>
+			<div class="panelContent" style="background-color: #F0E68C;">
+				<p>
+					If the insertion has failed because a specified value generates an error,
+					<gpname>GreenPepper</gpname>
+					colors the cell of the data in error yellow and provides information about the error. <br /> If the system encounters an error not related to a specific data,
+					<gpname>GreenPepper</gpname>
+					add a yellow cell at the end of the data row and provides information about the error.
+				</p>
+			</div>
+		</div>
+		<h2 id="Fullcustomerguide-HTML-WritingaSetupspecification">Writing a Setup specification</h2>
+
+
+
+		<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BSetUpInterpreter%7D%7D">
+			When do we use the
+			<tt>SetUpInterpreter</tt>
+		</h2>
+
+		<p>
+			The
+			<tt>SetUpInterpreter</tt>
+			is used to simplify the creation of a particular state for the system under development. Once the state is created, we can focus on the business process to test.
+		</p>
+
+		<p>
+			When a setup table is executed,
+			<gpname>GreenPepper</gpname>
+			enter data in the system under development to create the desired state.
+		</p>
+
+		<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheSetUp">First row: Identification of the Set Up</h2>
+
+		<p>As for all other interpreters, the first row of the setup table specifies the name of the interpreter and the name of the desired state.</p>
+
+		<h4 id="Fullcustomerguide-HTML-ExampleofabankAccountmanagementsystem">Example of a bank Account management system</h4>
+
+		<p>
+			<b>Example context :</b> <font color="#0033ff"><em>A customer should be allowed to transfer money from his or her accounts.</em></font>
+		</p>
+
+		<p>In order to create examples that would test this particular business rule, we need to create a set of customer. The first line of our setup table could be expressed as</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>setup</td>
+					<td class='confluenceTd'>a group of customers</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Secondrow%3AtheHeader">Second row: the Header</h2>
+
+		<p>The second row is called the header row and serves to identify the data to be inserted in the system under development.</p>
+
+		<h4 id="Fullcustomerguide-HTML-Example%3AInourbankexample%2Ctheheaderrowcouldtakethefollowingform.">Example: In our bank example, the header row could take the following form.</h4>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>setup</td>
+					<td class='confluenceTd'>a group of customers</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>type</td>
+					<td class='confluenceTd'>number</td>
+					<td class='confluenceTd'>first name</td>
+					<td class='confluenceTd'>last name</td>
+					<td class='confluenceTd'>balance</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Followingrows%3AData">Following rows: Data</h2>
+
+		<p>The remaining rows captures the data to be inserted. They are the executable rows.</p>
+
+
+		<h2 id="Fullcustomerguide-HTML-Finalexpressionofourexample">Final expression of our example</h2>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>setup</td>
+					<td class='confluenceTd'>a group of customers</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>type</td>
+					<td class='confluenceTd'>number</td>
+					<td class='confluenceTd'>first name</td>
+					<td class='confluenceTd'>last name</td>
+					<td class='confluenceTd'>balance</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>checking</td>
+					<td class='confluenceTd'>11111-11111</td>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>Flintstone</td>
+					<td class='confluenceTd'>$250.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>savings</td>
+					<td class='confluenceTd'>22222-22222</td>
+					<td class='confluenceTd'>Fred</td>
+					<td class='confluenceTd'>Flintstone</td>
+					<td class='confluenceTd'>$10 000.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>savings</td>
+					<td class='confluenceTd'>44444-44444</td>
+					<td class='confluenceTd'>Wilma</td>
+					<td class='confluenceTd'>Flintstone</td>
+					<td class='confluenceTd'>$10 000.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>checking</td>
+					<td class='confluenceTd'>44444-44444</td>
+					<td class='confluenceTd'>Barney</td>
+					<td class='confluenceTd'>Rubble</td>
+					<td class='confluenceTd'>$999.54</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>checking</td>
+					<td class='confluenceTd'>55555-55555</td>
+					<td class='confluenceTd'>Great</td>
+					<td class='confluenceTd'>Gazoo</td>
+					<td class='confluenceTd'>abc</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>From that point, we can now used those accounts to specify examples that define a business rule.</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>do with</td>
+					<td class='confluenceTd'>bank</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<b>Transfer from a savings account to a checking account of the same customer</b>
+		</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>accept</td>
+					<td class='confluenceTd'>Transfer</td>
+					<td class='confluenceTd'>$1 000.00</td>
+					<td class='confluenceTd'>from account</td>
+					<td class='confluenceTd'>22222-22222</td>
+					<td class='confluenceTd'>to account</td>
+					<td class='confluenceTd'>11111-11111</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>11111-11111</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$1 250.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>22222-22222</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$9 000.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
+
+
+		<p>
+			Based on those executable specifications, the developers are now ready to code the functionality and the <a
+				href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system
+			under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.
+		</p>
+
+		<p>
+			During execution,
+			<gpname>GreenPepper</gpname>
+			confirm that the value has been entered by adding a green cell at the end of each data rows containing the word <b>entered</b>.
+		</p>
+
+		<p>
+			If the data could not have been entered because it does not respect a known business rule, the cell will be yellow and will specify the stacktrace. Finally, if the data could not have been entered
+			because of an unknown error,
+			<gpname>GreenPepper</gpname>
+			will color this specific cell yellow and will include the information about the exception.
+		</p>
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td>
+					<p>
+						The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Setup+tables"
+							title="Writing fixtures for Setup tables">how to write the fixture for the <tt>SetupInterpreter</tt></a>.
+					</p>
+				</td>
+			</tr>
+		</table>
+		<h1 id="Fullcustomerguide-HTML-7.Advanced">7. Advanced</h1>
+		<h2 id="Fullcustomerguide-HTML-DoWithTable%2CBulletListorNumberListexample">Do With - Table, Bullet List or Number List example</h2>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			supports the expression of rules in table format, bullet list format or number list format. The following examples are equivalent and will yield the same results when executed.
+		</p>
+
+		<p>
+			It is important to note that the table and bullet list examples are not executable since the import <em>com.greenpepper.samples.fixture.bank</em> and <em>do with bank</em> rules cannot be specified
+			twice in the same page. Even though it is possible to change between the two methods in the same page, you must keep in mind that the tests are executed in the same system under development. So it
+			is not necessary to re-specify the same rule in the page.
+		</p>
+
+		<h3 id="Fullcustomerguide-HTML-Table">Table</h3>
+
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>import</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>com.greenpepper.samples.application.bank</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>do with</td>
+					<td class='confluenceTd'>bank</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>open</td>
+					<td class='confluenceTd'>checking</td>
+					<td class='confluenceTd'>account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>under the name of</td>
+					<td class='confluenceTd'>Spongebob</td>
+					<td class='confluenceTd'>&nbsp;</td>
+					<td class='confluenceTd'>Squarepants</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$0.00</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>deposit</td>
+					<td class='confluenceTd'>$100.00</td>
+					<td class='confluenceTd'>in account</td>
+					<td class='confluenceTd'>12345-67890</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>check</td>
+					<td class='confluenceTd'>that balance of account</td>
+					<td class='confluenceTd'>12345-67890</td>
+					<td class='confluenceTd'>is</td>
+					<td class='confluenceTd'>$100.00</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="Fullcustomerguide-HTML-BulletList">Bullet List</h3>
+		<ul>
+			<li>import</li>
+			<li>com.greenpepper.samples.application.bank</li>
+		</ul>
+
+
+		<p>
+			<br clear="all" />
+		</p>
+		<ul>
+			<li><b>do with</b> <em>bank</em></li>
+			<li><b>open</b> <em>checking</em> <b>account</b> <em>12345-67890</em> <b>under the name of</b> <em>Spongebob</em> <b><em></b> _Squarepants</em></li>
+			<li><b>deposit</b> <em>$100.00</em> <b>in account</b> <em>12345-67890</em></li>
+			<li><b>check</b> <em>that balance of account</em> <b>12345-67890</b> <em>is</em> <b>$100.00</b></li>
+		</ul>
+
+
+
+
+		<h3 id="Fullcustomerguide-HTML-NumberList">Number List</h3>
+		<ul>
+			<li>import</li>
+			<li>com.greenpepper.samples.application.bank</li>
+		</ul>
+
+
+		<p>
+			<br clear="all" />
+		</p>
+		<ol>
+			<li><b>do with</b> <em>bank</em></li>
+			<li><b>open</b> <em>checking</em> <b>account</b> <em>12345-67890</em> <b>under the name of</b> <em>Spongebob</em> <b><em></b> _Squarepants</em></li>
+			<li><b>deposit</b> <em>$100.00</em> <b>in account</b> <em>12345-67890</em></li>
+			<li><b>check</b> <em>that balance of account</em> <b>12345-67890</b> <em>is</em> <b>$100.00</b></li>
+		</ol>
+
+
+		<h2 id="Fullcustomerguide-HTML-ObjectGraphNavigationLanguage%28OGNL%29">Object-Graph Navigation Language (OGNL)</h2>
+		<p>
+			<gpname>GreenPepper</gpname>
+			supports OGNL expressions. Here are some examples, using the Calculator system:
+		</p>
+
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>&lt; , &lt;= , &gt; , &gt;= , and , or</th>
+					<td class='confluenceTd'><gpname>GreenPepper</gpname> supports these simple mathematical expressions. Use the question mark to specify the position of the value returned by the system. For
+						example, if the expected value should be greater than 15, you will write "? &gt; 15" in the cell.</td>
+				</tr>
+				<tr>
+					<th class='confluenceTh'>+ , - , / , *</th>
+					<td class='confluenceTd'><gpname>GreenPepper</gpname> performs simple operations as a resulting expression. To specify you want to evaluate those operations prior to the comparison, insert
+						an equal sign at the beginning of the operation (ex: =4+1-3).</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<table style="display: none">
+			<tr>
+				<td>Import</td>
+			</tr>
+			<tr>
+				<td>com.greenpepper.samples.application.calculator</td>
+			</tr>
+		</table>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'><b>rule for</b></td>
+					<td class='confluenceTd'>calculator</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+					<td class='confluenceTd'>product?</td>
+					<td class='confluenceTd'>quotient?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>6</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>8</td>
+					<td class='confluenceTd'>12</td>
+					<td class='confluenceTd'>3</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>7</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'>7</td>
+					<td class='confluenceTd'>0</td>
+					<td class='confluenceTd'><b>error</b></td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>40</td>
+					<td class='confluenceTd'>50</td>
+					<td class='confluenceTd'>90</td>
+					<td class='confluenceTd'>? &gt; 100</td>
+					<td class='confluenceTd'>&nbsp;</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>4</td>
+					<td class='confluenceTd'>-5</td>
+					<td class='confluenceTd'>? &lt;= 0</td>
+					<td class='confluenceTd'>-20</td>
+					<td class='confluenceTd'>? &lt;= 0</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>3</td>
+					<td class='confluenceTd'>3</td>
+					<td class='confluenceTd'>? &lt; 1 or ? &gt; 4</td>
+					<td class='confluenceTd'>? &gt;= 9 and ? &lt; 12</td>
+					<td class='confluenceTd'>"1"</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>4</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>=4+2-0</td>
+					<td class='confluenceTd'>=2*4</td>
+					<td class='confluenceTd'>=4/2</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Fullcustomerguide-HTML-InformationTag">Information Tag</h2>
+
+		<h3 id="Fullcustomerguide-HTML-Informationtags">Information tags</h3>
+
+		<p>
+			When a document is executable,
+			<gpname>GreenPepper</gpname>
+			will try to interprete all the supported forms of the document body.<br /> This brings some issues when we need to insert information as <b>Tables</b> or <b>Bullet lists</b>, for example.
+		</p>
+
+		<p>
+			To avoid undesired interpretation of forms, we can use the Information tags.<br /> This tag will force
+			<gpname>GreenPepper</gpname>
+			to skip all forms between the <b>Begin Info</b> and <b>End Info</b> tags.
+		</p>
+
+		<p>Here is an example:</p>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>Begin Info</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>This table</td>
+					<td class='confluenceTd'>shouldn't be</td>
+					<td class='confluenceTd'>interpreted</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<ul>
+			<li>This bullet list</li>
+			<li>shouldn't be</li>
+			<li>interpreted either</li>
+		</ul>
+
+
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>End Info</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>We won't see any coloration of the above table or bullet list after execution of this document.</p>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will restart the interpretation of the document from from this point.
+		</p>
+
+		<table style="display: none">
+			<tr>
+				<td>Import</td>
+			</tr>
+			<tr>
+				<td>com.greenpepper.samples.application.calculator</td>
+			</tr>
+		</table>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Rule for</th>
+					<th class='confluenceTh'>Calculator</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>1</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>3</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<br clear="all" />
+		</p>
+
+		<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'>
+			<colgroup>
+				<col width='24'>
+				<col>
+			</colgroup>
+			<tr>
+				<td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td>
+				<td><b class="strong">Useful Information</b><br />
+					<p>
+						If the <b>End Info</b> tag is omitted all the body content of the document after the <b>Begin Info</b> tag, will be skipped.
+					</p></td>
+			</tr>
+		</table>
+
+		<h2 id="Fullcustomerguide-HTML-Commentedforms">Commented forms</h2>
+
+		<h3 id="Fullcustomerguide-HTML-Commenttag">Comment tag</h3>
+
+		<p>
+			We can decide for some reason that a test shouldn't be executed. Instead of deleting the test from the document, we can comment it. This will force
+			<gpname>GreenPepper</gpname>
+			to skip the test.
+		</p>
+
+		<p>
+			The test should be preceded by the tag <b>Comment</b>.
+		</p>
+
+		<p>Here are some examples:</p>
+
+		<h3 id="Fullcustomerguide-HTML-Testusingthebulletlistform.">Test using the bullet list form.</h3>
+		<ul>
+			<li>Comment</li>
+			<li>My bulletlist test to skip</li>
+		</ul>
+
+
+		<h3 id="Fullcustomerguide-HTML-TestusingtheTableform.">Test using the Table form.</h3>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<td class='confluenceTd'>Comment</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>My table</td>
+					<td class='confluenceTd'>to skip</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>We won't see any coloration of the above table or bullet list after execution of this document.</p>
+
+		<p>
+			<gpname>GreenPepper</gpname>
+			will restart the interpretation of the document from from this point.
+		</p>
+
+		<table style="display: none">
+			<tr>
+				<td>Import</td>
+			</tr>
+			<tr>
+				<td>com.greenpepper.samples.application.calculator</td>
+			</tr>
+		</table>
+		<table class='confluenceTable'>
+			<tbody>
+				<tr>
+					<th class='confluenceTh'>Rule for</th>
+					<th class='confluenceTh'>Calculator</th>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>x</td>
+					<td class='confluenceTd'>y</td>
+					<td class='confluenceTd'>sum?</td>
+				</tr>
+				<tr>
+					<td class='confluenceTd'>1</td>
+					<td class='confluenceTd'>2</td>
+					<td class='confluenceTd'>3</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
-<table style="display:none">
-	<tr>
-		<td>End Info</td>
-	</tr>
-</table>
-
-
-<h3 id="Fullcustomerguide-HTML-AddingnewspecificationstoourCalculator">Adding new specifications to our Calculator</h3>
-
-<p>The business expert wants to improve the Calculator: The Calculator should be able to perform product and quotient of two numbers.<br/>
-The new rules can be written in a way similar to the "sum" specification. In case of an expected errors, the keyword <b>error</b> may be used in order to test those special cases.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> Calculator </td>
-</tr>
-<tr>
-<td class='confluenceTd'> x </td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-<td class='confluenceTd'> product? </td>
-<td class='confluenceTd'> quotient? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 6 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> 8 </td>
-<td class='confluenceTd'> 12 </td>
-<td class='confluenceTd'> 3 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 7 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> 7 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> <b>error</b> </td>
-</tr>
-</tbody></table>
-<h1 id="Fullcustomerguide-HTML-2.RuleValidation%28RuleFor%29">2. Rule Validation (Rule For)</h1>
-<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
-<div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
-<p>The <tt>RuleForInterpreter</tt> is used to express concrete and measurable business rules.<br/>
-During the execution of the specification, <gpname>GreenPepper</gpname> compares the values returned by the system under development against the expected values defined by the Business Expert.<br/>
-<img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827471/LexicalFormOfRuleFor.jpg" align="absmiddle" border="0" /></p>
-<ul>
-	<li>The first row of the table indicates the set of rules to be tested by <gpname>GreenPepper</gpname>.</li>
-	<li>The next row is called the <b>header row</b> and serves to distinguish the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve as comparison values against values that are actually returned by the system. When a column header ends with special characters <b>?</b> or <b>()</b>, it denotes an expected value.</li>
-	<li>Finally, the remaining rows capture the examples. They are the executable test rows.</li>
-</ul>
-</div></div>
-
-<h3 id="Fullcustomerguide-HTML-SpecificKeywordsforexpectedvalues">Specific Keywords for expected values</h3>
-
-<p><gpname>GreenPepper</gpname> offers a list of useful keywords to support the Business Expert.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Empty cells </th>
-<td class='confluenceTd'> When a test cell is left blank, <gpname>GreenPepper</gpname> only shows the returned value </td>
-</tr>
-<tr>
-<th class='confluenceTh'> <b>error</b> </th>
-<td class='confluenceTd'> When you expect an error, specify it in the cell to test that particular behavior </td>
-</tr>
-</tbody></table>
-
-<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
-
-<p><gpname>GreenPepper</gpname> will visually show the test result by coloring each testing cell:</p>
-<div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the expected value match the returned value, the <tt>RuleForInterpreter</tt> colors the cell as "right" by coloring it green.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the values don't match, the <tt>RuleForInterpreter</tt> colors the cell as "wrong" in red.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the cell is colored yellow and <gpname>GreenPepper</gpname> provides information about the error.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #D3D3D3; "><b><b>GRAY</b></b></div><div class="panelContent" style="background-color: #D3D3D3; ">
-<p>If no expected value is specified in a test, the <tt>RuleForInterpreter</tt> colors the cell in gray.</p>
-</div></div>
-
-<p>Here is an example of cell coloring:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> calculator </td>
-</tr>
-<tr>
-<td class='confluenceTd'> x </td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-<td class='confluenceTd'> product() </td>
-<td class='confluenceTd'> quotient? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 10 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> 10 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> 0 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 6 </td>
-<td class='confluenceTd'> 3 </td>
-<td class='confluenceTd'> 9 </td>
-<td class='confluenceTd'> -5 </td>
-<td class='confluenceTd'>&nbsp;</td>
-</tr>
-</tbody></table>
-<h2 id="Fullcustomerguide-HTML-WritingaRuleForSpecification">Writing a Rule For Specification</h2>
-<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BRuleForInterpreter%7D%7D%3F">When do we use the <tt>RuleForInterpreter</tt>?</h2>
-
-<p>The <tt>RuleForInterpreter</tt> is used to express concrete and measurable business rules. The business rules are often related to all kind of calculations.</p>
-
-<p>When a table of rule is executed, <gpname>GreenPepper</gpname> compares the values returned by the system under development against the expected values defined by the Business Expert.</p>
-
-<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheRuleFor">First row: Identification of the Rule For</h2>
-
-<p>In a Rule For table, the first row specifies the name of the interpreter and the name of the rules to be tested.<br/>
-The business expert should be clear in the identification of the set of rules.</p>
-<ul>
-	<li><b>Example Division :</b> A simple system performing divisions. In that particular case, we could define the set of rules as Division which leads to:
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> Division </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<ul>
-	<li><b>Example Mortgage :</b> A Mortgage management system with the following specifications:<br/>
-<font color="#0033ff"><em>"Whenever the down payment on the property is less than 25% of the sale price, the buyer has to pay a premium for insuring the mortgage. The premium fee amount is 2.5% of the financed amount (which is sale price - down payment)."</em></font><br/>
-For that particular calculation we could identify the set of rules as:
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> insurance premium fee calculation </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<h2 id="Fullcustomerguide-HTML-Secondrow%3AtheHeader">Second row: the Header</h2>
-
-<p>The second row is called the header row and serves to distinguish between the given values and the expected values. Given values serve as inputs to the system, whereas expected values serve as comparison values against values that are actually returned by the system. When a column header ends with special characters ? or (), it denotes an expected value.</p>
-<ul>
-	<li><b>Example Division :</b> The given values for that example are the dividend and the divisor. The expected value is the quotient.
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> Division </td>
-</tr>
-<tr>
-<td class='confluenceTd'> dividend </td>
-<td class='confluenceTd'> divisor </td>
-<td class='confluenceTd'> quotient? </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<ul>
-	<li><b>Example Mortgage :</b> The given values for that example are the sale price and the down payment. The expected value is the premium fee.
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> insurance premium fee calculation </td>
-</tr>
-<tr>
-<td class='confluenceTd'> sale price </td>
-<td class='confluenceTd'> down payment </td>
-<td class='confluenceTd'> premium fee? </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<h2 id="Fullcustomerguide-HTML-Thirdandfollowingrows%3AExamples">Third and following rows: Examples</h2>
-
-<p>The remaining rows capture the examples. They are the executable test rows.</p>
-
-<h4 id="Fullcustomerguide-HTML-FinalexpressionoftheDivisionexample">Final expression of the Division example</h4>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> Division </td>
-</tr>
-<tr>
-<td class='confluenceTd'> dividend </td>
-<td class='confluenceTd'> divisor </td>
-<td class='confluenceTd'> quotient? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 6.0 </td>
-<td class='confluenceTd'> 2.0 </td>
-<td class='confluenceTd'> 3.0 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 7 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> 3.5 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 18 </td>
-<td class='confluenceTd'> 3.0 </td>
-<td class='confluenceTd'> 6 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 15 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> 8 </td>
-</tr>
-</tbody></table>
-
-<h4 id="Fullcustomerguide-HTML-FinalexpressionoftheMortgageexample">Final expression of the Mortgage example</h4>
-
-<p>Specification: <em>"Whenever the down payment on the property is less than 25% of the sale price, the buyer has to pay a premium for insuring the mortgage. The premium fee amounts is 2.5% of the financed amount (which is sale price - down payment)."</em></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> insurance premium fee calculation </td>
-</tr>
-<tr>
-<td class='confluenceTd'> sale price </td>
-<td class='confluenceTd'> down payment </td>
-<td class='confluenceTd'> premium fee? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> $100,000 </td>
-<td class='confluenceTd'> $15,000 </td>
-<td class='confluenceTd'> $2,125.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> $100,000 </td>
-<td class='confluenceTd'> $30,000 </td>
-<td class='confluenceTd'> $0.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> $100,000 </td>
-<td class='confluenceTd'> $25,000 </td>
-<td class='confluenceTd'> $0.00 </td>
-</tr>
-</tbody></table>
-<p>When there is no expected value specified in a cell, <gpname>GreenPepper</gpname> provides the value calculated by the system under development. The business expert could use that functionality to facilitate the comprehension of a rule. In this example, the financed amount of mortgage can be evaluated as an intermediate result.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> rule for </td>
-<td class='confluenceTd'> insurance premium fee calculation </td>
-</tr>
-<tr>
-<td class='confluenceTd'> sale price </td>
-<td class='confluenceTd'> down payment </td>
-<td class='confluenceTd'> premium fee? </td>
-<td class='confluenceTd'> financed amount? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> $100,000 </td>
-<td class='confluenceTd'> $15,000 </td>
-<td class='confluenceTd'> $2,125.00 </td>
-<td class='confluenceTd'>&nbsp;</td>
-</tr>
-<tr>
-<td class='confluenceTd'> $100,000 </td>
-<td class='confluenceTd'> $30,000 </td>
-<td class='confluenceTd'> $0.00 </td>
-<td class='confluenceTd'>&nbsp;</td>
-</tr>
-<tr>
-<td class='confluenceTd'> $100,000 </td>
-<td class='confluenceTd'> $25,000 </td>
-<td class='confluenceTd'> $0.00 </td>
-<td class='confluenceTd'>&nbsp;</td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Executionofspecifications">Execution of specifications</h2>
-
-<p>Based on those executable specifications, the developers are now ready to code the functionality and the <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.</p>
-
-<p>During execution, <gpname>GreenPepper</gpname> colors the cell in gray to signify that no test was performed and shows the returned value. <table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><br/>
-The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Rule+Tables" title="Writing fixtures for Rule Tables">how to write the fixture for the <tt>RuleForInterpreter</tt></a>.</td></tr></table></p>
-<h1 id="Fullcustomerguide-HTML-3.ListValidation%28Listof%2CSetof%2CSupersetof%2CSubsetof%29">3. List Validation (List of, Set of, Superset of, Subset of)</h1>
-<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
-<div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
-<p>The <tt>collection interpreters</tt> are used to express any kind of groups, lists or sets of values.</p>
-
-<p>When a collection interpreter is executed, <gpname>GreenPepper</gpname> compares the list of values expected with the list of values returned by the system under development. The test result depends on the specific collection interpreter selected.</p>
-
-<p><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827473/LexicalFormOfCollectionInterpreters.jpg" align="absmiddle" border="0" /></p>
-
-<ul>
-	<li>As for all other interpreters, the first row of the <tt>collection interpreters</tt> specifies the name of the interpreter and the name of the collection to be tested.</li>
-	<li>The next row is used to define the name of each attribute related to the members of the collection of data.</li>
-	<li>The following rows are used to specify the set of values to test.</li>
-</ul>
-</div></div>
-
-
-<h3 id="Fullcustomerguide-HTML-Specifickeywords">Specific keywords</h3>
-<p> None</p>
-
-<h3 id="Fullcustomerguide-HTML-Colouring">Colouring</h3>
-
-<p><gpname>GreenPepper</gpname> will visually indicate the test result by colouring the rows:</p>
-<div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>As expected, the row is returned by the system under development.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>A row is missing or in surplus in the list returned by the system under development.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b>* YELLOW*</b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the cell is in yellow, and <gpname>GreenPepper</gpname> provides information about the error.</p>
-</div></div>
-
-<p><em><b>Particular behaviour for the list of interpreters:</b></em><br/>
-Since the <tt>ListOfInterpreter</tt> expects to match exactly the expected list and the list returned by the SUD, <gpname>GreenPepper</gpname> colours the cell in red and provide the two values.</p>
-
-<p><em><b>Particular behaviour for the superset of interpreters:</b></em><br/>
-Since the <tt>SupersetOfInterpreter</tt> accepts that the specification may contain rows that are not contained in the SUD, <gpname>GreenPepper</gpname> will not colour the rows contained in the specification but not returned by the SUD.</p>
-<h2 id="Fullcustomerguide-HTML-WritingaListspecification">Writing a List specification</h2>
-
-<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BCollectionInterpreters%7D%7D">When do we use the <tt>CollectionInterpreters</tt></h2>
-
-<p>The <tt>CollectionInterpreters</tt> are used to express any kind of group, list or set of values.</p>
-
-<p>When a <tt>CollectionInterpreters</tt> is executed, <gpname>GreenPepper</gpname> compares the list of expected values with the list of values returned by the system under development. The test result depends on the specific <tt>CollectionInterpreters</tt> selected.</p>
-
-<p><gpname>GreenPepper</gpname> offers four different <tt>CollectionInterpreters</tt>:</p>
-<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%"><tbody><tr>
-<td class="confluenceTd"  valign="top" width="80%">
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> <tt>ListOfInterpreter</tt> </th>
-<td class='confluenceTd'>  This interpreter expects to match the <b>content</b> and the <b>order</b> of the list returned by the system under development (SUD) with the expected list defined in the specification.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> <tt>SetOfInterpreter</tt> </th>
-<td class='confluenceTd'> The <tt>SetOfInterpreter</tt> expects to match <b>only the content</b> of the list returned by the SUD with the expected list defined in the specification. The order of the rows is not important.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> <tt>SubsetOfInterpreter</tt> </th>
-<td class='confluenceTd'> The <tt>SubsetOfInterpreter</tt> verifies that each row defined in the specification exists in the list returned by the SUD. In order to have a successful test, the set of elements listed in the specification should be a <b>subset</b> of the list returned by the SUD.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> <tt>SupersetOfInterpreter</tt> </th>
-<td class='confluenceTd'>  The <tt>SupersetOfInterpreter</tt> verifies that each row returned by the SUD exists in the list defined in the specification. In order to have a successful test, the set of elements listed in the specification should be a <b>superset</b> of the list returned by the SUD. This means that the specification may contain rows that are not contained in the SUD.</td>
-</tr>
-</tbody></table></td>
-<td class="confluenceTd"  valign="top" width="20%">
-<p><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827474/SubsetvsSuperset.jpg" align="absmiddle" border="0" /> <br/>
-A is a <b>subset</b> of B<br/>
-B is a <b>superset</b> of A</p></td></tr></tbody></table>
-<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheCollectionInterpreter">First row: Identification of the Collection Interpreter</h2>
-<p>As for all other interpreters, the first row of any <tt>CollectionInterpreter</tt> specifies the name of the interpreter and the name of the collection to be tested. </p>
-
-<ul>
-	<li><b>Example - Provinces of Canada:</b> A simple example would be a system containing the Canadian provinces name and code. In that particular case, we could define the collection as <em>Canada Province Codes</em> :
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>list of</td>
-<td class='confluenceTd'>Canada Province Codes</td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<ul>
-	<li><b>Example - Phone Book :</b> A phone book application able to manage the first name, last name and the phone number of people. The <tt>ListOfInterpreter</tt> could be express as
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> list of  </td>
-<td class='confluenceTd'> phone book entries</td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<h2 id="Fullcustomerguide-HTML-Secondrow%3AHeader">Second row: Header </h2>
-<p>The second row is used to define the name of each attribute related to the members of the collection of data.</p>
-
-<ul>
-	<li><b>Example - Provinces of Canada:</b> The attributes for that example are the name and the code.
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>list of</td>
-<td class='confluenceTd'>Canada Province Codes</td>
-</tr>
-<tr>
-<td class='confluenceTd'>Name</td>
-<td class='confluenceTd'> Code </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-<ul>
-	<li><b>Example - Phone Book :</b> The attributes for that example are the first name, the last name and the phone number.
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> list of  </td>
-<td class='confluenceTd'> phone book entries</td>
-</tr>
-<tr>
-<td class='confluenceTd'> FirstName </td>
-<td class='confluenceTd'> LastName </td>
-<td class='confluenceTd'> Phone Number </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-
-<h2 id="Fullcustomerguide-HTML-Otherrows%3AAsetofelements">Other rows: A set of elements</h2>
-<p>From the third row, we specify the set of values to test. </p>
-
-<ul>
-	<li><b>Example - Provinces of Canada :</b>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>list of</td>
-<td class='confluenceTd'>Canada Province Codes</td>
-</tr>
-<tr>
-<td class='confluenceTd'>Name</td>
-<td class='confluenceTd'> Code </td>
-</tr>
-<tr>
-<td class='confluenceTd'>ALBERTA</td>
-<td class='confluenceTd'> AB </td>
-</tr>
-<tr>
-<td class='confluenceTd'>BRITISH COLUMBIA </td>
-<td class='confluenceTd'> AB </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-
-<ul>
-	<li><b>Example - Phone Book :</b>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> list of  </td>
-<td class='confluenceTd'> phone book entries</td>
-</tr>
-<tr>
-<td class='confluenceTd'> FirstName </td>
-<td class='confluenceTd'> LastName </td>
-<td class='confluenceTd'> Phone Number </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Fred  </td>
-<td class='confluenceTd'> Flintstone </td>
-<td class='confluenceTd'> (123) 456-7890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Barney </td>
-<td class='confluenceTd'> Rubble </td>
-<td class='confluenceTd'> (123) 321-7666 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'> Gazoo </td>
-<td class='confluenceTd'> (123) 989-4455 </td>
-</tr>
-</tbody></table></li>
-</ul>
-
-
-
-
-<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
-
-<p>Once the developers have coded the functionality and the <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a>(the fixture is the link between the system under development and the executable specification), the specification can be executed by clicking on the <b>Execute</b> button on the top of the page. </p>
-
-
-<p>During execution, <gpname>GreenPepper</gpname> will color the rows in green if the rows are in the list of elements returned by the SUD as expected in the specification.<br/>
-If a row is missing or in surplus in the list returned by the SUD, then <gpname>GreenPepper</gpname> will color the entire row in red and specify if the row is <em><b>missing</b></em> or in <em><b>surplus</b></em>. </p>
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Notes</b><br />
-<p>If <gpname>GreenPepper</gpname> specify that a row is <em><b>missing</b></em>, it means that the row is not in the list of elements provided by the system under development as it should be.<br/>
-If <gpname>GreenPepper</gpname> specify that a row is in <em><b>surplus</b></em>, it means that the row is in the list of elements provided by the system under development but it should not be.</p></td></tr></table>
-
-<p>Since the <tt>ListOfInterpreter</tt> expects to match exactly the list expected and the list returned by the SUD, <gpname>GreenPepper</gpname> color the cell in red and provide the two values.</p>
-
-<p>Since the <tt>SupersetOfInterpreter</tt> accept that the specification may contains rows that are not contained in the SUD, <gpname>GreenPepper</gpname> will not color the  rows in the specification but not returned by the SUD.</p>
-
-
-<h3 id="Fullcustomerguide-HTML-ExecutablespecificationfortheexampleProvincesofCanada">Executable specification for the example - Provinces of Canada</h3>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>list of</td>
-<td class='confluenceTd'>Canada Province Codes</td>
-</tr>
-<tr>
-<td class='confluenceTd'>Name</td>
-<td class='confluenceTd'> Code </td>
-</tr>
-<tr>
-<td class='confluenceTd'>ALBERTA</td>
-<td class='confluenceTd'> AB </td>
-</tr>
-<tr>
-<td class='confluenceTd'>BRITISH COLUMBIA </td>
-<td class='confluenceTd'> BC </td>
-</tr>
-<tr>
-<td class='confluenceTd'>MANITOBA </td>
-<td class='confluenceTd'> MB </td>
-</tr>
-<tr>
-<td class='confluenceTd'>NEW BRUNSWICK</td>
-<td class='confluenceTd'> NB </td>
-</tr>
-<tr>
-<td class='confluenceTd'>NEWFOUNDLAND and LABRADOR </td>
-<td class='confluenceTd'> NL </td>
-</tr>
-<tr>
-<td class='confluenceTd'>NOVA SCOTIA </td>
-<td class='confluenceTd'> NS </td>
-</tr>
-<tr>
-<td class='confluenceTd'>NUNAVUT </td>
-<td class='confluenceTd'> NU </td>
-</tr>
-<tr>
-<td class='confluenceTd'>ONTARIO </td>
-<td class='confluenceTd'> ON </td>
-</tr>
-<tr>
-<td class='confluenceTd'>PRINCE EDWARD ISLAND </td>
-<td class='confluenceTd'> PE </td>
-</tr>
-<tr>
-<td class='confluenceTd'>QUEBEC </td>
-<td class='confluenceTd'> QC </td>
-</tr>
-<tr>
-<td class='confluenceTd'>SASKATCHEWAN </td>
-<td class='confluenceTd'> SK </td>
-</tr>
-<tr>
-<td class='confluenceTd'>YUKON </td>
-<td class='confluenceTd'> YT </td>
-</tr>
-<tr>
-<td class='confluenceTd'>OTHER PROVINCE</td>
-<td class='confluenceTd'> OP </td>
-</tr>
-</tbody></table>
-
-<h3 id="Fullcustomerguide-HTML-ExecutablespecificationfortheexamplePhoneBook">Executable specification for the example - Phone Book</h3>
-
-<p>Creating the collection of data<br/>
-We will use the <tt>DoWithInterpreter</tt> to create our personal phone book.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>do with</td>
-<td class='confluenceTd'> phone book</td>
-</tr>
-<tr>
-<td class='confluenceTd'>insert </td>
-<td class='confluenceTd'> Fred  </td>
-<td class='confluenceTd'>&nbsp;</td>
-<td class='confluenceTd'> Flintstone </td>
-<td class='confluenceTd'> with number </td>
-<td class='confluenceTd'> (123) 456-7890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'>insert </td>
-<td class='confluenceTd'> Barney</td>
-<td class='confluenceTd'>&nbsp;</td>
-<td class='confluenceTd'> Rubble </td>
-<td class='confluenceTd'> with number </td>
-<td class='confluenceTd'> (123) 321-7666 </td>
-</tr>
-<tr>
-<td class='confluenceTd'>insert </td>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'>&nbsp;</td>
-<td class='confluenceTd'> Gazoo </td>
-<td class='confluenceTd'> with number </td>
-<td class='confluenceTd'> (123) 989-4455 </td>
-</tr>
-</tbody></table>
-
-<p><b><tt>ListOfInterpreter</tt> : The requirement list should be the same as the SUD list.</b></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>list of</td>
-<td class='confluenceTd'> Phone book entries</td>
-</tr>
-<tr>
-<td class='confluenceTd'> FirstName </td>
-<td class='confluenceTd'> LastName </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Fred </td>
-<td class='confluenceTd'> Flintstone</td>
-</tr>
-<tr>
-<td class='confluenceTd'> Betty </td>
-<td class='confluenceTd'> Rubble </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'> Gazoo </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Wilma </td>
-<td class='confluenceTd'> Flintstone </td>
-</tr>
-</tbody></table>
-
-<p><b><tt>SetOfInterpreter</tt> : The requirement set should be the same as the SUD set.</b></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>set of</td>
-<td class='confluenceTd'> Phone book entries</td>
-</tr>
-<tr>
-<td class='confluenceTd'> FirstName </td>
-<td class='confluenceTd'> LastName </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Fred </td>
-<td class='confluenceTd'> Flintstone</td>
-</tr>
-<tr>
-<td class='confluenceTd'> Betty </td>
-<td class='confluenceTd'> Rubble </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'> Gazoo </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Wilma </td>
-<td class='confluenceTd'> Flintstone </td>
-</tr>
-</tbody></table>
-
-<p><b><tt>SubsetOfInterpreter</tt> : The requirement set should be a subset of the SUD set.</b></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>subset of</td>
-<td class='confluenceTd'> Phone book entries</td>
-</tr>
-<tr>
-<td class='confluenceTd'> FirstName </td>
-<td class='confluenceTd'> LastName </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Fred </td>
-<td class='confluenceTd'> Flintstone</td>
-</tr>
-<tr>
-<td class='confluenceTd'> Betty </td>
-<td class='confluenceTd'> Rubble </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'> Gazoo </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Wilma </td>
-<td class='confluenceTd'> Flintstone </td>
-</tr>
-</tbody></table>
-
-<p><b><tt>SupersetOfInterpreter</tt> : The requirement set should be a superset of the SUD set.</b></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>superset of</td>
-<td class='confluenceTd'> Phone book entries</td>
-</tr>
-<tr>
-<td class='confluenceTd'> FirstName </td>
-<td class='confluenceTd'> LastName </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Fred </td>
-<td class='confluenceTd'> Flintstone</td>
-</tr>
-<tr>
-<td class='confluenceTd'> Betty </td>
-<td class='confluenceTd'> Rubble </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'> Gazoo </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Wilma </td>
-<td class='confluenceTd'> Flintstone </td>
-</tr>
-</tbody></table>
-
-
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+List+tables" title="Writing fixtures for List tables">how to write the fixture for the <tt>CollectionInterpreters</tt></a>.</p></td></tr></table>
-<h1 id="Fullcustomerguide-HTML-4.Workflowvalidation">4. Workflow validation</h1>
-<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
-<div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
-<p>The <tt>DoWithInterpreter</tt> is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.</p>
-
-<p>When a sequence of action is executed, <gpname>GreenPepper</gpname> confirms that each action has successfully been performed.</p>
-
-<p><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827475/LexicalFormOfDoWith.jpg" align="absmiddle" border="0" /></p>
-
-<ul>
-	<li>As for all other interpreters, the first row of the <tt>DoWithInterpreter</tt> specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the <tt>DoWithInterpreter</tt> particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the <tt>DoWithInterpreter</tt> must be define before any sequence of actions.</li>
-	<li>The following rows are used to express specific actions.</li>
-	<li>The form of each row of a <tt>DoWithInterpreter</tt> shall respect the following rules:
-	<ul>
-		<li>a row shall begin with a part of the action description,</li>
-		<li>each parameter shall be isolated in a cell,</li>
-		<li>each parameter shall be separated by parts of the action description.</li>
-	</ul>
-	</li>
-	<li>An action description can be left blank in order to separate two parameters.</li>
-	<li>The <tt>DoWithInterpreter</tt> provide a minimum of keyword used to define specific action.</li>
-	<li>The <tt>DoWithInterpreter</tt> may also be expressed in Bullet List form or Number List form.</li>
-</ul>
-</div></div>
-
-
-<h3 id="Fullcustomerguide-HTML-SpecificKeywords">Specific Keywords</h3>
-
-<p><gpname>GreenPepper</gpname> offers a list of useful keywords to support the Business Expert. Those keywords are placed at the beginning of an action row.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Accept</th>
-<td class='confluenceTd'> Confirm that the action as been executed by the system under development. </td>
-</tr>
-<tr>
-<th class='confluenceTh'> Check </th>
-<td class='confluenceTd'> Verify the specified expected value with the value returned by the system under development</td>
-</tr>
-<tr>
-<th class='confluenceTh'> Reject</th>
-<td class='confluenceTd'> The action should not be performed by the system under development (expected errors).</td>
-</tr>
-<tr>
-<th class='confluenceTh'> Display </th>
-<td class='confluenceTd'> Print the value returned by the system under development.</td>
-</tr>
-</tbody></table>
-
-<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
-
-<p><gpname>GreenPepper</gpname> will visually show the test result by coloring each testing cell:</p>
-
-<div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> color the cell(s) in green.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the action execution has failed, <gpname>GreenPepper</gpname> color the cell(s) in red.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the cell is colored yellow and <gpname>GreenPepper</gpname> provides information about the error.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #CCCCCC; "><b><b>GRAY</b></b></div><div class="panelContent" style="background-color: #CCCCCC; ">
-<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> will display the returned value in gray.</p>
-</div></div>
-
-<p><br clear="all" /></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Standard form (without keyword) </th>
-<td class='confluenceTd'> Only the Action description will be colored.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> Accept </th>
-<td class='confluenceTd'>  Only the cell containing the keyword Accept will be colored.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> Check </th>
-<td class='confluenceTd'> The cell containning the expected value will be colored. In the case of a failure, <gpname>GreenPepper</gpname> will show the expected and the returned values.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> Reject </th>
-<td class='confluenceTd'> Only the cell containing the keyword Reject will be colored.</td>
-</tr>
-<tr>
-<th class='confluenceTh'> Display </th>
-<td class='confluenceTd'> A new cell at the end of the row will be colored containing the returned value.</td>
-</tr>
-</tbody></table>
-<h2 id="Fullcustomerguide-HTML-WritingaDoWithspecification">Writing a Do With specification</h2>
-
-
-<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BDoWithInterpreter%7D%7D">When do we use the <tt>DoWithInterpreter</tt></h2>
-
-<p>The <tt>DoWithInterpreter</tt> is used to express interactions with the system under development that must be performed in a particular order.  This form of specification provides information about the business flow. </p>
-
-<p>When a sequence of action is executed, <gpname>GreenPepper</gpname> confirms that each action has successfully been performed.</p>
-
-<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheDoWith">First row: Identification of the Do With</h2>
-
-<p>As for all other interpreters, the first row of the <tt>DoWithInterpreter</tt> specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the <tt>DoWithInterpreter</tt> particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the <tt>DoWithInterpreter</tt> must be defined before any sequence of actions.</p>
-
-<h4 id="Fullcustomerguide-HTML-ExampleofabankAccountmanagementsystem">Example of a bank Account management system</h4>
-
-<p><b>Example context :</b> <font color="#0033ff"><em>The system under development must be able to manage two different types of bank account. The system should allow to execute the usual transactions within an account.</em></font></p>
-
-<p>So the first line could be expressed as </p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> do with </td>
-<td class='confluenceTd'> bank account management </td>
-</tr>
-</tbody></table>
-<p>or more simply as </p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> do with </td>
-<td class='confluenceTd'> bank </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Followingrows%3AActions%26Verifications">Following rows: Actions &amp; Verifications</h2>
-<p>The second and following rows are used to express specific actions or verifications. The business expert should express the action in human readable format rather than using computer like language.</p>
-
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>The form of each row of a <tt>DoWithInterpreter</tt> must follow these rules: </p>
-<ul>
-	<li>a row begins with a part of the action description.</li>
-	<li>each parameter is isolated in a cell</li>
-	<li>each parameter is separated by parts of the action description.</li>
-	<li>an action description can be blank</li>
-</ul>
-
-
-<p>More visually:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>Action description part 1 </td>
-<td class='confluenceTd'> <b>parameter 1</b> </td>
-<td class='confluenceTd'> Action description part 2 </td>
-<td class='confluenceTd'> <b>parameter 2</b> </td>
-<td class='confluenceTd'>Action description part 3 </td>
-<td class='confluenceTd'> <b>Parameter 3</b> </td>
-<td class='confluenceTd'> ...</td>
-</tr>
-</tbody></table></td></tr></table>
-
-<h4 id="Fullcustomerguide-HTML-Example%3AInourbankexample%2Cthefirstactionwouldbetocreateabankaccount.">Example:  In our bank example, the first action would be to create a bank account . </h4>
-
-<p>If we want to take the account number as a parameter, we would have:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> open checking account </td>
-<td class='confluenceTd'> <em>12345-67890</em> </td>
-</tr>
-</tbody></table>
-<p>But, if we want to consider the type of account, the account number, the owner first name and last name as parameters, we would have:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> open </td>
-<td class='confluenceTd'> <em>checking</em> </td>
-<td class='confluenceTd'> account </td>
-<td class='confluenceTd'> <em>12345-67890</em> </td>
-<td class='confluenceTd'> under the name of </td>
-<td class='confluenceTd'> <em>Spongebob</em> </td>
-<td class='confluenceTd'>&nbsp;</td>
-<td class='confluenceTd'> <em>Squarepants</em> </td>
-</tr>
-</tbody></table>
-
-
-<h4 id="Fullcustomerguide-HTML-Example%3AVerifythebalanceofanaccount">Example: Verify the balance of an account</h4>
-<p>To verify the success of a particular action, we write the keyword <b>"Check"</b> prior to the first part of the action description.<br/>
-In our example, there would be two parameters: the account number and the amount of balance. </p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $0.00 </td>
-</tr>
-</tbody></table>
-
-
-
-<h2 id="Fullcustomerguide-HTML-Finalexpressionofourexample">Final expression of our example</h2>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> do with </td>
-<td class='confluenceTd'> bank </td>
-</tr>
-</tbody></table>
-
-<p>Our first business rule says that a new account should have a balance of 0.00 dollars.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> open </td>
-<td class='confluenceTd'> checking </td>
-<td class='confluenceTd'> account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> under the name of </td>
-<td class='confluenceTd'>	Spongebob </td>
-<td class='confluenceTd'>&nbsp;</td>
-<td class='confluenceTd'> Squarepants </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $0.00 </td>
-</tr>
-</tbody></table>
-
-<p>Our next rule says that the bank should not take any fees when we deposit money in our account.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> deposit </td>
-<td class='confluenceTd'> $100.00 </td>
-<td class='confluenceTd'> in account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $100.00 </td>
-</tr>
-</tbody></table>
-
-<p>The following rule says that a customer should be able to withdraw funds if the balance of his account is sufficient.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> withdraw </td>
-<td class='confluenceTd'> $50.00 </td>
-<td class='confluenceTd'> from account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $50.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> reject</td>
-<td class='confluenceTd'> withdraw </td>
-<td class='confluenceTd'> $75.00 </td>
-<td class='confluenceTd'> from account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $50.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> accept </td>
-<td class='confluenceTd'> withdraw </td>
-<td class='confluenceTd'> $25.00</td>
-<td class='confluenceTd'>  from account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
-
-<p>Based on those executable specifications, the developers are now ready to code the functionality and the <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page. </p>
-
-<p>During execution, <gpname>GreenPepper</gpname> will color cells in green if the execution has passed and color it in red if the execution has failed. The colored cells depends on the type of action described:</p>
-<ul>
-	<li>in a standard action row (without a keyword at the beginning), only the Action description will be colored,</li>
-	<li>if the action begins with the keyword <b>Check</b>, the value tested will be colored and in the case of a failure, <gpname>GreenPepper</gpname> will show the expected and the returned values,</li>
-	<li>if the action begins with the keywords <b>Reject</b> or <b>Accept</b>, only the cell containing the keyword will be colored.</li>
-	<li>if the action begins with the keywords <b>Display</b> (<b><font color="blue">NEW in 2.4</font></b>), only a new cell at the end of the row containing the returned value will be colored.</li>
-</ul>
-
-
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Do+With+tables" title="Writing fixtures for Do With tables">how to write the fixture for the <tt>DoWithInterpreter</tt></a>.</p></td></tr></table>
-
-<h1 id="Fullcustomerguide-HTML-5.Scenariospecification">5. Scenario specification</h1>
-
-<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
-
-<div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
-<p>The <tt>ScenarioInterpreter</tt> is used to express interactions with the system under development that must be performed in a particular order. This form of specification provides information about the business flow.</p>
-
-<p>When a sequence of action is executed, <gpname>GreenPepper</gpname> confirms that each action has successfully been performed.</p>
-
-<hr />
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> Scenario </td>
-<td class='confluenceTd'> <font color="blue"></font> <em>Identification of the set of rule</em> <font color="blue"></font> </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Action 1 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Action 2 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> ... </td>
-</tr>
-<tr>
-<td class='confluenceTd'> Action i </td>
-</tr>
-</tbody></table>
-<hr />
-
-<ul>
-	<li>As for all other interpreters, the first row of the <tt>ScenarioInterpreter</tt> specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the <tt>ScenarioInterpreter</tt> particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the <tt>ScenarioInterpreter</tt> must be define before any sequence of actions.</li>
-	<li>The <tt>ScenarioInterpreter</tt> may also be expressed in Bullet List form or Number List form.</li>
-</ul>
-</div></div>
-
-<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
-
-<p><gpname>GreenPepper</gpname> will visually show the test result by coloring a complete row or words inside the row:</p>
-
-<div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> color the row or words inside the row in green.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the action execution has failed, <gpname>GreenPepper</gpname> color the the row or words inside the row in red.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the system encounters an execution error, the row is colored yellow and <gpname>GreenPepper</gpname> provides information about the error.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #CCCCCC; "><b><b>GRAY</b></b></div><div class="panelContent" style="background-color: #CCCCCC; ">
-<p>When the action has been executed successfully, <gpname>GreenPepper</gpname> will display the returned value in gray.</p>
-</div></div>
-<h2 id="Fullcustomerguide-HTML-WritingaScenariospecification">Writing a Scenario specification</h2>
-
-<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BScenarioInterpreter%7D%7D">When do we use the <tt>ScenarioInterpreter</tt></h2>
-
-<p>The <tt>ScenarioInterpreter</tt> is used to express interactions with the system under development that must be performed in a particular order.  This form of specification provides information about the business flow. </p>
-
-<p>When a sequence of action is executed, <gpname>GreenPepper</gpname> confirms that each action has successfully been performed.</p>
-
-<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheScenario">First row: Identification of the Scenario</h2>
-
-<p>As for all other interpreters, the first row of the <tt>ScenarioInterpreter</tt> specifies the name of the interpreter and the name of the sequence of actions to be tested. What makes the <tt>ScenarioInterpreter</tt> particular is that it only have to be defined once for all the sequences of actions expressed in a page. Obviously, the <tt>ScenarioInterpreter</tt> must be defined before any sequence of actions.</p>
-
-<h4 id="Fullcustomerguide-HTML-ExampleofabankAccountmanagementsystem">Example of a bank Account management system</h4>
-
-<p><b>Example context :</b> <font color="#0033ff"><em>The system under development must be able to manage two different types of bank account. The system should allow to execute the usual transactions within an account.</em></font></p>
-
-<p>So the first line could be expressed as </p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> scenario </td>
-<td class='confluenceTd'> bank account management </td>
-</tr>
-</tbody></table>
-<p>or more simply as </p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> scenario </td>
-<td class='confluenceTd'> bank </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Followingrows%3AActions%26Verifications">Following rows: Actions &amp; Verifications</h2>
-<p>The second and following rows are used to express specific actions or verifications. The business expert should express the action in human readable format rather than using computer like language.</p>
-
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>With this interpreter, only 1 cell is required to express the action (in comparison to the <tt>DoWithInterpreter</tt>).</p></td></tr></table>
-
-<h4 id="Fullcustomerguide-HTML-Example%3AInourbankexample%2Cthefirstactionwouldbetocreateabankaccount.">Example:  In our bank example, the first action would be to create a bank account . </h4>
-
-<p>If we want to take the account number as a parameter, we would have:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> open checking account <em>12345-67890</em> </td>
-</tr>
-</tbody></table>
-<p>But, if we want to consider the type of account, the account number, the owner first name and last name as parameters, we would have:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> open <em>checking</em> account <em>12345-67890</em> under the name of <em>Spongebob</em>  <em>Squarepants</em> </td>
-</tr>
-</tbody></table>
-
-
-<h4 id="Fullcustomerguide-HTML-Example%3AVerifythebalanceofanaccount">Example: Verify the balance of an account</h4>
-<p>In our example, there would be two parameters: the account number and the amount of balance. </p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> verify that balance of account 12345-67890 is $0.00 </td>
-</tr>
-</tbody></table>
-
-
-<h2 id="Fullcustomerguide-HTML-Finalexpressionofourexample">Final expression of our example</h2>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> scenario </td>
-<td class='confluenceTd'> bank </td>
-</tr>
-</tbody></table>
-
-<p>Our first business rule says that a new account should have a balance of 0.00 dollars.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> open checking account 12345-67890 under the name of Spongebob Squarepants </td>
-</tr>
-<tr>
-<td class='confluenceTd'> verify that balance of account 12345-67890 is $0.00 </td>
-</tr>
-</tbody></table>
-
-<p>Our next rule says that the bank should not take any fees when we deposit money in our account.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> deposit $100.00 in account 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> verify that balance of account 12345-67890 is $100.00 </td>
-</tr>
-</tbody></table>
-
-<p>The following rule says that a customer should be able to withdraw funds if the balance of his account is sufficient.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> withdraw $50.00 from account 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> verify that balance of account 12345-67890 is $50.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> can't withdraw $75.00 from account 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> verify that balance of account 12345-67890 is $50.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> can withdraw $25.00 from account 12345-67890 </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
-
-<p>Based on those executable specifications, the developers are now ready to code the functionality and the <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page. </p>
-
-<p>During execution, <gpname>GreenPepper</gpname> will color rows or words inside a row in green if the execution has passed and color it in red if the execution has failed.</p>
-
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Scenario+tables" title="Writing fixtures for Scenario tables">how to write the fixture for the <tt>ScenarioInterpreter</tt></a>.</p></td></tr></table>
-
-
-<h1 id="Fullcustomerguide-HTML-6.Contextdefinition%28Setup%29">6. Context definition (Setup)</h1>
-<h2 id="Fullcustomerguide-HTML-Definition">Definition</h2>
-<div class="panel" style="border-style: solid; border-color: #000000; "><div class="panelHeader" style="border-bottom-style: solid; border-bottom-color: #000000; background-color: #c0c0c0; "><b>DEFINITION</b></div><div class="panelContent" style="background-color: #ffffff; ">
-<p>The <tt>SetUpInterpreter</tt> is used to simplify the creation of a particular state for the system under development. Once the state is created, we can focus on the business process to test.</p>
-
-<p>When a setup table is executed, <gpname>GreenPepper</gpname> enter data in the system under development to create the desired state.</p>
-
-<p><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/download/attachments/158827477/LexicalFormOfSetUp.jpg" align="absmiddle" border="0" /></p>
-
-<ul>
-	<li>The first row of the table indicates the name of the interpreter and the name of the desired state.</li>
-	<li>The second row is called the header row and serves to identify the data to be inserted in the system under development.</li>
-	<li>Finally, the remaining rows captures the data to be inserted.</li>
-</ul>
-</div></div>
-
-
-<h3 id="Fullcustomerguide-HTML-Coloring">Coloring</h3>
-
-<p><gpname>GreenPepper</gpname> will visually show the test result by coloring each testing cell:</p>
-
-<div class="panel"><div class="panelHeader" style="background-color: #98FB98; "><b><b>GREEN</b></b></div><div class="panelContent" style="background-color: #98FB98; ">
-<p>When the insertion has been executed successfully, <gpname>GreenPepper</gpname> add a green cell at the end of the data row with the word <b>entered</b>.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F08080; "><b><b>RED</b></b></div><div class="panelContent" style="background-color: #F08080; ">
-<p>If the insertion has failed because the values specified does not respect a business rule, <gpname>GreenPepper</gpname> add a red cell at the end of the row with the word <b>not entered</b>.</p>
-</div></div>
-<div class="panel"><div class="panelHeader" style="background-color: #F0E68C; "><b><b>YELLOW</b></b></div><div class="panelContent" style="background-color: #F0E68C; ">
-<p>If the insertion has failed because a specified value generates an error, <gpname>GreenPepper</gpname> colors the cell of the data in error yellow and provides information about the error. <br/>
-If the system encounters an error not related to a specific data, <gpname>GreenPepper</gpname> add a yellow cell at the end of the data row and provides information about the error.</p>
-</div></div>
-<h2 id="Fullcustomerguide-HTML-WritingaSetupspecification">Writing a Setup specification</h2>
-
-
-
-<h2 id="Fullcustomerguide-HTML-Whendoweusethe%7B%7BSetUpInterpreter%7D%7D">When do we use the <tt>SetUpInterpreter</tt></h2>
-
-<p>The <tt>SetUpInterpreter</tt> is used to simplify the creation of a particular state for the system under development. Once the state is created, we can focus on the business process to test.</p>
-
-<p>When a setup table is executed, <gpname>GreenPepper</gpname> enter data in the system under development to create the desired state.</p>
-
-<h2 id="Fullcustomerguide-HTML-Firstrow%3AIdentificationoftheSetUp">First row: Identification of the Set Up</h2>
-
-<p>As for all other interpreters, the first row of the setup table specifies the name of the interpreter and the name of the desired state.</p>
-
-<h4 id="Fullcustomerguide-HTML-ExampleofabankAccountmanagementsystem">Example of a bank Account management system</h4>
-
-<p><b>Example context :</b> <font color="#0033ff"><em>A customer should be allowed to transfer money from his or her accounts.</em></font></p>
-
-<p>In order to create examples that would test this particular business rule, we need to create a set of customer. The first line of our setup table could be expressed as</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> setup </td>
-<td class='confluenceTd'> a group of customers </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Secondrow%3AtheHeader">Second row: the Header</h2>
-
-<p>The second row is called the header row and serves to identify the data to be inserted in the system under development.</p>
-
-<h4 id="Fullcustomerguide-HTML-Example%3AInourbankexample%2Ctheheaderrowcouldtakethefollowingform.">Example:  In our bank example, the header row could take the following form.</h4>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> setup </td>
-<td class='confluenceTd'> a group of customers </td>
-</tr>
-<tr>
-<td class='confluenceTd'> type </td>
-<td class='confluenceTd'> number </td>
-<td class='confluenceTd'> first name </td>
-<td class='confluenceTd'> last name </td>
-<td class='confluenceTd'> balance </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Followingrows%3AData">Following rows: Data</h2>
-
-<p>The remaining rows captures the data to be inserted. They are the executable rows.</p>
-
-
-<h2 id="Fullcustomerguide-HTML-Finalexpressionofourexample">Final expression of our example</h2>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> setup </td>
-<td class='confluenceTd'> a group of customers </td>
-</tr>
-<tr>
-<td class='confluenceTd'> type </td>
-<td class='confluenceTd'> number </td>
-<td class='confluenceTd'> first name </td>
-<td class='confluenceTd'> last name </td>
-<td class='confluenceTd'> balance </td>
-</tr>
-<tr>
-<td class='confluenceTd'> checking </td>
-<td class='confluenceTd'> 11111-11111 </td>
-<td class='confluenceTd'> Fred </td>
-<td class='confluenceTd'> Flintstone </td>
-<td class='confluenceTd'> $250.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> savings </td>
-<td class='confluenceTd'> 22222-22222 </td>
-<td class='confluenceTd'> Fred </td>
-<td class='confluenceTd'> Flintstone </td>
-<td class='confluenceTd'> $10 000.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> savings </td>
-<td class='confluenceTd'> 44444-44444 </td>
-<td class='confluenceTd'> Wilma </td>
-<td class='confluenceTd'> Flintstone </td>
-<td class='confluenceTd'> $10 000.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> checking </td>
-<td class='confluenceTd'> 44444-44444 </td>
-<td class='confluenceTd'> Barney </td>
-<td class='confluenceTd'> Rubble </td>
-<td class='confluenceTd'> $999.54 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> checking </td>
-<td class='confluenceTd'> 55555-55555 </td>
-<td class='confluenceTd'> Great </td>
-<td class='confluenceTd'> Gazoo </td>
-<td class='confluenceTd'> abc </td>
-</tr>
-</tbody></table>
-<p>From that point, we can now used those accounts to specify examples that define a business rule.</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> do with </td>
-<td class='confluenceTd'> bank </td>
-</tr>
-</tbody></table>
-<p><b>Transfer from a savings account to a checking account of the same customer</b></p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> accept </td>
-<td class='confluenceTd'> Transfer </td>
-<td class='confluenceTd'> $1 000.00 </td>
-<td class='confluenceTd'> from account </td>
-<td class='confluenceTd'> 22222-22222 </td>
-<td class='confluenceTd'> to account </td>
-<td class='confluenceTd'> 11111-11111 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 11111-11111 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $1 250.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 22222-22222 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $9 000.00 </td>
-</tr>
-</tbody></table>
-
-<h2 id="Fullcustomerguide-HTML-Executionofspecification">Execution of specification</h2>
-
-
-<p>Based on those executable specifications, the developers are now ready to code the functionality and the <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/1.+Fixtures+Conventions" title="1. Fixtures Conventions">fixture</a> (the fixture is the link between the system under development and the executable specification). Once this is done, the specification can be executed by clicking on the <b>Execute</b> button on the top of the page.</p>
-
-<p>During execution, <gpname>GreenPepper</gpname> confirm that the value has been entered by adding a green cell at the end of each data rows containing the word <b>entered</b>.</p>
-
-<p>If the data could not have been entered because it does not respect a known business rule, the cell will be yellow and will specify the stacktrace. Finally, if the data could not have been entered because of an unknown error, <gpname>GreenPepper</gpname> will color this specific cell yellow and will include the information about the exception.</p>
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
-<p>The examples provided in this page are used to explain <a href="/web/20100616064503/http://greenpeppersoftware.com/confluence/display/GPWODOC/Writing+fixtures+for+Setup+tables" title="Writing fixtures for Setup tables">how to write the fixture for the <tt>SetupInterpreter</tt></a>.</p></td></tr></table>
-<h1 id="Fullcustomerguide-HTML-7.Advanced">7. Advanced</h1>
-<h2 id="Fullcustomerguide-HTML-DoWithTable%2CBulletListorNumberListexample">Do With - Table, Bullet List or Number List example</h2>
-
-<p><gpname>GreenPepper</gpname> supports the expression of rules in table format, bullet list format or number list format. The following examples are equivalent and will yield the same results when executed.</p>
-
-<p>It is important to note that the table and bullet list examples are not executable since the import <em>com.greenpepper.samples.fixture.bank</em> and <em>do with bank</em> rules cannot be specified twice in the same page. Even though it is possible to change between the two methods in the same page, you must keep in mind that the tests are executed in the same system under development. So it is not necessary to re-specify the same rule in the page.</p>
-
-<h3 id="Fullcustomerguide-HTML-Table">Table</h3>
-
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>import </td>
-</tr>
-<tr>
-<td class='confluenceTd'>com.greenpepper.samples.application.bank </td>
-</tr>
-</tbody></table>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> do with </td>
-<td class='confluenceTd'> bank </td>
-</tr>
-<tr>
-<td class='confluenceTd'> open </td>
-<td class='confluenceTd'> checking </td>
-<td class='confluenceTd'> account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> under the name of </td>
-<td class='confluenceTd'>	Spongebob </td>
-<td class='confluenceTd'>&nbsp;</td>
-<td class='confluenceTd'> Squarepants </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $0.00 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> deposit </td>
-<td class='confluenceTd'> $100.00 </td>
-<td class='confluenceTd'> in account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> check </td>
-<td class='confluenceTd'> that balance of account </td>
-<td class='confluenceTd'> 12345-67890 </td>
-<td class='confluenceTd'> is </td>
-<td class='confluenceTd'> $100.00 </td>
-</tr>
-</tbody></table>
-
-<h3 id="Fullcustomerguide-HTML-BulletList">Bullet List</h3>
-<ul>
-	<li>import</li>
-	<li>com.greenpepper.samples.application.bank</li>
-</ul>
-
-
-<p><br clear="all" /> 	 </p>
-<ul>
-	<li><b>do with</b> <em>bank</em></li>
-	<li><b>open</b> <em>checking</em> <b>account</b> <em>12345-67890</em> <b>under the name of</b> <em>Spongebob</em> <b><em></b> _Squarepants</em></li>
-	<li><b>deposit</b> <em>$100.00</em> <b>in account</b> <em>12345-67890</em></li>
-	<li><b>check</b>  <em>that balance of account</em>  <b>12345-67890</b>  <em>is</em>  <b>$100.00</b></li>
-</ul>
-
-
-
-
-<h3 id="Fullcustomerguide-HTML-NumberList">Number List</h3>
-<ul>
-	<li>import</li>
-	<li>com.greenpepper.samples.application.bank</li>
-</ul>
-
-
-<p><br clear="all" /></p>
-<ol>
-	<li><b>do with</b> <em>bank</em></li>
-	<li><b>open</b> <em>checking</em> <b>account</b> <em>12345-67890</em> <b>under the name of</b> <em>Spongebob</em> <b><em></b>  _Squarepants</em></li>
-	<li><b>deposit</b> <em>$100.00</em> <b>in account</b> <em>12345-67890</em></li>
-	<li><b>check</b>  <em>that balance of account</em>  <b>12345-67890</b>  <em>is</em>  <b>$100.00</b></li>
-</ol>
-
-
-<h2 id="Fullcustomerguide-HTML-ObjectGraphNavigationLanguage%28OGNL%29">Object-Graph Navigation Language (OGNL)</h2>
-<p><gpname>GreenPepper</gpname> supports OGNL expressions. Here are some examples, using the Calculator system:</p>
-
-
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> &lt; , &lt;= , &gt; , &gt;= , and , or </th>
-<td class='confluenceTd'> <gpname>GreenPepper</gpname> supports these simple mathematical expressions. Use the question mark to specify the position of the value returned by the system. For example, if the expected value should be greater than 15, you will write "? &gt; 15" in the cell. </td>
-</tr>
-<tr>
-<th class='confluenceTh'> + , - , / , * </th>
-<td class='confluenceTd'> <gpname>GreenPepper</gpname> performs simple operations as a resulting expression. To specify you want to evaluate those operations prior to the comparison, insert an equal sign at the beginning of the operation (ex: =4+1-3). </td>
-</tr>
-</tbody></table>
-
-
-<table style="display:none">
-	<tr>
-		<td>Import</td>
-	</tr>
-			<tr>
-			<td>com.greenpepper.samples.application.calculator</td>
-		</tr>
-	</table>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> <b>rule for</b> </td>
-<td class='confluenceTd'> calculator </td>
-</tr>
-<tr>
-<td class='confluenceTd'> x </td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-<td class='confluenceTd'> product? </td>
-<td class='confluenceTd'> quotient? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 6 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> 8 </td>
-<td class='confluenceTd'> 12 </td>
-<td class='confluenceTd'> 3 </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 7 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> 7 </td>
-<td class='confluenceTd'> 0 </td>
-<td class='confluenceTd'> <b>error</b> </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 40 </td>
-<td class='confluenceTd'> 50 </td>
-<td class='confluenceTd'> 90 </td>
-<td class='confluenceTd'> ? &gt; 100 </td>
-<td class='confluenceTd'>&nbsp;</td>
-</tr>
-<tr>
-<td class='confluenceTd'> 4 </td>
-<td class='confluenceTd'> -5 </td>
-<td class='confluenceTd'> ? &lt;= 0 </td>
-<td class='confluenceTd'> -20 </td>
-<td class='confluenceTd'> ? &lt;= 0  </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 3 </td>
-<td class='confluenceTd'> 3 </td>
-<td class='confluenceTd'> ? &lt; 1 or ? &gt; 4  </td>
-<td class='confluenceTd'> ? &gt;= 9 and ? &lt; 12 </td>
-<td class='confluenceTd'> "1" </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 4 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> =4+2-0</td>
-<td class='confluenceTd'> =2*4</td>
-<td class='confluenceTd'> =4/2 </td>
-</tr>
-</tbody></table>
-<h2 id="Fullcustomerguide-HTML-InformationTag">Information Tag</h2>
-
-<h3 id="Fullcustomerguide-HTML-Informationtags">Information tags</h3>
-
-<p>When a document is executable, <gpname>GreenPepper</gpname> will try to interprete all the supported forms of the document body.<br/>
-This brings some issues when we need to insert information as <b>Tables</b> or <b>Bullet lists</b>, for example.</p>
-
-<p>To avoid undesired interpretation of forms, we can use the Information tags.<br/>
-This tag will force <gpname>GreenPepper</gpname> to skip all forms between the <b>Begin Info</b> and <b>End Info</b> tags.</p>
-
-<p>Here is an example:</p>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> Begin Info </td>
-</tr>
-</tbody></table>
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> This table </td>
-<td class='confluenceTd'> shouldn't be </td>
-<td class='confluenceTd'> interpreted </td>
-</tr>
-</tbody></table>
-
-<ul>
-	<li>This bullet list</li>
-	<li>shouldn't be</li>
-	<li>interpreted either</li>
-</ul>
-
-
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'> End Info </td>
-</tr>
-</tbody></table>
-<p>We won't see any coloration of the above table or bullet list after execution of this document.</p>
-
-<p><gpname>GreenPepper</gpname> will restart the interpretation of the document from from this point.</p>
-
-<table style="display:none">
-	<tr>
-		<td>Import</td>
-	</tr>
-			<tr>
-			<td>com.greenpepper.samples.application.calculator</td>
-		</tr>
-	</table>
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Rule for</th>
-<th class='confluenceTh'> Calculator </th>
-</tr>
-<tr>
-<td class='confluenceTd'> x</td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 1 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> 3 </td>
-</tr>
-</tbody></table>
-<p><br clear="all" /></p>
-
-<table cellpadding='5' width='85%' cellspacing='8px' class='infoMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/web/20100616064503im_/http://greenpeppersoftware.com/confluence/images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Useful Information</b><br />
-<p>If the <b>End Info</b> tag is omitted all the body content of the document after the <b>Begin Info</b> tag, will be skipped.</p></td></tr></table>
-
-<h2 id="Fullcustomerguide-HTML-Commentedforms">Commented forms</h2>
-
-<h3 id="Fullcustomerguide-HTML-Commenttag">Comment tag</h3>
-
-<p>We can decide for some reason that a test shouldn't be executed. Instead of deleting the test from the document, we can comment it. This will force <gpname>GreenPepper</gpname> to skip the test.</p>
-
-<p>The test should be preceded by the tag <b>Comment</b>.</p>
-
-<p>Here are some examples:</p>
-
-<h3 id="Fullcustomerguide-HTML-Testusingthebulletlistform.">Test using the bullet list form.</h3>
-<ul>
-	<li>Comment</li>
-	<li>My bulletlist test to skip</li>
-</ul>
-
-
-<h3 id="Fullcustomerguide-HTML-TestusingtheTableform.">Test using the Table form.</h3>
-<table class='confluenceTable'><tbody>
-<tr>
-<td class='confluenceTd'>Comment</td>
-</tr>
-<tr>
-<td class='confluenceTd'> My table </td>
-<td class='confluenceTd'> to skip </td>
-</tr>
-</tbody></table>
-
-<p>We won't see any coloration of the above table or bullet list after execution of this document.</p>
-
-<p><gpname>GreenPepper</gpname> will restart the interpretation of the document from from this point.</p>
-
-<table style="display:none">
-	<tr>
-		<td>Import</td>
-	</tr>
-			<tr>
-			<td>com.greenpepper.samples.application.calculator</td>
-		</tr>
-	</table>
-<table class='confluenceTable'><tbody>
-<tr>
-<th class='confluenceTh'> Rule for</th>
-<th class='confluenceTh'> Calculator </th>
-</tr>
-<tr>
-<td class='confluenceTd'> x</td>
-<td class='confluenceTd'> y </td>
-<td class='confluenceTd'> sum? </td>
-</tr>
-<tr>
-<td class='confluenceTd'> 1 </td>
-<td class='confluenceTd'> 2 </td>
-<td class='confluenceTd'> 3 </td>
-</tr>
-</tbody></table>
-                        </div>

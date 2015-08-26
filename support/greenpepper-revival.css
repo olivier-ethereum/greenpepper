@@ -6,7 +6,7 @@ body {
 
 gpname {
     font-family: fantasy;
-    color: green;
+    display: inline;
 }
 
 .team-member {
@@ -56,4 +56,39 @@ gpname {
 
 #sidebar-menu .main-menu .active>a {
 	background-color: #eee; 
+}
+
+.project-preview {
+    padding: 10px;
+}
+
+.project-preview .media-body {
+    vertical-align:middle;
+}
+
+.project-preview-icon {
+    font-size: 6em;
+    text-align: center;
+    vertical-align:middle;
+  	display:inline-block;
+}
+
+#usage-overview {
+	max-width: 800px;
+}
+.usage-step-preview h1 {
+	font-size: medium;
+}
+
+
+.downloads-section {
+	
+}
+
+.downloads-section .visual {
+	
+}
+
+.downloads-section .body {
+	
 }

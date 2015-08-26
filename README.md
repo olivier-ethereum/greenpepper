@@ -1,6 +1,6 @@
-# greenpepper-doc
+# Greenpepper-Doc
 
-Documentation for Greenpepper [Visible sur Github](http://strator-dev.github.io/greenpepper-doc/)
+Documentation for Greenpepper [Visible On Github](http://strator-dev.github.io/greenpepper-doc/)
 
 ## Want to Contribute ? 
 

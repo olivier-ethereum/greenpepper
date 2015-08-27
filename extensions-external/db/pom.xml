@@ -13,48 +13,39 @@
 	</parent>
 
 	<properties>
-		<com.neuri.dbfit.version>2.0.0-SNAPSHOT</com.neuri.dbfit.version>
+		<dbfit.version>3.2.0</dbfit.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper-open</groupId>
+			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.neuri.dbfit</groupId>
-			<artifactId>core</artifactId>
-			<version>${com.neuri.dbfit.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neuri.dbfit</groupId>
-			<artifactId>mysql</artifactId>
-			<version>${com.neuri.dbfit.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neuri.dbfit</groupId>
-			<artifactId>sqlserver</artifactId>
-			<version>${com.neuri.dbfit.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neuri.dbfit</groupId>
-			<artifactId>oracle</artifactId>
-			<version>${com.neuri.dbfit.version}</version>
+			<groupId>com.github.dbfit</groupId>
+			<artifactId>dbfit</artifactId>
+			<version>${dbfit.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
+			<version>5.1.36</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>sqlserver</groupId>
-			<artifactId>sqlserver</artifactId>
-			<!--<version>2.0.1803.100</version>-->
-			<version>1.2.2828.100</version>
+		  <groupId>com.microsoft</groupId>
+		  <artifactId>sqljdbc</artifactId>
+		  <version>4.1.5605</version>
+		  <scope>system</scope>
+		  <systemPath>${basedir}/dist/deps/sqljdbc-4.1.5605.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>cn.guoyukun.jdbc</groupId>
+			<artifactId>oracle-ojdbc6</artifactId>
+			<version>11.2.0.3.0</version>
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>

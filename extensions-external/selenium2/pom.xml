@@ -18,7 +18,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper-open</groupId>
+			<groupId>greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>

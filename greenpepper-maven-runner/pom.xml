@@ -63,9 +63,15 @@
 						<phase>package</phase>
 						<goals>
 							<goal>attached</goal>
-							</goals>
+						</goals>
 					</execution>
 				</executions>
+            </plugin>
+            <plugin>
+            	<artifactId>maven-surefire-plugin</artifactId>
+            	<configuration>
+            		<skipTests>true</skipTests>
+            	</configuration>
             </plugin>
         </plugins>
     </build>

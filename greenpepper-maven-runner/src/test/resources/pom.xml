@@ -54,18 +54,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>greenpepper-open</groupId>
+            <groupId>greenpepper</groupId>
             <artifactId>greenpepper-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>greenpepper-open</groupId>
+            <groupId>greenpepper</groupId>
             <artifactId>greenpepper-core</artifactId>
             <version>${project.version}</version>
             <classifier>fixtures</classifier>
         </dependency>
         <dependency>
-            <groupId>greenpepper-open</groupId>
+            <groupId>greenpepper</groupId>
             <artifactId>greenpepper-extensions-java</artifactId>
             <version>${project.version}</version>
         </dependency>

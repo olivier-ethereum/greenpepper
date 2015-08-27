@@ -81,7 +81,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>greenpepper-open</groupId>
+            <groupId>greenpepper</groupId>
             <artifactId>greenpepper-extensions-java</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -103,9 +103,10 @@
         </dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
-			<artifactId>ejb</artifactId>
-			<version>3.0</version>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0.2</version>
 		</dependency>
+				
         <dependency>
             <groupId>com.google.code.guice</groupId>
             <artifactId>guice</artifactId>

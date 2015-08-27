@@ -9,8 +9,8 @@
         <dependencySet>
             <includes>
 				<include>commons-codec:commons-codec</include>
-				<include>greenpepper-open:greenpepper-core</include>
-				<include>greenpepper-open:greenpepper-extensions-java</include>
+				<include>greenpepper:greenpepper-core</include>
+				<include>greenpepper:greenpepper-extensions-java</include>
 				<include>xmlrpc:xmlrpc</include>
 				<include>org.apache.maven:maven-embedder</include>
 				<!--<include>classworlds:classworlds</include>-->

@@ -9,7 +9,6 @@
 	<!-- - Basic Project Information -->
 	<groupId>greenpepper-open</groupId>
 	<artifactId>greenpepper-open</artifactId>
-	<version>4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>GreenPepper Open</name>
 
@@ -20,9 +19,9 @@
 	<!-- - GreenPepperOpen modules -->
 	<modules>
 		<module>extensions-external</module>
-		<module>samples</module>
-		<module>greenpaper-maven-runner</module>
-		<module>greenpaper-remote-agent</module>
+        <module>samples</module>
+		<module>greenpepper-maven-runner</module>
+		<module>greenpepper-remote-agent</module>
 	</modules>
 
 	<!-- - Dependencies that we want for all modules -->

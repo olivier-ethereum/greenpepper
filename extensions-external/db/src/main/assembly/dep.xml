@@ -8,10 +8,7 @@
 	<dependencySets>
 		<dependencySet>
 			<includes>
-				<include>com.neuri.dbfit:core</include>
-				<include>com.neuri.dbfit:mysql</include>
-				<include>com.neuri.dbfit:oracle</include>
-				<include>com.neuri.dbfit:sqlserver</include>
+				<include>com.github.dbfit:dbfit</include>
 			</includes>
 			<unpack>true</unpack>
 			<unpackOptions>

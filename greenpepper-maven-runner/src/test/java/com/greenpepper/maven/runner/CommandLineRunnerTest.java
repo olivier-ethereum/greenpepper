@@ -87,7 +87,7 @@ public class CommandLineRunnerTest
     {
         try
         {
-            runner.run( "--pdd", "greenpepper-open:unknown:2.8" );
+            runner.run( "--pdd", "greenpepper:unknown:"+ GreenPepperCore.VERSION );
 
             fail();
         }
@@ -106,12 +106,12 @@ public class CommandLineRunnerTest
     {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner( new PrintStream( byteOut ) );
-        runner.run( "--debug", "--pdd", "greenpepper-open:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION,
+        runner.run( "--debug", "--pdd", "greenpepper:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION,
                 "src/test/resources/collection.html", "-o", "target/reports", "--xml" );
         String output = byteOut.toString();
         //System.err.println( output );
-        assertThat( output, containsString( "Artifact: greenpepper-open:greenpepper-confluence-demo:jar:fixtures:" ) );
-        assertThat( output, containsString( "Artifact: greenpepper-open:greenpepper-confluence-demo:jar:" ) );
+        assertThat( output, containsString( "Artifact: greenpepper:greenpepper-confluence-demo:jar:fixtures:" ) );
+        assertThat( output, containsString( "Artifact: greenpepper:greenpepper-confluence-demo:jar:" ) );
         assertThat( output, containsString( "Running collection.html" ) );
         assertThat( output, containsString( "38 tests: 38 right, 0 wrong, 0 ignored, 0 exception(s)" ) );
     }
@@ -121,12 +121,12 @@ public class CommandLineRunnerTest
     {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner( new PrintStream( byteOut ) );
-        runner.run( "--debug", "--pdd", "greenpepper-open:greenpepper-confluence-demo:pom:[2.8,)",
+        runner.run( "--debug", "--pdd", "greenpepper:greenpepper-confluence-demo:pom:[2.8,)",
                 "src/test/resources/bank.html", "-o", "target/reports", "--xml" );
         String output = byteOut.toString();
         //System.err.println( output );
-        assertThat( output, containsString( "Artifact: greenpepper-open:greenpepper-confluence-demo:jar:fixtures:" ) );
-        assertThat( output, containsString( "Artifact: greenpepper-open:greenpepper-confluence-demo:jar:" ) );
+        assertThat( output, containsString( "Artifact: greenpepper:greenpepper-confluence-demo:jar:fixtures:" ) );
+        assertThat( output, containsString( "Artifact: greenpepper:greenpepper-confluence-demo:jar:" ) );
         assertThat( output, containsString( "Running bank.html" ) );
         assertThat( output, containsString( "17 tests: 17 right, 0 wrong, 0 ignored, 0 exception(s)" ) );
     }

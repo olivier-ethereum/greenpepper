@@ -125,8 +125,9 @@ public class PHPDriverTest {
 	@Test
 	public void testWarningGet() throws Exception {
 		php.execGet("1 / 0");
-		Assert.assertNotNull(php.getStdout());
-		String warning = php.getStdout();
+		String stdout = php.getStdout();
+        Assert.assertNull(stdout);
+		String warning = php.getStderr();
 		Assert.assertNotNull(warning);
 		Assert.assertTrue(warning.contains("Division by zero"));
 	}
@@ -181,8 +182,9 @@ public class PHPDriverTest {
 	@Test
 	public void testWarningRun() throws Exception {
 		php.execRun("1 / 0");
-		Assert.assertNotNull(php.getStdout());
-		String warning = php.getStdout();
+		String stderr = php.getStderr();
+        Assert.assertNotNull(stderr);
+		String warning = stderr;
 		Assert.assertNotNull(warning);
 		Assert.assertTrue(warning.contains("Division by zero"));
 	}

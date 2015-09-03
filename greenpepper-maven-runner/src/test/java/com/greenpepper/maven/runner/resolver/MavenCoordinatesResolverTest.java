@@ -18,12 +18,14 @@
  */
 package com.greenpepper.maven.runner.resolver;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class MavenCoordinatesResolverTest
 {
-    private CoordinatesResolver resolver = new CoordinatesResolver( null, null );
+    private CoordinatesResolver resolver = new CoordinatesResolver();
 
     @Test
     public void canResolve()

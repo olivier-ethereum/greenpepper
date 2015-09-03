@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>greenpepper</groupId>
+	<artifactId>greenpepper-maven-runner-resolver</artifactId>
+	<version>$gpversion</version>
+	<packaging>pom</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>$groupId</groupId>
+			<artifactId>$artifactId</artifactId>
+			<version>$version</version>
+#if( $packaging )
+			<type>$packaging</type>
+#end
+#if( $classifier )
+		</dependency>
+		<dependency>
+			<groupId>$groupId</groupId>
+			<artifactId>$artifactId</artifactId>
+			<version>$version</version>
+			<classifier>$classifier</classifier>
+#end
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>greenpepper</groupId>
+				<artifactId>greenpepper-maven-plugin</artifactId>
+				<version>$gpversion</version>
+				<configuration>
+					<systemUnderDevelopment>$sud</systemUnderDevelopment>
+#if( $reportsDirectory )					
+					<reportsDirectory>$reportsDirectory</reportsDirectory>
+#end
+#if($debug)
+					<debug>$debug</debug>
+#end
+					<repositories>
+						<repository>
+							<name>MavenRunnerRepo</name>
+							<type>$repositoryClass</type>
+							<root><![CDATA[$repositoryRoot]]></root>
+							<tests>
+								<test>$inputPage</test>
+							</tests>
+						</repository>
+					</repositories>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

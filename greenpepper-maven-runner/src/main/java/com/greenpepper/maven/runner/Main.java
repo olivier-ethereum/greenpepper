@@ -1,16 +1,13 @@
 /*
  * Copyright (c) 2008 Pyxis Technologies inc.
- *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
@@ -18,31 +15,33 @@
  */
 package com.greenpepper.maven.runner;
 
-public class Main
-{
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	public static void main(String... args)
-	{
-		CommandLineRunner runner = new CommandLineRunner();
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 
-		try
-		{
-			runner.run(args);
-		}
-		catch (Throwable t)
-		{
-			System.err.println(t.getMessage());
-			System.err.println("Try '--help' for more information.");
+public class Main {
 
-			if (t.getCause() != null)
-			{
-				System.err.println("Caused by:");
-				t.getCause().printStackTrace(System.err);
-			}
+    public static void main(String... args) {
+        LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+        lc.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.WARN);;
+        CommandLineRunner runner = new CommandLineRunner();
 
-			System.exit(1);
-		}
+        try {
+            runner.run(args);
+        } catch (Throwable t) {
+            System.err.println(t.getMessage());
+            System.err.println("Try '--help' for more information.");
 
-		System.exit(0);
-	}
+            if (t.getCause() != null) {
+                System.err.println("Caused by:");
+                t.getCause().printStackTrace(System.err);
+            }
+
+            System.exit(1);
+        }
+
+        System.exit(0);
+    }
 }

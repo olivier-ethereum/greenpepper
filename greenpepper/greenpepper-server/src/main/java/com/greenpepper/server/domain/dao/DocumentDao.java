@@ -60,6 +60,16 @@ public interface DocumentDao
      */
     public Specification getSpecificationByName(String repositoryUid, String specificationName);
 
+    /**
+     * Retrieves the Specifications for the specified repository UID and Names. This method will not check if some of the 
+     * names given are not available.
+     * 
+     * @param repositoryUid
+     * @param specificationNames the list of specification names.
+     * @return The list of Specifications. Will never return null.
+     */
+    List<Specification> getSpecificationsByName(String repositoryUid, List<String> specificationNames);
+    
 	/**
 	 * Retrieves the Specification for the specified id.
 	 * </p>
@@ -239,4 +249,5 @@ public interface DocumentDao
 	 * @throws GreenPepperServerException
 	 */
 	public Execution getSpecificationExecution(Long id);
+
 }

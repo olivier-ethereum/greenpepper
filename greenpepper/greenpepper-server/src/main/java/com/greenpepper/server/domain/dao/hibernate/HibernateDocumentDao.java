@@ -117,6 +117,20 @@ public class HibernateDocumentDao implements DocumentDao
 		HibernateLazyInitializer.init(specification);
 		return specification;
     }
+    
+    @Override
+    public List<Specification> getSpecificationsByName(String repositoryUid, List<String> specificationNames)
+    {
+        Criteria crit = sessionService.getSession().createCriteria(Specification.class);
+        crit.add(Restrictions.in("name", specificationNames));
+        crit.createAlias("repository", "r");
+        crit.add(Restrictions.eq("r.uid", repositoryUid));
+
+        @SuppressWarnings("unchecked")
+        List<Specification> specifications = (List<Specification>) crit.list();
+        HibernateLazyInitializer.init(specifications);
+        return specifications;
+    }
 
 	/**
 	 * @inheritDoc

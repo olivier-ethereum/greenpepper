@@ -34,7 +34,7 @@ public class HibernateLazyInitializer
 	{
 		if (object instanceof Collection)
 		{
-			initCollection((Collection)object);
+			initCollection((Collection<?>)object);
 		}
 		else if (object instanceof Marshalizable)
 		{
@@ -43,7 +43,7 @@ public class HibernateLazyInitializer
 		}
 	}
 
-	public static void initCollection(Collection collection)
+	public static void initCollection(Collection<?> collection)
 	{
 		for (Object object : collection)
 		{

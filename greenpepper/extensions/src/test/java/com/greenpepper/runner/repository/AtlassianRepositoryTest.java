@@ -1,30 +1,23 @@
 package com.greenpepper.runner.repository;
 
+import com.greenpepper.document.Document;
+import com.greenpepper.repository.DocumentRepository;
 import static com.greenpepper.util.CollectionUtil.toVector;
+import com.greenpepper.util.TestCase;
+import junit.extensions.TestSetup;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+import org.apache.xmlrpc.WebServer;
 import static org.hamcrest.Matchers.is;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
-import org.apache.xmlrpc.server.PropertyHandlerMapping;
-import org.apache.xmlrpc.server.XmlRpcServer;
-import org.apache.xmlrpc.webserver.WebServer;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 
-import com.greenpepper.document.Document;
-import com.greenpepper.repository.DocumentRepository;
-import com.greenpepper.util.TestCase;
-
-import junit.extensions.TestSetup;
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
 
 public class AtlassianRepositoryTest extends TestCase
 {
@@ -39,12 +32,6 @@ public class AtlassianRepositoryTest extends TestCase
             protected void setUp() throws Exception
             {
                 ws = new WebServer( 19005 );
-                XmlRpcServer rpcServer = ws.getXmlRpcServer();
-                Map<String,String> handlersMap = new HashMap<String, String>();
-                handlersMap.put("greenpepper1", MockHandler.class.getName());
-                PropertyHandlerMapping phm = new PropertyHandlerMapping();
-                phm.load(Thread.currentThread().getContextClassLoader(), handlersMap);
-                rpcServer.setHandlerMapping(phm);
                 ws.start();
             }
 
@@ -56,12 +43,13 @@ public class AtlassianRepositoryTest extends TestCase
         };
     }
 
-    protected void setUp() throws Exception
+    protected void setUp()
     {
         handler = context.mock( Handler.class );
-        MockHandler.jmockHandler = handler;
+        ws.removeHandler( "greenpepper1" );
+        ws.addHandler( "greenpepper1", handler );
     }
-    
+
     public void testCannotProvideListOfSpecifications() throws Exception
     {
         repo = new AtlassianRepository("http://localhost:19005/rpc/xmlrpc?handler=greenpepper1&includeStyle=true#SPACE KEY");
@@ -83,9 +71,8 @@ public class AtlassianRepositoryTest extends TestCase
 		}});
 
         repo = new AtlassianRepository("http://localhost:19005/rpc/xmlrpc?handler=greenpepper1&includeStyle=true#SPACE KEY");
-        List<?> docs = repo.listDocumentsInHierarchy();
-        // NOTE : XML RPC 3 only specifies HashMap and don't support HashTable anymore
-        Map<?, ?> pageBranch = (Map<?,?>)docs.get(2);
+        List docs = repo.listDocumentsInHierarchy();
+        Hashtable pageBranch = (Hashtable)docs.get(2);
         repo.loadDocument((String)pageBranch.keySet().iterator().next());
     }
 
@@ -245,28 +232,7 @@ public class AtlassianRepositoryTest extends TestCase
     public static interface Handler
     {
         String getRenderedSpecification(String username, String password, Vector<?> args);
-        Vector<?> getSpecificationHierarchy(String username, String password, Vector<?> args);
+        Vector getSpecificationHierarchy(String username, String password, Vector<?> args);
         String setSpecificationAsImplemented(String username, String password, Vector<?> args);
-    }
-    
-    public static class MockHandler implements Handler
-    {
-
-        public static Handler jmockHandler;
-
-        @Override
-        public String getRenderedSpecification(String username, String password, Vector<?> args) {
-            return jmockHandler.getRenderedSpecification(username, password, args);
-        }
-
-        @Override
-        public Vector<?> getSpecificationHierarchy(String username, String password, Vector<?> args) {
-            return jmockHandler.getSpecificationHierarchy(username, password, args);
-        }
-
-        @Override
-        public String setSpecificationAsImplemented(String username, String password, Vector<?> args) {
-            return jmockHandler.setSpecificationAsImplemented(username, password, args);
-        }
     }
 }

@@ -21,33 +21,26 @@ package com.greenpepper.maven.plugin;
 
 import static com.greenpepper.util.CollectionUtil.toVector;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
+import com.greenpepper.repository.FileSystemRepository;
+import com.greenpepper.runner.repository.AtlassianRepository;
+import com.greenpepper.util.IOUtil;
+import com.greenpepper.util.URIUtil;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.server.PropertyHandlerMapping;
-import org.apache.xmlrpc.server.XmlRpcServer;
-import org.apache.xmlrpc.webserver.WebServer;
+import org.apache.xmlrpc.WebServer;
 import org.jmock.Mock;
 import org.jmock.core.Constraint;
 import org.jmock.core.constraint.IsEqual;
 import org.jmock.core.matcher.InvokeOnceMatcher;
 import org.jmock.core.stub.ReturnStub;
 
-import com.greenpepper.repository.FileSystemRepository;
-import com.greenpepper.runner.repository.AtlassianRepository;
-import com.greenpepper.util.IOUtil;
-import com.greenpepper.util.URIUtil;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
 {
@@ -73,8 +66,7 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         
         mojo.pluginDependencies = new ArrayList<Artifact>();
         mojo.pluginDependencies.add( new DependencyArtifact( "commons-codec", dependency( "commons-codec-1.3.jar" )) );
-        mojo.pluginDependencies.add( new DependencyArtifact( "xmlrpc-common", dependency( "xmlrpc-common-3.1.2.jar" )) );
-        mojo.pluginDependencies.add( new DependencyArtifact( "xmlrpc-client", dependency( "xmlrpc-client-3.1.2.jar" )) ); 
+        mojo.pluginDependencies.add( new DependencyArtifact( "xmlrpc", dependency( "xmlrpc-2.0.1.jar" )) ); 
         File extension = dependency( "greenpepper-extensions-java.jar" );
         mojo.pluginDependencies.add( new DependencyArtifact( "greenpepper-extensions-java", extension  ));
 
@@ -234,18 +226,12 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         assertTrue( length > 0 );
     }
 
-    private void startWebServer() throws XmlRpcException, IOException
+    private void startWebServer()
     {
         ws = new WebServer( 9005 );
-        XmlRpcServer rpcServer = ws.getXmlRpcServer();
-        Map<String,String> handlersMap = new HashMap<String, String>();
-        handlersMap.put("greenpepper1", MockHandler.class.getName());
-        PropertyHandlerMapping phm = new PropertyHandlerMapping();
-        phm.load(Thread.currentThread().getContextClassLoader(), handlersMap);
-        rpcServer.setHandlerMapping(phm);
+        handler = new Mock( Handler.class );
+        ws.addHandler( "greenpepper1", handler.proxy() );
         ws.start();
-        handler = new Mock(Handler.class);
-        MockHandler.jmockhandler =  (Handler) handler.proxy();
     }
 
     private void stopWebServer()
@@ -256,14 +242,5 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
     public static interface Handler {
 
         String getRenderedSpecification(String username, String password, Vector<Object> args);
-    }
-    
-    public static class MockHandler implements Handler {
-        public static Handler jmockhandler;
-        
-        @Override
-        public String getRenderedSpecification(String username, String password, Vector<Object> args) {
-            return jmockhandler.getRenderedSpecification(username, password, args);
-        }
     }
 }

@@ -33,7 +33,12 @@ public class XmlRpcClientExecutorFactory {
 
         try {
             LOGGER.debug("Instanciating new executor for url {} ", url);
-            return new XmlRpcV3ClientImpl(url);
+            return new XmlRpcV2ClientImpl(url);
+            // if (loadClass("org.apache.xmlrpc.client.XmlRpcClient") == null) {
+            // return new XmlRpcV2ClientImpl(url);
+            // } else {
+            // return new XmlRpcV3ClientImpl(url);
+            // }
 
         } catch (Exception ex) {
             throw new XmlRpcClientExecutorException(GreenPepperServerErrorKey.GENERAL_ERROR, ex);

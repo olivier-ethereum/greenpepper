@@ -11,7 +11,6 @@
 
 	<properties>
 		<slf4j.version>1.6.1</slf4j.version>
-		<xmlrpc.version>3.1.2</xmlrpc.version>
 	</properties>
 
 	<!-- - Dependencies that we want for all modules -->
@@ -67,21 +66,6 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>2.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.xmlrpc</groupId>
-				<artifactId>xmlrpc-client</artifactId>
-				<version>${xmlrpc.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.xmlrpc</groupId>
-				<artifactId>xmlrpc-common</artifactId>
-				<version>${xmlrpc.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.xmlrpc</groupId>
-				<artifactId>xmlrpc-server</artifactId>
-				<version>${xmlrpc.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

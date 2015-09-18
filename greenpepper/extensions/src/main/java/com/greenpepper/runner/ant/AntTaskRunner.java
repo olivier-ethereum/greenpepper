@@ -30,7 +30,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.util.LoaderUtils;
-import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.XmlRpcClient;
 
 import com.greenpepper.GreenPepper;
 import com.greenpepper.GreenPepperCore;
@@ -391,7 +391,7 @@ public class AntTaskRunner extends Task
 
     private void appendXmlRpcClasspath(Path path)
     {
-        appendClasspath( path, XmlRpcClient.class, "xmlrpc-client-3.1.2" );
+        appendClasspath( path, XmlRpcClient.class, "xmlrpc-2.0.1.jar" );
         appendClasspath( path, StringDecoder.class, "commons-codec-1.3.jar" );
     }
 

@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>greenpepper-base</artifactId>
 		<groupId>greenpepper</groupId>
-		<version>4.0-SNAPSHOT</version>
+		<version>2.10-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>greenpepper-confluence</artifactId>
@@ -15,9 +15,9 @@
 
 	<properties>
 		<!-- Confluence version -->
-		<atlassian.product.version>5.7</atlassian.product.version>        
-		<confluence.version>5.7</confluence.version>
-        <confluence.data.version>5.7</confluence.data.version>
+		<atlassian.product.version>3.5</atlassian.product.version>        
+		<confluence.version>3.5</confluence.version>
+        <confluence.data.version>3.5</confluence.data.version>
         <amps.version>5.0.13</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
         <refapp.version>2.22.0</refapp.version>
@@ -65,14 +65,9 @@
     </dependencyManagement>
     
 	<modules>
-		<module>greenpepper-confluence3</module>
-		<module>greenpepper-confluence3-demo</module>
-		<module>greenpepper-confluence3-plugin</module>
-		<module>greenpepper-confluence4</module>
-		<module>greenpepper-confluence4-plugin</module>
-		<module>greenpepper-confluence5</module>
-		<module>greenpepper-confluence5-plugin</module>
+		<module>greenpepper-confluence-code</module>
 		<module>greenpepper-confluence-demo</module>
+		<module>greenpepper-confluence-plugin</module>
 	</modules>
 
 </project>

@@ -25,9 +25,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.atlassian.confluence.core.ConfluenceEntityObject;
 import com.atlassian.confluence.importexport.DefaultImportContext;
 import com.atlassian.confluence.importexport.ImportExportException;
@@ -56,21 +53,12 @@ public class DemoSpaceAction
 		extends GreenPepperServerAction
 {
 
-    private static final long serialVersionUID = 6646642827806562030L;
-
-    private static final String PHONEBOOK_SUD_CLASS = "com.greenpepper.confluence.demo.phonebook.PhoneBookSystemUnderDevelopment";
-
-
-    /**
-     * Logger for this class
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(DemoSpaceAction.class);
-
-
 	private static final String DEMO_NAME = "GreenPepper Demo";
 	private static final String DEMO_SUT_NAME = "Demo";
 	private static final String DEMO_SPACE_KEY = "GREENPEPPERDEMO";
 	private static final String PHONEBOOK_SUT_NAME = DEMO_SUT_NAME + " - PhoneBook";
+
+    private static final String PHONEBOOK_SUD_CLASS = "com.greenpepper.confluence.demo.phonebook.PhoneBookSystemUnderDevelopment";
 
 	private static final String RESOURCE_BUNDLE = InstallationAction.class.getName();
 	private final ThreadLocal<Locale> threadLocale = new ThreadLocal<Locale>();
@@ -105,7 +93,6 @@ public class DemoSpaceAction
 	{
 		if (!gpUtil.isServerReady())
 		{
-            LOGGER.error("Server is not correctly configured.");
 			addActionError(ConfluenceGreenPepper.SERVER_NOCONFIGURATION);
 			return SUCCESS;
 		}
@@ -127,7 +114,6 @@ public class DemoSpaceAction
 
 	public String doCreateDemoSpace()
 	{
-        LOGGER.info("creating DEMO Space");
 		try
 		{
 			if (getUsername() != null)
@@ -155,13 +141,11 @@ public class DemoSpaceAction
 		}
 		catch (GreenPepperServerException ex)
 		{
-            LOGGER.error("Error creating DEMO Space", ex);
 			addActionError(ex.getId());
 			doRemoveDemoSpace();
 		}
 		catch (Exception ex)
 		{
-            LOGGER.error("Error creating DEMO Space", ex);
 			addActionError(ex.getMessage());
 			doRemoveDemoSpace();
 		}
@@ -172,7 +156,6 @@ public class DemoSpaceAction
 	private Repository doRegisterSpace(Space demoSpace)
 			throws GreenPepperServerException
 	{
-        LOGGER.info("Registering DEMO Space");
 		Repository demoRepository = getDemoRepository();
 
 		if (demoRepository != null) return demoRepository;
@@ -233,6 +216,7 @@ public class DemoSpaceAction
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void doGreenPepperizedPage(Space demoSpace, Repository demoRepository)
 			throws GreenPepperServerException
 	{
@@ -268,7 +252,7 @@ public class DemoSpaceAction
 
 	private void doAddRemoteUserToGreenPepperUserGroup()
 	{
-        final User remoteUser = this.getAuthenticatedUser();
+		final User remoteUser = this.getRemoteUser();
 
 		if (!gpUtil.getGreenPepperUserGroup().hasMembership(remoteUser))
 		{
@@ -351,7 +335,6 @@ public class DemoSpaceAction
 	private void doImportDemoSite()
 			throws FileNotFoundException, ImportExportException
 	{
-        LOGGER.info("Importing DEMO site");
 		URL demoSiteZipUrl = DemoSpaceAction.class.getResource("/com/greenpepper/confluence/demo/demo-site.zip");
 
 		if (demoSiteZipUrl == null)
@@ -359,7 +342,7 @@ public class DemoSpaceAction
 			throw new FileNotFoundException("Cannot find demo-site.zip");
 		}
 
-        DefaultImportContext ctx = new DefaultImportContext(demoSiteZipUrl, getAuthenticatedUser());
+		DefaultImportContext ctx = new DefaultImportContext(demoSiteZipUrl, null);
 		final Date importStart = new Date();
 
 		ctx.setPostProcessor(new ImportedObjectPostProcessor()
@@ -387,12 +370,11 @@ public class DemoSpaceAction
 			}
 		});
 
-        getImportExportManager().doImport(ctx);
+		getImportExportManager().importAs(ImportExportManager.TYPE_ALL_DATA, ctx);
 	}
 
 	public String doRemoveDemoSpace()
 	{
-        LOGGER.info("Removing DEMO space.");
 		try
 		{
 			Space demoSpace = getDemoSpace();
@@ -406,7 +388,6 @@ public class DemoSpaceAction
 		}
 		catch (Exception ex)
 		{
-            LOGGER.error("ERROR Removing DEMO space", ex);
 			addActionError(ex.getMessage());
 		}
 

@@ -5,7 +5,7 @@
 	<groupId>greenpepper</groupId>
 	<artifactId>greenpepper-base</artifactId>
 	<packaging>pom</packaging>
-	<version>2.10</version>
+	<version>2.11-SNAPSHOT</version>
 	<name>GreenPepper</name>
 
 	<properties>

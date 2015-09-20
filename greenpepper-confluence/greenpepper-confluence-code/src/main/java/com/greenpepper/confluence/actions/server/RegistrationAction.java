@@ -80,7 +80,7 @@ public class RegistrationAction extends GreenPepperServerAction
 			/* BEGIN : COMMENT THIS FOR DEPLOYING TO GPS  */
 			if (gpUtil.isCommercialLicense())
 			{
-                final User activeUser = getAuthenticatedUser();
+                final User activeUser = getRemoteUser();
 
 				if (activeUser == null)
 				{

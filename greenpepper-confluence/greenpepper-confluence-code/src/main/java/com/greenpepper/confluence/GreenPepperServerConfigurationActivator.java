@@ -283,7 +283,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     }
 
     private String getConfluenceHome() {
-        return bootstrapManager.getLocalHome().getAbsolutePath();
+        return bootstrapManager.getConfluenceHome();
     }
 
     private ServletContext getServletContext() {

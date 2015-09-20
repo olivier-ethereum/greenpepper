@@ -658,11 +658,11 @@ public class ConfluenceGreenPepper {
             String remoteUserName = request.getRemoteUser();
 
             if (remoteUserName != null) {
-                return getUserAccessor().getUserByName(remoteUserName);
+                return getUserAccessor().getUserIfAvailable(remoteUserName);
             }
         }
 
-        return AuthenticatedUserThreadLocal.get();
+        return AuthenticatedUserThreadLocal.getUser();
     }
 
     public String getPageProperty(String key, String identifier) {

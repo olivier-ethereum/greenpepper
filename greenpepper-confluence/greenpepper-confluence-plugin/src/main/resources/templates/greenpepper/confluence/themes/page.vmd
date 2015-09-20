@@ -132,7 +132,5 @@
 ## GENERAL PAGE DECORATING ENDS
 
 #parse ("/pages/page-breadcrumbs.vm")
-#if ($mode != "edit" && $mode != "edit-preview")
-    #parse("/template/includes/space-tools-web-items.vm")
-#end
+
 #menuMacros_renderBrowseMenu()

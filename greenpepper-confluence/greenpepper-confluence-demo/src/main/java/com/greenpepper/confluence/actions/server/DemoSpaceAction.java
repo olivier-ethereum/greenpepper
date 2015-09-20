@@ -268,7 +268,7 @@ public class DemoSpaceAction
 
 	private void doAddRemoteUserToGreenPepperUserGroup()
 	{
-        final User remoteUser = this.getAuthenticatedUser();
+        final User remoteUser = this.getRemoteUser();
 
 		if (!gpUtil.getGreenPepperUserGroup().hasMembership(remoteUser))
 		{
@@ -359,7 +359,7 @@ public class DemoSpaceAction
 			throw new FileNotFoundException("Cannot find demo-site.zip");
 		}
 
-        DefaultImportContext ctx = new DefaultImportContext(demoSiteZipUrl, getAuthenticatedUser());
+        DefaultImportContext ctx = new DefaultImportContext(demoSiteZipUrl, getRemoteUser());
 		final Date importStart = new Date();
 
 		ctx.setPostProcessor(new ImportedObjectPostProcessor()

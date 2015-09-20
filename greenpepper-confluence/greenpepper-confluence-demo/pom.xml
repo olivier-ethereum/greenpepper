@@ -21,7 +21,7 @@
 		</dependency>
 		<dependency>
 			<groupId>greenpepper</groupId>
-			<artifactId>greenpepper-confluence5</artifactId>
+			<artifactId>greenpepper-confluence-code</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>

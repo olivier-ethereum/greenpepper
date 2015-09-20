@@ -65,13 +65,8 @@
     </dependencyManagement>
     
 	<modules>
-		<module>greenpepper-confluence3</module>
-		<module>greenpepper-confluence3-demo</module>
-		<module>greenpepper-confluence3-plugin</module>
-		<module>greenpepper-confluence4</module>
-		<module>greenpepper-confluence4-plugin</module>
-		<module>greenpepper-confluence5</module>
-		<module>greenpepper-confluence5-plugin</module>
+		<module>greenpepper-confluence-code</module>
+		<module>greenpepper-confluence-plugin</module>
 		<module>greenpepper-confluence-demo</module>
 	</modules>
 

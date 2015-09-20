@@ -1,7 +1,7 @@
 <atlassian-plugin key="com.greenpepper.confluence.plugin" name="GreenPepper Toolbox">
     <plugin-info>
-        <description><![CDATA[Provides various GreenPepper functionnalities and more.<br>Please visite our website: <a href="http://www.greenpeppersoftware.com">http://www.greenpeppersoftware.com</a>]]></description>
-        <vendor name="Pyxis Technologies inc." url="http://www.greenpepppersoftware.com"/>
+        <description><![CDATA[Provides various GreenPepper functionnalities and more.<br>Please visit our website: <a href="http://strator-dev.github.io/greenpepper/">http://strator-dev.github.io/greenpepper/</a>]]></description>
+        <vendor name="The GreenPepper Revival Team" url="http://strator-dev.github.io/greenpepper/"/>
         <version>${pom.version}</version>
         <param name="configure.url">/admin/plugins/greenpepper/config.action</param>
     </plugin-info>

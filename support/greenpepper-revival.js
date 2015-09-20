@@ -32,6 +32,11 @@ gprControllers.config(['$stateProvider', '$urlRouterProvider',
             templateUrl:'components/documentation/10minutes-testing.html',
             controller : 'DocumentationController'
         })
+        .state("documentation.faq", {
+            url: '/faq',
+            templateUrl:'components/documentation/faq.html',
+            controller : 'DocumentationController'
+        })
         .state("documentation.specification-guide", {
             url: '/specification-guide',
             templateUrl:'components/documentation/specification-guide.html',

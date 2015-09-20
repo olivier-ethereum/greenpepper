@@ -92,3 +92,10 @@ gpname {
 .downloads-section .body {
 	
 }
+
+.faq > .answer > .long {
+}
+
+.faq > .answer > .long {
+    font-size: small;
+}

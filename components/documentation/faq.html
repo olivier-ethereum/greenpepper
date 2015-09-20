@@ -1,0 +1,17 @@
+<div>
+	<div class="faq">
+		<h2 class="question">I have migrated from confluence 3 to confluence 5. Since then, my fixtures are not found, why?</h2>
+		<blockquote class="answer">
+			<p class="short">
+				Go to
+				<mark>[confluence_base_url]/admin/unmigratedwikicontent.action</mark>
+				and launch the migration of unmigrated pages
+			</p>
+			<p class="long">
+				During the migration process, when the targeted confluence version doesn't have the GreenPepper plugin installed, the page is not migrated (due to unknown macro). This is not visible to you
+				because the pages are surrounded by markups <b><mark>unmigrated-wiki-markup</mark></b>.<br /> Those markups keep the content of the page unmigrated by render the page correctly. Now, what is the
+				problem with GreenPepper ?<br /> The GreenPepper <mark>greenpepper-import</mark> macro changed between the two version and it needs to be upgraded. So you need to force the upgrade again.
+			</p>
+		</blockquote>
+	</div>
+</div>

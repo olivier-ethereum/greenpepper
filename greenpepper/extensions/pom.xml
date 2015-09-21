@@ -11,7 +11,7 @@
 	<parent>
 		<artifactId>greenpepper</artifactId>
 		<groupId>greenpepper</groupId>
-		<version>4.0</version>
+		<version>4.1-SNAPSHOT</version>
 	</parent>
 
     <dependencies>

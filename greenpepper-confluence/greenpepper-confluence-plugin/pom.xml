@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>greenpepper-confluence</artifactId>
 		<groupId>greenpepper</groupId>
-		<version>4.0</version>
+		<version>4.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>greenpepper-confluence5-plugin</artifactId>

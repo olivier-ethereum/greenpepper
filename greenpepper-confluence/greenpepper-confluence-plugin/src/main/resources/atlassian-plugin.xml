@@ -29,12 +29,14 @@
         <description>Default GreenPepper Colour Theme</description>
 		<colour-scheme key="com.greenpepper.confluence.plugin:greenpepper.colours"/>
         <resource type="stylesheet" name="greenpepper-theme.css" location="templates/greenpepper/confluence/themes/greenpepper-theme-css.vm"/>
+        <space-ia value="true"/>
     </theme>
     <theme key="greenpepper.theme" name="GreenPepper Theme" class="com.atlassian.confluence.themes.BasicTheme">
         <description>Default confluence page decorator with GreenPepper functionalities.</description>
 		<colour-scheme key="com.greenpepper.confluence.plugin:greenpepper.colours"/>
         <layout key="com.greenpepper.confluence.plugin:greenpepper.page"/>
 		<resource type="stylesheet" name="greenpepper-theme.css" location="templates/greenpepper/confluence/themes/greenpepper-theme-css.vm"/>
+		<space-ia value="true"/>
 	</theme>
     <colour-scheme key="greenpepper.colours" name="GreenPepper Colours" class="com.atlassian.confluence.themes.BaseColourScheme">
 		<colour key="topbar" value="#8CC06D"/>

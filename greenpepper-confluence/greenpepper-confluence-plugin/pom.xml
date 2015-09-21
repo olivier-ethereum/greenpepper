@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<artifactId>greenpepper-confluence</artifactId>
 		<groupId>greenpepper</groupId>
-		<version>4.0-SNAPSHOT</version>
+		<version>4.0</version>
 	</parent>
 
 	<artifactId>greenpepper-confluence5-plugin</artifactId>
@@ -88,8 +87,7 @@
 						<phase>validate</phase>
 						<configuration>
 							<tasks>
-								<copy todir="${project.build.directory}/javascript-sources"
-									includeemptydirs="false">
+								<copy todir="${project.build.directory}/javascript-sources" includeemptydirs="false">
 									<fileset dir="src/main/javascript">
 										<include name="*.js" />
 									</fileset>
@@ -155,7 +153,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

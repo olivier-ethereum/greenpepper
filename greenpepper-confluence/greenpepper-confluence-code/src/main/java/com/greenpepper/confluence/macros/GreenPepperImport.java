@@ -39,18 +39,18 @@ public class GreenPepperImport extends AbstractGreenPepperMacro
         return VelocityUtils.getRenderedTemplate("/templates/greenpepper/confluence/macros/greenPepperMacros-error.vm", contextMap);
     }
 
-    private List<String> getImportList(Map parameters)
+    private List<String> getImportList(Map<String,String> parameters)
     {
-//        int index = 0;
         List<String> imports = new ArrayList<String>();
         
         // v3
-//        String importParam = (String)parameters.get(""+index);
-//        while(importParam != null)
-//        {
-//            imports.add(ConfluenceGreenPepper.clean(importParam));
-//            importParam = (String)parameters.get(""+ ++index);
-//        }
+        int index = 0;
+        String importParam = (String)parameters.get(String.valueOf(index));
+        while(importParam != null)
+        {
+            imports.add(ConfluenceGreenPepper.clean(importParam));
+            importParam = (String)parameters.get(String.valueOf(++index));
+        }
         
         // v4
         String[] values = MacroParametersUtils.extractParameterMultiple(IMPORTS_PARAM, parameters);

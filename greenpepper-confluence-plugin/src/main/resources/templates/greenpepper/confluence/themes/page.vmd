@@ -11,15 +11,6 @@
 
 #requireResourcesForContext("page")
 
-#if ($mode == "view")
-    #requireResourcesForContext("pagebanner")
-    <content tag="page-metadata-banner">
-        #skiplink("page-banner", $i18n.getText("assistive.skiplink.to.banner.start"), $i18n.getText("assistive.skiplink.to.banner.end"))
-            #webPanelForLocation("atl.page.metadata.banner", {"action": $action})
-        #end
-    </content>
-#end
-
 #if ($mode != "edit" && $mode != "edit-preview")
     #parse ("/decorators/includes/content-navigation.vm")
 #end
@@ -49,12 +40,9 @@
     ## VIEW
 
     #if ($mode == "view")
-        <content tag="headsection">
-            #webPanelForLocation("atl.confluence.viewpage.header" $action.context)
-        </content>
-
         #if ($space.personal)
-            #if ($permissionHelper.canView($action.authenticatedUser, $space.creator))
+            #set ($usernameFromSpaceKey = $spaceUtils.getUsernameFromPersonalSpaceKey($spaceKey))
+            #if ($permissionHelper.canView($action.remoteUser, $action.getUser($usernameFromSpaceKey)))
                 ## Deprecated: needed in case main.vmd hasn't been updated
                 <content tag="show-personal-sidebar">true</content>
             #end
@@ -70,9 +58,8 @@
         #end
 
         #parse ("/decorators/includes/page-metadata.vm")
-
         #if ($helper.isHistoricalVersion() || $helper.action.navigatingVersions)
-            #versionInfo()
+                #versionInfo()
         #end
 
         ## If you choose to move page it's being done from view mode
@@ -104,8 +91,6 @@
             #decoratorParam("context" "comments")
         #end
 
-        #webPanelForLocation("atl.page.content.footer", {"action": $action})
-
     ## EDIT || PREVIEW-EDIT
     #elseif ($mode == "edit" || $mode == "edit-preview")
         $body
@@ -132,5 +117,4 @@
 ## GENERAL PAGE DECORATING ENDS
 
 #parse ("/pages/page-breadcrumbs.vm")
-
 #menuMacros_renderBrowseMenu()

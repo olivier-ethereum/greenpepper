@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>greenpepper-base</artifactId>
-		<groupId>com.github.stator-dev.greenpepper</groupId>
+		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<version>4.0-beta2-SNAPSHOT</version>
 	</parent>
 	<!-- - Basic Project Information -->
-	<groupId>com.github.stator-dev.greenpepper</groupId>
+	<groupId>com.github.strator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-open</artifactId>
 	<packaging>pom</packaging>
 	<name>GreenPepper Open</name>

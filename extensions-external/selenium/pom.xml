@@ -6,7 +6,7 @@
 	<name>GreenPepper Extensions Selenium</name>
 
 	<parent>
-		<groupId>com.github.stator-dev.greenpepper</groupId>
+		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<artifactId>greenpepper-extensions-parent</artifactId>
 		<version>4.0-beta2-SNAPSHOT</version>
 	</parent>
@@ -17,12 +17,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.stator-dev.greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.stator-dev.greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<type>test-jar</type>
 			<version>${project.version}</version>
@@ -45,7 +45,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.github.stator-dev.greenpepper</groupId>
+				<groupId>com.github.strator-dev.greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
 				<version>${greenpepper.maven.plugin.version}</version>
 				<configuration>

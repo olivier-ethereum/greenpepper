@@ -8,9 +8,9 @@
 	<dependencySets>
 		<dependencySet>
 			<includes>
-				<include>com.github.stator-dev.greenpepper:greenpepper-core</include>
-				<include>com.github.stator-dev.greenpepper:greenpepper-extensions-java</include>
-				<include>com.github.stator-dev.greenpepper:greenpepper-client</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-core</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-extensions-java</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-client</include>
 				<include>commons-codec:commons-codec</include>
 				<include>xmlrpc:xmlrpc</include>
 				<include>org.slf4j:slf4j-api</include>

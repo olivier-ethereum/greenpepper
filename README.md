@@ -15,7 +15,9 @@
 # Build and get the jar
 
 ```sh
+# set the version to retrieve to the version of the specified pom.xml
+GPVERSION=$(grep -m 1 -o '<version>.*</version>' pom.xml | sed -r -e 's@<version>(.+)</version>@\1@')
 docker build --tag green-build .
 docker run -d --name green green-build true
-docker cp green:/usr/src/app/greenpepper-confluence/greenpepper-confluence-plugin/target/greenpepper-confluence5-plugin-<version>-complete.jar .
+docker cp green:/usr/src/app/greenpepper/greenpepper-client/target/greenpepper-client-${GPVERSION}-complete.jar .
 ```

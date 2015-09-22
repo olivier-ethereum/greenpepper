@@ -127,7 +127,6 @@
 
 	<modules>
 		<module>greenpepper</module>
-		<module>greenpepper-confluence</module>
 		<module>greenpepper-maven-plugin</module>
 	</modules>
 </project>

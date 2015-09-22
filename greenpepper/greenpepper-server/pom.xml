@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>greenpepper</artifactId>
 		<groupId>greenpepper</groupId>
-		<version>4.1-SNAPSHOT</version>
+		<version>4.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>greenpepper-server</artifactId>
 	<packaging>jar</packaging>

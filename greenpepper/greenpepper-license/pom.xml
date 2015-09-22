@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>greenpepper</artifactId>
-        <groupId>greenpepper</groupId>
+        <groupId>com.github.stator-dev.greenpepper</groupId>
         <version>4.0-beta2-SNAPSHOT</version>
     </parent>
     <artifactId>greenpepper-license</artifactId>
@@ -11,12 +11,12 @@
 
     <dependencies>
     		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<type>test-jar</type>
 			<scope>test</scope>
@@ -41,7 +41,7 @@
 </dependency>
 
 <dependency>
-            <groupId>greenpepper</groupId>
+            <groupId>com.github.stator-dev.greenpepper</groupId>
             <artifactId>greenpepper-client</artifactId>
             <version>${project.version}</version>
         </dependency>

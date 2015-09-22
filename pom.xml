@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- - Basic Project Information -->
-	<groupId>greenpepper</groupId>
+	<groupId>com.github.stator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-base</artifactId>
 	<packaging>pom</packaging>
 	<version>4.0-beta2-SNAPSHOT</version>

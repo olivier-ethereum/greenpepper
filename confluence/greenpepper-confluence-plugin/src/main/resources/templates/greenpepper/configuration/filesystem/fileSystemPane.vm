@@ -1,0 +1,24 @@
+#if($action.readonly)<span id="readonly" style="display:none"></span>#end
+
+<div class="stepTitle">$action.getText('greenpepper.filesystem.title')
+	#if(!$action.editMode && $action.isServerReady)<span id="fileSystemEdit_edit" class="sp_configLinks" onclick="gpProperties.editFileSystem()">($action.getText('greenpepper.filesystem.edit'))</span>#end
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	<span  id="fileSystemPaneError_display" class="gpErrMsg">
+		&nbsp;&nbsp;
+		#foreach($error in $action.actionErrors)
+			$action.getText($error)
+		#end
+	</span>
+#end
+</div>
+#if($action.isServerReady)
+	<p>$action.getText('greenpepper.filesystem.desc')</p>
+	<div class="form-block greyboxfilled">
+		#if(!$action.editMode)
+			#parse('templates/greenpepper/configuration/filesystem/fileSystem.vm')
+		#else
+			#parse('templates/greenpepper/configuration/filesystem/fileSystemEdit.vm')
+		#end
+	</div>
+#end

@@ -1,0 +1,54 @@
+#if (!$action.actionErrors.isEmpty())
+	<div id="dbmsEdit_errMsg" class="gpErrMsg">
+		#foreach($error in $action.actionErrors)
+			<span>$action.getText($error)</span><br>
+		#end
+	</div>
+#end
+<table class="sp_configItemView" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="sp_configSubTitle">
+			<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif" alt="" border="0">
+			$action.getText('greenpepper.install.installtypelabel')
+		</td>
+		<td class="sp_configOutput">
+			<span id="dbmsView_type">
+				#if($action.isCustomSetup)
+					$action.getText('greenpepper.install.custom')
+				#else
+					$action.getText('greenpepper.install.quick')
+				#end
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="sp_configSubTitle">
+			<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif" alt="" border="0">
+			$action.getText('greenpepper.install.dbms')
+		</td>
+		<td class="sp_configOutput">
+			<span id="dbmsView_dialect">
+				#if($action.isCustomSetup())
+					#foreach($dialect in $action.dialects)
+						#if($dialect.className.equals($!action.hibernateDialect))$dialect&nbsp;&nbsp;&nbsp;#end
+					#end
+				#else
+					HSQL
+				#end
+			</span>
+		</td>
+	</tr>
+	#if($action.isCustomSetup())
+		<tr>
+			<td class="sp_configSubTitle">
+				<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif" alt="" border="0">
+				$action.getText('greenpepper.install.jndiurl')
+			</td>
+			<td class="sp_configOutput" colspan="2">
+				<span id="dbmsView_jndi">
+					$!action.jndiUrl
+				</span>
+			</td>
+		</tr>
+	#end
+</table>

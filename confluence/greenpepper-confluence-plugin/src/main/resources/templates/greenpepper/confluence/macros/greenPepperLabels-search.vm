@@ -1,0 +1,39 @@
+<div class="conf_pageMacro">
+	<table width="100%">
+		<tr style="display:none"><td colspan="2">Begin Info</td></tr>
+		<tr>
+			<td width="60%" class="conf_executionTitle">
+				<span id="conf_executionTitle_${bulkUID}_${executionUID}" class="conf_executionTitle">
+					#if($title)$title
+					#else$greenPepper.getText('greenpepper.labels.title')
+					#end
+				</span>
+				<span id="conf_waiting_display_${bulkUID}_${executionUID}" style="display:none;vertical-align:bottom;"><img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/images/wait.gif" alt="" border="0"></span><span class="conf_executionTitle">&nbsp;</span>
+				<span id="conf_error_display_${bulkUID}_${executionUID}" class="conf_smallErrMsg" style="display:none"></span>
+			</td>	
+			<td id="conf_statusbar_${bulkUID}_${executionUID}" align="right" width="40%" cellpadding="0" cellspaceing="0"  onclick="conf_greenPepper.getList('$bulkUID', '$executionUID').statusBar.switchView();" style="display:none; cursor:pointer;"></td>
+		</tr>
+		<tr>
+			<td width="100%" style="padding:0px 0px 5px 5px" colspan="2">
+				<span class="conf_exeItem">$greenPepper.getText('greenpepper.labels.label')</span>
+				<span class="gpSmallText">$greenPepper.getText('greenpepper.labels.labelcomma')</span>
+				<input style="color: #003366; font-size: 11px;" type="text" id="conf_labels_${bulkUID}_${executionUID}" size="35"/>
+				<span class="conf_exeItem">$greenPepper.getText('greenpepper.labels.narrowon')</span>
+				#if(!$spaceKey)
+					<select style="color: #003366; font-size: 11px;" id="conf_spaces_select_${bulkUID}_${executionUID}">
+						#foreach($space in $spaces)
+							<option value="$space.key" #if($space.key.equals($currentSpaceKey))selected#end>$space.key</option>
+						#end
+					</select>
+				#else
+					<span id="conf_spaces_selected_${bulkUID}_${executionUID}" class="conf_exeItem">$spaceKey</span>
+				#end
+				<span id="conf_search_${bulkUID}_${executionUID}" class="conf_button" onclick="conf_greenPepper.search('$req.contextPath', '$bulkUID', '$executionUID', '$openInSameWindow',  #if($forcedSuts)'$forcedSuts'#else''#end #if($spaceKey), '$spaceKey'#end);"><img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper-labels/images/search.gif" border="0" alt="" title="$greenPepper.getText('greenpepper.labels.search')"></span>
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" id="conf_${bulkUID}_${executionUID}" style="vertical-align: top;" colspan="2"></td>
+		</tr>
+	</table>
+	<table style="display:none"><tr><td>End Info</td></tr></table>
+</div>

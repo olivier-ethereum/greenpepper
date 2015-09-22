@@ -1,0 +1,52 @@
+#if (!$action.actionErrors.isEmpty())
+	<div id="dbmsEdit_errMsg" class="gpErrMsg">
+		#foreach($error in $action.actionErrors)
+			<span>$action.getText($error)</span><br>
+		#end
+	</div>
+#end
+<table class="sp_configItemView" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="sp_configSubTitle">
+			<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif" alt="" border="0">
+			$action.getText('greenpepper.install.dbms')
+		</td>
+		<td class="sp_configInput">
+			#if($action.isCustomSetup())
+				<select id="dbms">
+					#foreach($dialect in $action.dialects)
+						<option value="$dialect.className" class="sp_configSelectOption" #if($!action.hibernateDialect && $dialect.className.equals($!action.hibernateDialect)) selected #end>$dialect&nbsp;&nbsp;&nbsp;</option>
+					#end
+				</select>
+			#else
+				HSQL
+			#end
+		</td>
+		<td class="sp_configTxt" rowspan="2">
+			#if($action.isCustomSetup())
+				<span id="dbmsEdit_updateCustom" class="sp_configLinks" onclick="gpProperties.updateCustomDbmsConfiguration();">$action.getText('greenpepper.configuration.save')</span>
+			#else
+				<span id="dbmsEdit_updateQuick" class="sp_configLinks" onclick="gpProperties.updateQuickDbmsConfiguration();">$action.getText('greenpepper.configuration.save')</span>
+			#end
+			|
+			<span id="dbmsEdit_cancel" class="sp_configLinks" onclick="updateTabsUI(this);gpProperties.getDbmsConfigPane();">$action.getText('greenpepper.configuration.cancel')</span>
+			#if($action.isCustomSetup())
+				|
+				<span id="dbsmEdit_test" class="sp_configLinks" onclick="gpProperties.testDbmsConnection();">$action.getText('greenpepper.configuration.testconnection')</span>
+				<span id="testConnection_display"></span>
+			#end
+		</td>
+	</tr>
+	#if($action.isCustomSetup())
+		<tr>
+			<td class="sp_configSubTitle">
+				<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/greenpepper_12.gif" alt="" border="0">
+				$action.getText('greenpepper.install.jndiurl')
+			</td>
+			<td class="sp_configInput" colspan="2">
+				<input id="jndi_txtfield" class="sp_configInput" value="$!action.jndiUrl" size="35"/>
+				<span class="sp_configMandatory" title="$action.getText('greenpepper.install.dbms.mandatorytxt')">$action.getText('greenpepper.install.dbms.mandatory')<span>
+			</td>
+		</tr>
+	#end
+</table>

@@ -1,0 +1,39 @@
+
+<table id="fileSystemEdit" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="sp_configSubTitle" style="width:15%">$action.getText('greenpepper.filesystem.project')</td>
+		<td class="sp_configSubTitle" style="width:15%">$action.getText('greenpepper.filesystem.name')</td>
+		<td class="sp_configSubTitle" style="width:70%" colspan="2">$action.getText('greenpepper.filesystem.path')</td>
+	</tr>
+	#foreach($repository in $action.fileRepositories)
+		<tr #if(($velocityCount)%2 == 0) class="sp_oddRow"#end>
+			#set($index = $velocityCount - 1)
+			<td id="fileSystemEdit_project_$index" class="sp_configOutput">$repository.project.name</td>
+			<td id="fileSystemEdit_name_$index" class="sp_configOutput">$repository.name</td>
+			<td id="fileSystemEdit_url_$index" class="sp_configOutput">$repository.baseTestUrl</td>
+			<td class="sp_cplinksView"><span id="fileSystemEdit_remove_$index" class="sp_configLinks" onclick="gpProperties.removeFileSystem('$repository.uid');">$action.getText('greenpepper.filesystem.remove')</span></td>
+		</tr>
+	#end
+	<tr>
+		<td class="sp_pathInput">
+			<select id="newProjectName">
+				#foreach($project in $action.Projects)
+					<option value="$project.name">$project.name</option>
+				#end	
+			</select>
+		</td>
+		<td class="sp_pathInput">
+			<input type="text" id="newFileSystemName" value="$!action.newRepository.name" size="30"/>
+		</td>
+		<td class="sp_pathInput">
+			<input type="text" id="newFileSystemUrl" value="$!action.newRepository.baseTestUrl" size="40"/>
+		</td>
+		<td class="sp_cplinksView">
+			<span class="sp_configTxt">
+				<span id="fileSystemEdit_add" class="sp_configLinks" onclick="gpProperties.addFileSystem();">$action.getText('greenpepper.filesystem.add')</span>
+				|
+				<span id="fileSystemEdit_done" class="sp_configLinks" onclick="gpProperties.getFileSystemRegistration();">$action.getText('greenpepper.filesystem.done')</span>
+			</span>
+		</td>
+	</tr>
+</table>

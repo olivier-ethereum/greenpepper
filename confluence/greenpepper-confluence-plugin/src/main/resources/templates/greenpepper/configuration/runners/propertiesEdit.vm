@@ -1,0 +1,41 @@
+<table class="sp_configPropertiesView" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.name')</td>
+		<td class="sp_configInput">
+			<input type="text" id="runnerName" class="sp_configInput" value="$action.selectedRunner.name" size="40" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+			<span class="sp_configMandatory" title="$action.getText('greenpepper.runners.mandatorytxt')">$action.getText('greenpepper.runners.mandatory')<span>
+		</td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.cmdline')</td>
+		<td class="sp_configSmallInput" colspan="2">
+			<input type="text" id="cmdLineTemplate" class="sp_configSmallInput" value="$!action.selectedRunner.cmdLineTemplate" size="90"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.mainclass')</td>
+		<td class="sp_configInput"><input type="text" id="mainClass" class="sp_configInput" value="$!action.selectedRunner.mainClass" size="80" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.envtype')</td>
+		<td class="sp_configInput">
+			<select id="envType" class="sp_configSmallSelectOption">
+				#foreach($envType in $action.envTypes)
+					<option value="$envType.name" #if($envType.name.equals($action.selectedRunner.environmentType.name)) selected #end>$envType.name</option>
+				#end
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.servername')</td>
+		<td class="sp_configInput"><input type="text" id="serverName" class="sp_configInput" value="$!action.selectedRunner.serverName" size="40" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.serverport')</td>
+		<td class="sp_configInput"><input type="text" id="serverPort" class="sp_configInput" value="$!action.selectedRunner.serverPort" size="20" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/></td>
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.runners.secured')</td>
+		<td class="sp_configInput" colspan="2"><input type="checkbox" id="secured" class="sp_configInput" #if($action.selectedRunner.secured) checked="checked" #end size="20"/>$action.getText('greenpepper.runners.secured.desc')</td>
+	</tr>
+</table>

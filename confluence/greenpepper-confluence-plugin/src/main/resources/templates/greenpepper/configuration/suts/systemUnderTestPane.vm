@@ -1,0 +1,5 @@
+#if(!$action.addMode)
+	#parse('templates/greenpepper/configuration/suts/systemUnderTest.vm')
+#else
+	#parse('templates/greenpepper/configuration/suts/systemUnderTestInputs.vm')
+#end

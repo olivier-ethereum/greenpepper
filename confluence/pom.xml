@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- - Basic Project Information -->
+	<parent>
+		<artifactId>greenpepper-base</artifactId>
+		<groupId>greenpepper</groupId>
+		<version>4.0-beta2-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>greenpepper-confluence</artifactId>
+	<packaging>pom</packaging>
+	<name>GreenPepper Confluence</name>
+
+	<properties>
+		<!-- Confluence version -->
+		<atlassian.product.version>5.0.3</atlassian.product.version>        
+		<confluence.version>5.0.3</confluence.version>
+        <confluence.data.version>5.0.3</confluence.data.version>
+        <amps.version>5.0.13</amps.version>
+        <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
+        <refapp.version>2.22.0</refapp.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.refapp</groupId>
+                <artifactId>atlassian-platform</artifactId>
+                <version>${refapp.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+	<modules>
+		<module>greenpepper-confluence-code</module>
+		<module>greenpepper-confluence-plugin</module>
+		<module>greenpepper-confluence-demo</module>
+	</modules>
+
+</project>

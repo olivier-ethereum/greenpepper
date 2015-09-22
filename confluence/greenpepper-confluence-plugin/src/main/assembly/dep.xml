@@ -8,13 +8,13 @@
 	<dependencySets>
 		<dependencySet>
 			<includes>
-				<include>greenpepper:greenpepper-client</include>
-				<include>greenpepper:greenpepper-server</include>
-				<include>greenpepper:greenpepper-license</include>
-				<include>greenpepper:greenpepper-extensions-java</include>
-				<include>greenpepper:greenpepper-core</include>
-				<include>greenpepper:greenpepper-confluence-code</include>
-				<include>greenpepper:greenpepper-confluence-demo</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-client</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-server</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-license</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-extensions-java</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-core</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-confluence-code</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-confluence-demo</include>
 				<include>xmlrpc:xmlrpc</include>
 				<include>commons-codec:commons-codec</include>
 				<include>org.hibernate:hibernate</include>
@@ -26,8 +26,8 @@
 				<include>de.schlichtherle.truelicense:truelicense-xml</include>
 			</includes>
 			<excludes>
-				<exclude>greenpepper:greenpepper-client:jar:complete</exclude>
-				<exclude>greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
+				<exclude>com.github.stator-dev.greenpepper:greenpepper-client:jar:complete</exclude>
+				<exclude>com.github.stator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
 			</excludes>
 			<unpack>true</unpack>
 			<unpackOptions>
@@ -47,8 +47,8 @@
 		</dependencySet>
 		<dependencySet>
 			<includes>
-				<include>greenpepper:greenpepper-client:jar:complete</include>
-				<include>greenpepper:greenpepper-confluence-demo:jar:fixtures</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-client:jar:complete</include>
+				<include>com.github.stator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures</include>
 			</includes>
 			<unpack>false</unpack>
 		</dependencySet>

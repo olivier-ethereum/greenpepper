@@ -9,9 +9,9 @@
     <name>GreenPepper Samples</name>
 
     <parent>
-        <groupId>greenpepper-open</groupId>
+        <groupId>com.github.stator-dev.greenpepper</groupId>
         <artifactId>greenpepper-open</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>4.0-beta2-SNAPSHOT</version>
     </parent>
 
     <build>
@@ -28,7 +28,7 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>greenpepper</groupId>
+                <groupId>com.github.stator-dev.greenpepper</groupId>
                 <artifactId>greenpepper-maven-plugin</artifactId>
                 <version>${greenpepper.maven.plugin.version}</version>
                 <configuration>
@@ -81,7 +81,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>greenpepper</groupId>
+            <groupId>com.github.stator-dev.greenpepper</groupId>
             <artifactId>greenpepper-extensions-java</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -8,19 +8,19 @@
 	<name>GreenPepper Extensions Sandbox (Experimental)</name>
 
 	<parent>
-		<groupId>greenpepper-open</groupId>
+		<groupId>com.github.stator-dev.greenpepper</groupId>
 		<artifactId>greenpepper-extensions-parent</artifactId>
 		<version>3.1</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<type>test-jar</type>
 			<version>${project.version}</version>
@@ -61,7 +61,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>greenpepper</groupId>
+				<groupId>com.github.stator-dev.greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
 				<version>${greenpepper.maven.plugin.version}</version>
 				<configuration>

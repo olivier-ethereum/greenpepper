@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>greenpepper-base</artifactId>
-		<groupId>greenpepper</groupId>
-		<version>4.0-SNAPSHOT</version>
+		<groupId>com.github.stator-dev.greenpepper</groupId>
+		<version>4.0-beta2-SNAPSHOT</version>
 	</parent>
 	<!-- - Basic Project Information -->
-	<groupId>greenpepper-open</groupId>
+	<groupId>com.github.stator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-open</artifactId>
 	<packaging>pom</packaging>
 	<name>GreenPepper Open</name>
@@ -20,6 +20,7 @@
 	<modules>
 		<module>extensions-external</module>
         <module>samples</module>
+        <module>confluence</module>
 		<module>greenpepper-maven-runner</module>
 		<module>greenpepper-remote-agent</module>
 	</modules>
@@ -61,11 +62,11 @@
 	</dependencies>
 
 	<!-- - Extra project information -->
-	<url>http://www.greenpeppersoftware.com</url>
+    <url>http://strator-dev.github.io/greenpepper/</url>
 	<inceptionYear>2005</inceptionYear>
 	<organization>
-		<name>Pyxis Technologies</name>
-		<url>http://www.pyxis-tech.com</url>
+		<name>The GreenPepper Revival Team</name>
+        <url>http://strator-dev.github.io/greenpepper/#/about</url>
 	</organization>
 	<scm>
 		<connection>https://github.com/greenpeppersoftware/greenpepper-java.git</connection>

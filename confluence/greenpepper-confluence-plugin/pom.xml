@@ -3,7 +3,7 @@
 
 	<parent>
 		<artifactId>greenpepper-confluence</artifactId>
-		<groupId>greenpepper</groupId>
+		<groupId>com.github.stator-dev.greenpepper</groupId>
 		<version>4.0-beta2-SNAPSHOT</version>
 	</parent>
 
@@ -166,19 +166,19 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
 			<classifier>complete</classifier>
 			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-code</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
@@ -214,7 +214,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
@@ -250,7 +250,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
 			<classifier>fixtures</classifier>

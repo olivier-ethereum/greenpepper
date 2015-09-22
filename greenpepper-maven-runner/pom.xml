@@ -8,24 +8,24 @@
 	<name>GreenPepper Maven 3 Runner</name>
 	<parent>
 		<artifactId>greenpepper-base</artifactId>
-		<groupId>greenpepper</groupId>
-		<version>4.0-SNAPSHOT</version>
+		<groupId>com.github.stator-dev.greenpepper</groupId>
+		<version>4.0-beta2-SNAPSHOT</version>
 	</parent>
 
 	<properties>
-		<maven.version>3.3.3</maven.version>
+		<maven.version>3.3.1</maven.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<wagonVersion>1.0</wagonVersion>
 		<aetherVersion>1.0.2.v20150114</aetherVersion>
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.stator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-extensions-java</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
@@ -160,8 +160,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -1,4 +1,4 @@
-# GreenPepper (Modded by Strator)
+# [GreenPepper (Modded by Strator)](http://strator-dev.github.io/greenpepper)
 
 ## Want to Contribute ? 
 

@@ -47,6 +47,16 @@ gprControllers.config(['$stateProvider', '$urlRouterProvider',
             templateUrl:'components/documentation/developers-guide.html',
             controller : 'DocumentationController'
         })
+        .state("documentation.contributor-to-code", {
+            url: '/contributor-to-code',
+            templateUrl:'components/documentation/contributor-to-code/index.html',
+            controller : 'DocumentationController'
+        })
+        .state("documentation.contributor-to-doc", {
+            url: '/contributor-to-doc',
+            templateUrl:'components/documentation/contributor-to-doc.html',
+            controller : 'DocumentationController'
+        })
         .state("documentation.maven-plugin", {
             url: '/maven-plugin',
             templateUrl:'components/documentation/maven-plugin.html',

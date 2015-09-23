@@ -1,0 +1,26 @@
+<div>
+	<h1>How to contribute to documentation ?</h1>
+	<p></p>
+	<h2>Get the code</h2>
+	<p>We use GitHub to host our project and Code. The documentation itself is OpenSourced and will live and evolve with the contribution of many.</p>
+	<h3>Create an account on Github</h3>
+	<p>Open your browser on <a href="http://github.com">http://github.com</a> and register.</p>
+	<img ng-src="components/documentation/contributor-to-doc/images/register-to-github.png" class="img-rounded" />
+    <p>Go to <a href="http://github.com/strator-dev/greenpepper">http://github.com/strator-dev/greenpepper</a> and get the URI to clone the repository. 
+        Then checkout the <mark>gh-pages</mark> branch. It's the branch containing the documentation.</p>
+    <pre>git clone https://github.com/strator-dev/greenpepper.git
+cd greenpepper
+git checkout -b gh-pages origin/gh-pages</pre>
+    <img ng-src="components/documentation/contributor-to-doc/images/clone-the-repo.png" class="img-rounded"/>
+    <img ng-src="components/documentation/contributor-to-doc/images/switch-on-ghpages.png" class="img-rounded"/>
+	<h2>Run it on Linux</h2>
+    <p>I suggest you install <b>apache httpd</b> and expose the documentation locally. Here are an exemple of setup on Ubuntu</p>
+    <pre>sudo apt-get install apache2
+sudo ln -s $(pwd)/greenpepper /var/www/html/greenpepper
+</pre>
+    Open your browser on the URL : <a href="http://localhost/greenpepper">http://localhost/greenpepper</a>
+	<h2>Run it on Windows</h2>
+    <p>TODO</p>
+	<h2>Submit a patch</h2>
+    <p>TODO</p>
+</div>

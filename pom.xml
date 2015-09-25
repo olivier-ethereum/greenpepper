@@ -7,6 +7,7 @@
 	<packaging>pom</packaging>
 	<version>2.11-SNAPSHOT</version>
 	<name>GreenPepper</name>
+	<description>GreenPepper is a collaboration platform to help business experts and developers create executable specifications in order to build the right software.</description>
 
 	<properties>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -76,6 +77,18 @@
 	</organization>
 	<url>http://strator-dev.github.io/greenpepper/</url>
 	<inceptionYear>2005</inceptionYear>
+	<licenses>
+		<license>
+			<name>GPLv2</name>
+			<url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>wattazoum</id>
+			<name>Oumar Aziz OUATTARA</name>
+		</developer>
+	</developers>
 	<scm>
 		<connection>https://github.com/strator-dev/greenpepper-open.git</connection>
 		<developerConnection>scm:git:https://github.com/strator-dev/greenpepper-open.git</developerConnection>

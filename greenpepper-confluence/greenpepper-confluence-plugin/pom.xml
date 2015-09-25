@@ -3,7 +3,7 @@
 
 	<parent>
 		<artifactId>greenpepper-confluence</artifactId>
-		<groupId>greenpepper</groupId>
+		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<version>2.11-SNAPSHOT</version>
 	</parent>
 	<artifactId>greenpepper-confluence3-plugin</artifactId>
@@ -109,30 +109,30 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-code</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-demo</artifactId>
 			<version>${project.version}</version>
 			<classifier>fixtures</classifier>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
 			<classifier>complete</classifier>
 			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
 			<version>${project.version}</version>
 		</dependency>

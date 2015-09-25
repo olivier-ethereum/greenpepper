@@ -7,19 +7,19 @@
 	<name>GreenPepper Confluence Demo</name>
 
 	<parent>
-		<groupId>greenpepper</groupId>
+		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<artifactId>greenpepper-confluence</artifactId>
 		<version>2.11-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-confluence-code</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
@@ -53,7 +53,7 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>greenpepper</groupId>
+				<groupId>com.github.strator-dev.greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
 				<version>${project.version}</version>
 				<configuration>

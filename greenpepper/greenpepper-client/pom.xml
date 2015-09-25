@@ -3,7 +3,7 @@
 
 	<parent>
 		<artifactId>greenpepper</artifactId>
-		<groupId>greenpepper</groupId>
+		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<version>2.11-SNAPSHOT</version>
 	</parent>
 	<artifactId>greenpepper-client</artifactId>
@@ -12,19 +12,19 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<type>test-jar</type>
 			<scope>test</scope>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>greenpepper</groupId>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-extensions-java</artifactId>
 			<version>${project.version}</version>
 			<exclusions>

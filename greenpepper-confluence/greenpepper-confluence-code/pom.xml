@@ -3,7 +3,7 @@
 
     <parent>
         <artifactId>greenpepper-confluence</artifactId>
-        <groupId>greenpepper</groupId>
+        <groupId>com.github.strator-dev.greenpepper</groupId>
         <version>2.11-SNAPSHOT</version>
     </parent>
     <artifactId>greenpepper-confluence-code</artifactId>
@@ -22,17 +22,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>greenpepper</groupId>
+            <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>greenpepper</groupId>
+            <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-server</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>greenpepper</groupId>
+            <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-license</artifactId>
             <version>${project.version}</version>
         </dependency>

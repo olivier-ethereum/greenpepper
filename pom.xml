@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- - Basic Project Information -->
-	<groupId>greenpepper</groupId>
+	<groupId>com.github.strator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-base</artifactId>
 	<packaging>pom</packaging>
 	<version>2.11-SNAPSHOT</version>
@@ -70,12 +71,16 @@
 	</dependencyManagement>
 
 	<!-- - Extra project information -->
-    <url>http://strator-dev.github.io/greenpepper/</url>
+	<organization>
+		<name>The GreenPepper Revival project</name>
+		<url>http://strator-dev.github.io/greenpepper</url>
+	</organization>
+	<url>http://strator-dev.github.io/greenpepper/</url>
 	<inceptionYear>2005</inceptionYear>
 	<scm>
-        <connection>https://github.com/strator-dev/greenpepper.git</connection>
-        <developerConnection>scm:git:https://github.com/strator-dev/greenpepper.git</developerConnection>
-		<url>https://github.com/strator-dev/greenpepper</url>
+		<connection>https://github.com/strator-dev/greenpepper-open.git</connection>
+		<developerConnection>scm:git:https://github.com/strator-dev/greenpepper-open.git</developerConnection>
+		<url>https://github.com/strator-dev/greenpepper-open</url>
 	</scm>
 
 	<!-- - Configure the build plugins -->
@@ -89,9 +94,33 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/strator-dev/greenpepper-open/issues</url>
+	</issueManagement>
 	<repositories>
 		<repository>
 			<id>atlassian-public-m1</id>

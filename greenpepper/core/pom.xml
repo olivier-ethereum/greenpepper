@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>greenpepper</artifactId>
-		<groupId>greenpepper</groupId>
+		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<version>2.11-SNAPSHOT</version>
 	</parent>
 	<!-- - Basic Information -->

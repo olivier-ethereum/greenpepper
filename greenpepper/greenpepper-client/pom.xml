@@ -197,6 +197,12 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<descriptor>src/main/assembly/dep.xml</descriptor>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifest>
+							<mainClass>com.greenpepper.runner.Main</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 				<executions>
 					<execution>

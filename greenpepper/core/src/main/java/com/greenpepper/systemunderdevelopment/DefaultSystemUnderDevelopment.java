@@ -64,7 +64,7 @@ public class DefaultSystemUnderDevelopment implements SystemUnderDevelopment
     protected Type<?> loadType( String name )
     {
         Type<?> type = typeLoader.loadType( name );
-        if (type == null) throw new TypeNotFoundException( name );
+        if (type == null) throw new TypeNotFoundException( name , this.getClass());
         return type;
     }
 

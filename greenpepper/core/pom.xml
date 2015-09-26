@@ -13,6 +13,10 @@
 	<dependencies>
 		<!-- NO dependencies other than JUnit and JMock as defined in the parent 
 			pom.xml -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

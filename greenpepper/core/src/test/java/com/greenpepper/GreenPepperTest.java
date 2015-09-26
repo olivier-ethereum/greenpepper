@@ -19,14 +19,15 @@
 
 package com.greenpepper;
 
-import java.util.Locale;
-
 import static org.hamcrest.Matchers.is;
+
+import java.util.Locale;
 
 import com.greenpepper.interpreter.AbstractInterpreter;
 import com.greenpepper.interpreter.RuleForInterpreter;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.PlainOldFixture;
+import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 import com.greenpepper.util.TestCase;
 
 public class GreenPepperTest extends TestCase
@@ -43,7 +44,7 @@ public class GreenPepperTest extends TestCase
 
     public void testCanInstantiateAnInterpreterGivenAClassName() throws Throwable
     {
-        Interpreter interpreter = GreenPepper.getInterpreter( "com.greenpepper.interpreter.RuleForInterpreter", dummyFixture() );
+        Interpreter interpreter = GreenPepper.getInterpreter( "com.greenpepper.interpreter.RuleForInterpreter", DefaultSystemUnderDevelopment.class, dummyFixture() );
         assertThat( interpreter, is( RuleForInterpreter.class ) );
     }
 
@@ -51,7 +52,7 @@ public class GreenPepperTest extends TestCase
     {
         try
         {
-            GreenPepper.getInterpreter( "MissingInterpreter" );
+            GreenPepper.getInterpreter( "MissingInterpreter", DefaultSystemUnderDevelopment.class );
             fail();
         }
         catch (Throwable e)
@@ -64,7 +65,7 @@ public class GreenPepperTest extends TestCase
     {
         try
         {
-            GreenPepper.getInterpreter( BadInterpreter.class.getName() );
+            GreenPepper.getInterpreter( BadInterpreter.class.getName(), DefaultSystemUnderDevelopment.class );
             fail();
         }
         catch (Throwable e)

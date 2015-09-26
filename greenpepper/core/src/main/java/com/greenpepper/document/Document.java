@@ -1,9 +1,10 @@
 package com.greenpepper.document;
 
+import static com.greenpepper.GreenPepper.canContinue;
+
 import java.io.PrintWriter;
 
 import com.greenpepper.Example;
-import static com.greenpepper.GreenPepper.canContinue;
 import com.greenpepper.Interpreter;
 import com.greenpepper.Statistics;
 import com.greenpepper.TimeStatistics;
@@ -124,6 +125,9 @@ public class Document
         }
     }
 
+    /**
+     * Notify the registered listener that the specification is done
+     */
     public void done()
     {
         listener.specificationDone( start, stats );

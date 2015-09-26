@@ -1,0 +1,12 @@
+.greenpepper-report-stacktrace {
+	font-size: x-small;
+	display: none;
+}
+
+.greenpepper-report-exception > font {
+	font-size: small;
+}
+
+.greenpepper-report-exception:hover > .greenpepper-report-stacktrace {
+	display: block;
+}

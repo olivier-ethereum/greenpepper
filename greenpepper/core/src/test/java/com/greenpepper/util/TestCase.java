@@ -27,11 +27,6 @@ public abstract class TestCase extends junit.framework.TestCase
 {
     private Object it;
 
-    public String getName()
-    {
-        String name = super.getName().replaceFirst( "test", "" );
-        return NameUtils.humanize( name );
-    }
 
     public void assertThat( Object value, Matcher c )
     {

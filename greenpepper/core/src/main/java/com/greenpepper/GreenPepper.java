@@ -29,6 +29,7 @@ import com.greenpepper.expectation.ShouldBe;
 import com.greenpepper.reflect.Type;
 import com.greenpepper.reflect.TypeLoader;
 import com.greenpepper.reflect.TypeNotFoundException;
+import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.Bundle;
 
 public final class GreenPepper
@@ -72,10 +73,10 @@ public final class GreenPepper
         bundle = null;
     }
 
-    public static Interpreter getInterpreter( String name, Object... args ) throws Throwable
+    public static Interpreter getInterpreter( String name, Class<? extends SystemUnderDevelopment> sudClass, Object... args ) throws Throwable
     {
         Type<Interpreter> type = resolveInterpreterType(name);
-        if (type == null) throw new TypeNotFoundException(name);
+        if (type == null) throw new TypeNotFoundException(name, sudClass);
         return type.newInstance( args );
     }
 

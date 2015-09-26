@@ -21,6 +21,13 @@ package com.greenpepper.runner;
 import static com.greenpepper.util.URIUtil.decoded;
 import static com.greenpepper.util.URIUtil.flatten;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import com.greenpepper.GreenPepper;
 import com.greenpepper.GreenPepperCore;
 import com.greenpepper.document.GreenPepperInterpreterSelector;
@@ -37,13 +44,6 @@ import com.greenpepper.util.cli.ArgumentMissingException;
 import com.greenpepper.util.cli.CommandLine;
 import com.greenpepper.util.cli.Option;
 import com.greenpepper.util.cli.ParseException;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public class CommandLineRunner
 {
@@ -71,14 +71,14 @@ public class CommandLineRunner
         this.monitor = new SpecificationRunnerMonitorProxy( monitor );
     }
 
-    public void run(String... args) throws Exception
+    public void run(String... args) throws ParseException,IOException
     {
         defineCommandLine();
         if (!parseCommandLine( args )) return;
         runSpec();
     }
 
-    private void runSpec() throws Exception
+    private void runSpec() throws IOException
     {
         options.putAll( cli.getOptionValues() );
         options.put( "report generator", reportGenerator() );

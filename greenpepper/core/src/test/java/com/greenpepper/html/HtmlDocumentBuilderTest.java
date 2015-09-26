@@ -19,10 +19,14 @@
 
 package com.greenpepper.html;
 
-import java.io.StringReader;
-
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.lessThan;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.nio.charset.Charset;
 
 import com.greenpepper.annotation.Colors;
 import com.greenpepper.annotation.Styles;
@@ -178,7 +182,7 @@ public class HtmlDocumentBuilderTest extends TestCase
         html = "<td>a</td>";
         example = parse( html );
         example.setStyle( "background-color", Colors.GREEN );
-        assertEquals( "<td style=\"background-color: #AAFFAA;\">a</td>", example.toString() );
+        assertEquals( "<td style=\"background-color: #AAFFAA; \" >a</td>", example.toString() );
     }
 
     public void testContentCanBeReplaced()
@@ -195,7 +199,7 @@ public class HtmlDocumentBuilderTest extends TestCase
         example = parse( html );
         example.setStyle( Styles.BACKGROUND_COLOR, Colors.GRAY );
         example.setContent( "a" );
-        assertEquals( "<td colspan='2' style=\"background-color: #CCCCCC;\">a</td>", example.toString() );
+        assertEquals( "<td colspan='2' style=\"background-color: #CCCCCC; \" >a</td>", example.toString() );
     }
 
     public void testCondensesWhitespaceInText()
@@ -350,6 +354,53 @@ public class HtmlDocumentBuilderTest extends TestCase
 		assertEquals("http://myserver/confluence/space/Spec", document.getExternalLink());
 	}
 
+
+    public void testThatWeCanInjectTheCssInBody() throws Exception
+    {
+        StringReader reader = new StringReader("<body ng-controller><h1 name=\"title\" content=\"a title\"/></body>");
+        Document document = HtmlDocumentBuilder.tablesAndLists().build(reader);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        OutputStreamWriter writer = new OutputStreamWriter(stream, Charset.defaultCharset());
+        document.print(new PrintWriter(writer,true));
+        writer.close();
+        assertEquals("<body ng-controller><style type=\"text/css\">.greenpepper-report-stacktrace {\n"+
+"\tfont-size: x-small;\n"+
+"\tdisplay: none;\n"+
+"}\n"+
+"\n"+
+".greenpepper-report-exception > font {\n"+
+"\tfont-size: small;\n"+
+"}\n"+
+"\n"+
+".greenpepper-report-exception:hover > .greenpepper-report-stacktrace {\n"+
+"\tdisplay: block;\n"+
+"}</style><h1 name=\"title\" content=\"a title\"/></body>", stream.toString());
+        
+    }
+    
+    public void testThatWeCanInjectTheCssInBodyprecededwithTag() throws Exception
+    {
+        StringReader reader = new StringReader("<html><body><h1 name=\"title\" content=\"a title\"/></body>");
+        Document document = HtmlDocumentBuilder.tablesAndLists().build(reader);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        OutputStreamWriter writer = new OutputStreamWriter(stream, Charset.defaultCharset());
+        document.print(new PrintWriter(writer,true));
+        writer.close();
+        assertEquals("<html><body><style type=\"text/css\">.greenpepper-report-stacktrace {\n"+
+"\tfont-size: x-small;\n"+
+"\tdisplay: none;\n"+
+"}\n"+
+"\n"+
+".greenpepper-report-exception > font {\n"+
+"\tfont-size: small;\n"+
+"}\n"+
+"\n"+
+".greenpepper-report-exception:hover > .greenpepper-report-stacktrace {\n"+
+"\tdisplay: block;\n"+
+"}</style><h1 name=\"title\" content=\"a title\"/></body>", stream.toString());
+        
+    }
+	
     private String junk()
     {
         StringBuffer buf = new StringBuffer();

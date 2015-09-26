@@ -21,10 +21,15 @@ package com.greenpepper.html;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.greenpepper.AbstractExample;
 import com.greenpepper.Example;
@@ -44,7 +49,8 @@ public class HtmlExample extends AbstractExample implements Text
     private Example sibling;
     private Example child;
 
-    private final Map<String, String> styles = new HashMap<String, String>();
+    private final Map<String, String> styles = new LinkedHashMap<String, String>();
+    private final Set<String> cssClasses = new TreeSet<String>();
 
     public HtmlExample( String lead,
                         String startTag,
@@ -98,9 +104,14 @@ public class HtmlExample extends AbstractExample implements Text
         return content.trim();
     }
 
-    private String firstPattern( String tags )
-    {
-        return new Scanner( tags ).next();
+    private String firstPattern(String tags) {
+        Scanner scanner = new Scanner(tags);
+        try {
+            String first = scanner.next();
+            return first;
+        } finally {
+            scanner.close();
+        }
     }
 
     private HtmlExample createSpecification( String tag, List<String> moreTags )
@@ -171,7 +182,8 @@ public class HtmlExample extends AbstractExample implements Text
     private void printStartTag( PrintWriter out )
     {
         out.write( startTag.substring( 0, startTag.length() - 1 ) );
-        if (!styles.isEmpty()) out.write( String.format( " style=\"%s\"", inlineStyle() ) );
+        if (!styles.isEmpty()) out.write( String.format( " style=\"%s\" ", inlineStyle() ) );
+        if (!cssClasses.isEmpty()) out.write( String.format( " class=\"%s\" ", StringUtils.join(cssClasses, " ")));
         out.write( ">" );
     }
 
@@ -180,7 +192,7 @@ public class HtmlExample extends AbstractExample implements Text
         StringBuilder style = new StringBuilder();
         for (String attr : styles.keySet())
         {
-            style.append( String.format( "%s: %s;", attr, styles.get( attr ) ) );
+            style.append( String.format( "%s: %s; ", attr, styles.get( attr ) ) );
         }
         return style.toString();
     }
@@ -193,6 +205,16 @@ public class HtmlExample extends AbstractExample implements Text
     private String not( String regex )
     {
         return String.format( "(?!%s).*?", regex );
+    }
+
+    @Override
+    public void setCssClasses(String... classes) {
+        Collections.addAll(cssClasses, classes);
+    }
+
+    @Override
+    public String[] getCssClasses() {
+        return cssClasses.toArray(new String[cssClasses.size()]);
     }
 
     public void setStyle( String property, String value )

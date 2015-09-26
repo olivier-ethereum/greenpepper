@@ -1,5 +1,10 @@
 package com.greenpepper.document;
 
+import static com.greenpepper.util.CollectionUtil.toArray;
+import static com.greenpepper.util.CollectionUtil.toList;
+
+import java.util.List;
+
 import com.greenpepper.Example;
 import com.greenpepper.GreenPepper;
 import com.greenpepper.Interpreter;
@@ -9,11 +14,7 @@ import com.greenpepper.interpreter.SkipInterpreter;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.CollectionUtil;
-import static com.greenpepper.util.CollectionUtil.toArray;
-import static com.greenpepper.util.CollectionUtil.toList;
 import com.greenpepper.util.ExampleUtil;
-
-import java.util.List;
 
 /**
  * This class is responsible for selecting an interpreter from the first row of a table.
@@ -38,7 +39,7 @@ public class GreenPepperInterpreterSelector implements InterpreterSelector
         {
             Object[] args = CollectionUtil.isEmpty(fixtureAndParameters) ?
                     toArray(systemUnderDevelopment) : toArray(selectFixture(fixtureAndParameters));
-            return GreenPepper.getInterpreter(interpreterName, args);
+            return GreenPepper.getInterpreter(interpreterName, systemUnderDevelopment.getClass(), args);
         }
         catch (Throwable t)
         {

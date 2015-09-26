@@ -13,8 +13,10 @@ would be nice to consider using a builder style, e.g.
  */
 public interface Text
 {
+    void setCssClasses(String ... classes);
+    String[] getCssClasses();
+    
     void setStyle(String property, String value);
-
     String getStyle(String property);
 
     void setContent(String content);

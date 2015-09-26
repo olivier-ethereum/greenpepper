@@ -19,20 +19,22 @@
 
 package com.greenpepper.html;
 
-import com.greenpepper.Example;
-import com.greenpepper.TextExample;
-import com.greenpepper.document.Document;
-import com.greenpepper.repository.DocumentBuilder;
-import com.greenpepper.util.CollectionUtil;
-import com.greenpepper.util.IOUtil;
-
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.greenpepper.Example;
+import com.greenpepper.TextExample;
+import com.greenpepper.document.Document;
+import com.greenpepper.repository.DocumentBuilder;
+import com.greenpepper.util.CollectionUtil;
+import com.greenpepper.util.IOUtil;
 
 public class HtmlDocumentBuilder implements DocumentBuilder
 {
@@ -63,6 +65,7 @@ public class HtmlDocumentBuilder implements DocumentBuilder
     public Document build( Reader reader ) throws IOException
     {
         String html = IOUtil.readContent( reader );
+        html = injectCss(html);
         Example example = parse( html );
         if (example == null) example = new TextExample( html );
         return Document.html( example, name( html ), externalLink( html ) );
@@ -75,6 +78,29 @@ public class HtmlDocumentBuilder implements DocumentBuilder
 		return doParse(text);
     }
 
+    private String injectCss(String html) {
+        Pattern pattern = Pattern.compile("(.*)(<body\\s*[^>]*>)(.*)",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher bodyMatcher = pattern.matcher(html);
+        if (bodyMatcher.matches()) {
+            StringBuilder cssStyle = new StringBuilder(bodyMatcher.group(2));
+            cssStyle.append("<style type=\"text/css\">");
+            try {
+                InputStream gpReportCssStream = getClass().getResourceAsStream("greenpepper-reports.css");
+                InputStreamReader inputStreamReader = new InputStreamReader(gpReportCssStream);
+                cssStyle.append(IOUtil.readContent(inputStreamReader));
+                inputStreamReader.close();
+                cssStyle.append("</style>");
+                
+                String modified = bodyMatcher.group(1) + cssStyle + bodyMatcher.group(3);
+                return modified;
+            } catch (IOException e) {
+                throw new RuntimeException("Couldn't inject the report css in the document ",e);
+            }
+        } else {
+            return html;
+        }
+    }
+    
 	private Example doParse(String text) {
 
 		if (pathologicalCase(text)) return null;

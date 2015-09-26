@@ -7,6 +7,7 @@ import com.greenpepper.document.GreenPepperInterpreterSelector;
 import com.greenpepper.interpreter.SetOfInterpreter;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
+
 import fit.ActionFixture;
 import fit.ColumnFixture;
 import fit.RowFixture;
@@ -40,7 +41,7 @@ public class FitInterpreterSelector extends GreenPepperInterpreterSelector
             }
             
             if (fitFixture.getTarget() instanceof RowFixture)
-            	return GreenPepper.getInterpreter(SetOfInterpreter.class.getName(), fitFixture);
+            	return GreenPepper.getInterpreter(SetOfInterpreter.class.getName(),systemUnderDevelopment.getClass(), fitFixture);
             
             if (fitFixture.getTarget() instanceof ColumnFixture)
             	return new FitRuleForInterpreter(fitFixture);

@@ -28,7 +28,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>greenpepper</groupId>
+				<groupId>com.github.strator-dev.greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
 				<version>$gpversion</version>
 				<configuration>

@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.MavenExecutionException;
 import org.apache.maven.cli.MavenCli;
 import org.apache.velocity.Template;
@@ -73,7 +74,7 @@ public class CommandLineRunner {
             ClassWorld classWorld = new ClassWorld("greenpepper-maven-runner", MavenCli.class.getClassLoader());
             classWorld.newRealm("greenpepper-maven-runner.threadLoader", Thread.currentThread().getContextClassLoader());
             MavenCli mavenCli = new MavenCli(classWorld);
-            String[] mavenArgs = new String[] {"-fn", "greenpepper:greenpepper-maven-plugin:run", "-f", temporaryPom.getAbsolutePath()};
+            String[] mavenArgs = new String[] {"-fn", "com.github.strator-dev.greenpepper:greenpepper-maven-plugin:run", "-f", temporaryPom.getAbsolutePath()};
             logger.debug("Launching Maven with args {}", Arrays.toString(mavenArgs));
             int mavenCLIResult = mavenCli.doMain(mavenArgs, CWD, out, err);
             if (mavenCLIResult != 0) {
@@ -111,6 +112,7 @@ public class CommandLineRunner {
         FileWriter writer = new FileWriter(temporaryPom.getAbsolutePath());
         template.merge(velocityContext, writer);
         writer.flush();
+        logger.debug("Content of {} \n {}", temporaryPom.getAbsolutePath(), FileUtils.readFileToString(temporaryPom));
         return temporaryPom;
     }
 

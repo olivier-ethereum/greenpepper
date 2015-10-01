@@ -66,7 +66,7 @@ public class CommandLineRunnerTest {
     public void usingUnreacheableMavenCoordinates() throws ParseException, ResolverException, IOException, MavenExecutionException, DuplicateRealmException {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner(new PrintStream(byteOut), System.err);
-        runner.run("--pdd", "greenpepper:unknown:" + GreenPepperCore.VERSION, "src/test/resources/collection.html");
+        runner.run("--pdd", "com.github.strator-dev.greenpepper:unknown:" + GreenPepperCore.VERSION, "src/test/resources/collection.html");
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CommandLineRunnerTest {
         LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
         lc.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.WARN);;
         runner = new CommandLineRunner(System.out, System.err);
-        runner.run("--debug", "--pdd", "greenpepper:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION, "src/test/resources/collection.html", "-o", "target/reports",
+        runner.run("--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION, "src/test/resources/collection.html", "-o", "target/reports",
                 "--xml", "-vv");
         String output = byteOut.toString();
         assertThat(output, containsString("Running src/test/resources/collection.html"));
@@ -87,9 +87,10 @@ public class CommandLineRunnerTest {
     public void usingLiveMavenCoordinatesWithFixedVersionAndArtifact() throws ParseException, ResolverException, IOException, MavenExecutionException, DuplicateRealmException {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner(new PrintStream(byteOut), System.err);
-        runner.run("--debug", "--pdd", "greenpepper:greenpepper-confluence-demo:jar:fixtures:" + GreenPepperCore.VERSION, "src/test/resources/collection.html", "-o",
+        runner.run("--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures:" + GreenPepperCore.VERSION, "src/test/resources/collection.html", "-o",
                 "target/reports", "--xml");
         String output = byteOut.toString();
+        System.out.println(output);
         assertThat(output, containsString("Running src/test/resources/collection.html"));
         assertThat(output, containsString("38 tests: 38 right, 0 wrong, 0 ignored, 0 exception(s)"));
     }
@@ -98,7 +99,7 @@ public class CommandLineRunnerTest {
     public void usingLiveMavenCoordinatesWithRangeVersion() throws Exception {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner(new PrintStream(byteOut), System.err);
-        runner.run("--debug", "--pdd", "greenpepper:greenpepper-confluence-demo:pom:fixtures:[2.8,)", "src/test/resources/bank.html", "-o", "target/reports", "--xml");
+        runner.run("--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:pom:fixtures:[3.0,)", "src/test/resources/bank.html", "-o", "target/reports", "--xml");
         String output = byteOut.toString();
         assertThat(output, containsString("Running src/test/resources/bank.html"));
         assertThat(output, containsString("17 tests: 17 right, 0 wrong, 0 ignored, 0 exception(s)"));

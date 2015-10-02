@@ -128,6 +128,21 @@ public class ArgumentsParser {
             return result;
         }
 
+        String currentDirectory = System.getProperty("user.dir", "");
+        File currentDirectoryFile = new File(currentDirectory);
+        File inputFileDirectory = null;
+        
+        String[] args = commandLine.getArgs();
+        if (args != null && args.length >= 1) {
+            String inputFilePath = args[0];
+            File inFile = new File(inputFilePath);
+            result.put("inputPage", inFile.getName());
+            inputFileDirectory = inFile.getParentFile();
+            if (args.length >= 2) {
+                result.put("outputPage", args[1]);
+            }
+        }
+        
         String sud = commandLine.hasOption("f") ? commandLine.getOptionValue("f") : DEFAULT_SUD;
         result.put("sud", sud);
 
@@ -139,11 +154,10 @@ public class ArgumentsParser {
                 result.put("repositoryRoot", repoInfo[1]);
             }
         } else {
-            String currentDirectory = System.getProperty("user.dir", "");
-            File currentDirectoryFile = new File(currentDirectory);
-            logger.info("Settings default values for repository: \n\t- repositoryClass : {} \n\t- repositoryRoot : {}", DEFAULT_REPOSITORY, currentDirectoryFile.getAbsolutePath());
+            String defaultRepoRoot = inputFileDirectory != null ? inputFileDirectory.getAbsolutePath() : currentDirectoryFile.getAbsolutePath();
+            logger.info("Settings default values for repository: \n\t- repositoryClass : {} \n\t- repositoryRoot : {}", DEFAULT_REPOSITORY, defaultRepoRoot);
             result.put("repositoryClass", DEFAULT_REPOSITORY);
-            result.put("repositoryRoot", currentDirectoryFile.getAbsolutePath());
+            result.put("repositoryRoot", defaultRepoRoot);
         }
         if (commandLine.hasOption("l")) {
             result.put("locale", commandLine.getOptionValue("l"));
@@ -166,13 +180,6 @@ public class ArgumentsParser {
             result.put("reportsDirectory", commandLine.getOptionValue("o"));
         }
 
-        String[] args = commandLine.getArgs();
-        if (args != null && args.length >= 1) {
-            result.put("inputPage", args[0]);
-            if (args.length >= 2) {
-                result.put("outputPage", args[1]);
-            }
-        }
         return result;
     }
 

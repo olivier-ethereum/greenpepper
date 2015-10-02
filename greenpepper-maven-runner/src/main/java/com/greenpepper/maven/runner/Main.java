@@ -15,17 +15,9 @@
  */
 package com.greenpepper.maven.runner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.LoggerContext;
-
 public class Main {
 
     public static void main(String... args) {
-        LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-        lc.getLogger(Logger.ROOT_LOGGER_NAME).setLevel(Level.WARN);;
         CommandLineRunner runner = new CommandLineRunner();
 
         try {

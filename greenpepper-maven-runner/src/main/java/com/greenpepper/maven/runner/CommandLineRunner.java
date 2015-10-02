@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
@@ -66,7 +66,7 @@ public class CommandLineRunner {
         if (commandLine != null) {
             setUpLogLevel(commandLine);
             Map<String, String> context = argumentsParser.createTemplatingContext(commandLine);
-            File temporaryPom = createLaunchingPOM(context);
+            final File temporaryPom = createLaunchingPOM(context);
 
             if (System.getProperty(MavenCli.MULTIMODULE_PROJECT_DIRECTORY) == null) {
                 System.setProperty(MavenCli.MULTIMODULE_PROJECT_DIRECTORY, CWD);
@@ -74,9 +74,18 @@ public class CommandLineRunner {
             ClassWorld classWorld = new ClassWorld("greenpepper-maven-runner", MavenCli.class.getClassLoader());
             classWorld.newRealm("greenpepper-maven-runner.threadLoader", Thread.currentThread().getContextClassLoader());
             MavenCli mavenCli = new MavenCli(classWorld);
-            String[] mavenArgs = new String[] {"-fn", "com.github.strator-dev.greenpepper:greenpepper-maven-plugin:run", "-f", temporaryPom.getAbsolutePath()};
-            logger.debug("Launching Maven with args {}", Arrays.toString(mavenArgs));
-            int mavenCLIResult = mavenCli.doMain(mavenArgs, CWD, out, err);
+            @SuppressWarnings("serial")
+            ArrayList<String> mavenArgs = new ArrayList<String>(){ {
+                add("-fn"); 
+                add("com.github.strator-dev.greenpepper:greenpepper-maven-plugin:run");
+                add("-f");
+                add(temporaryPom.getAbsolutePath());
+                }};
+            if (commandLine.hasOption('v')) {
+                mavenArgs.add("-X");
+            }
+            logger.debug("Launching Maven with args {}", mavenArgs);
+            int mavenCLIResult = mavenCli.doMain(mavenArgs.toArray(new String[mavenArgs.size()]), CWD, out, err);
             if (mavenCLIResult != 0) {
                 throw new MavenExecutionException("Failed to Run the maven command.", temporaryPom.getAbsoluteFile());
             }
@@ -89,13 +98,13 @@ public class CommandLineRunner {
 
     private void setUpLogLevel(CommandLine commandLine) {
         if (commandLine.hasOption("vv")) {
-            LoggerContext context = (LoggerContext)LoggerFactory.getILoggerFactory(); 
-            context.getLogger("com.greenpepper").setLevel(Level.TRACE);;
+            LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+            context.getLogger("com.greenpepper").setLevel(Level.TRACE);
         }
         if (commandLine.hasOption("vvv")) {
             String loggername = commandLine.getOptionValue("vvv");
-            LoggerContext context = (LoggerContext)LoggerFactory.getILoggerFactory(); 
-            context.getLogger(loggername).setLevel(Level.TRACE);;
+            LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+            context.getLogger(loggername).setLevel(Level.TRACE);
         }
     }
 

@@ -21,10 +21,12 @@ package com.greenpepper.maven.plugin;
 
 import static com.greenpepper.util.CollectionUtil.toVector;
 
-import com.greenpepper.repository.FileSystemRepository;
-import com.greenpepper.runner.repository.AtlassianRepository;
-import com.greenpepper.util.IOUtil;
-import com.greenpepper.util.URIUtil;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Vector;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -36,11 +38,10 @@ import org.jmock.core.constraint.IsEqual;
 import org.jmock.core.matcher.InvokeOnceMatcher;
 import org.jmock.core.stub.ReturnStub;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Vector;
+import com.greenpepper.repository.FileSystemRepository;
+import com.greenpepper.runner.repository.AtlassianRepository;
+import com.greenpepper.util.IOUtil;
+import com.greenpepper.util.URIUtil;
 
 public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
 {
@@ -53,13 +54,12 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         stopWebServer();
     }
 
-    @SuppressWarnings("unchecked")
     public void setUp() throws Exception
     {
         super.setUp();
         URL pomPath = SpecificationRunnerMojoTest.class.getResource( "pom-runner.xml");
         mojo = (SpecificationRunnerMojo) lookupMojo( "run", URIUtil.decoded(pomPath.getPath()) );
-        mojo.classpathElements = new ArrayList( );
+        mojo.classpathElements = new ArrayList<String>( );
         String core = dependency( "greenpepper-core.jar" ).getAbsolutePath();
         mojo.classpathElements.add( core );
         mojo.classpathElements.add( dependency( "guice-1.0.jar" ).getAbsolutePath());
@@ -165,6 +165,81 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         assertReport( "PAGE.html" );
     }
 
+    public void testShouldFailIfSingleTestLaunchedAndDefaultRepositoryNotSet() throws MojoFailureException, URISyntaxException {
+        createLocalRepository( "repo1" );
+        createLocalRepository( "repo2" );
+        mojo.testSpecification = "right.html";
+        try {
+            mojo.execute();
+            fail("No default repository set, the test should not run");
+        } catch (MojoExecutionException e) {
+            assertEquals("A default repository should be set when using '-Dgp.test='. Use '-Dgp.repo=' or specify it in the pom.xml", e.getMessage());
+        } 
+    }
+    
+    public void testShouldConsiderASingleRepositoryDefinedAsDefault() throws URISyntaxException, MojoExecutionException, MojoFailureException {
+        createLocalRepository( "repoSingle" );
+        mojo.testSpecification = "right.html";
+        mojo.execute();
+        assertReport( "right.html","repoSingle" );
+    }
+    
+    public void testShouldSupportDefaultRepositoryDefinition() throws Exception{
+        createLocalRepository( "repo1" );
+        createLocalRepository( "repo2" ).setDefault(true);
+        mojo.testSpecification = "right.html";
+        mojo.execute();
+        assertReport( "right.html", "repo2" );
+    }
+    public void testShouldSupportSelectedRepositoryDefinition() throws Exception{
+        createLocalRepository( "repo1" );
+        createLocalRepository( "repo2" );
+        mojo.testSpecification = "right.html";
+        mojo.selectedRepository = "repo2";
+        mojo.execute();
+        assertReport( "right.html", "repo2" );
+    }
+    
+    public void testShouldOnlyRunTheSpecifiedGPTest() throws Exception{
+        createLocalRepository( "repoSingle" ).addTest("wrong.html");
+        mojo.testSpecification = "right.html";
+        mojo.execute();
+        assertEquals(1, mojo.statistics.totalCount());
+        assertReport( "right.html","repoSingle" );
+    }
+    
+    public void testShouldSupportOutputFileOnSingleTestRun() throws Exception {
+        createLocalRepository( "repoSingle" ).addTest("wrong.html");
+        mojo.testSpecification = "right.html";
+        mojo.testSpecificationOutput = "target/greenpepper-reports/rightCustomOutput.html";
+        mojo.execute();
+        assertEquals(1, mojo.statistics.totalCount());
+        assertReport( "rightCustomOutput.html","" );
+    }
+    
+    public void testShouldUseSelectedRepositoryPrior() throws Exception {
+        createLocalRepository( "repo1" ).setDefault(true);
+        createLocalRepository( "repo2" );
+        mojo.testSpecification = "right.html";
+        mojo.selectedRepository = "repo2";
+        mojo.execute();
+        assertEquals(1, mojo.statistics.totalCount());
+        assertReport( "right.html","repo2" );
+    }
+
+    public void testShouldFailIfSelectedRepositoryNotInTheList() throws Exception {
+        createLocalRepository( "repo1" ).setDefault(true);
+        createLocalRepository( "repo2" );
+        mojo.testSpecification = "right.html";
+        mojo.selectedRepository = "repo3";
+        try {
+            mojo.execute();
+            fail("Should have thrown an exception");
+        } catch (MojoExecutionException e) {
+            assertEquals("Repository 'repo3' not found in the list of repository.", e.getMessage());
+        }
+    }
+    
     private Repository createAtlassianRepository(String name) {
         Repository repository = new Repository();
         repository.setName(name);
@@ -208,9 +283,9 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         }
     }
 
-    private File reportFileFor(String input)
+    private File reportFileFor(String input, String repoName)
     {
-        return new File( new File(mojo.reportsDirectory, "repo"), URIUtil.flatten(input) );
+        return new File( new File(mojo.reportsDirectory, repoName), URIUtil.flatten(input) );
     }
 
     private File spec(String name) throws URISyntaxException
@@ -219,11 +294,15 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
     }
 
     private void assertReport( String reportName ) {
-        File out = reportFileFor( reportName );
-        assertTrue( out.exists() );
+        assertReport(reportName, "repo");
+    }
+    
+    private void assertReport( String reportName, String repoName ) {
+        File out = reportFileFor( reportName, repoName );
+        assertTrue(out.getPath() + " doesn't exist",  out.exists() );
         long length = out.length();
         out.delete();
-        assertTrue( length > 0 );
+        assertTrue(out.getPath() + " should not be empty",  length > 0 );
     }
 
     private void startWebServer()

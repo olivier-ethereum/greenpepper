@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dummy</groupId>
+    <artifactId>dummy</artifactId>
+    <version>4.0</version>
+	<name>test greenpepper runner</name>
+
+	<build>
+		<plugins>
+            <plugin>
+                <groupId>com.github.strator-dev.greenpepper</groupId>
+				<artifactId>greenpepper-maven-plugin</artifactId>
+				<version>4.0-beta2-SNAPSHOT</version>
+				<configuration>
+					<locale>en</locale>
+					<debug>true</debug>
+					<fixtureOutputDirectory>target/test-classes</fixtureOutputDirectory>
+					<reportsDirectory>target/greenpepper-reports</reportsDirectory>
+					<testSpecification>right.html</testSpecification>
+					<testSpecificationOutput>target/greenpepper-reports/rightOutput.html</testSpecificationOutput>
+					<systemUnderDevelopment>com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment</systemUnderDevelopment>
+
+					<!-- Sample repositories configuration -->
+
+					<repositories>
+						<repository>
+							<type>com.greenpepper.repository.FileSystemRepository</type>
+							<root>src/test/resources/com/greenpepper/maven/plugin</root>
+							<name>file</name>
+							<isDefault>true</isDefault>
+							<tests>
+								<test>wrong.html</test>
+							</tests>
+						</repository>
+						<repository>
+							<type>com.greenpepper.runner.repository.AtlassianRepository</type>
+							<root><![CDATA[http://domain:port/rpc/xmlrpc?handler=handler&includeStyle=true#SPACE KEY]]></root>
+							<name>confluence</name>
+							<tests>
+								<test>PAGE TITLE</test>
+							</tests>
+						</repository>
+					</repositories>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

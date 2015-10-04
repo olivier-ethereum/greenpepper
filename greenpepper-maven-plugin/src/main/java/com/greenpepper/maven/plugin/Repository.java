@@ -20,14 +20,12 @@
 package com.greenpepper.maven.plugin;
 
 import static com.greenpepper.util.CollectionUtil.toArray;
-import static com.greenpepper.util.CollectionUtil.shift;
-import com.greenpepper.document.Document;
-import com.greenpepper.runner.FactoryConverter;
-import com.greenpepper.repository.DocumentRepository;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.reflect.Constructor;
+
+import com.greenpepper.repository.DocumentRepository;
 
 public class Repository
 {
@@ -36,6 +34,7 @@ public class Repository
     private String type;
     private String root;
     private String name;
+    private boolean isDefault;
 
     private DocumentRepository documentRepository;
 
@@ -109,5 +108,13 @@ public class Repository
             documentRepository = newInstance();
         }
         return documentRepository;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean isDefault) {
+        this.isDefault = isDefault;
     }
 }

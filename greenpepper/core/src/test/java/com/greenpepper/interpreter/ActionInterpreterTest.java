@@ -1,13 +1,14 @@
 package com.greenpepper.interpreter;
 
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-
 import static com.greenpepper.Assertions.assertAnnotatedException;
 import static com.greenpepper.Assertions.assertAnnotatedRight;
 import static com.greenpepper.Assertions.assertAnnotatedWrong;
 import static com.greenpepper.Assertions.assertNotAnnotated;
+
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+
 import com.greenpepper.Specification;
 import com.greenpepper.document.FakeSpecification;
 import com.greenpepper.reflect.PlainOldFixture;
@@ -46,7 +47,7 @@ public class ActionInterpreterTest extends TestCase {
 	public void testCanAddOneArgumentToAnAction(){
 		context.checking(new Expectations()
 		{{
-			one(fixture).performActionWithArgument("argument1");
+			oneOf(fixture).performActionWithArgument("argument1");
 		}});
 		interpreter.interpret(specificationFor(
         		"[action][mock]\n" +
@@ -56,7 +57,7 @@ public class ActionInterpreterTest extends TestCase {
 	public void testCanAddMultipleArgumentsToAnAction(){
 		context.checking(new Expectations()
 		{{
-			one(fixture).performActionWithArguments("argument1", "argument2");
+			oneOf(fixture).performActionWithArguments("argument1", "argument2");
 		}});
 		interpreter.interpret(specificationFor(
         		"[action][mock]\n" +
@@ -66,7 +67,7 @@ public class ActionInterpreterTest extends TestCase {
 	public void testThatNoAnnotationIsAppliedIfMethodExecutesNormallyAndDoesNotReturnABoolean(){
 		context.checking(new Expectations()
 		{{
-			one(fixture).performAction();
+			oneOf(fixture).performAction();
 		}});
 		Tables tables = tablesFor(
 				"[action][mock]\n" +
@@ -78,7 +79,7 @@ public class ActionInterpreterTest extends TestCase {
 	public void testThatFirstCellIsAnnotatedRightIfMethodExecutesNormallyAndReturnsTrue(){
 		context.checking(new Expectations()
 		{{
-			one(fixture).performCheck("argument1");
+			oneOf(fixture).performCheck("argument1");
 			will(returnValue(true));
 		}});
 		Tables tables = tablesFor(
@@ -106,7 +107,7 @@ public class ActionInterpreterTest extends TestCase {
 	public void testThatFirstCellIsAnnotatedExceptionIfMethodThrowsAnException(){
 		context.checking(new Expectations()
 		{{
-			one(fixture).performCheck("argument1");
+			oneOf(fixture).performCheck("argument1");
 			will(throwException(new IllegalArgumentException()));
 		}});
 		Tables tables = tablesFor(

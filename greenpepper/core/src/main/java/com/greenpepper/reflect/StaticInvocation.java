@@ -18,10 +18,10 @@
  */
 package com.greenpepper.reflect;
 
-import com.greenpepper.TypeConversion;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import com.greenpepper.TypeConversion;
 
 public class StaticInvocation extends Message
 {
@@ -45,6 +45,7 @@ public class StaticInvocation extends Message
     {
         try
         {
+            method.setAccessible(true);
             return method.invoke( target, convert( args ) );
         }
         catch (InvocationTargetException e)

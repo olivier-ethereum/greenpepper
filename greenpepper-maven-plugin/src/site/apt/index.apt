@@ -1,0 +1,57 @@
+  ------
+  Introduction
+  ------
+  
+
+GreenPepper Maven Plugin
+
+  The GreenPepper Plugin is used during the <<<integration-test>>> phase of the build
+  lifecycle to execute the integration tests of an application. It generates reports
+  in 2 different file formats:
+
+  * HTML files (*.html)
+
+  * XML files (*.xml)
+
+  []
+
+  By default, these files are generated at <<<$\{basedir\}/target/greenpepper-reports>>>.
+
+
+* Goals Overview
+
+  The GreenPepper Plugin has the following goals:
+
+  * {{{./compile-mojo.html}greenpepper:compile}} compiles your fixture sources.
+  
+  * {{{./fixture-jar-mojo.html}greenpepper:fixture-jar}} The following will create you fixture jar.
+  
+  * {{{./resources-mojo.html}greenpepper:resources}} The following will copy your resources.
+  
+  * {{{./freeze-mojo.html}greenpepper:freeze}} The following will download the specification files.
+  
+  * {{{./run-mojo.html}greenpepper:run}} runs the integration tests of an application.
+
+  []
+
+* Usage
+
+  General instructions on how to use the GreenPepper Plugin can be found on the {{{./usage.html}usage page}}. Some more
+  specific use cases are described in the examples given below.
+
+  In case you still have questions regarding the plugin's usage, please have a look at the {{{./faq.html}FAQ}} and feel
+  free to contact the {{{https://gitter.im/strator-dev/greenpepper-open}user chat room}}. 
+
+  If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our
+  {{{https://github.com/strator-dev/greenpepper-open/issues}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
+  concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason,
+  entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated.
+  Of course, patches are welcome, too. Contributors can clone the project from our
+  {{{https://github.com/strator-dev/greenpepper-open}source repository}} and will find supplementary information in the
+  {{{http://strator-dev.github.io/greenpepper/index.html#/documentation/contributor-to-code}guide to Developing GreenPepper}}.
+
+* Examples
+
+  The following examples show how to use the Surefire Plugin in more advanced use-cases:
+
+  * {{{./examples/single-page.html}Testing a Single Page}}

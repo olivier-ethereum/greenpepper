@@ -16,15 +16,16 @@
 
 package com.greenpepper.maven;
 
+import java.io.File;
+
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
-
-import java.io.File;
 
 /**
  * Base class for creating a jar from project classes.
@@ -86,6 +87,16 @@ public abstract class AbstractJarMojo
      * @component
      */
     private MavenProjectHelper projectHelper;
+    
+    /**
+     * The Maven Session
+     *
+     * @required
+     * @readonly
+     * @parameter
+     * expression="${session}"
+     */
+    private MavenSession mavenSession;
 
     /**
      * Whether creating the archive should be forced.
@@ -150,7 +161,7 @@ public abstract class AbstractJarMojo
                 archiver.getArchiver().addDirectory( contentDirectory, DEFAULT_INCLUDES, DEFAULT_EXCLUDES );
             }
 
-            archiver.createArchive( project, archive );
+            archiver.createArchive(mavenSession, project, archive);
 
             return jarFile;
         }

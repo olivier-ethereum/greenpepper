@@ -1,26 +1,28 @@
 package com.greenpepper.maven.plugin;
 
 import static com.greenpepper.util.CollectionUtil.toVector;
-import com.greenpepper.util.URIUtil;
-import com.greenpepper.util.IOUtil;
-import com.greenpepper.repository.FileSystemRepository;
-import com.greenpepper.runner.repository.AtlassianRepository;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.xmlrpc.WebServer;
-import org.jmock.Mock;
-import org.jmock.core.matcher.InvokeOnceMatcher;
-import org.jmock.core.stub.ReturnStub;
-import org.jmock.core.constraint.IsEqual;
-import org.jmock.core.Constraint;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.xmlrpc.WebServer;
+import org.jmock.Mock;
+import org.jmock.core.Constraint;
+import org.jmock.core.constraint.IsEqual;
+import org.jmock.core.matcher.InvokeOnceMatcher;
+import org.jmock.core.stub.ReturnStub;
+
+import com.greenpepper.repository.FileSystemRepository;
+import com.greenpepper.runner.repository.AtlassianRepository;
+import com.greenpepper.util.IOUtil;
+import com.greenpepper.util.URIUtil;
 
 public class SpecificationDownloaderMojoTest extends AbstractMojoTestCase {
 
@@ -32,7 +34,6 @@ public class SpecificationDownloaderMojoTest extends AbstractMojoTestCase {
         stopWebServer();
     }
 
-    @SuppressWarnings("unchecked")
     public void setUp() throws Exception {
         super.setUp();
         URL pomPath = SpecificationDownloaderMojoTest.class.getResource("pom-downloader.xml");

@@ -31,20 +31,20 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.resources.PropertyUtils;
-import org.apache.maven.plugin.resources.ReflectionProperties;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.utils.PropertyUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.InterpolationFilterReader;
+
+import com.greenpepper.maven.plugin.utils.ReflectionProperties;
 
 /**
  * Copy application resources.
@@ -83,7 +83,7 @@ public class FixtureResourcesMojo
      * @parameter
      * @required
      */
-    private List resources;
+    private List<Resource> resources;
 
     /**
      * @parameter expression="${project}"
@@ -101,7 +101,7 @@ public class FixtureResourcesMojo
     /**
      * @parameter expression="${project.build.filters}"
      */
-    private List filters;
+    private List<String> filters;
 
 	public void execute()
         throws MojoExecutionException
@@ -116,8 +116,7 @@ public class FixtureResourcesMojo
 		}
 	}
 
-    @SuppressWarnings("unchecked")
-    protected void copyResources( List resources, String outputDirectory ) throws MojoExecutionException
+    protected void copyResources( List<Resource> resources, String outputDirectory ) throws MojoExecutionException
     {
         initializeFiltering();
 
@@ -130,9 +129,8 @@ public class FixtureResourcesMojo
             getLog().info( "Using encoding: \'" + encoding + "\' to copy filtered resources." );
         }
 
-        for ( Iterator i = resources.iterator(); i.hasNext(); )
+        for ( Resource resource:  resources )
         {
-            Resource resource = (Resource) i.next();
 
             String targetPath = resource.getTargetPath();
 
@@ -162,10 +160,9 @@ public class FixtureResourcesMojo
             scanner.addDefaultExcludes();
             scanner.scan();
 
-            List includedFiles = Arrays.asList( scanner.getIncludedFiles() );
-            for ( Iterator j = includedFiles.iterator(); j.hasNext(); )
+            List<String> includedFiles = Arrays.asList( scanner.getIncludedFiles() );
+            for ( String name: includedFiles )
             {
-                String name = (String) j.next();
 
                 String destination = name;
 
@@ -204,20 +201,11 @@ public class FixtureResourcesMojo
         // Project properties
         filterProperties.putAll( project.getProperties() );
 
-        for ( Iterator i = filters.iterator(); i.hasNext(); )
+        for ( String filtersfile : filters )
         {
-            String filtersfile = (String) i.next();
+            Properties properties = PropertyUtils.loadProperties(new File( filtersfile ));
 
-            try
-            {
-                Properties properties = PropertyUtils.loadPropertyFile( new File( filtersfile ), true, true );
-
-                filterProperties.putAll( properties );
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( "Error loading property file '" + filtersfile + "'", e );
-            }
+            filterProperties.putAll( properties );
         }
     }
 
@@ -260,7 +248,7 @@ public class FixtureResourcesMojo
                 // support @token@
                 reader = new InterpolationFilterReader( reader, filterProperties, "@", "@" );
 
-                reader = new InterpolationFilterReader( reader, new ReflectionProperties( project ), "${", "}" );
+                reader = new InterpolationFilterReader( reader, new ReflectionProperties( project, getLog()), "${", "}" );
 
                 IOUtil.copy( reader, fileWriter );
             }

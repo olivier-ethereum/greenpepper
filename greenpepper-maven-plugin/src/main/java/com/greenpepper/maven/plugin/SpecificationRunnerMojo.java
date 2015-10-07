@@ -127,7 +127,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     /**
      * Set this to true to ignore a failure during testing.
      * Its use is NOT RECOMMENDED, but quite convenient on occasion.
-     * @parameter property="maven.greenpepper.test.failure.ignore" default-value="false"
+     * @parameter expression="${maven.greenpepper.test.failure.ignore}" default-value="false"
      */
     boolean testFailureIgnore;
 

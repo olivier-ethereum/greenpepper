@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<name>test greenpepper runner</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>greenpepper-maven-plugin</artifactId>
+				<version>2.5m2-SNAPSHOT</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<fixtureSourceDirectory>target/test-classes/src/fixture/java</fixtureSourceDirectory>
+					<fixtureOutputDirectory>target/test-classes/fixture-classes</fixtureOutputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>greenpepper-open</groupId>
+			<artifactId>greenpepper-core</artifactId>
+			<version>2.5m2-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

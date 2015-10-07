@@ -19,8 +19,16 @@
 
 package com.greenpepper.maven;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.CompilationFailureException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.compiler.Compiler;
 import org.codehaus.plexus.compiler.CompilerConfiguration;
@@ -35,14 +43,7 @@ import org.codehaus.plexus.compiler.util.scan.mapping.SingleTargetSourceMapping;
 import org.codehaus.plexus.compiler.util.scan.mapping.SourceMapping;
 import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.greenpepper.maven.plugin.utils.CompilationFailureException;
 
 /**
  * @author others
@@ -400,7 +401,7 @@ public abstract class AbstractCompilerMojo
         // Compile!
         // ----------------------------------------------------------------------
 
-        List messages;
+        List<CompilerError> messages;
 
         try
         {
@@ -413,10 +414,8 @@ public abstract class AbstractCompilerMojo
 
         boolean compilationError = false;
 
-        for ( Iterator i = messages.iterator(); i.hasNext(); )
+        for ( CompilerError message : messages)
         {
-            CompilerError message = (CompilerError) i.next();
-
             if ( message.isError() )
             {
                 compilationError = true;

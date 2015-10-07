@@ -54,7 +54,7 @@ public class FixtureCompilerMojo
     /**
      * The source directory containing the fixture sources to be compiled.
      *
-     * @parameter
+     * @parameter default="${basedir}/src/fixture/java"
      * @required
      */
     private File fixtureSourceDirectory;

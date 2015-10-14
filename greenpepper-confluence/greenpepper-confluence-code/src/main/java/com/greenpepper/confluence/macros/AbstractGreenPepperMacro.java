@@ -38,7 +38,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
         return RenderMode.NO_RENDER;
     }
     
-    protected String getSpaceKey(Map parameters) throws GreenPepperServerException
+    protected String getSpaceKey(@SuppressWarnings("rawtypes") Map parameters) throws GreenPepperServerException
     {
         String spaceKey = (String)parameters.get("spaceKey");
         if(spaceKey != null)
@@ -55,7 +55,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
         return spaceKey;
     }
     
-    protected String getSpaceKey(Map parameters, RenderContext renderContext, boolean checkPermission) throws GreenPepperServerException
+    protected String getSpaceKey(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, boolean checkPermission) throws GreenPepperServerException
     {
     	Space space;
         String spaceKey = (String)parameters.get("spaceKey");
@@ -83,12 +83,12 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
 		return ((Page)owner).getSpace();
 	}
 
-	protected String getPageTitle(Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
+	protected String getPageTitle(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
     {
         return getPage(parameters, renderContext, spaceKey).getTitle().trim();
     }
     
-    protected Page getPage(Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
+    protected Page getPage(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
     {
         String pageTitle = (String)parameters.get("pageTitle");
         if(pageTitle == null)
@@ -104,7 +104,6 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
         return page;
     }
 
-    @SuppressWarnings("unchecked")
     protected List<Space> getSpaces() throws GreenPepperServerException
     {
         List<Space> spaces = new ArrayList<Space>();
@@ -124,22 +123,25 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
 		return spaces;
     }
     
-    protected String getBulkUID(Map parameters)
+    protected String getBulkUID(@SuppressWarnings("rawtypes") Map parameters)
     {
         String group = (String)parameters.get("group");
         return StringUtil.isEmpty(group) ? "PAGE" : group;
     }
     
-    protected boolean isExpanded(Map parameters)
+    protected boolean isExpanded(@SuppressWarnings("rawtypes") Map parameters)
     {
         String all = (String)parameters.get("expanded");
         return all != null && Boolean.valueOf(all);
     }
-
-    @SuppressWarnings("unchecked")
+    
     public static String getErrorView(String macroId, String errorId)
     {
-        Map contextMap = MacroUtils.defaultVelocityContext();
+        return getErrorView(macroId, errorId, null);
+    }
+    
+    public static String getErrorView(String macroId, String errorId, String message) {
+        Map<String,Object> contextMap = MacroUtils.defaultVelocityContext();
         contextMap.put("macroId", macroId);
         contextMap.put("errorId", errorId);
         return VelocityUtils.getRenderedTemplate("/templates/greenpepper/confluence/macros/greenPepperMacros-error.vm", contextMap);

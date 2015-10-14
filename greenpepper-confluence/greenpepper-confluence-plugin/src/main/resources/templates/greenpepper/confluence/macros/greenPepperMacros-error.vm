@@ -4,7 +4,7 @@
 	</tr>
 	<tr>
 		<td id="conf_macroErrMsg" class="conf_macroErrMsg">
-			$greenPepper.getText($macroId)<br>
+			$greenPepper.getText($macroId) $errorMessage<br>
 			$greenPepper.getText($errorId)
 		</td>
 	</tr>

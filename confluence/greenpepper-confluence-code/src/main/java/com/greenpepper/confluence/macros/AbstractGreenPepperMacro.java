@@ -65,7 +65,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
     }
     
 
-    protected String getSpaceKey(Map parameters) throws GreenPepperServerException
+    protected String getSpaceKey(@SuppressWarnings("rawtypes") Map parameters) throws GreenPepperServerException
     {
         String spaceKey = (String)parameters.get("spaceKey");
         if(!StringUtil.isEmpty(spaceKey))
@@ -82,7 +82,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
         return spaceKey;
     }
     
-    protected String getSpaceKey(Map parameters, RenderContext renderContext, boolean checkPermission) throws GreenPepperServerException
+    protected String getSpaceKey(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, boolean checkPermission) throws GreenPepperServerException
     {
     	Space space;
         String spaceKey = (String)parameters.get("spaceKey");
@@ -96,7 +96,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
             spaceKey = spaceKey.trim();
             space = gpUtil.getSpaceManager().getSpace(spaceKey);
             if(space == null)
-                throw new GreenPepperServerException("greenpepper.children.spacenotfound", "");
+                throw new GreenPepperServerException("greenpepper.children.spacenotfound", spaceKey);
         }
         
         if (checkPermission)
@@ -111,7 +111,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
 		return ((Page)owner).getSpace();
 	}
 
-	protected String getPageTitle(Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
+	protected String getPageTitle(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
     {
         return getPage(parameters, renderContext, spaceKey).getTitle().trim();
     }
@@ -127,7 +127,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
 
         Page page = gpUtil.getPageManager().getPage(spaceKey, pageTitle);
         if(page == null)
-            throw new GreenPepperServerException("greenpepper.children.pagenotfound", "");
+            throw new GreenPepperServerException("greenpepper.children.pagenotfound", String.format("'%s' in space '%s'", pageTitle, spaceKey));
         
         return page;
     }
@@ -164,12 +164,19 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
         return all != null && Boolean.valueOf(all);
     }
 
-    @SuppressWarnings("unchecked")
     public static String getErrorView(String macroId, String errorId)
     {
-        Map contextMap = MacroUtils.defaultVelocityContext();
+        return getErrorView(macroId, errorId, null);
+    }
+    
+    public static String getErrorView(String macroId, String errorId, String message)
+    {
+        Map<String,Object> contextMap = MacroUtils.defaultVelocityContext();
         contextMap.put("macroId", macroId);
         contextMap.put("errorId", errorId);
+        if (message != null) {
+            contextMap.put("errorMessage", message);
+        }
         return VelocityUtils.getRenderedTemplate("/templates/greenpepper/confluence/macros/greenPepperMacros-error.vm", contextMap);
     }
 

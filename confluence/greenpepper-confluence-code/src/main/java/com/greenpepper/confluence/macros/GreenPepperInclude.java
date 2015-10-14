@@ -23,8 +23,7 @@ public class GreenPepperInclude extends AbstractGreenPepperMacro
         return true;
     }
 
-    @SuppressWarnings("unchecked")
-    public String execute(Map parameters, String body, RenderContext renderContext) throws MacroException
+    public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext renderContext) throws MacroException
     {
 		final PageContext context = (PageContext) renderContext;
         final boolean isRoot = ( getIncludedPagesParam( context ) == null );
@@ -59,7 +58,7 @@ public class GreenPepperInclude extends AbstractGreenPepperMacro
         }
         catch (GreenPepperServerException gpe)
         {
-            return getErrorView( "greenpepper.include.macroid", gpe.getId() );
+            return getErrorView( "greenpepper.include.macroid", gpe.getId() , gpe.getLocalizedMessage() );
         }
         catch (Exception e)
         {
@@ -72,7 +71,7 @@ public class GreenPepperInclude extends AbstractGreenPepperMacro
 		}
     }
 
-    private void checkMandatoryPageTitleParameter(Map parameters) throws GreenPepperServerException
+    private void checkMandatoryPageTitleParameter(@SuppressWarnings("rawtypes") Map parameters) throws GreenPepperServerException
     {
         if (!parameters.containsKey( "pageTitle" ))
         {
@@ -100,10 +99,9 @@ public class GreenPepperInclude extends AbstractGreenPepperMacro
         return pages;
     }
 
-    @SuppressWarnings("unchecked")
-    private String render(Map parameters, PageContext context, String pageTitle, Page page)
+    private String render(@SuppressWarnings("rawtypes") Map parameters, PageContext context, String pageTitle, Page page)
     {
-        Map contextMap = MacroUtils.defaultVelocityContext();
+        Map<String,Object> contextMap = MacroUtils.defaultVelocityContext();
 
         String title = (String) parameters.get( "title" );
         contextMap.put( "title", title != null ? title : pageTitle );

@@ -47,7 +47,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
 
 			Space space = gpUtil.getSpaceManager().getSpace(spaceKey);
 			if(space == null)
-				throw new GreenPepperServerException("greenpepper.children.spacenotfound", "");
+				throw new GreenPepperServerException("greenpepper.children.spacenotfound", spaceKey);
 
 			checkSpace(space);
         }
@@ -68,7 +68,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
             spaceKey = spaceKey.trim();
             space = gpUtil.getSpaceManager().getSpace(spaceKey);
             if(space == null)
-                throw new GreenPepperServerException("greenpepper.children.spacenotfound", "");
+                throw new GreenPepperServerException("greenpepper.children.spacenotfound", spaceKey);
         }
         
         if (checkPermission)
@@ -99,7 +99,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
 
         Page page = gpUtil.getPageManager().getPage(spaceKey, pageTitle);
         if(page == null)
-            throw new GreenPepperServerException("greenpepper.children.pagenotfound", "");
+            throw new GreenPepperServerException("greenpepper.children.pagenotfound", String.format("'%s' in space '%s'", pageTitle, spaceKey));
         
         return page;
     }
@@ -144,6 +144,8 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro
         Map<String,Object> contextMap = MacroUtils.defaultVelocityContext();
         contextMap.put("macroId", macroId);
         contextMap.put("errorId", errorId);
+        contextMap.put("errorMessage", message != null ? message : "");
+
         return VelocityUtils.getRenderedTemplate("/templates/greenpepper/confluence/macros/greenPepperMacros-error.vm", contextMap);
     }
 

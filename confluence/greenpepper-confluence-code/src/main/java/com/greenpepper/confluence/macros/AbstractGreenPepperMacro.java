@@ -74,7 +74,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
 
 			Space space = gpUtil.getSpaceManager().getSpace(spaceKey);
 			if(space == null)
-				throw new GreenPepperServerException("greenpepper.children.spacenotfound", "");
+				throw new GreenPepperServerException("greenpepper.children.spacenotfound", spaceKey);
 
 			checkSpace(space);
         }
@@ -174,9 +174,7 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
         Map<String,Object> contextMap = MacroUtils.defaultVelocityContext();
         contextMap.put("macroId", macroId);
         contextMap.put("errorId", errorId);
-        if (message != null) {
-            contextMap.put("errorMessage", message);
-        }
+        contextMap.put("errorMessage", message != null ? message : "");
         return VelocityUtils.getRenderedTemplate("/templates/greenpepper/confluence/macros/greenPepperMacros-error.vm", contextMap);
     }
 

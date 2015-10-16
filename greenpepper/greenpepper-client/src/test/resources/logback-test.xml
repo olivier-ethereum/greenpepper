@@ -7,9 +7,7 @@
 		</layout>
 	</appender>
 
-	<logger name="org.hibernate.SQL" level="WARN"/>
-	<logger name="org.hibernate.type" level="WARN"/>
-
+	<logger name="com.greenpepper" level="WARN"/>
 	<root level="WARN">
 		<appender-ref ref="STDOUT" />
 	</root>

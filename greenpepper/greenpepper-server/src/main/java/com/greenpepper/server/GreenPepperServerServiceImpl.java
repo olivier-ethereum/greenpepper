@@ -1326,10 +1326,14 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
     }
 
     private void setExecutionEnable(DocumentNode hierarchy, String repoUID, SystemUnderTest systemUnderTest) {
+        
         Map<String, DocumentNode> titlesToNodes = new HashMap<String, DocumentNode>();
-        for (DocumentNode children : hierarchy.getChildren()) {
-            titlesToNodes.put(children.getTitle(), children);
-        }
+
+        /*
+         * Need to refactor. There can be a StackOverflowError if the depth is too high.
+         * Guava has the TreeTraverser class that can help.
+         */
+        fillTitlesToNodesMap(titlesToNodes, hierarchy);
 
         List<Specification> specifications = documentDao.getSpecificationsByName(repoUID, new ArrayList<String>(titlesToNodes.keySet()));
 
@@ -1347,4 +1351,12 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
 
     }
+
+    private void fillTitlesToNodesMap(Map<String, DocumentNode> titlesToNodes, DocumentNode child) {
+        titlesToNodes.put(child.getTitle(), child);
+        for (DocumentNode subchild : child.getChildren()) {
+            fillTitlesToNodesMap(titlesToNodes, subchild);
+        }
+    }
+    
 }

@@ -2,11 +2,13 @@ package com.greenpepper.server.rpc.xmlrpc;
 
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenpepper.server.GreenPepperServerErrorKey;
 import com.greenpepper.server.GreenPepperServerException;
@@ -125,6 +127,8 @@ public class XmlRpcDataMarshaller
     public final static int NODE_REPOSITORY_UID_INDEX = 4;
     public final static int NODE_SUT_NAME_INDEX = 5;
     public final static int NODE_SECTION_INDEX = 6;
+
+    private final static Logger logger = LoggerFactory.getLogger(XmlRpcDataMarshaller.class);
 
     /**
      * Transforms the Collection of projects into a Vector of project parameters.
@@ -669,7 +673,6 @@ public class XmlRpcDataMarshaller
      * @param documentNodeParams
      * @return a DocumentNode based on the given vector. 
      */
-    @SuppressWarnings("unchecked")
     public static DocumentNode toDocumentNode(Vector documentNodeParams)
     {
         DocumentNode node = new DocumentNode((String) documentNodeParams.get(NODE_TITLE_INDEX));
@@ -677,10 +680,9 @@ public class XmlRpcDataMarshaller
         node.setCanBeImplemented((Boolean) documentNodeParams.get(NODE_CAN_BE_IMPLEMENTED_INDEX));
         
         Hashtable children = (Hashtable) documentNodeParams.get(NODE_CHILDREN_INDEX);
-        Iterator it = children.values().iterator();
-        while (it.hasNext())
-        {
-        	Vector nodeParams = (Vector) it.next();
+        Collection<Vector<?>> values = children.values();
+        for (Vector<?> nodeParams : values) {
+            
         	if(nodeParams.size() > 4)
         	{
         		node.addChildren(toReferenceNode(nodeParams));

@@ -80,7 +80,6 @@ public class XmlRpcRemoteRunner
 		return runSpecification(sut, specification, implementedVersion, locale);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Execution runSpecification(SystemUnderTest sut, Specification specification,
 									  boolean implementedVersion, String locale)
 			throws GreenPepperServerException

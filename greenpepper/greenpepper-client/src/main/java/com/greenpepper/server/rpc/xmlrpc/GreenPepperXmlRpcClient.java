@@ -1,11 +1,14 @@
 package com.greenpepper.server.rpc.xmlrpc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.TreeTraverser;
 import com.greenpepper.server.GreenPepperServerErrorKey;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.ServerPropertiesManager;
@@ -642,9 +645,44 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         log.debug("Get Specification Hierarchy: " + repository.getName() + " & " + systemUnderTest.getName());
         Vector<Object> vector = (Vector<Object>)execute(XmlRpcMethodName.getSpecificationHierarchy, params, identifier);
 
-        return XmlRpcDataMarshaller.toDocumentNode(vector);
+        DocumentNode documentNode = XmlRpcDataMarshaller.toDocumentNode(vector);
+        if (log.isDebugEnabled()) {
+            TreeTraverser<DepthAwareDocumentNode> traverser = new TreeTraverser<DepthAwareDocumentNode>() {
+
+                @Override
+                public Iterable<DepthAwareDocumentNode> children(DepthAwareDocumentNode root) {
+                    
+                    List<DepthAwareDocumentNode> depthAwareDocumentNodes = new ArrayList<DepthAwareDocumentNode>();
+                    Iterable<DocumentNode> children = root.getChildren();
+                    for (DocumentNode child : children) {
+                        DepthAwareDocumentNode node = new DepthAwareDocumentNode(child, root.depth+1);
+                        depthAwareDocumentNodes.add(node);
+                    }
+                    return depthAwareDocumentNodes;
+                }
+            };
+            
+            for (DepthAwareDocumentNode node : traverser.preOrderTraversal(new DepthAwareDocumentNode(documentNode, 0))) {
+                String state = node.documentNode.canBeImplemented() ? "workingcopy" : "implemented";
+                log.debug("[{}] [{}] {} {}", new String[]{node.documentNode.isExecutable() ? "X" : " ", state, String.format("%"+(node.depth+1)+"s", "") , node.documentNode.getTitle()});
+            }
+        }
+        return documentNode;
     }
 
+    private class DepthAwareDocumentNode {
+        DocumentNode documentNode;
+        int depth;
+        DepthAwareDocumentNode(DocumentNode documentNode, int depth) {
+            this.documentNode = documentNode;
+            this.depth = depth;
+        }
+        Iterable<DocumentNode> getChildren() {
+            return documentNode.getChildren();
+        }
+        
+    }
+    
     /**
      * @inheritDoc
      */

@@ -36,6 +36,7 @@ public class XmlRpcRemoteRunnerTest {
     }
 
     @Test
+    @Ignore
     public void testGetSpecificationHierarchyConfluence() throws Exception {
         xmlRpcRemoteRunner = new XmlRpcRemoteRunner("http://cf32.qua1.strator.eu/", "greenpepper1");
         Repository repository = new Repository();

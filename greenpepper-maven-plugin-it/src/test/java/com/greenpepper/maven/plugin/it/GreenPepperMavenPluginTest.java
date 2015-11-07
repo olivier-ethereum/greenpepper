@@ -1,8 +1,6 @@
 package com.greenpepper.maven.plugin.it;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.maven.it.Verifier;
 import org.apache.maven.it.util.ResourceExtractor;
@@ -44,8 +42,7 @@ public class GreenPepperMavenPluginTest
              * recurse. We are only installing the parent pom to
              * the local repo here.
              */
-            List<String> cliOptions = new ArrayList<String>();
-            cliOptions.add( "-N" );
+            //verifier.setMavenDebug(true);
             verifier.executeGoal( "integration-test" );
             
             /*

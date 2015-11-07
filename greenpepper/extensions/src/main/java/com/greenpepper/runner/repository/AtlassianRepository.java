@@ -1,14 +1,5 @@
 package com.greenpepper.runner.repository;
 
-import com.greenpepper.document.Document;
-import com.greenpepper.html.HtmlDocumentBuilder;
-import com.greenpepper.repository.DocumentRepository;
-import com.greenpepper.util.CollectionUtil;
-import com.greenpepper.util.IOUtil;
-import com.greenpepper.util.URIUtil;
-import org.apache.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.XmlRpcRequest;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -17,9 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.xmlrpc.XmlRpcClient;
+import org.apache.xmlrpc.XmlRpcRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.greenpepper.document.Document;
+import com.greenpepper.html.HtmlDocumentBuilder;
+import com.greenpepper.repository.DocumentRepository;
+import com.greenpepper.util.CollectionUtil;
+import com.greenpepper.util.IOUtil;
+import com.greenpepper.util.URIUtil;
+
 public class AtlassianRepository implements DocumentRepository
 {
-	private final URI root;
+    private static final Logger logger = LoggerFactory.getLogger(AtlassianRepository.class); 
+
+    private final URI root;
 	private String handler;
 	private boolean includeStyle;
 	private String username = "";
@@ -45,6 +50,7 @@ public class AtlassianRepository implements DocumentRepository
 	public Document loadDocument(String location) throws Exception
 	{
         String spec = retrieveSpecification(URI.create(URIUtil.raw(location)));
+        logger.trace("Page retrieved from the repository for location '{}'\n{}", location,spec);
         return loadHtmlDocument( spec );
 	}
 

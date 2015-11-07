@@ -1,12 +1,11 @@
 package com.greenpepper.server.license;
 
+import java.util.Date;
+
 import com.greenpepper.server.domain.Project;
 import com.greenpepper.server.domain.Repository;
 import com.greenpepper.server.domain.RepositoryType;
 import com.greenpepper.util.TestCase;
-
-
-import java.util.Date;
 
 public class LicenseTest extends TestCase
 {
@@ -164,7 +163,7 @@ public class LicenseTest extends TestCase
             }
             catch(GreenPepperLicenceException ex)
             {
-                fail();
+                fail(ex.getMessage());
             }
         }
     }

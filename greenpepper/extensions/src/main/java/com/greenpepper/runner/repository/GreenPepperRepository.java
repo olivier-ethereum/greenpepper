@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Vector;
 
 import org.apache.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.XmlRpcRequest;
 
 import com.greenpepper.Example;
 import com.greenpepper.Statistics;
@@ -71,7 +71,6 @@ public class GreenPepperRepository implements DocumentRepository
 		throw new UnsupportedOperationException("Not supported");
 	}
 
-	@SuppressWarnings("unchecked")
     public List<String> listDocuments(String uri) throws Exception
     {
         List<String> documentsURI = new ArrayList<String>();
@@ -129,7 +128,7 @@ public class GreenPepperRepository implements DocumentRepository
 	private DocumentRepository getRepository(Vector<String> definition)
 			throws Exception
 	{
-		Class klass = ClassUtils.loadClass(definition.get(0)) ;
+		Class<? extends DocumentRepository> klass = ClassUtils.loadClass(definition.get(0)) ;
 		Constructor<?> constructor = klass.getConstructor( String[].class );
 		return (DocumentRepository)constructor.newInstance(new Object[]{args(definition)});
 	}

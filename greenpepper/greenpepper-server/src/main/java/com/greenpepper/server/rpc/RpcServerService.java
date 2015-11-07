@@ -68,7 +68,7 @@ public interface RpcServerService
     /**
      * Creates a new Runner.
      * <p/>
-     * @param runnerParams
+     * @param runnerParams Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured']
      * @return error id if an error occured
      */
     public String createRunner(Vector<Object> runnerParams);
@@ -201,8 +201,8 @@ public interface RpcServerService
     /**
      * Adds the SystemUnderTest to the SystemUnderTest list of the Specification.
      * <p/>
-     * @param systemUnderTestParams
-     * @param specificationParams
+     * @param systemUnderTestParams SUT[name,Project[name]]
+     * @param specificationParams Spec[name, Repo[name,uid]]
      * @return error id if an error occured
      */
     public String addSpecificationSystemUnderTest(Vector<Object>  systemUnderTestParams, Vector<Object>  specificationParams);
@@ -268,8 +268,11 @@ public interface RpcServerService
     /**
      * Creates the systemUnderTest
      * <p/>
-     * @param systemUnderTestParams
-     * @param repositoryParams
+     * @param systemUnderTestParams Vector[name, Vector[project parameters], Vector[seeds classPaths], Vector[fixture classPaths], fixturefactory, 
+     *                              fixturefactoryargs, isdefault, 
+     *                              Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured'], 
+     *                              projectdependencydescriptor]
+     * @param repositoryParams REPO[name, uid]
      * @return error id if an error occured
      */
     public String createSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams);
@@ -287,8 +290,8 @@ public interface RpcServerService
     /**
      * Removes the systemUnderTest
      * <p/>
-     * @param systemUnderTestParams
-     * @param repositoryParams
+     * @param systemUnderTestParams SUT[name, project[name]]
+     * @param repositoryParams REPO[name,uid]
      * @return error id if an error occured
      */
     public String removeSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams);
@@ -313,7 +316,7 @@ public interface RpcServerService
     /**
      * Retrieves the Specification
      * <p/>
-     * @param specificationParams
+     * @param specificationParams [name,repository[name,uid]]
      * @return the Specification
      */
     public Vector<Object> getSpecification(Vector<Object> specificationParams);
@@ -417,7 +420,7 @@ public interface RpcServerService
     public Vector<Object> getRequirementSummary(Vector<Object> requirementParams);
 
     /**
-     * Retrieve the spcifications hierarchy for a Repository.
+     * Retrieve the specifications hierarchy for a Repository.
      * <p/>
      * @param repositoryParams
      * @param sutParams

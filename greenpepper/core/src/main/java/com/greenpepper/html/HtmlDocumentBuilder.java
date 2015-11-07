@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.greenpepper.Example;
 import com.greenpepper.TextExample;
 import com.greenpepper.document.Document;
@@ -38,6 +41,10 @@ import com.greenpepper.util.IOUtil;
 
 public class HtmlDocumentBuilder implements DocumentBuilder
 {
+    
+    private static final Logger logger = LoggerFactory.getLogger(HtmlDocumentBuilder.class);
+    
+    
     private final List<String> tags;
     private final List<HtmlContentFilter> filters = new ArrayList<HtmlContentFilter>();
 
@@ -92,6 +99,7 @@ public class HtmlDocumentBuilder implements DocumentBuilder
                 cssStyle.append("</style>");
                 
                 String modified = bodyMatcher.group(1) + cssStyle + bodyMatcher.group(3);
+                logger.trace("Html with Injected CSS\n {}", modified);
                 return modified;
             } catch (IOException e) {
                 throw new RuntimeException("Couldn't inject the report css in the document ",e);

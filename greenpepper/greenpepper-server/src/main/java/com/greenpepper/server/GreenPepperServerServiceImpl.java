@@ -878,7 +878,8 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
             sessionService.startSession();
             sessionService.beginTransaction();
 
-            verifyRepositoryPermission(repository, Permission.WRITE);
+            Repository persistedRepository = repositoryDao.getByUID(repository.getUid());
+            verifyRepositoryPermission(persistedRepository, Permission.WRITE);
 
             sutDao.remove(sut.getProject().getName(), sut.getName());
 

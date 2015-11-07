@@ -70,6 +70,9 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         File extension = dependency( "greenpepper-extensions-java.jar" );
         mojo.pluginDependencies.add( new DependencyArtifact( "greenpepper-extensions-java", extension  ));
 
+        mojo.pluginDependencies.add( new DependencyArtifact( "slf4j-api", dependency("slf4j-api-1.6.1.jar")));
+        mojo.pluginDependencies.add( new DependencyArtifact( "jcl-over-slf4j", dependency("jcl-over-slf4j-1.6.1.jar")));
+
 		assertEquals("en", mojo.locale);
 		assertEquals(MySelector.class.getName(), mojo.selector);
 		assertTrue(mojo.debug);

@@ -1,5 +1,8 @@
 package com.greenpepper.server.rpc.xmlrpc;
 
+import static com.greenpepper.server.GreenPepperServerErrorKey.*;
+import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.*;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
@@ -7,43 +10,6 @@ import java.util.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.greenpepper.server.GreenPepperServerErrorKey.ENVTYPES_NOT_FOUND;
-import static com.greenpepper.server.GreenPepperServerErrorKey.GENERAL_ERROR;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REFERENCE_CREATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REFERENCE_NOT_FOUND;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REFERENCE_REMOVE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REFERENCE_UPDATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REPOSITORY_GET_REGISTERED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REPOSITORY_REGISTRATION_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REPOSITORY_REMOVE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REPOSITORY_UPDATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.REQUIREMENT_REMOVE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_PROJECTS;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_REFERENCE;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_REFERENCES;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_REPOSITORIES;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_REQUIREMENT_REPOS;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_SPECIFICATION_REPOS;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RETRIEVE_SUTS;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RUNNERS_NOT_FOUND;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RUNNER_CREATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RUNNER_NOT_FOUND;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RUNNER_REMOVE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RUNNER_UPDATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.RUN_REFERENCE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATIONS_NOT_FOUND;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_ADD_SUT_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_CREATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_NOT_FOUND;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_REMOVE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_REMOVE_SUT_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_RUN_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SPECIFICATION_UPDATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SUCCESS;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SUT_CREATE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SUT_DELETE_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SUT_SET_DEFAULT_FAILED;
-import static com.greenpepper.server.GreenPepperServerErrorKey.SUT_UPDATE_FAILED;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.GreenPepperServerService;
 import com.greenpepper.server.domain.DocumentNode;
@@ -512,18 +478,23 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+
+    @SuppressWarnings("unchecked")
     public String addSpecificationSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> specificationParams)
     {
         try
         {
-            Specification specification = XmlRpcDataMarshaller.toSpecification( specificationParams );
-
-            SystemUnderTest sut = XmlRpcDataMarshaller.toSystemUnderTest( systemUnderTestParams );
-
+            Specification specification = Specification.newInstance((String)specificationParams.get(DOCUMENT_NAME_IDX));
+            Vector<String> repoParams = (Vector<String>)specificationParams.get(DOCUMENT_REPOSITORY_IDX);
+            Repository repository = Repository.newInstance(repoParams.get(REPOSITORY_UID_IDX));
+            repository.setName(repoParams.get(REPOSITORY_NAME_IDX));
+            specification.setRepository(repository);
+            
+            SystemUnderTest sut = SystemUnderTest.newInstance((String) systemUnderTestParams.get(SUT_NAME_IDX));
+            Vector<String> projectParams = (Vector<String>) systemUnderTestParams.get(SUT_PROJECT_IDX);
+            Project project = Project.newInstance(projectParams.get(PROJECT_NAME_IDX));
+            sut.setProject(project);
+            
 			service.addSpecificationSystemUnderTest(sut, specification);
 			log.debug( "Added SUT " + sut.getName() + " to SUT list of specification: " + specification.getName() );
             return SUCCESS;
@@ -535,16 +506,32 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
     /**
-     * @inheritDoc
-     * SECURED
+     * I just need :
+     *  <ul>
+     *   <li>repository uid</li>
+     *   <li>specification name</li>
+     *   <li>sut.project.name</li>
+     *   <li>sut.name</li>
+     * </ul>
+     * @param systemUnderTestParams Vector{sutName,
+     *            projectParametersVector{name}}
+     * @param specificationParams
+     *            Vector{name, repositoryParametersVector{name,uid}}
      */
+    @SuppressWarnings("unchecked")
     public String removeSpecificationSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> specificationParams)
     {
         try
         {
-            Specification specification = XmlRpcDataMarshaller.toSpecification( specificationParams );
+            Specification specification = Specification.newInstance((String)specificationParams.get(DOCUMENT_NAME_IDX));
+            Vector<Object> repositoryParams = (Vector<Object>)specificationParams.get(DOCUMENT_REPOSITORY_IDX);
+            Repository repository = Repository.newInstance((String)repositoryParams.get(REPOSITORY_UID_IDX));
+            specification.setRepository(repository);
 
-            SystemUnderTest sut = XmlRpcDataMarshaller.toSystemUnderTest( systemUnderTestParams );
+            SystemUnderTest sut = SystemUnderTest.newInstance((String)systemUnderTestParams.get(SUT_NAME_IDX));
+            Vector<Object> sutProjectParams = (Vector<Object>)systemUnderTestParams.get(SUT_PROJECT_IDX);
+            Project sutProject = Project.newInstance((String)sutProjectParams.get(PROJECT_NAME_IDX));
+            sut.setProject(sutProject);
 
             service.removeSpecificationSystemUnderTest(sut, specification);
 
@@ -709,17 +696,16 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+
     public String createSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
         {
-            Repository repository = loadRepository( repositoryParams );
 
             SystemUnderTest newSut = XmlRpcDataMarshaller.toSystemUnderTest( systemUnderTestParams );
+            
+            Repository repository = Repository.newInstance((String)repositoryParams.get(REPOSITORY_UID_IDX));
+            repository.setName((String)repositoryParams.get(REPOSITORY_NAME_IDX));
 
 			service.createSystemUnderTest(newSut, repository);
 
@@ -755,19 +741,23 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+
     public String removeSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
         {
-            Repository repository = loadRepository( repositoryParams );
-
             SystemUnderTest sutToDelete = XmlRpcDataMarshaller.toSystemUnderTest( systemUnderTestParams );
+            sutToDelete = SystemUnderTest.newInstance((String)systemUnderTestParams.get(SUT_NAME_IDX));
 
-			service.removeSystemUnderTest(sutToDelete, repository);
+            @SuppressWarnings("unchecked")
+            Vector<Object> projectParams = (Vector<Object>)systemUnderTestParams.get(SUT_PROJECT_IDX);
+            Project  project = Project.newInstance((String)projectParams.get(PROJECT_NAME_IDX));
+            sutToDelete.setProject(project);
+
+            Repository repository = Repository.newInstance((String)repositoryParams.get(REPOSITORY_UID_IDX));
+            repository.setName((String)repositoryParams.get(REPOSITORY_NAME_IDX));
+
+            service.removeSystemUnderTest(sutToDelete, repository);
 
             log.debug( "Removed SystemUnderTest: " + sutToDelete.getName() );
             return SUCCESS;
@@ -830,7 +820,13 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     {
         try
         {
-            Specification specification = XmlRpcDataMarshaller.toSpecification( specificationParams );
+            Specification specification = Specification.newInstance((String)specificationParams.get(DOCUMENT_NAME_IDX));
+            
+            Vector<?> repositoryParams = (Vector<?>)specificationParams.get(DOCUMENT_REPOSITORY_IDX);
+            Repository repository = Repository.newInstance((String)repositoryParams.get(REPOSITORY_UID_IDX));
+            repository.setName((String)repositoryParams.get(REPOSITORY_NAME_IDX));
+            
+            specification.setRepository(repository);
 
 			specification = service.getSpecification(specification);
 
@@ -897,7 +893,6 @@ public class GreenPepperXmlRpcServer implements RpcServerService
      * @inheritDoc
      * SECURED
      */
-    @SuppressWarnings("unchecked")
     public Vector<Object> getSpecificationHierarchy(Vector<Object> repositoryParams, Vector<Object> sutParams)
     {
         try

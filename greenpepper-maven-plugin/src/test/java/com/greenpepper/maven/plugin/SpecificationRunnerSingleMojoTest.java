@@ -48,6 +48,8 @@ public class SpecificationRunnerSingleMojoTest extends AbstractMojoTestCase
         mojo.pluginDependencies.add( new DependencyArtifact( "xmlrpc", dependency( "xmlrpc-2.0.1.jar" )) ); 
         File extension = dependency( "greenpepper-extensions-java.jar" );
         mojo.pluginDependencies.add( new DependencyArtifact( "greenpepper-extensions-java", extension  ));
+        mojo.pluginDependencies.add( new DependencyArtifact( "slf4j-api", dependency("slf4j-api-1.6.1.jar")));
+        mojo.pluginDependencies.add( new DependencyArtifact( "jcl-over-slf4j", dependency("jcl-over-slf4j-1.6.1.jar")));
 
         mojo.execute();
        

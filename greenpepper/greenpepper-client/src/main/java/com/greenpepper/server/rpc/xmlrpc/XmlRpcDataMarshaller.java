@@ -337,7 +337,7 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[name, Vector[project parameters], type, content type, uri]
      * </p>
-     * @param xmlRpcParameters
+     * @param xmlRpcParameters Vector[name, Vector[project parameters], type, content type, uri]
      * @return the Repository.
      */
     @SuppressWarnings("unchecked")
@@ -347,9 +347,9 @@ public class XmlRpcDataMarshaller
         if(!xmlRpcParameters.isEmpty())
         {
             repository = Repository.newInstance((String)xmlRpcParameters.get(REPOSITORY_UID_IDX));
+            repository.setName((String)xmlRpcParameters.get(REPOSITORY_NAME_IDX));
             repository.setProject(toProject((Vector)xmlRpcParameters.get(REPOSITORY_PROJECT_IDX)));
             repository.setType(toRepositoryType((Vector)xmlRpcParameters.get(REPOSITORY_TYPE_IDX)));
-            repository.setName((String)xmlRpcParameters.get(REPOSITORY_NAME_IDX));
             repository.setContentType(ContentType.getInstance((String)xmlRpcParameters.get(REPOSITORY_CONTENTTYPE_IDX)));
             repository.setBaseUrl((String)xmlRpcParameters.get(REPOSITORY_BASE_URL_IDX));
             repository.setBaseRepositoryUrl((String)xmlRpcParameters.get(REPOSITORY_BASEREPO_URL_IDX));
@@ -387,7 +387,7 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Vector of the Specification parameters into a Specification Object.<br>
      * Structure of the parameters:<br>
-     * Vector[name, Vector[repository parameters]]
+     * Vector[name, Vector[repository parameters], Vector[SUT parameters]]
      * </p>
      * @param Specification
      * @return the Specification.
@@ -409,7 +409,7 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Vector of the Runner parameters into a Runner Object.<br>
      * </p>
-     * @param xmlRpcParameters
+     * @param xmlRpcParameters Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured']
      * @return the Runner.
      */
     @SuppressWarnings("unchecked")
@@ -424,9 +424,9 @@ public class XmlRpcDataMarshaller
             runner.setServerName(toNullIfEmpty((String)getParameter(RUNNER_SERVER_NAME_IDX, xmlRpcParameters)));
             runner.setServerPort(toNullIfEmpty((String)getParameter(RUNNER_SERVER_PORT_IDX, xmlRpcParameters)));
             runner.setMainClass(toNullIfEmpty((String)getParameter(RUNNER_MAINCLASS_IDX, xmlRpcParameters)));
-            runner.setSecured((Boolean)getParameter(RUNNER_SECURED_IDX, xmlRpcParameters));
             ClasspathSet classpaths = new ClasspathSet((Vector)getParameter(RUNNER_CLASSPATH_IDX, xmlRpcParameters));
             runner.setClasspaths(classpaths);
+            runner.setSecured((Boolean)getParameter(RUNNER_SECURED_IDX, xmlRpcParameters));
         }
         
         return runner;
@@ -455,7 +455,7 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Vector of the SystemUnderTest parameters into a SystemUnderTest Object.<br>
      * Structure of the parameters:<br>
-     * Vector[name, Vector[project parameters], Vector[seeds classPaths], Vector[fixture classPaths], env]
+     * Vector[name, Vector[project parameters], Vector[seeds classPaths], Vector[fixture classPaths], fixturefactory, fixturefactoryargs, isdefault, Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured'], projectdependencydescriptor]
      * </p>
      * @param xmlRpcParameters
      * @return the SystemUnderTest.
@@ -475,8 +475,8 @@ public class XmlRpcDataMarshaller
             sut.setFixtureClasspaths(fixtureClasspaths);
             sut.setFixtureFactory(toNullIfEmpty((String)xmlRpcParameters.get(SUT_FIXTURE_FACTORY_IDX)));
             sut.setFixtureFactoryArgs(toNullIfEmpty((String)xmlRpcParameters.get(SUT_FIXTURE_FACTORY_ARGS_IDX)));
-            sut.setRunner(toRunner((Vector<Object>)xmlRpcParameters.get(SUT_RUNNER_IDX)));
             sut.setIsDefault((Boolean)xmlRpcParameters.get(SUT_IS_DEFAULT_IDX));
+            sut.setRunner(toRunner((Vector<Object>)xmlRpcParameters.get(SUT_RUNNER_IDX)));
 			sut.setProjectDependencyDescriptor(toNullIfEmpty((String)xmlRpcParameters.get(SUT_PROJECT_DEPENDENCY_DESCRIPTOR_IDX)));
 		}
         

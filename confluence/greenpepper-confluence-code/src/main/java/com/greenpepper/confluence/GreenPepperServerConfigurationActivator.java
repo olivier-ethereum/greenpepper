@@ -34,6 +34,7 @@ import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.GreenPepperServerServiceImpl;
 import com.greenpepper.server.configuration.DefaultServerProperties;
 import com.greenpepper.server.database.hibernate.BootstrapData;
+import com.greenpepper.server.database.hibernate.DefaultRunners;
 import com.greenpepper.server.database.hibernate.HibernateSessionService;
 import com.greenpepper.server.domain.dao.DocumentDao;
 import com.greenpepper.server.domain.dao.ProjectDao;
@@ -187,6 +188,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         }
 
         sProperties.setProperty("confluence.home", getConfluenceHome());
+        sProperties.setProperty(DefaultRunners.DEFAULT_RUNNER_BUILDER_INTERFACE, "com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder");
     }
 
     public GreenPepperServerConfiguration getConfiguration() {

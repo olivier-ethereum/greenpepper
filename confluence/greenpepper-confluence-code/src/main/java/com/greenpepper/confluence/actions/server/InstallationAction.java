@@ -45,12 +45,6 @@ public class InstallationAction
 	}
 
 	public String config() {
-        /*
-         * if (!gpUtil.isPluginInstalledUnderWebInfLib()) {
-         * addActionError(getText(ConfluenceGreenPepper.PLUGIN_NOT_INSTALLED_UNDER_WEBINFLIB, new
-         * String[] {gpUtil.getWebInfLibDirectory()}));
-         * }
-         */
 		return SUCCESS;
 	}
 

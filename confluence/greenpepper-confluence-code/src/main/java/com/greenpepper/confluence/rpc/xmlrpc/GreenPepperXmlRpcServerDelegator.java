@@ -284,6 +284,9 @@ public class GreenPepperXmlRpcServerDelegator
 		return serviceDelegator.getSpecificationHierarchy(repositoryParams, sutParams);
 	}
 
+	/**
+	 * @param args 2 mandatory args [SpaceKey, PageTitle] 
+	 */
 	public String getRenderedSpecification(String username, String password, Vector<?> args)
 	{
 		return confluenceServiceDelegator.getRenderedSpecification(username, password, args);

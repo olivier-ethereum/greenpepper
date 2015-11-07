@@ -40,9 +40,18 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
 
 	private ConfluenceGreenPepper gpUtil = new ConfluenceGreenPepper();
 
+	/**
+	 * 
+	 * @param args The vector needs to have at least 3 elements and a 4th optional one.<ul>
+	 *     <li>SpaceKey</li>
+	 *     <li>PageTitle</li>
+	 *     <li>IncludeStyle</li>
+	 *     <li>implementedVersion : false if you want the working copy</li>
+	 * </ul>
+	 */
 	public String getRenderedSpecification(final String username, final String password, final Vector<?> args)
     {
-    	if(args.size() < 3) return error("Parameters Missing, expecting:[SpaceKey, PageTitle] !");
+    	if(args.size() < 3) return error("Parameters Missing, expecting:[SpaceKey, PageTitle, IncludeStyle] !");
     	final boolean implementedVersion = args.size() < 4 || (Boolean)args.get(3);
 
         TransactionTemplate txTemplate = new TransactionTemplate(gpUtil.getPlatformTransactionManager());

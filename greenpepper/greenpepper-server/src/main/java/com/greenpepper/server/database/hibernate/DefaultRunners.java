@@ -23,6 +23,8 @@ import com.greenpepper.util.URIUtil;
 
 public class DefaultRunners {
 
+    public static final String DEFAULT_RUNNER_BUILDER_INTERFACE = "com.greenpepper.server.runner.spi.DefaultRunnerBuilder";
+
     private static Logger log = LoggerFactory.getLogger(DefaultRunners.class);
 
     private final SystemUnderTestDao sutDao;
@@ -56,8 +58,30 @@ public class DefaultRunners {
             insertJavaRunnerFromHome(greenPepperHomeDir);
         }
 
+        log.debug("Manual Service Loader (using properties to get the rigth class)");
+        String drbClassName = properties.getProperty(DEFAULT_RUNNER_BUILDER_INTERFACE);
+        if (drbClassName != null) {
+            log.info("Try Loading runner builder using property '{}'", DEFAULT_RUNNER_BUILDER_INTERFACE);
+            log.info("The class to load : {}", drbClassName);
+            try {
+                @SuppressWarnings("unchecked")
+                Class<DefaultRunnerBuilder> conluenceDRB = (Class<DefaultRunnerBuilder>) Class.forName(drbClassName);
+                DefaultRunnerBuilder defaultRunnerBuilder = conluenceDRB.newInstance();
+                if (sutDao.getRunnerByName(defaultRunnerBuilder.getRunnerName()) == null) {
+                    log.info("Registering {}", defaultRunnerBuilder.getRunnerName());
+                    defaultRunnerBuilder.buildAndRegisterRunner(sutDao, properties);
+                }
+            }catch (ClassNotFoundException e) {
+                log.warn("Could not load {}. If you are not on Confluence, forget this. Cause : {}", drbClassName, e.getMessage());
+            } catch (InstantiationException e) {
+                log.error("Could not instanciate " + drbClassName, e);
+            } catch (IllegalAccessException e) {
+                log.error("Could not instanciate " + drbClassName, e);
+            }
+        }
+        
         log.debug("Building DefaultRunners using ServiceLoader");
-        // FIXME doesn't work when installing as confluence plugin.
+        // NOTE: doesn't work when installing as confluence plugin.
         // Maybe get some help here :
         // http://blog.osgi.org/2013/02/javautilserviceloader-in-osgi.html
         for (DefaultRunnerBuilder defaultRunnerBuilder : serviceLoader) {
@@ -67,7 +91,7 @@ public class DefaultRunners {
                 defaultRunnerBuilder.buildAndRegisterRunner(sutDao, properties);
             }
         }
-
+        
         String basePath = properties.getProperty("baseUrl", null);
         if (basePath != null) {
             log.debug("Finding runner jars using 'baseUrl' : {}", basePath);
@@ -75,24 +99,6 @@ public class DefaultRunners {
             insertJavaRunnerFromDir(libDir);
         }
 
-        // FIXME Remove me when serviceloader is solved
-        try {
-            log.info("Try Loading confluence runner builder in case serviceloader failed");
-            @SuppressWarnings("unchecked")
-            Class<DefaultRunnerBuilder> conluenceDRB = (Class<DefaultRunnerBuilder>) Class.forName("com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder");
-            DefaultRunnerBuilder defaultRunnerBuilder = conluenceDRB.newInstance();
-            if (sutDao.getRunnerByName(defaultRunnerBuilder.getRunnerName()) == null) {
-                log.info("Registering {}", defaultRunnerBuilder.getRunnerName());
-                defaultRunnerBuilder.buildAndRegisterRunner(sutDao, properties);
-            }
-
-        } catch (ClassNotFoundException e) {
-            log.warn("Could not load com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder. If you are not on Confluence, forget this. Cause : {}", e.getMessage());
-        } catch (InstantiationException e) {
-            log.error("Could not instanciate com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder", e);
-        } catch (IllegalAccessException e) {
-            log.error("Could not instanciate com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder", e);
-        }
     }
 
     private boolean shouldCreateJavaRunner() {

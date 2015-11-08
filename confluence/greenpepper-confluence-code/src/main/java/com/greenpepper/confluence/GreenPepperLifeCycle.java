@@ -18,7 +18,8 @@
  */
 package com.greenpepper.confluence;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atlassian.config.lifecycle.LifecycleContext;
 import com.atlassian.config.lifecycle.LifecycleItem;
@@ -28,7 +29,7 @@ import com.greenpepper.server.GreenPepperServer;
 public class GreenPepperLifeCycle
 		implements LifecycleItem
 {
-	private static Logger log = Logger.getLogger(GreenPepperLifeCycle.class);
+	private static Logger log = LoggerFactory.getLogger(GreenPepperLifeCycle.class);
 
 	private GreenPepperServerConfigurationActivator activator;
 
@@ -44,8 +45,6 @@ public class GreenPepperLifeCycle
 			activator = (GreenPepperServerConfigurationActivator)ContainerManager.getComponent(
 							"greenPepperServerConfigurationActivator");
 			
-			activator.setServletContext(lifecycleContext.getServletContext()); // sync
-
 			log.debug("Configuration:" + activator.getConfiguration());
 			activator.startup(false);
 		}

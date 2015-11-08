@@ -18,13 +18,17 @@
  */
 package com.greenpepper.confluence;
 
+import java.io.Serializable;
 import java.util.Properties;
 
 import com.greenpepper.server.configuration.DefaultServerProperties;
 
-public class GreenPepperServerConfiguration
+public class GreenPepperServerConfiguration implements Serializable
 {
-	private boolean isSetupComplete;
+
+    private static final long serialVersionUID = 1L;
+
+    private boolean isSetupComplete;
 	private Properties properties = new DefaultServerProperties();
 
 	public GreenPepperServerConfiguration()

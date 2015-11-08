@@ -17,8 +17,6 @@ package com.greenpepper.confluence;
 
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
-
 import org.apache.log4j.Logger;
 import org.hibernate.dialect.HSQLDialect;
 
@@ -26,6 +24,7 @@ import com.atlassian.bandana.BandanaContext;
 import com.atlassian.bandana.BandanaManager;
 import com.atlassian.confluence.setup.BootstrapManager;
 import com.atlassian.confluence.setup.bandana.ConfluenceBandanaContext;
+import com.atlassian.confluence.setup.settings.SettingsManager;
 import com.atlassian.plugin.StateAware;
 import com.atlassian.spring.container.ContainerManager;
 import com.greenpepper.server.GreenPepperServer;
@@ -47,8 +46,6 @@ import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
 import com.greenpepper.server.license.Authorizer;
 import com.greenpepper.server.license.OpenSourceAuthorizer;
 import com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer;
-import com.greenpepper.util.URIUtil;
-import com.opensymphony.webwork.ServletActionContext;
 
 public class GreenPepperServerConfigurationActivator implements StateAware {
 
@@ -59,12 +56,12 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     private BandanaManager bandanaManager;
 
     private BootstrapManager bootstrapManager;
+    
+    private SettingsManager settingsManager;
 
     private GreenPepperServerConfiguration configuration;
 
     private HibernateSessionService hibernateSessionService;
-
-    private ServletContext servletContext;
 
     private boolean isPluginEnabled = false;
 
@@ -93,8 +90,8 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         this.bootstrapManager = bootstrapManager;
     }
 
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
+    public void setSettingsManager(SettingsManager settingsManager) {
+        this.settingsManager = settingsManager;
     }
 
     public boolean isReady() {
@@ -124,9 +121,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
                 new BootstrapData(sessionService, properties).execute();
                 new GreenPepperUserGroup().createIfNeeded();
 
-                // TODO Use a more intelligent way of doing things
                 Authorizer authorizer = new OpenSourceAuthorizer(sessionService, properties);
-                // Authorizer authorizer = new DefaultAuthorizer(sessionService, properties);
                 authorizer.initialize(GreenPepperServer.versionDate());
 
                 ProjectDao projectDao = new HibernateProjectDao(sessionService);
@@ -176,17 +171,7 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     }
 
     private void injectAdditionalProperties(Properties sProperties) {
-        final ServletContext servletContext = getServletContext();
-
-        if (servletContext != null) {
-            String dialect = servletContext.getInitParameter("hibernate.dialect");
-            if (dialect != null)
-                sProperties.setProperty("hibernate.dialect", dialect);
-            if (servletContext.getRealPath("/") != null) {
-                sProperties.setProperty("baseUrl", URIUtil.decoded(servletContext.getRealPath("/")));
-            }
-        }
-
+        sProperties.setProperty("baseUrl", settingsManager.getGlobalSettings().getBaseUrl());
         sProperties.setProperty("confluence.home", getConfluenceHome());
         sProperties.setProperty(DefaultRunners.DEFAULT_RUNNER_BUILDER_INTERFACE, "com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder");
     }
@@ -288,16 +273,4 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         return bootstrapManager.getConfluenceHome();
     }
 
-    private ServletContext getServletContext() {
-        if (servletContext == null) {
-            try {
-                return ServletActionContext.getServletContext();
-            } catch (Throwable t) {
-                log.warn("Cannot retrieve servlet context", t);
-                return null;
-            }
-        }
-
-        return servletContext;
-    }
 }

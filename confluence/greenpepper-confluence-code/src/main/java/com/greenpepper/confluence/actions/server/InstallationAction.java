@@ -9,7 +9,8 @@ import java.util.ResourceBundle;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atlassian.confluence.velocity.htmlsafe.HtmlSafe;
 import com.greenpepper.confluence.GreenPepperServerConfigurationActivator;
@@ -22,7 +23,7 @@ public class InstallationAction
 		extends GreenPepperServerAction
 {
 
-	private static final Logger log = Logger.getLogger(InstallationAction.class);
+	private static final Logger log = LoggerFactory.getLogger(InstallationAction.class);
 	
 	private static final String RESOURCE_BUNDLE = InstallationAction.class.getName();
 	private final ThreadLocal<Locale> threadLocale = new ThreadLocal<Locale>();

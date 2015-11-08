@@ -24,7 +24,8 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atlassian.confluence.importexport.resource.ResourceAccessor;
 import com.atlassian.confluence.plugin.webresource.ConfluenceWebResourceManager;
@@ -43,7 +44,7 @@ public class DefaultStyleSheetExtractorImpl
 		implements StyleSheetExtractor
 {
 
-	private Logger log = Logger.getLogger(StyleSheetExtractor.class);
+	private static final Logger log = LoggerFactory.getLogger(StyleSheetExtractor.class);
 
 	private ConfluenceGreenPepper gpUtil = new ConfluenceGreenPepper();
 	private String tableCssContent;

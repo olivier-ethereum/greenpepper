@@ -18,39 +18,19 @@
  */
 package com.greenpepper.confluence.utils.stylesheet;
 
-import com.greenpepper.confluence.utils.ConfluenceVersion;
-import com.greenpepper.util.ClassUtils;
-import com.greenpepper.util.ExceptionImposter;
-
+/**
+ * Today, this is not a real factory as it will only give you one instance.
+ * The file is still here cause I don't want to take the time and refactor.
+ * @author wattazoum
+ *
+ */
 public class StyleSheetExtractorFactory
 {
-	private static StyleSheetExtractor instance;
+	private static StyleSheetExtractor instance = new DefaultStyleSheetExtractorImpl();
 
 	public static StyleSheetExtractor getInstance()
 	{
-		if (instance == null)
-		{
-			instance = createStyleSheetExtractor(ConfluenceVersion.getCurrentVersion().compareTo(ConfluenceVersion.V28X) < 0 ?
-												 "OldStyleSheetExtractorImpl" : "DefaultStyleSheetExtractorImpl");
-		}
-
 		return instance;
 	}
 
-	private static StyleSheetExtractor createStyleSheetExtractor(String implementationClassName)
-	{
-		// We must create the instance dynamically coz the new implementation use classes not found
-		// in previous version of confluence (and we just don't want to maintain a jar by version of confluence!)
-		try
-		{
-			Class clazz = ClassUtils.loadClass(
-					StyleSheetExtractorFactory.class.getPackage().getName() + "." + implementationClassName);
-
-			return (StyleSheetExtractor)clazz.newInstance();
-		}
-		catch (Exception e)
-		{
-			throw ExceptionImposter.imposterize(e);
-		}
-	}
 }

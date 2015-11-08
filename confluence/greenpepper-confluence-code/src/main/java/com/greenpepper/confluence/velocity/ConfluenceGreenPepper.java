@@ -23,6 +23,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.atlassian.config.bootstrap.AtlassianBootstrapManager;
 import com.atlassian.config.util.BootstrapUtils;
 import com.atlassian.confluence.content.render.xhtml.Renderer;
+import com.atlassian.confluence.content.render.xhtml.compatibility.BodyTypeAwareRenderer;
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.core.ContentEntityManager;
 import com.atlassian.confluence.core.ContentEntityObject;
@@ -103,6 +104,7 @@ public class ConfluenceGreenPepper {
     private FormatSettingsManager formatSettingsManager;
     private GreenPepperUserGroup gpUserGroup;
     private Renderer viewRenderer;
+    private BodyTypeAwareRenderer bodyTypeAwareRenderer;
 
     private final ThreadLocal<Locale> threadLocale = new ThreadLocal<Locale>();
     private ResourceBundle resourceBundle;
@@ -380,8 +382,7 @@ public class ConfluenceGreenPepper {
         if (implementedVersion) {
             page = getImplementedPage(currentPage);
         }
-
-        return page.getBodyAsString();
+        return getBodyTypeAwareRenderer().render(page);
     }
 
     /**
@@ -785,6 +786,14 @@ public class ConfluenceGreenPepper {
         }
         viewRenderer = (Renderer) ContainerManager.getComponent("viewRenderer");
         return viewRenderer;
+    }
+
+    public BodyTypeAwareRenderer getBodyTypeAwareRenderer() {
+        if (bodyTypeAwareRenderer != null) {
+            return bodyTypeAwareRenderer;            
+        }
+        bodyTypeAwareRenderer = new BodyTypeAwareRenderer(getViewRenderer(), getWikiStyleRenderer());
+        return bodyTypeAwareRenderer;
     }
 
     public PageManager getPageManager() {

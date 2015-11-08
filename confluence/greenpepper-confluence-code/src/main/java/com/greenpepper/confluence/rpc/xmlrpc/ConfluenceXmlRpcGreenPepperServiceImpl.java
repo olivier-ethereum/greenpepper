@@ -87,12 +87,12 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
         });
     }
 
-    public Vector getSpecificationHierarchy(final String username, final String password, final Vector<?> args)
+    public Vector<?> getSpecificationHierarchy(final String username, final String password, final Vector<?> args)
     {
     	if(args.isEmpty()) return new DocumentNode("Parameters Missing, expecting:[SpaceKey] !").marshallize();
 
         TransactionTemplate txTemplate = new TransactionTemplate(gpUtil.getPlatformTransactionManager());
-        return (Vector)txTemplate.execute(new TransactionCallback()
+        return (Vector<?>)txTemplate.execute(new TransactionCallback()
         {
             public Object doInTransaction(TransactionStatus transactionStatus)
             {
@@ -285,7 +285,6 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
 			// http://www.greenpeppersoftware.com/jira/browse/GP-747
 			content = content.replaceAll("\\{pagetree", "{pagetree-not-rendered");
 
-//    	    basicRenderedPage.append(gpUtil.getWikiStyleRenderer().convertWikiToXHtml(page.toPageContext(), content));
     	    basicRenderedPage.append(gpUtil.getViewRenderer().render(content, new DefaultConversionContext(page.toPageContext())));
     	    
     	    if (includeStyle)
@@ -305,8 +304,7 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
     	}
     }
 
-    @SuppressWarnings("unchecked")
-    private Vector getSpecificationHierarchy(Space space)
+    private Vector<?> getSpecificationHierarchy(Space space)
     {
     	DocumentNode hierarchy = new DocumentNode(space.getName());
         List<Page> pages = gpUtil.getPageManager().getPages(space, true);
@@ -322,7 +320,6 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
         return hierarchy.marshallize();
     }
 
-    @SuppressWarnings("unchecked")
     private DocumentNode buildNodeHierarchy(Page page, ConfluenceGreenPepper gpUtil)
     {
         DocumentNode node = new DocumentNode(page.getTitle());

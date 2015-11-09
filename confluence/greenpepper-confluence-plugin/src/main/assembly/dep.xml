@@ -21,9 +21,11 @@
 				<include>org.hibernate:hibernate-annotations</include>
 				<include>org.hibernate:hibernate-commons-annotations</include>
 				<include>org.hibernate:ejb3-persistence</include>
-				<!-- <include>javax.persistence:ejb</include> -->
 				<include>de.schlichtherle.truelicense:truelicense-core</include>
 				<include>de.schlichtherle.truelicense:truelicense-xml</include>
+				<include>com.fasterxml.jackson.core:jackson-databind</include>
+				<include>com.fasterxml.jackson.core:jackson-core</include>
+				<include>com.fasterxml.jackson.core:jackson-annotations</include>
 			</includes>
 			<excludes>
 				<exclude>com.github.strator-dev.greenpepper:greenpepper-client:jar:complete</exclude>

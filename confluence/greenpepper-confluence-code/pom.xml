@@ -9,19 +9,12 @@
 	
     <artifactId>greenpepper-confluence-code</artifactId>
     <name>GreenPepper Confluence Code</name>
+	
+	<properties>
+		<jackson.version>2.6.3</jackson.version>
+	</properties>
 
     <dependencies>
-        <!-- <dependency>
-            <groupId>com.github.strator-dev.greenpepper</groupId>
-            <artifactId>greenpepper-client</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-            	<exclusion>
-            		<artifactId>commons-logging</artifactId>
-            		<groupId>commons-logging</groupId>
-            	</exclusion>
-            </exclusions>
-        </dependency> -->
         <dependency>
             <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-server</artifactId>
@@ -49,10 +42,21 @@
             <version>1.0.16</version>
         </dependency>
         <dependency>
+		  <groupId>com.fasterxml.jackson.core</groupId>
+		  <artifactId>jackson-databind</artifactId>
+		  <version>${jackson.version}</version>
+		</dependency>
+        <dependency>
             <groupId>com.atlassian.confluence</groupId>
             <artifactId>confluence</artifactId>
             <version>${confluence.version}</version>
             <scope>provided</scope>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>slf4j-log4j12</artifactId>
+            		<groupId>org.slf4j</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         
         <!-- WIRED TEST RUNNER DEPENDENCIES -->

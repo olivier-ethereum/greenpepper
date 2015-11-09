@@ -18,52 +18,68 @@
  */
 package com.greenpepper.confluence;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Properties;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.greenpepper.server.configuration.DefaultServerProperties;
 
-public class GreenPepperServerConfiguration implements Serializable
-{
+public class GreenPepperServerConfiguration implements Serializable {
+    
+    private static final MappingJsonFactory jsonF = new MappingJsonFactory();
 
     private static final long serialVersionUID = 1L;
 
     private boolean isSetupComplete;
 	private Properties properties = new DefaultServerProperties();
 
-	public GreenPepperServerConfiguration()
-	{
-	}
-
-	public boolean isSetupComplete()
+    public boolean isSetupComplete()
 	{
 		return isSetupComplete;
 	}
 
-	public void setSetupComplete(boolean setupComplete)
+    public void setSetupComplete(boolean setupComplete)
 	{
 		isSetupComplete = setupComplete;
 	}
 
-	public Properties getProperties()
+    public Properties getProperties()
 	{
 		return properties;
 	}
 
-	public void setProperties(Properties properties)
+    public void setProperties(Properties properties)
 	{
 		this.properties = properties;
 	}
 
-	@Override
+    /**
+     * We use this method to store the Configuration as JSON
+     */
 	public String toString()
 	{
-		StringBuilder sb = new StringBuilder("GreenPepperServerConfiguration:");
-
-		sb.append("{isSetupComplete=").append(isSetupComplete())
-			.append(";properties=").append(properties)
-			.append("}");
-
-		return sb.toString();
+	    try {
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+            JsonGenerator createGenerator = jsonF.createGenerator(out);
+            createGenerator.writeObject(this);
+            createGenerator.flush();
+            createGenerator.close();
+            String output = new String(out.toByteArray());
+            return output;
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to convert this instance to a JSON using Jackson, fallbacking to manual", e);
+        }
+	}
+	
+	public static GreenPepperServerConfiguration fromString(String input) throws JsonParseException, IOException {
+	    JsonParser parser = jsonF.createParser(input);
+	    TypeReference<GreenPepperServerConfiguration> ref = new TypeReference<GreenPepperServerConfiguration>() { };
+	    return parser.readValueAs(ref);
 	}
 }

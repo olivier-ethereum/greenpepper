@@ -15,10 +15,12 @@
  */
 package com.greenpepper.confluence;
 
+import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.hibernate.dialect.HSQLDialect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atlassian.bandana.BandanaContext;
 import com.atlassian.bandana.BandanaManager;
@@ -27,6 +29,7 @@ import com.atlassian.confluence.setup.bandana.ConfluenceBandanaContext;
 import com.atlassian.confluence.setup.settings.SettingsManager;
 import com.atlassian.plugin.StateAware;
 import com.atlassian.spring.container.ContainerManager;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.greenpepper.server.GreenPepperServer;
 import com.greenpepper.server.GreenPepperServerErrorKey;
 import com.greenpepper.server.GreenPepperServerException;
@@ -49,12 +52,12 @@ import com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer;
 
 public class GreenPepperServerConfigurationActivator implements StateAware {
 
-    private static final Logger log = Logger.getLogger(GreenPepperServerConfigurationActivator.class);
+    private static final Logger log = LoggerFactory.getLogger(GreenPepperServerConfigurationActivator.class);
 
     private final BandanaContext bandanaContext = new ConfluenceBandanaContext("_GREENPEPPER");
 
     private BandanaManager bandanaManager;
-
+    
     private BootstrapManager bootstrapManager;
     
     private SettingsManager settingsManager;
@@ -67,8 +70,6 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
 
     private boolean isServerStarted = false;
 
-    public GreenPepperServerConfigurationActivator() {
-    }
 
     public void enabled() {
         log.info("Enabling GreenPepper Plugin");
@@ -191,26 +192,33 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     }
 
     private GreenPepperServerConfiguration getConfigurationFromBandana() {
-        GreenPepperServerConfiguration configuration = (GreenPepperServerConfiguration) getValue(GreenPepperServerConfiguration.class);
-
-        if (configuration == null) {
+        Object value = getValue(GreenPepperServerConfiguration.class);
+        if (value == null) {
             configuration = new GreenPepperServerConfiguration();
             storeConfigurationToBandana(configuration);
+        } else {
+                /* Configuration is not a String so it should be an instance of GreenPepperServerConfiguration.
+                 * The problem is that we can have a conflict of Classloaders. The GreenPepperServerConfiguration
+                 * class object exists in the current classloader but also from Bandana classLoader. We can't rely on a Cast.
+                 * But we know that the class definition is the same. So the toString() implementation is the current one. 
+                 */
+                try {
+                    configuration = GreenPepperServerConfiguration.fromString((String) value.toString());
+                } catch (JsonParseException e) {
+                    throw new RuntimeException("Problem retrieving greenpepper configuration ", e);
+                } catch (IOException e) {
+                    throw new RuntimeException("Problem retrieving greenpepper configuration ", e);
+                }
         }
-
         return configuration;
     }
 
     private void storeConfigurationToBandana(GreenPepperServerConfiguration configuration) {
-        setValue(GreenPepperServerConfiguration.class, configuration);
+        bandanaManager.setValue(bandanaContext, GreenPepperServerConfiguration.class.getName(), configuration.toString());
     }
 
     private Object getValue(Class<?> classKey) {
         return bandanaManager.getValue(bandanaContext, classKey.getName());
-    }
-
-    private void setValue(Class<?> classKey, Object value) {
-        bandanaManager.setValue(bandanaContext, classKey.getName(), value);
     }
 
     public String getConfigJnriUrl() {

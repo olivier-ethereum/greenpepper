@@ -34,8 +34,9 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.greenpepper.phpsud.exceptions.ExecutionErrorException;
 import com.greenpepper.phpsud.exceptions.PHPException;
@@ -47,7 +48,21 @@ import com.greenpepper.phpsud.exceptions.SyntaxErrorException;
  */
 public class PHPDriver {
 
-	private static final Logger LOGGER = Logger.getLogger(PHPDriver.class);
+    private final class PHPConsoleLogger {
+        private final Logger logger = LoggerFactory.getLogger("PHP Console");
+        
+        public void write(String message) {
+            logger.trace("WRITE: {}", message);
+        }
+        
+        public void read(String message) {
+            logger.trace("READ : {}", message);
+        }
+        
+    }
+    
+	private static final Logger LOGGER = LoggerFactory.getLogger(PHPDriver.class);
+	private final PHPConsoleLogger phpConsoleLogger = new PHPConsoleLogger();
 
 	private BufferedReader stdout;
 
@@ -119,13 +134,18 @@ public class PHPDriver {
 	}
 
 	public void execRun(String command) throws IOException, PHPException {
-		writeCommand("R" + command);
-		readLine();
+	    writeCommand("R" + command);
+	    phpConsoleLogger.write(command);
+		String readLine = readLine();
+        phpConsoleLogger.read(readLine);
+		
 	}
 
 	public String execGet(String command) throws IOException, PHPException {
 		writeCommand("G" + command);
+		phpConsoleLogger.write(command);
 		String res = readLine();
+		phpConsoleLogger.read(res);
 		return res;
 	}
 
@@ -142,7 +162,8 @@ public class PHPDriver {
 		if (!cmd.endsWith(";")) {
 			cmd += ";";
 		}
-		out.write(encode(cmd));
+		String encoded = encode(cmd);
+        out.write(encoded);
 		out.newLine();
 		out.flush();
 		return cmd;

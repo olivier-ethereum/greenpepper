@@ -161,10 +161,10 @@ public class PHPDriverTest {
 	}
 	
 	@Test
-	public void testRun() throws Exception {
-		php.execRun("$i = 1");
-		Assert.assertEquals("1", php.execGet("$i"));
-	}
+    	public void testWrite() throws Exception {
+    		php.execRun("$i = 1");
+    		Assert.assertEquals("1", php.execGet("$i"));
+    	}
 	
 	@Test(expected=SyntaxErrorException.class)
 	public void testSyntaxErrorRun() throws Exception {

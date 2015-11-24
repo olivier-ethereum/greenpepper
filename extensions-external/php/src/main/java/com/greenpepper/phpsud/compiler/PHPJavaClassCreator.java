@@ -163,7 +163,7 @@ public class PHPJavaClassCreator implements IPHPJavaClassCreator {
 						"LOGGER.debug(\"Transfer equals to PHP : \" + this + \" and \" + $1)",
 						"return super.phpEquals($1)"
 						);
-				LOGGER.info("Warning, equals method not implemented in PHP Class " + descriptor.getClassName());
+				LOGGER.warn("Warning, equals method not implemented in PHP Class " + descriptor.getClassName());
 			}
 			
 			// Add Static var and value of for enum
@@ -196,8 +196,7 @@ public class PHPJavaClassCreator implements IPHPJavaClassCreator {
 			constructor = clazz.getConstructor(new Class<?>[] {String.class});
 		}
 		catch(Exception e) {
-			LOGGER.error("Unable to compile code " + e.toString());
-			e.printStackTrace();
+			LOGGER.error("Unable to compile code " + e.getMessage(), e);
 		}	
 	}
 	
@@ -214,7 +213,7 @@ public class PHPJavaClassCreator implements IPHPJavaClassCreator {
 			Object o = constructor.newInstance(id);
 			return o;
 		} catch (Exception e) {
-			LOGGER.error("Unable to create object " + e.toString());
+			LOGGER.error("Unable to create object " + e.getMessage(), e);
 		}
 		return null;
 	}

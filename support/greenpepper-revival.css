@@ -86,11 +86,43 @@ gpname {
 }
 
 .downloads-section .visual {
-	
+	font-size: 100px;
+    font-style: normal;
+    text-align: center;
+    min-height: 100px;
+    min-width: 150px;
 }
 
 .downloads-section .body {
 	
+}
+
+download {
+    display: block;
+    padding: 20px;
+    margin: 2px;
+    border-left: green;
+    border-style: solid;
+    border-width: 1px;
+    border-left-width: 5px;
+    border-color: #eee #eee #eee green;
+    border-radius: 5px;
+}
+
+download name {
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
+download description {
+    font-size: small;
+    display: block;
+    padding: 10px;
+}
+
+download dllink {
+    display: block;
+    text-align: right;
 }
 
 .faq > .answer > .long {

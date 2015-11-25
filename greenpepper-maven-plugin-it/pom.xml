@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<artifactId>greenpepper-base</artifactId>
-		<version>4.0-beta2</version>
+		<version>4.0-beta3-SNAPSHOT</version>
 	</parent>
 	<artifactId>greenpepper-maven-plugin-it</artifactId>
 	<name>greenpepper-maven-plugin-it</name>

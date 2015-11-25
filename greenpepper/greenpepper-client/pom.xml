@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>greenpepper</artifactId>
 		<groupId>com.github.strator-dev.greenpepper</groupId>
-		<version>4.0-beta2</version>
+		<version>4.0-beta3-SNAPSHOT</version>
 	</parent>
 	<artifactId>greenpepper-client</artifactId>
 	<packaging>jar</packaging>

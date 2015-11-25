@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>greenpepper-base</artifactId>
 		<groupId>com.github.strator-dev.greenpepper</groupId>
-		<version>4.0-beta2-SNAPSHOT</version>
+		<version>4.0-beta2</version>
 	</parent>
 
 	<!-- - Basic Project Information -->
@@ -109,5 +109,6 @@
 	<scm>
 		<connection>https://github.com/greenpeppersoftware/greenpepper.git</connection>
 		<url>https://github.com/greenpeppersoftware/greenpepper/</url>
-	</scm>
+	  <tag>greenpepper-base-4.0-beta2</tag>
+  </scm>
 </project>

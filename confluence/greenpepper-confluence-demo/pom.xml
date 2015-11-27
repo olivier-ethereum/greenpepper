@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
-			<version>${project.version}</version>
+			<version>${greenpepper.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
@@ -55,7 +55,7 @@
 			<plugin>
 				<groupId>com.github.strator-dev.greenpepper</groupId>
 				<artifactId>greenpepper-maven-plugin</artifactId>
-				<version>${project.version}</version>
+				<version>${greenpepper.core.version}</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>

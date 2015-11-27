@@ -1,25 +1,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>greenpepper-base</artifactId>
-		<groupId>com.github.strator-dev.greenpepper</groupId>
-		<version>4.0-beta2-SNAPSHOT</version>
-	</parent>
 	<!-- - Basic Project Information -->
+	<groupId>com.github.strator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-open</artifactId>
 	<packaging>pom</packaging>
 	<name>GreenPepper Open</name>
+	<version>4.0-beta2-SNAPSHOT</version>
+	<description>
+	It was called GreenPepper Open by the creator of GreenPepper when the product was commercial. 
+	This project hosted every thing that was OpenSourced and that was a contribution of the community.
+	We kept that name but we now hosts underneath it anything that makes GreenPepper open to the world :
+
+	* Languages Extensions
+	* Wikis Plugins
+	* IDE/Build/Countinuous Integration tools
+	</description>
 
 	<properties>
-		<greenpepper.maven.plugin.version>${project.version}</greenpepper.maven.plugin.version>
+		<greenpepper.core.version>4.0-beta2</greenpepper.core.version>
 	</properties>
 
 	<!-- - GreenPepperOpen modules -->
 	<modules>
 		<module>extensions-external</module>
-        <module>samples</module>
-        <module>confluence</module>
+		<module>samples</module>
+		<module>confluence</module>
 		<module>greenpepper-maven-runner</module>
 		<module>greenpepper-remote-agent</module>
 	</modules>
@@ -59,18 +65,42 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<artifactId>greenpepper-base</artifactId>
+				<groupId>com.github.strator-dev.greenpepper</groupId>
+				<version>4.0-beta2-SNAPSHOT</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 
 	<!-- - Extra project information -->
-    <url>http://strator-dev.github.io/greenpepper/</url>
+	<url>http://strator-dev.github.io/greenpepper/</url>
 	<inceptionYear>2005</inceptionYear>
 	<organization>
 		<name>The GreenPepper Revival Team</name>
-        <url>http://strator-dev.github.io/greenpepper/#/about</url>
+		<url>http://strator-dev.github.io/greenpepper/#/about</url>
 	</organization>
+	<licenses>
+		<license>
+			<name>GPLv2</name>
+			<url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+		</license>
+	</licenses>
 	<scm>
-		<connection>https://github.com/greenpeppersoftware/greenpepper-java.git</connection>
-		<url>https://github.com/greenpeppersoftware/greenpepper-java</url>
+		<connection>https://github.com/strator-dev/greenpepper-open.git</connection>
+		<developerConnection>scm:git:https://github.com/strator-dev/greenpepper-open.git</developerConnection>
+		<url>https://github.com/strator-dev/greenpepper-open.git</url>
+		<tag>HEAD</tag>
 	</scm>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/strator-dev/greenpepper-open/issues</url>
+	</issueManagement>
 
 	<!-- - Configure the build plugins -->
 	<build>
@@ -96,15 +126,49 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin> <groupId>com.atlassian.maven.plugins</groupId> <artifactId>maven-clover2-plugin</artifactId> 
-				<configuration> <jdk>1.5</jdk> <licenseLocation>${settings.localRepository}/clover.license</licenseLocation> 
-				</configuration> <executions> <execution> <phase>pre-site</phase> <goals> 
-				<goal>instrument</goal> </goals> </execution> </executions> </plugin> -->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<goals>deploy</goals>
+				</configuration>
+			</plugin>
 		</plugins>
-		<!-- <extensions> <extension> <groupId>org.apache.maven.wagon</groupId> 
-			<artifactId>wagon-ssh-external</artifactId> <version>1.0-beta-1</version> 
-			</extension> </extensions> -->
 	</build>
+
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>atlassian-public-m1</id>
+			<url>https://maven.atlassian.com/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<!-- - Configure the reporting plugins -->
 	<reporting>
@@ -117,10 +181,55 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>surefire-report-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin> <groupId>com.atlassian.maven.plugins</groupId> <artifactId>maven-clover2-plugin</artifactId> 
-				<configuration> <jdk>1.5</jdk> <licenseLocation>${settings.localRepository}/clover.license</licenseLocation> 
-				</configuration> </plugin> -->
 		</plugins>
 	</reporting>
-
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

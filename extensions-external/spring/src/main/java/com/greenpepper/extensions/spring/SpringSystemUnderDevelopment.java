@@ -16,6 +16,7 @@ public class SpringSystemUnderDevelopment extends DefaultSystemUnderDevelopment
 
     public SpringSystemUnderDevelopment(String... applicationCtxes)
     {
+        // TODO move this to the onDocumentStart method . It's not a good idea to play with spring in the construtor
         this.beanFactory = new GreenPepperXMLAplicationContext(applicationCtxes).getBeanFactory();
     }
 	

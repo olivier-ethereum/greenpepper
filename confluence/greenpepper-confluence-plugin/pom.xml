@@ -168,13 +168,13 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
-			<version>${project.version}</version>
+			<version>${greenpepper.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
 			<classifier>complete</classifier>
-			<version>${project.version}</version>
+			<version>${greenpepper.core.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

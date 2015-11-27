@@ -3,64 +3,29 @@
 		<!-- wiki content -->
 		<h1 id="FullMavenpluginguide-HTML-FullMavenpluginguide">Full Maven plugin guide</h1>
 		<h1 id="FullMavenpluginguide-HTML-1.InstallGreenPepperMavenplugin">1. Install GreenPepper Maven plugin</h1>
-		<table class="sectionMacro" border="0" cellpadding="5" cellspacing="0" width="100%">
-			<tbody>
-				<tr>
-					<td class="confluenceTd" valign="top" width="7%"></td>
-					<td class="confluenceTd" valign="top">
-						<table class='confluenceTable'>
-							<tbody>
-								<tr>
-									<th class='confluenceTh'>Download</th>
-									<th class='confluenceTh'>Versions</th>
-								</tr>
-								<tr>
-									<td class='confluenceTd'>Manven2 plugin</td>
-									<td class='confluenceTd'>binairies <a href="/web/20090928082809/http://www.greenpeppersoftware.com/confluence/display/GPW/Download" title="Download">here</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		
 		<p>
-		<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'>
-			<colgroup>
-				<col width='24'>
-				<col>
-			</colgroup>
-			<tr>
-				<td valign='top'><img src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt=""
-					border="0"></td>
-				<td><b class="strong">Maven versions supported:</b><br /></td>
-			</tr>
-		</table>
-		The plugin was tested on version 2.0.4+ <br clear="all" /> or<br /> You may add our repository to your project <b>Pom.xml</b> for automatic download and upgrade. (See <span class="nobr"><a
-			href="/web/20090928082809/http://maven.apache.org/guides/getting-started/index.html" rel="nofollow">add repositories<sup><img class="rendericon"
-					src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>.) <br clear="all" />
-		</p>
+		
 		<div class="preformatted">
 			<div class="preformattedHeader">
 				<b>Example</b>
 			</div>
 			<div class="preformattedContent">
-				<pre>  &lt;repositories&gt;
-    &lt;repository&gt;
-      &lt;id&gt;GreenPepper&lt;/id&gt;
-      &lt;name&gt;GreenPepper&lt;/name&gt;
-      &lt;url&gt;http://www.greenpeppersoftware.com/nexus/content/groups/public&lt;/url&gt;
-    &lt;/repository&gt;
-  &lt;/repositories&gt;
-
-  &lt;pluginRepositories&gt;
-    &lt;pluginRepository&gt;
-      &lt;id&gt;GreenPepper&lt;/id&gt;
-      &lt;name&gt;GreenPepper&lt;/name&gt;
-      &lt;url&gt;http://www.greenpeppersoftware.com/nexus/content/groups/public&lt;/url&gt;
-    &lt;/pluginRepository&gt;
-  &lt;/pluginRepositories&gt;
-</pre>
+				<pre><xmp><repositories>
+    <repository>
+        <id>ossrh</id>
+        <name>Sonatype Public Repository</name>
+        <url>https://oss.sonatype.org/content/groups/public/</url>
+    </repository>
+</repositories>
+<pluginRepositories>
+    <pluginRepository>
+        <id>ossrh</id>
+        <name>Sonatype Public Repository</name>
+        <url>https://oss.sonatype.org/content/groups/public/</url>
+    </pluginRepository>
+</pluginRepositories>
+</xmp></pre>
 			</div>
 		</div>
 		<h1 id="FullMavenpluginguide-HTML-2.ConfigureGreenPepperMavenplugin">2. Configure GreenPepper Maven plugin</h1>
@@ -74,40 +39,40 @@
 
 		<div class="preformatted">
 			<div class="preformattedContent">
-				<pre>&lt;plugin&gt;
-	&lt;groupId&gt;GreenPepper&lt;/groupId&gt;
-	&lt;artifactId&gt;GreenPepper Maven plugin&lt;/artifactId&gt;
-	&lt;version&gt;2.0&lt;/version&gt;
-	&lt;configuration&gt;
-	    &lt;source&gt;1.5&lt;/source&gt;
-	    &lt;target&gt;1.5&lt;/target&gt;
-	    &lt;fixtureSourceDirectory&gt;&lt;!-- put your fixture sources directory --&gt;&lt;/fixtureSourceDirectory&gt;
-	    &lt;fixtureOutputDirectory&gt;&lt;!-- put your fixture classes directory --&gt;&lt;/fixtureOutputDirectory&gt;
-	    &lt;specsDirectory&gt;&lt;!-- destination for downloaded specification files --&gt;&lt;/specsDirectory&gt;
-	    &lt;resources&gt;
-	        &lt;resource&gt;
-	            &lt;directory&gt;&lt;/directory&gt;
-	            &lt;excludes&gt;
-	                &lt;exclude&gt;**/*.java&lt;/exclude&gt;
-	            &lt;/excludes&gt;
-	        &lt;/resource&gt;
-	    &lt;/resources&gt;
-	    &lt;repositories&gt;
-	        &lt;repository&gt;
-		        &lt;type&gt;&lt;!-- put your suite resolver class--&gt;&lt;/type&gt;
-		        &lt;suites&gt;
-		        	&lt;suite&gt;&lt;!-- put your suite uri --&gt;&lt;/suite&gt;
-		        &lt;/suites&gt;
-	        &lt;/repository&gt;
-	        &lt;repository&gt;
-	            &lt;type&gt;&lt;!-- put your test resolver class--&gt;&lt;/type&gt;
-	            &lt;tests&gt;
-	            	&lt;test&gt;&lt;!-- put your test uri --&gt;&lt;/test&gt;
-	            &lt;/tests&gt;
-	        &lt;/repository&gt;
-	    &lt;/repositories&gt;
-	&lt;/configuration&gt;
-&lt;plugin&gt;
+				<pre><xmp><plugin>
+    <groupId>com.github.strator-dev.greenpepper</groupId>
+    <artifactId>greenpepper-maven-plugin</artifactId>
+    <version>4.0-beta2</version>
+	<configuration>
+	    <source>1.6</source>
+	    <target>1.6</target>
+	    <fixtureSourceDirectory><!-- put your fixture sources directory --></fixtureSourceDirectory>
+	    <fixtureOutputDirectory><!-- put your fixture classes directory --></fixtureOutputDirectory>
+	    <specsDirectory><!-- destination for downloaded specification files --></specsDirectory>
+	    <resources>
+	        <resource>
+	            <directory></directory>
+	            <excludes>
+	                <exclude>**/*.java</exclude>
+	            </excludes>
+	        </resource>
+	    </resources>
+	    <repositories>
+	        <repository>
+		        <type><!-- put your suite resolver class--></type>
+		        <suites>
+		        	<suite><!-- put your suite uri --></suite>
+		        </suites>
+	        </repository>
+	        <repository>
+	            <type><!-- put your test resolver class--></type>
+	            <tests>
+	            	<test><!-- put your test uri --></test>
+	            </tests>
+	        </repository>
+	    </repositories>
+	</configuration>
+<plugin></xmp>
 </pre>
 			</div>
 		</div>
@@ -213,8 +178,7 @@
 		<h3 id="FullMavenpluginguide-HTML-Optionalparameters">Optional parameters</h3>
 
 		<p>
-			Same as <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html" rel="nofollow">Maven compiler plugin<sup><img
-						class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>.
+			Same as <span class="nobr"><a href="http://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html" rel="nofollow">Maven compiler plugin</a></span>.
 		</p>
 
 		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
@@ -276,8 +240,7 @@
 		<h3 id="FullMavenpluginguide-HTML-Optionalparameters">Optional parameters</h3>
 
 		<p>
-			Same as <span class="nobr"><a href="/web/20090928082809/http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html" rel="nofollow">Maven 2 resources plugin<sup><img
-						class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>
+			Same as <span class="nobr"><a href="http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html" rel="nofollow">Maven 2 resources plugin</a></span>
 		</p>
 
 		<h3 id="FullMavenpluginguide-HTML-Parameterdetails">Parameter details</h3>
@@ -309,7 +272,7 @@
 
 		<p>Mojo attributes:</p>
 		<ul>
-			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Requires a Maven project to execute</li>
 			<li>Requires dependency resolution of artifacts in scope: test</li>
 			<li>Automatically executes within the lifecycle phase: integration test <br clear="all" /> <br clear="all" /></li>
 		</ul>
@@ -450,7 +413,7 @@
 
 		<p>Mojo attributes:</p>
 		<ul>
-			<li>Requires a Maven 2.0 project to execute</li>
+			<li>Requires a Maven project to execute</li>
 			<li>Requires dependency resolution of artifacts in scope: test</li>
 			<li>Is not bound to any lifecycle phase <br clear="all" /> <br clear="all" /></li>
 		</ul>
@@ -508,7 +471,7 @@
     &lt;parent&gt;
         &lt;groupId&gt;greenpepper-open&lt;/groupId&gt;
         &lt;artifactId&gt;greenpepper-open&lt;/artifactId&gt;
-        &lt;version&gt;2.0&lt;/version&gt;
+        &lt;version&gt;4.0&lt;/version&gt;
     &lt;/parent&gt;
 
     &lt;build&gt;
@@ -526,7 +489,7 @@
             &lt;/plugin&gt;
 
             &lt;plugin&gt;
-                &lt;groupId&gt;greenpepper&lt;/groupId&gt;
+                &lt;groupId&gt;com.github.strator-dev.greenpepper&lt;/groupId&gt;
                 &lt;artifactId&gt;greenpepper-maven-plugin&lt;/artifactId&gt;
                 &lt;version&gt;2.0&lt;/version&gt;
                 &lt;configuration&gt;
@@ -587,9 +550,9 @@
 				<pre>&lt;build&gt;
     &lt;plugins&gt;
         &lt;plugin&gt;
-            &lt;groupId&gt;greenpepper&lt;/groupId&gt;
+            &lt;groupId&gt;com.github.strator-dev.greenpepper&lt;/groupId&gt;
             &lt;artifactId&gt;greenpepper-maven-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.4&lt;/version&gt;
+            &lt;version&gt;4.0&lt;/version&gt;
             &lt;configuration&gt;
                 &lt;source&gt;1.5&lt;/source&gt;
                 &lt;target&gt;1.5&lt;/target&gt;
@@ -640,10 +603,9 @@
 </pre>
 			</div>
 		</div>
-
+        
 		<p>
-			You can found the project of this example <span class="nobr"><a href="/web/20090928082809/http://www.greenpeppersoftware.com/svn/trunk/java/confluence.demo" rel="nofollow">here<sup><img
-						class="rendericon" src="/web/20090928082809im_/http://www.greenpeppersoftware.com/confluence/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0" /></sup></a></span>.
+			You can found the project of this example <span class="nobr"><a href="https://github.com/strator-dev/greenpepper-open/tree/master/confluence/greenpepper-confluence-demo/src/fixture/specs/Demo" rel="nofollow">here</a></span>.
 		</p>
 	</div>
 </div>

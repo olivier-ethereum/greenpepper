@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- - Basic Information -->
+	<groupId>com.github.strator-dev.greenpepper</groupId>
+	<artifactId>demonstration-pack</artifactId>
+	<version>4.0-beta2</version>
+	<name>GreenPepper Confluence Demo</name>
+
+
+	<dependencies>
+		<dependency>
+			<!-- FIXME : This dependency should be automatically added on the greenpepper plugin classpath  -->
+			<groupId>com.github.strator-dev.greenpepper</groupId>
+			<artifactId>greenpepper-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.strator-dev.greenpepper</groupId>
+				<artifactId>greenpepper-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
+					<fixtureOutputDirectory>target/fixture-test-classes</fixtureOutputDirectory>
+					<systemUnderDevelopment>com.greenpepper.confluence.demo.DemoSystemUnderDevelopment</systemUnderDevelopment>
+					<reportsType>xml</reportsType>
+					<resources>
+						<resource>
+							<directory>src/fixture/resources</directory>
+							<excludes>
+								<exclude>**/*.java</exclude>
+							</excludes>
+						</resource>
+					</resources>
+					<repositories>
+						<repository>
+							<name>Demo</name>
+							<type>com.greenpepper.repository.FileSystemRepository</type>
+							<root>${basedir}/src/fixture/specs</root>
+							<suites>
+								<suite>Demo</suite>
+							</suites>
+						</repository>
+						<repository>
+							<name>DemoPhoneBook</name>
+							<type>com.greenpepper.repository.FileSystemRepository</type>
+							<root>${basedir}/src/fixture/specs</root>
+							<suites>
+								<suite>DemoPhoneBook</suite>
+							</suites>
+						</repository>
+					</repositories>
+				</configuration>
+				<executions>
+					<execution>
+						<id>greenpepper</id>
+						<goals>
+							<goal>compile</goal>
+							<goal>resources</goal>
+							<goal>fixture-jar</goal>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<!-- Here we should have the dependencies for fixtures -->
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

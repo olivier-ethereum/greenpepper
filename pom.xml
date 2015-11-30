@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.strator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-confluence</artifactId>
-	<version>2.11-SNAPSHOT</version>
+	<version>2.11-beta1</version>
 	<packaging>pom</packaging>
 	<name>GreenPepper Confluence</name>
 	<description>GreenPepper Plugin for Confluence WIKI</description>
@@ -164,7 +163,8 @@
 		<connection>https://github.com/strator-dev/greenpepper-open.git</connection>
 		<developerConnection>scm:git:https://github.com/strator-dev/greenpepper-open.git</developerConnection>
 		<url>https://github.com/strator-dev/greenpepper-open</url>
-	</scm>
+	  <tag>v2.11-beta1</tag>
+  </scm>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>

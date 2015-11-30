@@ -1,21 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.strator-dev.greenpepper</groupId>
-    <artifactId>greenpepper-confluence</artifactId>
+	<groupId>com.github.strator-dev.greenpepper</groupId>
+	<artifactId>greenpepper-confluence</artifactId>
 	<version>2.11-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>GreenPepper Confluence</name>
-    <description>GreenPepper Plugin for Confluence WIKI</description>
+	<description>GreenPepper Plugin for Confluence WIKI</description>
 	<properties>
 		<!-- Confluence version -->
-		<atlassian.product.version>3.5</atlassian.product.version>        
+		<atlassian.product.version>3.5</atlassian.product.version>
 		<confluence.version>3.5</confluence.version>
-        <confluence.data.version>3.5</confluence.data.version>
-        <amps.version>5.0.13</amps.version>
-        <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
-        <refapp.version>2.22.0</refapp.version>
-        <greenpepper.version>4.0-beta2-SNAPSHOT</greenpepper.version>
+		<confluence.data.version>3.5</confluence.data.version>
+		<amps.version>5.0.13</amps.version>
+		<plugin.testrunner.version>1.2.3</plugin.testrunner.version>
+		<refapp.version>2.22.0</refapp.version>
+		<greenpepper.version>4.0-beta2</greenpepper.version>
 	</properties>
 
 	<modules>
@@ -36,6 +37,26 @@
 					<serverId>ossrh</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<goals>deploy</goals>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -80,24 +101,24 @@
 		</dependency>
 	</dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.atlassian.refapp</groupId>
-                <artifactId>atlassian-platform</artifactId>
-                <version>${refapp.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.github.strator-dev.greenpepper</groupId>
-                <artifactId>greenpepper-base</artifactId>
-                <version>${greenpepper.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.atlassian.refapp</groupId>
+				<artifactId>atlassian-platform</artifactId>
+				<version>${refapp.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.github.strator-dev.greenpepper</groupId>
+				<artifactId>greenpepper-base</artifactId>
+				<version>${greenpepper.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<repositories>
 		<repository>
 			<id>atlassian-public-m1</id>
@@ -108,14 +129,14 @@
 			<name>Sonatype Public Repository</name>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</repository>
-	</repositories>  
+	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>ossrh</id>
 			<name>Sonatype Public Repository</name>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</pluginRepository>
-	</pluginRepositories>  
+	</pluginRepositories>
 
 	<!-- - Extra project information -->
 	<organization>
@@ -124,6 +145,7 @@
 	</organization>
 	<url>http://strator-dev.github.io/greenpepper/</url>
 	<inceptionYear>2005</inceptionYear>
+
 	<licenses>
 		<license>
 			<name>GPLv2</name>
@@ -134,6 +156,8 @@
 		<developer>
 			<id>wattazoum</id>
 			<name>Oumar Aziz OUATTARA</name>
+			<email>aziz@wattazoum.fr</email>
+			<url>http://wattazoum.fr</url>
 		</developer>
 	</developers>
 	<scm>
@@ -177,5 +201,53 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

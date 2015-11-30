@@ -1,15 +1,15 @@
 package com.greenpepper.maven.runner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
-
-import com.greenpepper.GreenPepperCore;
 
 public class ArgumentsParserTest {
     
@@ -76,61 +76,4 @@ public class ArgumentsParserTest {
         assertEquals("/tmp/GreenPepperTest5842057936903784515.tst", nonoptions[1]);
     }
 
-    @Test
-    public void shouldCreateTemplatingContext() throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ArgumentsParser commandLineParser =  new ArgumentsParser(out);
-        String cmd = "MyInputPage "
-                + "MyOutputPage -l fr "
-                + "-r com.greenpepper.runner.repository.AtlassianRepository;https://localhost/rpc/xmlrpc?handler=greenpepper1&includeStyle=false#param;t1;passw0rd "
-                + "-f com.strator.iris.greenpepper.IrisSpringSystemUnderDevelopmentWithPostgres;false;ES "
-                + "--xml --pdd greenpepper:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION + " --dev --debug";
-        String[] args = cmd.split(" ");
-        CommandLine cmdLine = commandLineParser.parse(args);
-        
-        Map<String, String> context = commandLineParser.createTemplatingContext(cmdLine);
-        assertEquals("MyInputPage", context.get("inputPage"));
-        assertEquals("MyOutputPage", context.get("outputPage"));
-        assertEquals("fr", context.get("locale"));
-        assertEquals("com.strator.iris.greenpepper.IrisSpringSystemUnderDevelopmentWithPostgres;false;ES", context.get("sud"));
-        assertEquals("com.greenpepper.runner.repository.AtlassianRepository", context.get("repositoryClass"));
-        assertEquals("https://localhost/rpc/xmlrpc?handler=greenpepper1&includeStyle=false#param;t1;passw0rd", context.get("repositoryRoot"));
-        assertEquals("true", context.get("devmode"));
-        assertEquals("true", context.get("debug"));
-        assertEquals("greenpepper", context.get("groupId"));
-        assertEquals("greenpepper-confluence-demo", context.get("artifactId"));
-        assertEquals(GreenPepperCore.VERSION, context.get("version"));
-        assertEquals(GreenPepperCore.VERSION, context.get("gpversion"));
-    }
-    
-    @Test
-    public void shouldCreateTemplatingContext1() throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ArgumentsParser commandLineParser =  new ArgumentsParser(out);
-        String cmd = "MyInputPage "
-                + "-r com.greenpepper.runner.repository.AtlassianRepository;https://localhost/rpc/xmlrpc?handler=greenpepper1&includeStyle=false#param;t1;passw0rd "
-                + "-f com.strator.iris.greenpepper.IrisSpringSystemUnderDevelopmentWithPostgres;false;ES "
-                + "--xml --pdd greenpepper:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION ;
-        String[] args = cmd.split(" ");
-        CommandLine cmdLine = commandLineParser.parse(args);
-        
-        Map<String, String> context = commandLineParser.createTemplatingContext(cmdLine);
-        assertEquals("MyInputPage", context.get("inputPage"));
-        assertEquals("com.strator.iris.greenpepper.IrisSpringSystemUnderDevelopmentWithPostgres;false;ES", context.get("sud"));
-        assertEquals("com.greenpepper.runner.repository.AtlassianRepository", context.get("repositoryClass"));
-        assertEquals("https://localhost/rpc/xmlrpc?handler=greenpepper1&includeStyle=false#param;t1;passw0rd", context.get("repositoryRoot"));
-        assertEquals("greenpepper", context.get("groupId"));
-        assertEquals("greenpepper-confluence-demo", context.get("artifactId"));
-        assertEquals(GreenPepperCore.VERSION, context.get("version"));
-        assertEquals(GreenPepperCore.VERSION, context.get("gpversion"));
-    }
-    
-    @Test
-    public void shouldReturnEmptyContextonCreateTemplatingContextWhenCommandLineIsNull() throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ArgumentsParser commandLineParser =  new ArgumentsParser(out);
-        Map<String, String> context = commandLineParser.createTemplatingContext(null);
-        assertNotNull(context);
-        assertTrue(context.isEmpty());
-    }
 }

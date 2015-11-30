@@ -22,7 +22,7 @@ public class Main {
 
         try {
             runner.run(args);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.err.println(t.getMessage());
             System.err.println("Try '--help' for more information.");
 

@@ -23,7 +23,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public final class ReflectionUtils
 {
     private ReflectionUtils() {}
@@ -38,7 +37,7 @@ public final class ReflectionUtils
 		return field.get(object);
 	}
 
-	public static void invokeMain(Class mainClass, List<String> args)
+	public static void invokeMain(Class<?> mainClass, List<String> args)
 			throws Exception
 	{
 		Method mainMethod = mainClass.getMethod("main", Class.forName("[Ljava.lang.String;"));
@@ -49,7 +48,7 @@ public final class ReflectionUtils
     public static void setDebugEnabled(ClassLoader classLoader, boolean isDebug)
             throws Exception
     {
-        Class greenPepperClass = classLoader.loadClass("com.greenpepper.GreenPepper");
+        Class<?> greenPepperClass = classLoader.loadClass("com.greenpepper.GreenPepper");
         Method setDebugEnabledMethod = greenPepperClass.getMethod("setDebugEnabled", boolean.class);
         setDebugEnabledMethod.invoke( null, isDebug );
     }
@@ -57,7 +56,7 @@ public final class ReflectionUtils
 	public static void setSystemOutputs(ClassLoader classLoader, PrintStream out, PrintStream err)
 			throws Exception
 	{
-		Class systemClass = classLoader.loadClass("java.lang.System");
+		Class<?> systemClass = classLoader.loadClass("java.lang.System");
 		Method setSystemOutMethod = systemClass.getMethod("setOut", PrintStream.class);
 		setSystemOutMethod.invoke(null, out);
 		Method setSystemErrMethod = systemClass.getMethod("setErr", PrintStream.class);

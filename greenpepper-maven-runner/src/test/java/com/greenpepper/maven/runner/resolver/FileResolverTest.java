@@ -18,14 +18,10 @@
  */
 package com.greenpepper.maven.runner.resolver;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.io.File;
 
+import static org.junit.Assert.*;
 import org.junit.Test;
-
-import com.greenpepper.maven.runner.resolver.CombinedResolver.MavenGAV;
-import com.greenpepper.maven.runner.resolver.CombinedResolver.ResolverException;
 
 public class FileResolverTest
 {
@@ -44,10 +40,10 @@ public class FileResolverTest
     }
 
     @Test
-    public void canResolve() throws ResolverException
+    public void canResolve()
     {
         assertTrue( resolver.canResolve( "src/test/resources/pom.xml" ) );
-        MavenGAV mavenGAV = new MavenGAV("greenpepper-open","greenpepper-samples","2.9");
-        assertEquals( mavenGAV, resolver.resolve( "src/test/resources/pom.xml" ) );
+        File expected = new File( "src/test/resources/pom.xml" );
+        assertEquals( expected, resolver.resolve( "src/test/resources/pom.xml" ) );
     }
 }

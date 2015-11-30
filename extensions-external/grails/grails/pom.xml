@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
-			<version>${project.version}</version>
+			<version>${greenpepper.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

@@ -38,16 +38,11 @@
 		</plugins>
 	</build>
 	
-	<scm>
-		<connection>https://github.com/greenpeppersoftware/remote-agent.git</connection>
-		<url>https://github.com/greenpeppersoftware/remote-agent</url>
-	</scm>
-	
 	<dependencies>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
-			<version>${project.version}</version>
+			<version>${greenpepper.core.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>xmlrpc</groupId>

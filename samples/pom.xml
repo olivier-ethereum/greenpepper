@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.github.strator-dev.greenpepper</groupId>
         <artifactId>greenpepper-open</artifactId>
-        <version>4.0-beta2-SNAPSHOT</version>
+        <version>4.0-beta2</version>
     </parent>
 
     <build>

@@ -19,7 +19,7 @@
 
 package com.greenpepper.repository;
 
-public abstract class RepositoryException extends Exception
+public class RepositoryException extends Exception
 {
     public RepositoryException()
     {

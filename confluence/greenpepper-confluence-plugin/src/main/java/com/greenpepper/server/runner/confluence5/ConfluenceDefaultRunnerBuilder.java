@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.greenpepper.GreenPepperCore;
+import com.greenpepper.confluence.Plugin;
 import com.greenpepper.runner.Main;
-import com.greenpepper.server.GreenPepperServer;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.ClasspathSet;
 import com.greenpepper.server.domain.Runner;
@@ -31,7 +31,7 @@ public class ConfluenceDefaultRunnerBuilder implements DefaultRunnerBuilder {
 
     @Override
     public String getRunnerName() {
-        return "GPCore JAVA v." + GreenPepperServer.VERSION + " (with DemoSpace Fixtures)";
+        return "GPCore JAVA v." + GreenPepperCore.VERSION + " (with DemoSpace Fixtures)";
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ConfluenceDefaultRunnerBuilder implements DefaultRunnerBuilder {
         try {
             String clientjar = "greenpepper-client-" + GreenPepperCore.VERSION + "-complete.jar";
             extractJar(dir, paths, clientjar);
-            String demoFixtureJar = "greenpepper-confluence-demo-" + GreenPepperCore.VERSION + "-fixtures.jar";
+            String demoFixtureJar = "greenpepper-confluence-demo-" + Plugin.VERSION + "-fixtures.jar";
             extractJar(dir, paths, demoFixtureJar);
             createJavaRunner(dao, paths);
         } catch (Exception e) {

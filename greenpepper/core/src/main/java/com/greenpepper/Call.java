@@ -27,6 +27,8 @@ import com.greenpepper.expectation.Expectation;
 import com.greenpepper.expectation.ShouldBe;
 import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.SystemUnderDevelopmentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +40,9 @@ import java.util.List;
  */
 public class Call
 {
+
+    private static final Logger logger = LoggerFactory.getLogger(Call.class);
+
     private final Message message;
     private final Collection<String> inputs = new ArrayList<String>();
 
@@ -64,6 +69,9 @@ public class Call
         }
         catch (SystemUnderDevelopmentException e)
         {
+            if(logger.isDebugEnabled()){
+                logger.debug("Error while executing specifications", e.getCause());
+            }
             result.exceptionOccured( e.getCause() );
         }
 

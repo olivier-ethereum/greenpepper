@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- - Basic Project Information -->
@@ -12,6 +13,8 @@
 
 	<properties>
 		<slf4j.version>1.6.1</slf4j.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<!-- - Dependencies that we want for all modules -->
@@ -85,17 +88,17 @@
 
 	<!-- - Extra project information -->
 	<url>http://strator-dev.github.io/greenpepper</url>
-	<inceptionYear>2005</inceptionYear>
+	<inceptionYear>2015</inceptionYear>
 	<organization>
 		<name>The GreenPepper Revival project</name>
 		<url>http://strator-dev.github.io/greenpepper</url>
 	</organization>
 	<scm>
-		<connection>https://github.com/strator-dev/greenpepper.git</connection>
-		<developerConnection>scm:git:https://github.com/strator-dev/greenpepper.git</developerConnection>
+		<connection>scm:git:git://github.com/strator-dev/greenpepper.git</connection>
+		<developerConnection>scm:git:git://github.com/strator-dev/greenpepper.git</developerConnection>
 		<url>https://github.com/strator-dev/greenpepper.git</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 	<licenses>
 		<license>
 			<name>GPLv2</name>
@@ -110,6 +113,7 @@
 			<url>http://wattazoum.fr</url>
 		</developer>
 	</developers>
+
 
 	<!-- - Configure the build plugins -->
 	<build>
@@ -145,10 +149,48 @@
 					<goals>deploy</goals>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.github.jeluard</groupId>
+				<artifactId>plantuml-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<sourceFiles>
+						<directory>${basedir}/src/site/plantuml</directory>
+						<includes>
+							<include>**/*.txt</include>
+						</includes>
+					</sourceFiles>
+					<verbose>true</verbose>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>pre-site</phase>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.plantuml</groupId>
+						<artifactId>plantuml</artifactId>
+						<version>7999</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.4</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<distributionManagement>
+		<site>
+			<id>http://strator-dev.github.io/greenpepper</id>
+			<url>https://github.com/strator-dev/greenpepper</url>
+		</site>
 		<snapshotRepository>
 			<id>ossrh</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -171,18 +213,24 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jxr-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.5</version>
 				<configuration>
-					<bottom>Copyright &amp;copy; 2005-2009
+					<bottom>Copyleft &amp;copy; 2015-2016
 						${project.organization.name}. All Rights Reserved.</bottom>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>surefire-report-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.19</version>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -190,8 +238,8 @@
 	<modules>
 		<module>greenpepper</module>
 		<module>greenpepper-maven-plugin</module>
-    <module>greenpepper-maven-plugin-it</module>
-  </modules>
+		<module>greenpepper-maven-plugin-it</module>
+	</modules>
 	<issueManagement>
 		<system>Github</system>
 		<url>https://github.com/strator-dev/greenpepper/issues</url>
@@ -239,6 +287,23 @@
 								<goals>
 									<goal>jar</goal>
 								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.github.github</groupId>
+						<artifactId>site-maven-plugin</artifactId>
+						<version>0.9</version>
+						<configuration>
+							<message>Creating site for ${project.version}</message>
+							<path>maven-site</path>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>site</goal>
+								</goals>
+								<phase>site</phase>
 							</execution>
 						</executions>
 					</plugin>

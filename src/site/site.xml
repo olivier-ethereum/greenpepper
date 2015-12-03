@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="Maven" xmlns="http://maven.apache.org/DECORATION/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+  <bannerLeft>
+    <name>GreenPepper</name>
+    <src>/images/greenpepper-big.png</src>
+    <href>http://strator-dev.github.io/greenpepper</href>
+  </bannerLeft>
+  <bannerRight>
+    <src>/images/greenpepper-logo.png</src>
+  </bannerRight>
+
+  <body>
+  	<menu name="Modules">
+  		<item name="Maven Plugin" href="greenpepper-maven-plugin/index.html"/>
+  	</menu>
+  	<menu ref="reports" />
+  	
+    <links>
+      <item name="On Github" href="https://github.com/strator-dev/greenpepper" />
+      <item name="On Waffle" href="https://waffle.io/strator-dev/greenpepper"/>
+      <item name="On Gitter" href="https://gitter.im/strator-dev/greenpepper"/>
+    </links>
+
+    <menu name="Maven 2.0">
+      <item name="APT Format" href="format.html"/>
+      <item name="FAQ" href="faq.html"/>
+      <item name="Xdoc Example" href="xdoc.html"/>
+    </menu>
+  </body>
+</project>

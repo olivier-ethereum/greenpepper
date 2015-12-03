@@ -40,15 +40,15 @@ GreenPepper Maven Plugin
   specific use cases are described in the examples given below.
 
   In case you still have questions regarding the plugin's usage, please have a look at the {{{./faq.html}FAQ}} and feel
-  free to contact the {{{https://gitter.im/strator-dev/greenpepper-open}user chat room}}. 
+  free to contact the {{{https://gitter.im/strator-dev/greenpepper}user chat room}}. 
 
   If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our
-  {{{https://github.com/strator-dev/greenpepper-open/issues}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
+  {{{https://github.com/strator-dev/greenpepper/issues}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
   concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason,
   entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated.
   Of course, patches are welcome, too. Contributors can clone the project from our
-  {{{https://github.com/strator-dev/greenpepper-open}source repository}} and will find supplementary information in the
-  {{{http://strator-dev.github.io/greenpepper/index.html#/documentation/contributor-to-code}guide to Developing GreenPepper}}.
+  {{{https://github.com/strator-dev/greenpepper}source repository}} and will find supplementary information in the
+  {{{http://strator-dev.github.io/greenpepper/#/documentation/contributor-to-code}guide to Developing GreenPepper}}.
 
 * Examples
 

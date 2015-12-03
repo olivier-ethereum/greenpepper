@@ -64,7 +64,7 @@ Usage
     <parent>
         <groupId>com.github.strator-dev.greenpepper</groupId>
         <artifactId>greenpepper-open</artifactId>
-        <version>4.0</version>
+        <version>${project.version}</version>
     </parent>
 
     <build>
@@ -82,12 +82,12 @@ Usage
             </plugin>
 
             <plugin>
-                <groupId>greenpepper</groupId>
+                <groupId>com.github.strator-dev.greenpepper</groupId>
                 <artifactId>greenpepper-maven-plugin</artifactId>
-                <version>2.0</version>
+                <version>${project.version}</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                     <fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
                     <fixtureOutputDirectory>target/fixture-test-classes</fixtureOutputDirectory>
                     <specsDirectory>src/specs</specsDirectory>
@@ -138,12 +138,12 @@ Usage
 <build>
     <plugins>
         <plugin>
-            <groupId>greenpepper</groupId>
+            <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-maven-plugin</artifactId>
-            <version>4.0</version>
+            <version>${project.version}</version>
             <configuration>
-                <source>1.5</source>
-                <target>1.5</target>
+                <source>1.6</source>
+                <target>1.6</target>
                 <fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
                 <fixtureOutputDirectory>target/fixture-test-classes</fixtureOutputDirectory>
                 <systemUnderDevelopment>com.greenpepper.confluence.demo.DemoSystemUnderDevelopment</systemUnderDevelopment>

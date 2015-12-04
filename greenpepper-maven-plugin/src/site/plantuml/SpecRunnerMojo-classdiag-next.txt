@@ -19,6 +19,7 @@ class Repository {
 
 class SpecRunner {
     String name
+    int nbCore
     String cmdLineTemplate
     String systemUnderDevelopment
     String mainClass

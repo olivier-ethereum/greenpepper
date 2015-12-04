@@ -29,8 +29,10 @@ class SpecRunner {
     Boolean secured
     
     String[] classpathElements
+    String[] repositories
 
 }
+
 SpecificationRunnerMojo "1" *-- "many" Repository
 SpecificationRunnerMojo "1" *-- "many" SpecRunner
 

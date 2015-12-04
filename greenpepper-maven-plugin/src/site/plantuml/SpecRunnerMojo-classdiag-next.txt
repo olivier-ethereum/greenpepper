@@ -1,0 +1,38 @@
+@startuml
+
+class SpecificationRunnerMojo {
+    .. Default Embedded SpecRunner ..
+    String systemUnderDevelopment
+    String[] classpathElements
+    ..
+}
+
+class Repository {
+    String[] suites
+    String[] tests
+    String type
+    String root
+    String name
+    boolean isDefault
+
+}
+
+class SpecRunner {
+    String name
+    String cmdLineTemplate
+    String systemUnderDevelopment
+    String mainClass
+    String envType
+    
+    String serverName
+    String serverPort
+    Boolean secured
+    
+    String[] classpathElements
+
+}
+SpecificationRunnerMojo "1" *-- "many" Repository
+SpecificationRunnerMojo "1" *-- "many" SpecRunner
+
+
+@enduml

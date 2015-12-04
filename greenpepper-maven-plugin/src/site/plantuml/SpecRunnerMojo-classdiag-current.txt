@@ -1,0 +1,18 @@
+@startuml
+class SpecificationRunnerMojo {
+    systemUnderDevelopment
+}
+
+class Repository {
+    String[] suites
+    String[] tests
+    String type
+    String root
+    String name
+    boolean isDefault
+
+}
+
+SpecificationRunnerMojo "1" *-- "many" Repository
+
+@enduml

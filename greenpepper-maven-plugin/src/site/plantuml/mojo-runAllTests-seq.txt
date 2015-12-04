@@ -1,0 +1,27 @@
+@startuml
+
+RunnerMojo -> RunnerMojo: runAllTests
+activate RunnerMojo
+
+loop for each repository
+
+  RunnerMojo -> RunnerMojo: runAllIn(repository)
+  activate RunnerMojo
+ 
+  RunnerMojo -> Repository: getTests()
+  Repository --> RunnerMojo : testsList
+
+  loop for each test
+    create DynamicCoreInvoker
+    RunnerMojo -> DynamicCoreInvoker : new
+    RunnerMojo -> DynamicCoreInvoker: runSingleTest()
+    DynamicCoreInvoker --> RunnerMojo : results
+    
+  end
+
+  deactivate RunnerMojo
+end
+RunnerMojo -> RunnerMojo : aggregate results
+deactivate RunnerMojo
+
+@enduml

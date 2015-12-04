@@ -1,0 +1,108 @@
+  ------
+  Usage
+  ------
+  Oumar Aziz OUATTARA
+  ------
+  2015-12-04
+  ------
+
+Testing a Single page
+
+  You can use the command line to launch a test on a single specification. This requires a setup though. 
+  You need to  setup your project with : 
+  
+  * A list of repositories 
+  
+  * <<(Optional)>> One of the repositories set as default
+  
+  []
+  
+* Example of configuration
+
+    Here is a configuration that contains 2 repositories. 
+    You will notice that one of them is marked as default
+  
++------------------------------------------------------------------------------+
+<repository>
+    ......
+	<name>file</name>
+	<isDefault>true</isDefault>
+	......
+</repository>
++------------------------------------------------------------------------------+
+
+    This will be the repository used when launching a single page per default. 
+    There is a way to choose the other one. You will need to use the name of the repository as a parameter.
+     
++------------------------------------------------------------------------------+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dummy</groupId>
+    <artifactId>dummy</artifactId>
+    <version>${project.version}</version>
+	<name>test greenpepper runner</name>
+
+	<build>
+		<plugins>
+            <plugin>
+                <groupId>com.github.strator-dev.greenpepper</groupId>
+				<artifactId>greenpepper-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<configuration>
+					<locale>en</locale>
+					<debug>true</debug>
+					<fixtureOutputDirectory>target/test-classes</fixtureOutputDirectory>
+					<reportsDirectory>target/greenpepper-reports</reportsDirectory>
+					<systemUnderDevelopment>com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment</systemUnderDevelopment>
+
+					<!-- Sample repositories configuration -->
+
+					<repositories>
+						<repository>
+							<type>com.greenpepper.repository.FileSystemRepository</type>
+							<root>src/test/resources/com/greenpepper/maven/plugin</root>
+							<name>file</name>
+							<isDefault>true</isDefault>
+							<tests>
+								<test>wrong.html</test>
+							</tests>
+						</repository>
+						<repository>
+							<type>com.greenpepper.runner.repository.AtlassianRepository</type>
+							<root><![CDATA[http://domain:port/rpc/xmlrpc?handler=handler&includeStyle=true#SPACE KEY]]></root>
+							<name>confluence</name>
+							<tests>
+								<test>PAGE TITLE</test>
+							</tests>
+						</repository>
+					</repositories>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
++----------------------------------------------------------------------------------------------------------------------------------+
+
+* Calling the command line
+
+** With default repository
+
+  Supposing there is a <<right.html>> file in <<src/test/resources/com/greenpepper/maven/plugin>>
+  
++------------------------------------------+
+mvn greenpepper:run -Dgp.test=right.html
++------------------------------------------+
+
+  The same command will work if you have defined a single repository (even when it's not set as default)
+  
+** With the non default repository
+ 
+   Supposing there is a "My Other PAGE TITLE" file on the confluence server 
+  
++------------------------------------------------------------------------+
+mvn greenpepper:run -Dgp.test="My Other PAGE TITLE" -Dgp.repo=confluence
++------------------------------------------------------------------------+
+
+  

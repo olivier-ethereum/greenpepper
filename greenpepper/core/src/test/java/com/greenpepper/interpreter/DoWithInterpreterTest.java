@@ -19,17 +19,12 @@
 
 package com.greenpepper.interpreter;
 
+import static com.greenpepper.Assertions.*;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 
-import static com.greenpepper.Assertions.assertAnnotatedException;
-import static com.greenpepper.Assertions.assertAnnotatedIgnored;
-import static com.greenpepper.Assertions.assertAnnotatedRight;
-import static com.greenpepper.Assertions.assertAnnotatedStopped;
-import static com.greenpepper.Assertions.assertAnnotatedWrongWithDetails;
-import static com.greenpepper.Assertions.assertAnnotatedWrongWithoutDetail;
-import static com.greenpepper.Assertions.assertNotAnnotated;
 import com.greenpepper.Example;
 import com.greenpepper.GreenPepper;
 import com.greenpepper.Specification;
@@ -351,6 +346,36 @@ public class DoWithInterpreterTest extends TestCase
             "****\n" +
             "[check][that balance of account][123456][is][0.00]\n" +
             "****\n" +
+            "[end]\n" +
+            "*****" +
+            "[deposit][100.00][in account][654321]\n" +
+            "****\n" +
+            "[check][that balance of account][654321][is][100.00]"
+        );
+
+        Specification specification = document();
+        interpreter.interpret( specification );
+        assertTrue( specification.hasMoreExamples() );
+        Example next = specification.nextExample();
+        assertEquals( "deposit", ExampleUtil.contentOf( next.at( 0, 0, 0 ) ) );
+    }
+    
+    public void testEndKeywordAppendedToPreviousLineStopsFlow()
+    {
+        context.checking(new Expectations()
+        {{
+            one(fixture).openAccount("123456");
+            will(returnValue(true));
+            exactly(2).of(fixture).thatBalanceOfAccountIs("123456");
+            will(onConsecutiveCalls(returnValue("0.00"), returnValue("100.00")));
+        }});
+
+        tables = Tables.parse(
+            "[do with][mock]\n" +
+            "****\n" +
+            "[open account][123456]\n" +
+            "****\n" +
+            "[check][that balance of account][123456][is][0.00]\n" +
             "[end]\n" +
             "*****" +
             "[deposit][100.00][in account][654321]\n" +

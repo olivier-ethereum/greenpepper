@@ -1,8 +1,9 @@
 package com.greenpepper.interpreter.flow;
 
-import com.greenpepper.Example;
 import static com.greenpepper.GreenPepper.canContinue;
 import static com.greenpepper.GreenPepper.shouldStop;
+
+import com.greenpepper.Example;
 import com.greenpepper.Specification;
 import com.greenpepper.Statistics;
 import com.greenpepper.annotation.Annotations;
@@ -41,6 +42,13 @@ public class AbstractFlowInterpreter extends AbstractInterpreter
 			stats.tally( table.getStatistics() );
 
             includeFirstRowOfNextTable();
+            // In case there was a 'END' keyword sticked in the table
+            Example lastCells = next.firstChild().lastSibling().firstChild();
+            boolean indicatesEnd = "end".equalsIgnoreCase( ExampleUtil.contentOf( lastCells ) );
+            if (indicatesEnd) {
+                specification.exampleDone( new Statistics() );
+                return;
+            }
         }
     }
 
@@ -76,6 +84,9 @@ public class AbstractFlowInterpreter extends AbstractInterpreter
         startRow = 0;
     }
 
+    /**
+     * The first Row is the header with the keyword
+     */
     private void skipFirstRowOfNextTable()
     {
         startRow = 1;

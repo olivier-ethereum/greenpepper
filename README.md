@@ -1,3 +1,5 @@
+[![Stories in Ready](https://badge.waffle.io/strator-dev/greenpepper.png?label=ready&title=Stories%20in%20Ready)](http://waffle.io/strator-dev/greenpepper) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/strator-dev/greenpepper?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/strator-dev/greenpepper.svg?branch=master)](https://travis-ci.org/strator-dev/greenpepper)
+
 # [GreenPepper (Modded by Strator)](http://strator-dev.github.io/greenpepper)
 
 ## Want to Contribute ? 
@@ -6,7 +8,7 @@
 
 ### Follow the evolution on [Waffle.io](https://waffle.io/strator-dev/greenpepper) 
 
-[![Stories in Ready](https://badge.waffle.io/strator-dev/greenpepper.png?label=ready&title=Ready)](http://waffle.io/strator-dev/greenpepper) 
+[![Stories in Ready](https://badge.waffle.io/strator-dev/greenpepper.png?label=ready&title=Stories%20in%20Ready)](http://waffle.io/strator-dev/greenpepper)
 
 ### Comment and Communicate on [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/strator-dev/greenpepper?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 

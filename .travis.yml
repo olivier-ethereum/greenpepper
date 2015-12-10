@@ -5,6 +5,6 @@ before_install:
   - mkdir -p ~/.m2/
   - cp -a ./settings.xml ~/.m2/
   - sudo apt-get update -qq
-  - sudo apt-get install -qq php5-cli
+  - sudo apt-get install -qq php5-cli mono-complete
 script:
   - mvn deploy

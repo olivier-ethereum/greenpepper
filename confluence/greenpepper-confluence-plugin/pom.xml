@@ -17,22 +17,6 @@
 
 	<profiles>
 		<profile>
-			<id>refapp</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.atlassian.maven.plugins</groupId>
-						<artifactId>maven-refapp-plugin</artifactId>
-						<version>${amps.version}</version>
-						<extensions>true</extensions>
-						<configuration>
-							<productVersion>${refapp.version}</productVersion>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
 			<id>confluence</id>
 			<build>
 				<plugins>
@@ -169,6 +153,10 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>			
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-amps-dispatcher-plugin</artifactId>
 			</plugin>
 		</plugins>
 		<pluginManagement>

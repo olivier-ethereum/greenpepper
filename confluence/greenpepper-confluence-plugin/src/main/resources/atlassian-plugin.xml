@@ -319,6 +319,13 @@
 		</parameters>
 	</xhtml-macro>
 
+	<xhtml-macro name='greenpepper-wiki' class='com.greenpepper.confluence.macros.GreenPepperWiki' key='greenpepper-wiki-xhtml'
+    		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+    		documentation-url="https://confluence.atlassian.com/display/CONF50/Confluence+Wiki+Markup">
+        <category name="development"/>
+         <parameters/>
+    </xhtml-macro>
+
 	<macro-migrator key="greenpepper-info-migrator"
                 	macro-name="greenpepper-info"
                 class="com.greenpepper.confluence.macros.migrator.GreenPepperMacroWithBodyMigrator"/>

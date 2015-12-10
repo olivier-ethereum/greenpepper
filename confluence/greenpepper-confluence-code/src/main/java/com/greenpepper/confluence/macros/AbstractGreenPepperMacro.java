@@ -111,14 +111,15 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
 		return ((Page)owner).getSpace();
 	}
 
-	protected String getPageTitle(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
+	@SuppressWarnings("unchecked")
+    protected String getPageTitle(@SuppressWarnings("rawtypes") Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
     {
         return getPage(parameters, renderContext, spaceKey).getTitle().trim();
     }
     
-    protected Page getPage(Map parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
+    protected Page getPage(Map<String,String> parameters, RenderContext renderContext, String spaceKey) throws GreenPepperServerException
     {
-        String pageTitle = (String)parameters.get("pageTitle");
+        String pageTitle = parameters.get("pageTitle");
         if(StringUtil.isEmpty(pageTitle))
         {
             ContentEntityObject owner = ((PageContext)renderContext).getEntity();
@@ -132,7 +133,6 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
         return page;
     }
 
-    @SuppressWarnings("unchecked")
     protected List<Space> getSpaces() throws GreenPepperServerException
     {
         List<Space> spaces = new ArrayList<Space>();
@@ -152,15 +152,15 @@ public abstract class AbstractGreenPepperMacro extends BaseMacro implements Macr
 		return spaces;
     }
     
-    protected String getBulkUID(Map parameters)
+    protected String getBulkUID(Map<String,String> parameters)
     {
         String group = (String)parameters.get("group");
         return StringUtil.isEmpty(group) ? "PAGE" : group;
     }
     
-    protected boolean isExpanded(Map parameters)
+    protected boolean isExpanded(Map<String,String> parameters)
     {
-        String all = (String)parameters.get("expanded");
+        String all = parameters.get("expanded");
         return all != null && Boolean.valueOf(all);
     }
 

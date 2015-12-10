@@ -2,7 +2,15 @@
 
 [![Stories in Ready](https://badge.waffle.io/strator-dev/greenpepper-open.png?label=ready&title=Stories%20In%20Ready)](http://waffle.io/strator-dev/greenpepper-open) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/strator-dev/greenpepper-open?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/strator-dev/greenpepper-open.svg?branch=master)](https://travis-ci.org/strator-dev/greenpepper-open)
 
-# greenpepper-open
+# Greenpepper-Open
+
+## Building 
+
+The build is essentially based on Maven.
+However, due to the integration of external languages, you will need to install some dependencies on the building system.
+Look at the .travis.yml file to have the detailed list. That includes :
+* Mono
+* php
 
 ## Get the binaries
 

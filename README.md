@@ -1,15 +1,20 @@
-# greenpepper-open
+[![License](https://img.shields.io/badge/License-GNU%20General%20Public%20License%203.0-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
 
-## Get the confluence plugin
+[![Stories in Ready](https://badge.waffle.io/strator-dev/greenpepper-open.png?label=ready&title=Stories%20In%20Ready)](http://waffle.io/strator-dev/greenpepper-open) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/strator-dev/greenpepper-open?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/strator-dev/greenpepper-open.svg?branch=master)](https://travis-ci.org/strator-dev/greenpepper-open)
 
-- First you will need to be sure you have access to greenpepper binaries via Maven
-- Then you can build either on Maven on your own computer OR by docker
-```
-cd confluence
-docker build --tag green-build .
-docker run -d --name green green-build true
-docker cp green:/usr/src/app/greenpepper-confluence-plugin/target/greenpepper-confluence5-plugin-<version>-complete.jar .
-```
+# Greenpepper-Open
+
+## Building 
+
+The build is essentially based on Maven.
+However, due to the integration of external languages, you will need to install some dependencies on the building system.
+Look at the .travis.yml file to have the detailed list. That includes :
+* Mono
+* php
+
+## Get the binaries
+
+You will have access to all prebuilt binaries from [our website](http://strator-dev.github.io/greenpepper/#/downloads)
 
 ## Want to Contribute ? 
 

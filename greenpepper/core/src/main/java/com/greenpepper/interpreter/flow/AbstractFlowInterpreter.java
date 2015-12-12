@@ -42,7 +42,9 @@ public class AbstractFlowInterpreter extends AbstractInterpreter
 			stats.tally( table.getStatistics() );
 
             includeFirstRowOfNextTable();
-            // In case there was a 'END' keyword sticked in the table
+            /*
+             *  In case there was a 'END' keyword sticked in the table.
+             */
             Example lastCells = next.firstChild().lastSibling().firstChild();
             boolean indicatesEnd = "end".equalsIgnoreCase( ExampleUtil.contentOf( lastCells ) );
             if (indicatesEnd) {

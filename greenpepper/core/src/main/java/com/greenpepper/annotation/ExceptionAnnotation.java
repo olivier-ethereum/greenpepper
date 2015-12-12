@@ -22,4 +22,8 @@ public class ExceptionAnnotation implements Annotation {
     public String toString() {
         return ExceptionUtils.stackTrace(error, "\n", 10);
     }
+    
+    public String getExceptionMessage() {
+        return error.getMessage();
+    }
 }

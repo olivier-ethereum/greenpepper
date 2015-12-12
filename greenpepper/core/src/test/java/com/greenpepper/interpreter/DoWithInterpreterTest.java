@@ -31,6 +31,7 @@ import com.greenpepper.Specification;
 import com.greenpepper.Statistics;
 import com.greenpepper.annotation.RightAnnotation;
 import com.greenpepper.document.FakeSpecification;
+import com.greenpepper.html.HtmlDocumentBuilder;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.PlainOldFixture;
 import com.greenpepper.util.ExampleUtil;
@@ -360,6 +361,70 @@ public class DoWithInterpreterTest extends TestCase
         assertEquals( "deposit", ExampleUtil.contentOf( next.at( 0, 0, 0 ) ) );
     }
     
+
+    public void testEndKeywordStopsFlowHTML()
+    {
+        context.checking(new Expectations()
+        {{
+            one(fixture).openAccount("123456");
+            will(returnValue(true));
+            exactly(2).of(fixture).thatBalanceOfAccountIs("123456");
+            will(onConsecutiveCalls(returnValue("0.00"), returnValue("100.00")));
+        }});
+
+        Example htmlExample = HtmlDocumentBuilder.tables().parse(
+            "<table><tr><td>do with</td><td>mock</td></tr></table>\n" +
+            "****<br/>\n" +
+            "<table><tr><td>open account</td><td>123456</td></tr></table>\n" +
+            "****<br/>\n" 
+            + "<table>"
+            + "<tr><td>check</td><td>that balance of account</td><td>123456</td><td>is</td><td>0.00</td></tr>" 
+            + "<tr><td>end</td></tr>"
+            + "</table>\n" +
+            "*****<br/>\n" +
+            "<table><tr><td>deposit</td><td>100.00</td><td>in account</td><td>654321</td></tr></table>\n" +
+            "****<br/>\n" +
+            "<table><tr><td>check</td><td>that balance of account</td><td>654321</td><td>is</td><td>100.00</td></tr></table>"
+        );
+        Specification specification = new FakeSpecification(htmlExample);
+        interpreter.interpret( specification );
+        assertTrue( specification.hasMoreExamples() );
+        Example next = specification.nextExample();
+        assertEquals( "deposit", ExampleUtil.contentOf( next.at( 0, 0, 0 ) ) );
+    }
+    
+
+    public void testEndKeywordErrorsDueToLinesAfterHTML()
+    {
+        context.checking(new Expectations()
+        {{
+            one(fixture).openAccount("123456");
+            will(returnValue(true));
+            exactly(2).of(fixture).thatBalanceOfAccountIs("123456");
+            will(onConsecutiveCalls(returnValue("0.00"), returnValue("0.00")));
+            one(fixture).depositInAccount("100.00", "123456");
+            will(throwException(new RuntimeException("LAUNCHED FOR TESTING")));
+        }});
+
+        Example htmlExample = HtmlDocumentBuilder.tables().parse(
+            "<table><tr><td>do with</td><td>mock</td></tr></table>\n" +
+            "****<br/>\n" +
+            "<table><tr><td>open account</td><td>123456</td></tr></table>\n" +
+            "****<br/>\n" 
+            + "<table>"
+            + "<tr><td>check</td><td>that balance of account</td><td>123456</td><td>is</td><td>0.00</td></tr>" 
+            + "<tr><td>end</td></tr>"
+            + "<tr><td>deposit</td><td>100.00</td><td>in account</td><td>123456</td></tr>"
+            + "</table>\n" +
+            "*****<br/>\n" +
+            "<table><tr><td>check</td><td>that balance of account</td><td>123456</td><td>is</td><td>100.00</td></tr></table>"
+        );
+        FakeSpecification specification = new FakeSpecification(htmlExample);
+        interpreter.interpret( specification );
+        assertFalse("We should have evaluated every row", specification.hasMoreExamples() );
+        assertEquals(new Statistics(2,1,2,0), specification.stats);
+    }
+    
     public void testEndKeywordAppendedToPreviousLineStopsFlow()
     {
         context.checking(new Expectations()
@@ -390,6 +455,68 @@ public class DoWithInterpreterTest extends TestCase
         assertEquals( "deposit", ExampleUtil.contentOf( next.at( 0, 0, 0 ) ) );
     }
 
+    public void testEndKeywordNotLastLineResultsInException()
+    {
+        context.checking(new Expectations()
+        {{
+            one(fixture).openAccount("123456");
+            will(returnValue(true));
+            exactly(2).of(fixture).thatBalanceOfAccountIs("123456");
+            will(onConsecutiveCalls(returnValue("0.00"), returnValue("100.00")));
+            one(fixture).depositInAccount("100.00", "123456");
+            will(returnValue(true));
+        }});
+
+        tables = Tables.parse(
+            "[do with][mock]\n" +
+            "****\n" +
+            "[open account][123456]\n" +
+            "****\n" +
+            "[check][that balance of account][123456][is][0.00]\n" +
+            "[end]\n" +
+            "[deposit][100.00][in account][123456]\n" +
+            "****\n" +
+            "[check][that balance of account][123456][is][100.00]"
+        );
+
+        FakeSpecification specification = document();
+        interpreter.interpret( specification );
+        assertAnnotatedException( tables.at( 2, 1, 0 ) );
+        assertFalse( specification.hasMoreExamples() );
+        assertEquals( new Statistics(4, 0, 1, 0), specification.stats );
+    }
+    
+    public void testEndKeywordNotSingleCellResultsInException()
+    {
+        context.checking(new Expectations()
+        {{
+            one(fixture).openAccount("123456");
+            will(returnValue(true));
+            exactly(2).of(fixture).thatBalanceOfAccountIs("123456");
+            will(onConsecutiveCalls(returnValue("0.00"), returnValue("100.00")));
+            one(fixture).depositInAccount("100.00", "123456");
+            will(returnValue(true));
+        }});
+
+        tables = Tables.parse(
+            "[do with][mock]\n" +
+            "****\n" +
+            "[open account][123456]\n" +
+            "****\n" +
+            "[check][that balance of account][123456][is][0.00]\n" +
+            "[end][addon]\n" +
+            "****\n" +
+            "[deposit][100.00][in account][123456]\n" +
+            "[check][that balance of account][123456][is][100.00]"
+        );
+
+        FakeSpecification specification = document();
+        interpreter.interpret( specification );
+        assertAnnotatedException( tables.at( 2, 1, 0 ) );
+        assertTrue( specification.hasMoreExamples() );
+        assertEquals( new Statistics(2, 0, 1, 0), specification.stats );
+    }
+    
 	public void testDisplayKeywordFlow()
 	{
 		context.checking(new Expectations()

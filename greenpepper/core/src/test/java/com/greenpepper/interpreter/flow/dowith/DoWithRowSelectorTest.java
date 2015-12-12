@@ -48,7 +48,7 @@ public class DoWithRowSelectorTest extends TestCase
         assertThat(row, is(RejectRow.class));
     }
 
-    private String packageName(Class aClass)
+    private String packageName(Class<?> aClass)
     {
         return aClass.getPackage().getName();
     }
@@ -98,6 +98,24 @@ public class DoWithRowSelectorTest extends TestCase
         assertThat(row, is(InterpretRow.class));
     }
 
+    public void testSupportsEndRow()
+    {
+        Rows rows = Rows.parse(
+                "[end]"
+        );
+        Row row = selector.select(rows);
+        assertThat(row, is(EndRow.class));
+    }
+
+    public void testThatEndWithArgumentsIsStillEndRow()
+    {
+        Rows rows = Rows.parse(
+                "[end][too much]"
+        );
+        Row row = selector.select(rows);
+        assertThat(row, is(EndRow.class));
+    }
+    
     public void testDefaultsToSelectingDefaultRow()
     {
         Rows rows = Rows.parse(

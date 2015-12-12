@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="GreenPepper"
+            class="com.greenpepper.eclipse.preferences.GreenPepperPreferencePage"
+            id="com.greenpepper.eclipse.preferences.GreenPepperPreferencePage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.greenpepper.eclipse.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType
+        	name="GreenPepper Specification"
+        	delegate="com.greenpepper.eclipse.launcher.RunSpecificationLaunchConfigurationDelegate"
+        modes="run, debug"
+        id="com.greenpepper.eclipse.launcher.RunSpecification">
+    </launchConfigurationType>
+   </extension>
+ <extension
+       point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            icon="icons/greenpepper2_12.gif"
+            configTypeID="com.greenpepper.eclipse.launcher.RunSpecification"
+            id="com.greenpepper.eclipse.launchimage">
+      </launchConfigurationTypeImage>
+ </extension> 
+ <extension
+       point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+	    <launchConfigurationTabGroup
+        	type="com.greenpepper.eclipse.launcher.RunSpecification"
+	        class="com.greenpepper.eclipse.launcher.RunSpecificationTabGroup"
+        	id="com.greenpepper.eclipse.launcher.RunSpecificationTabGroup">
+	    </launchConfigurationTabGroup>
+ </extension>
+ <extension
+       point="org.eclipse.ui.views">
+    <category
+          id="com.greenpepper.eclipse.GreenPepperCategory"
+          name="GreenPepper"/>
+    <view
+          category="com.greenpepper.eclipse.GreenPepperCategory"
+          class="com.greenpepper.eclipse.views.RepositoryView"
+          icon="icons/greenpepper_16.gif"
+          id="com.greenpepper.eclipse.views.RepositoryView"
+          name="Repository View"/>
+ </extension>
+ <extension
+       point="org.eclipse.ui.perspectiveExtensions">
+    <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+       <view
+             id="com.greenpepper.eclipse.views.RepositoryView"
+             ratio="0.5"
+             relationship="right"
+             relative="org.eclipse.ui.views.TaskList"/>
+    </perspectiveExtension>
+ </extension>
+ <extension point="org.eclipse.ui.propertyPages">
+    <page
+          category="greenpepper-eclipse.category"
+          class="com.greenpepper.eclipse.properties.ProjectPropertyPage"
+          id="com.greenpepper.eclipse.properties.ProjectPropertyPage"
+          name="GreenPepper"
+          objectClass="org.eclipse.jdt.core.IJavaProject">
+       <filter
+             name="nature"
+             value="com.greenpepper.eclipse.nature"/>
+    </page>
+    <page
+          category="com.greenpepper.eclipse.properties.ProjectPropertyPage"
+          class="com.greenpepper.eclipse.properties.AdvancedPropertyPage"
+          id="com.greenpepper.eclipse.properties.AdvancedPropertyPage"
+          name="Advanced Settings"
+          objectClass="org.eclipse.jdt.core.IJavaProject">
+       <filter
+             name="nature"
+             value="com.greenpepper.eclipse.nature"/>
+    </page>
+    <page
+          category="com.greenpepper.eclipse.properties.ProjectPropertyPage"
+          class="com.greenpepper.eclipse.properties.LocalRepositoriesPage"
+          id="com.greenpepper.eclipse.properties.LocalRepositoriesPage"
+          name="Local Repositories"
+          objectClass="org.eclipse.jdt.core.IJavaProject">
+       <filter
+             name="nature"
+             value="com.greenpepper.eclipse.nature"/>
+    </page>
+    <page
+          class="com.greenpepper.eclipse.fixture.NewFixtureWizardPage"
+          id="greenpepper-eclipse.page1"
+          name="greenpepper-eclipse.page1"
+          objectClass="com.greenpepper.eclipse.views.EclipseSpecification"/>
+ </extension>
+ <extension
+       id="nature"
+       name="GreenPepperized project"
+       point="org.eclipse.core.resources.natures">
+    <runtime>
+       <run class="com.greenpepper.eclipse.GreenPepperNature"/>
+    </runtime>
+    <requires-nature id="org.eclipse.jdt.core.javanature"/>
+ </extension>
+ <extension
+       point="org.eclipse.ui.actionSets">
+    <actionSet
+          description="GreenPepper ActionSet"
+          id="com.greenpepper.eclipse.workbenchActionSet"
+          label="GreenPepper ActionSet"
+          visible="true">
+       <action
+             allowLabelUpdate="true"
+             class="com.greenpepper.eclipse.actions.ToggleProjectNatureDelegate"
+             definitionId="com.greenpepper.eclipse.toggleProjectNature.command"
+             disabledIcon="icons/greenpepper_12.gif"
+             icon="icons/greenpepper_12.gif"
+             id="com.greenpepper.eclipse.toggleProjectNature"
+             label="Project GreenPepperised"
+             menubarPath="com.greenpepper.eclipse.workbenchMenu/content"
+             style="toggle"/>
+       <menu
+             id="com.greenpepper.eclipse.workbenchMenu"
+             label="GreenPepper"
+             path="additions"/>
+       <action
+             class="com.greenpepper.eclipse.actions.RepositoryViewAction"
+             definitionId="com.greenpepper.eclipse.repositoryView.command"
+             hoverIcon="icons/greenpepper2_12.gif"
+             icon="icons/greenpepper2_12.gif"
+             id="com.greenpepper.eclipse.repositoryView"
+             label="Repository View"
+             menubarPath="com.greenpepper.eclipse.workbenchMenu/content"
+             style="push"/>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.ReloadRepositories.command"
+             icon="icons/refresh_tree.gif"
+             id="com.greenpepper.eclipse.repositoryView.ReloadRepositories.action"
+             label="Refresh Repositories">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.ReloadDocument.command"
+             disabledIcon="icons/document_view_disabled.png"
+             icon="icons/document_view_enabled.png"
+             id="com.greenpepper.eclipse.repositoryView.ReloadDocument.action"
+             label="Reload Document">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.OpenRemoteDocument.command"
+             disabledIcon="icons/remotedocument_view_disabled.png"
+             icon="icons/remotedocument_view_enabled.png"
+             id="com.greenpepper.eclipse.repositoryView.OpenRemoteDocument.action"
+             label="Browse Document">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.ExecuteDocument.command"
+             disabledIcon="icons/document_execute_disabled.png"
+             icon="icons/document_execute_enabled.png"
+             id="com.greenpepper.eclipse.repositoryView.ExecuteDocument.action"
+             label="Execute Document">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.ExecuteAllDocument.command"
+             disabledIcon="icons/branch_execute_disabled.png"
+             icon="icons/branch_execute_enabled.png"
+             id="com.greenpepper.eclipse.repositoryView.ExecuteAllDocument.action"
+             label="Execute ALL Documents">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.SwitchToWorkingCopy.command"
+             disabledIcon="icons/working_disabled.png"
+             icon="icons/working.png"
+             id="com.greenpepper.eclipse.repositoryView.SwitchToWorkingCopy.action"
+             label="Switch to Working Copy">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.SwitchAllToWorkingCopy.command"
+             disabledIcon="icons/working_disabled.png"
+             icon="icons/working.png"
+             id="com.greenpepper.eclipse.repositoryView.SwitchAllToWorkingCopy.action"
+             label="Switch ALL to Working copy">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.SwitchToImplementedCopy.command"
+             disabledIcon="icons/implemented_disabled.png"
+             icon="icons/implemented.png"
+             id="com.greenpepper.eclipse.repositoryView.SwitchToImplementedCopy.action"
+             label="Switch to Implemented Copy">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.SwitchAllToImplementedCopy.command"
+             disabledIcon="icons/implemented_disabled.png"
+             icon="icons/implemented.png"
+             id="com.greenpepper.eclipse.repositoryView.SwitchAllToImplementedCopy.action"
+             label="Switch ALL to Implemented copy">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.TagDocumentAsImplemented.command"
+             disabledIcon="icons/tagimplemented_disabled.png"
+             icon="icons/tagimplemented.png"
+             id="com.greenpepper.eclipse.repositoryView.TagDocumentAsImplemented.action"
+             label="Tag Document as *Implemented*">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.TagAllDocumentAsImplemented.command"
+             disabledIcon="icons/tagimplemented_disabled.png"
+             icon="icons/tagimplemented.png"
+             id="com.greenpepper.eclipse.repositoryView.TagAllDocumentAsImplemented.action"
+             label="Tag ALL documents as *Implemented*">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.ShowProjectProperties.command"
+             id="com.greenpepper.eclipse.repositoryView.ShowProjectProperties.action"
+             label="Properties">
+       </action>
+       <action
+             class="com.greenpepper.eclipse.views.RepositoryView$RepositoryViewActionDelegate"
+             definitionId="com.greenpepper.eclipse.repositoryView.CreateFixture.command"
+             icon="icons/fixture.gif"
+             id="com.greenpepper.eclipse.repositoryView.CreateFixture.action"
+             label="Create Fixture">
+       </action>
+    </actionSet>
+ </extension>
+ <extension
+       point="org.eclipse.ui.startup">
+    <startup class="com.greenpepper.eclipse.actions.StartUp"/>
+ </extension>
+ <extension
+       id="greenpepper-eclipse.command"
+       name="GreenPepper Commands"
+       point="org.eclipse.ui.commands">
+    <category
+          description="GreenPepper Commands"
+          id="com.greenpepper.eclipse.category.command"
+          name="GreenPepper">
+    </category>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Show the Repository View"
+          id="com.greenpepper.eclipse.repositoryView.command"
+          name="Show the Repository View">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Greenpepperized / Ungreenpepperized selected project"
+          id="com.greenpepper.eclipse.toggleProjectNature.command"
+          name="Greenpepperised / Ungreenpepperised Project">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Reload Repositories"
+          id="com.greenpepper.eclipse.repositoryView.ReloadRepositories.command"
+          name="Refresh Repositories">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Reload the selected Document"
+          id="com.greenpepper.eclipse.repositoryView.ReloadDocument.command"
+          name="Reload Document">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Open the selected Document from the Repository"
+          id="com.greenpepper.eclipse.repositoryView.OpenRemoteDocument.command"
+          name="Open Document from the Repository">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Execute the selected Document"
+          id="com.greenpepper.eclipse.repositoryView.ExecuteDocument.command"
+          name="Execute Document">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Execute all the selected/branched documents"
+          id="com.greenpepper.eclipse.repositoryView.ExecuteAllDocument.command"
+          name="Execute ALL Documents">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Switch the selected document to Working copy"
+          id="com.greenpepper.eclipse.repositoryView.SwitchToWorkingCopy.command"
+          name="Switch to Working copy">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Switch all the selected documents to Working copy"
+          id="com.greenpepper.eclipse.repositoryView.SwitchAllToWorkingCopy.command"
+          name="Switch ALL to Working copy">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Switch the selected document to Implemented copy"
+          id="com.greenpepper.eclipse.repositoryView.SwitchToImplementedCopy.command"
+          name="Switch to Implemented copy">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Switch all the selected documents to Implemented copy"
+          id="com.greenpepper.eclipse.repositoryView.SwitchAllToImplementedCopy.command"
+          name="Switch ALL to Implemented copy">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Tag the selected document as *Implemented*"
+          id="com.greenpepper.eclipse.repositoryView.TagDocumentAsImplemented.command"
+          name="Tag Document as *Implemented*">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Tag all the selected documents as *Implemented*"
+          id="com.greenpepper.eclipse.repositoryView.TagAllDocumentAsImplemented.command"
+          name="Tag ALL documents as *Implemented*">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Show Project Properties"
+          id="com.greenpepper.eclipse.repositoryView.ShowProjectProperties.command"
+          name="Show Project Properties">
+    </command>
+    <command
+          categoryId="com.greenpepper.eclipse.category.command"
+          description="Create Fixture class"
+          id="com.greenpepper.eclipse.repositoryView.CreateFixture.command"
+          name="Create Fixture">
+    </command>
+ </extension>
+ 
+<extension
+      id="greenpepper-eclipse.bindings"
+      name="GreenPepper Bindings"
+      point="org.eclipse.ui.bindings">
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G V">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.toggleProjectNature.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G T">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.ReloadRepositories.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G L">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.ReloadDocument.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G R">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.OpenRemoteDocument.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G O">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.ExecuteDocument.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G X">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.ExecuteAllDocument.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G E">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.SwitchToWorkingCopy.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G W">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.SwitchToImplementedCopy.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G I">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.TagDocumentAsImplemented.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G F">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.TagAllDocumentAsImplemented.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G A">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.ShowProjectProperties.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G P">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.SwitchAllToWorkingCopy.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G Y">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.SwitchAllToImplementedCopy.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G M">
+   </key>
+   <key
+         commandId="com.greenpepper.eclipse.repositoryView.CreateFixture.command"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="Ctrl+G C">
+   </key>
+</extension>
+</plugin>

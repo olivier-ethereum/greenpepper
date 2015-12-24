@@ -153,7 +153,7 @@
     </xhtml-macro>
     <xhtml-macro name='greenpepper-group' class='com.greenpepper.confluence.macros.GreenPepperGroup' key='greenpepper-group-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Group+macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Group+macro">
         <category name="development"/>
 		<parameters>
 			<parameter name="title" type="string">
@@ -168,7 +168,7 @@
     </xhtml-macro>
     <xhtml-macro name='greenpepper-include' class='com.greenpepper.confluence.macros.GreenPepperInclude' key='greenpepper-include-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Include+Macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Include+Macro">
         <category name="development"/>
 		<parameters>
 			<parameter name="pageTitle" type="string" required="true">
@@ -182,7 +182,7 @@
     </xhtml-macro>
     <xhtml-macro name='greenpepper-children' class='com.greenpepper.confluence.macros.GreenPepperChildren' key='greenpepper-children-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Children+Macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Children+Macro">
         <category name="development"/>
 		<parameters>
 		    <parameter name="all" type="boolean"/>
@@ -202,7 +202,7 @@
     </xhtml-macro>
     <xhtml-macro name='greenpepper-labels' class='com.greenpepper.confluence.macros.GreenPepperLabels' key='greenpepper-labels-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Labels+macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Labels+macro">
         <category name="development"/>
 		<parameters>
 		    <parameter name="spaceKey" type="spacekey"/>
@@ -222,7 +222,7 @@
     
     <xhtml-macro name='greenpepper-info' class='com.greenpepper.confluence.macros.GreenPepperInfo' key='greenpepper-info-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Info+macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Info+macro">
         <category name="development"/>
 		<parameters>
 			<parameter name="title" type="string" >
@@ -235,7 +235,7 @@
     
     <xhtml-macro name='greenpepper-example' class='com.greenpepper.confluence.macros.GreenPepperExample' key='greenpepper-example-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Example+macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Example+macro">
         <category name="development"/>
 		<parameters>
 			<parameter name="title" type="string" >
@@ -250,7 +250,7 @@
 	             class="com.greenpepper.confluence.macros.GreenPepperImport"
 	             key="greenpepper-import-xhtml"
 	             icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-	             documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Import+macro">
+	             documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Import+macro">
 	    <category name="development"/>
 	    <param name="help-section" value="external"/>
 	    <description/>
@@ -267,7 +267,7 @@
 
     <xhtml-macro name='greenpepper-manage' class='com.greenpepper.confluence.macros.GreenPepperManage' key='greenpepper-manage-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Manage+macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Manage+macro">
 		<category name="development"/>
 		<parameters>
 			<parameter name="gpUrl" type="string" required="true">
@@ -283,7 +283,7 @@
     </xhtml-macro>
     <xhtml-macro name='greenpepper-hierarchy' class='com.greenpepper.confluence.macros.GreenPepperHierarchy' key='greenpepper-hierarchy-xhtml'
     		icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-    		documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Hierarchy+macro">
+    		documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Hierarchy+macro">
         <category name="development"/>
 		<parameters>
 			<parameter name="gpUrl" type="string" required="true">
@@ -300,7 +300,7 @@
     </xhtml-macro>
 	<xhtml-macro name='greenpepper-historic' class='com.greenpepper.confluence.macros.GreenPepperHistoric' key='greenpepper-historic-xhtml'
 			icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
-			documentation-url="http://www.greenpeppersoftware.com/confluence/display/GP/Historic+Macro">
+			documentation-url="http://greenpepper.atlassian.net/wiki/display/DOC/Historic+Macro">
 		<category name="development"/>
 		<parameters>
 			<parameter name="pageTitle" type="string">

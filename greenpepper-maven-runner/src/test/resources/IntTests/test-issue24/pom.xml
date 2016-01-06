@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dummy</groupId>
+    <artifactId>dummy-issue24</artifactId>
+    <version>4.0-beta3-SNAPSHOT</version>
+    <name>test greenpepper runner</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.strator-dev.greenpepper</groupId>
+                <artifactId>greenpepper-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <locale>en</locale>
+                    <debug>true</debug>
+                    <fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
+                    <fixtureOutputDirectory>target/test-classes</fixtureOutputDirectory>
+                    <reportsDirectory>target/greenpepper-reports</reportsDirectory>
+                    <systemUnderDevelopment>com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment</systemUnderDevelopment>
+
+                    <!-- Sample repositories configuration -->
+                    <resources>
+                        <resource>
+                            <directory>src/fixture/resources</directory>
+                            <excludes>
+                                <exclude>**/*.java</exclude>
+                            </excludes>
+                        </resource>
+                    </resources>
+
+                    <repositories>
+                        <repository>
+                            <type>com.greenpepper.repository.FileSystemRepository</type>
+                            <root>src/test/specs</root>
+                            <name>file</name>
+                            <isDefault>true</isDefault>
+                            <tests>
+                                <test>right.html</test>
+                            </tests>
+                        </repository>
+                    </repositories>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>makeall</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>resources</goal>
+                            <goal>run</goal>
+                            <goal>fixture-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+    	<dependency>
+    		<groupId>commons-codec</groupId>
+    		<artifactId>commons-codec</artifactId>
+    		<version>1.10</version>
+    	</dependency>
+    </dependencies>
+</project>

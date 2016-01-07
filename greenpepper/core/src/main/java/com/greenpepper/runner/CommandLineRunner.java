@@ -179,7 +179,8 @@ public class CommandLineRunner
         File workingDirectory = new File( System.getProperty( "user.dir" ) );
 
         String banner = "greenpepper [options] input [ouput]\n" +
-                "Run the input specification and produce a report in output file or in directory specified by -o";
+                "Run the input specification and produce a report in output file or in directory specified by -o\n" +
+                "The exit code is 0 if no error occurs, 1 in case of misleading options, or N = number of failed tests.";
         cli.setBanner( banner );
 
         cli.defineOption( cli.buildOption( "lazy", "--lazy", "Execute document in lazy mode" ) );

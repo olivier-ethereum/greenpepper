@@ -21,7 +21,8 @@ public class Main {
         CommandLineRunner runner = new CommandLineRunner();
 
         try {
-            runner.run(args);
+            int exitcode = runner.run(args);
+            System.exit(exitcode);
         } catch (Exception t) {
             System.err.println(t.getMessage());
             System.err.println("Try '--help' for more information.");
@@ -34,6 +35,5 @@ public class Main {
             System.exit(1);
         }
 
-        System.exit(0);
     }
 }

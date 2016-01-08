@@ -24,6 +24,11 @@ public final class Main {
     }
 
     public static void main(String[] args) {
+        int exitcode = launch(args);
+        System.exit(exitcode);
+    }
+
+    public static int launch(String[] args) {
         CommandLineRunner runner = new CommandLineRunner();
         LoggingMonitor loggingMonitor = new LoggingMonitor(System.out, System.err);
         SystemExitCodesMonitor exitCodesMonitor = new SystemExitCodesMonitor();
@@ -31,7 +36,7 @@ public final class Main {
         runner.setMonitor(monitor);
         try {
             runner.run(args);
-            System.exit(exitCodesMonitor.getExitcode());
+            return exitCodesMonitor.getExitcode();
         } catch (ParseException e) {
             System.err.println(e.getMessage());
             System.err.println("Try '--help' for more information.");
@@ -41,10 +46,10 @@ public final class Main {
                 e.getCause().printStackTrace(System.err);
             }
 
-            System.exit(1);
+            return 1;
         } catch (Throwable t) {
             monitor.exceptionOccured(t);
-            System.exit(1);
+            return 1;
         }
     }
 }

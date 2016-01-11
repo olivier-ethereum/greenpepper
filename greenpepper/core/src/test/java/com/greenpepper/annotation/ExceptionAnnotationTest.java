@@ -1,5 +1,10 @@
 package com.greenpepper.annotation;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import com.greenpepper.util.FakeText;
 
 import junit.framework.TestCase;
@@ -21,7 +26,30 @@ public class ExceptionAnnotationTest extends TestCase
         ExceptionAnnotation exception = new ExceptionAnnotation( error );
         exception.writeDown( text );
 
-        assertEquals( "content<hr/><pre class=\"greenpepper-report-exception\"><font>" + error.getMessage() + "</font><div class=\"greenpepper-report-stacktrace\">java.lang.RuntimeException: error message\nClass.method(Class.java)</div></pre>", text.getContent() );
+        String content = text.getContent();
+        Document doc = Jsoup.parseBodyFragment(content);
+        Elements links = doc.select("a");
+        assertNotNull(links);
+        assertEquals(2, links.size());
+        Elements hideLink = doc.select("a.greenpepper-report-stacktrace-hide");
+        assertNotNull(hideLink);
+        assertEquals(1, hideLink.size());
+        assertEquals("#"+hideLink.get(0).id(),hideLink.get(0).attr("href")); 
+        Elements showLink = doc.select("a.greenpepper-report-stacktrace-show");
+        assertNotNull(showLink);
+        assertEquals(1, showLink.size());
+        assertEquals("#"+showLink.get(0).id(),showLink.get(0).attr("href")); 
+        assertFalse(StringUtils.equals(hideLink.get(0).id(), showLink.get(0).id()));
+        
+        Elements reportdiv = doc.select("div.greenpepper-report-exception");
+        Elements reportdivChildren = reportdiv.get(0).children();
+        assertEquals(4, reportdivChildren.size());
+        assertEquals("RuntimeException: error message" , reportdivChildren.get(0).text());
+
+        assertEquals("greenpepper-report-stacktrace", reportdivChildren.get(3).className());
+        assertEquals("pre", reportdivChildren.get(3).tagName());
+        assertEquals("java.lang.RuntimeException: error message\nClass.method(Class.java)" , reportdivChildren.get(3).text());
+                
     }
     
 
@@ -35,9 +63,13 @@ public class ExceptionAnnotationTest extends TestCase
         ExceptionAnnotation exception = new ExceptionAnnotation( error );
         exception.writeDown( text );
 
-        assertEquals( "content<hr/><pre class=\"greenpepper-report-exception\"><font>" + error.getMessage() + "</font><div class=\"greenpepper-report-stacktrace\">java.lang.RuntimeException: error message\n"
+        String content = text.getContent();
+        Document doc = Jsoup.parseBodyFragment(content);
+        Elements reportdiv = doc.select("div.greenpepper-report-exception");
+        Elements reportdivChildren = reportdiv.get(0).children();
+        assertEquals("java.lang.RuntimeException: error message\n"
                 + "Class.method(Class.java)\n"
                 + "Class.methodA(Native Method)\n"
-                + "Class.methodB(Class.java)</div></pre>", text.getContent() );
+                + "Class.methodB(Class.java)" , reportdivChildren.get(3).text());
     }
 }

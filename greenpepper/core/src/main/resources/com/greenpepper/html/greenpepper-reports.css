@@ -3,10 +3,66 @@
 	display: none;
 }
 
-.greenpepper-report-exception > font {
+.greenpepper-report-exception>font {
 	font-size: small;
 }
 
-.greenpepper-report-exception:hover > .greenpepper-report-stacktrace {
+.greenpepper-report-stacktrace-show {
+	display: inline;
+}
+
+.greenpepper-report-stacktrace-hide {
+	display: none;
+}
+/* show the '-' and hide the '+' */
+.greenpepper-report-stacktrace-show:target+.greenpepper-report-stacktrace-hide
+	{
+	display: inline;
+}
+
+.greenpepper-report-stacktrace-show:target {
+	display: none;
+}
+
+/* show the '+' and hide the '-' */
+.greenpepper-report-stacktrace-hide:target {
+	display: none;
+}
+
+.greenpepper-report-stacktrace-hide:target+.greenpepper-report-stacktrace-show
+	{
+	display: inline;
+}
+
+.greenpepper-report-stacktrace-show:target ~
+	.greenpepper-report-stacktrace {
 	display: block;
+}
+
+/*style the (+) and (-) */
+.greenpepper-report-stacktrace-hide, .greenpepper-report-stacktrace-show
+	{
+	text-decoration: none;
+	padding: 6px 12px;
+	margin-bottom: 0px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-moz-user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	margin-left: 20px;
+}
+
+.greenpepper-report-stacktrace-hide:hover,
+	.greenpepper-report-stacktrace-show:hover {
+	text-shadow: 0 0 1px #666;
+	text-decoration: none;
+	box-shadow: 0 0 4px #222 inset;
+	opacity: 1;
 }

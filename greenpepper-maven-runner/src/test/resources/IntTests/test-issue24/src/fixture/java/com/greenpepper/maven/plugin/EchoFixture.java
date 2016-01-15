@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Pyxis Technologies inc.
+ * Copyright (c) 2007 Pyxis Technologies inc.
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -13,27 +13,27 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
  */
-package com.greenpepper.maven.runner;
 
-public class Main {
+package com.greenpepper.maven.plugin;
 
-    public static void main(String... args) {
-        CommandLineRunner runner = new CommandLineRunner();
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.LoggerFactory;
 
-        try {
-            int exitcode = runner.run(args);
-            System.exit(exitcode);
-        } catch (Exception t) {
-            System.err.println(t.getMessage());
-            System.err.println("Try '--help' for more information.");
+import org.slf4j.Logger;
 
-            if (t.getCause() != null) {
-                System.err.println("Caused by:");
-                t.getCause().printStackTrace(System.err);
-            }
+public class EchoFixture {
 
-            System.exit(1);
-        }
+    private static final Logger LOG = LoggerFactory.getLogger(EchoFixture.class);
 
+    public String msg;
+
+    public String echo() {
+        LOG.info("calling echo()");
+        return msg;
+    }
+
+    public String convertingToBase64gives(String input) {
+        LOG.info("calling convertingToBase64gives()");
+        return Base64.encodeBase64String(input.getBytes());
     }
 }

@@ -49,7 +49,6 @@
                         <goals>
                             <goal>compile</goal>
                             <goal>resources</goal>
-                            <goal>run</goal>
                             <goal>fixture-jar</goal>
                         </goals>
                     </execution>

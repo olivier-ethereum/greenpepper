@@ -11,14 +11,14 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
+import org.apache.maven.it.VerificationException;
+import org.apache.maven.it.Verifier;
 import org.junit.Test;
 
 public class ShadingTest {
 
     @Test
-    @Ignore
-    public void testCommonsCodecsConflicts() throws IOException {
+    public void testCommonsCodecsConflicts() throws IOException, VerificationException {
         Properties info = new Properties();
         info.load(getClass().getResourceAsStream("/info.properties"));
         String shadedJar = info.getProperty("shaded.jar");
@@ -27,6 +27,12 @@ public class ShadingTest {
         URL cwd = getClass().getResource(".");
         File cwdFile = FileUtils.toFile(cwd);
 
+        Verifier verifier = new Verifier(new File(issue24POM).getParent());
+        verifier.executeGoal("integration-test");
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        
         String line = String.format("java -jar %s -v -p %s %s %s", shadedJar, issue24POM, issue24TestFile,
                 StringUtils.join(new String[] {cwdFile.getAbsolutePath(), "testCommonsCodecsConflicts.html"}, File.separator));
         CommandLine command = CommandLine.parse(line);

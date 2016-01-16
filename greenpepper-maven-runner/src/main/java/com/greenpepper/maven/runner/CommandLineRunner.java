@@ -33,18 +33,29 @@ import java.util.StringTokenizer;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.manager.WagonManager;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.cli.ConsoleDownloadMonitor;
 import org.apache.maven.embedder.MavenEmbedder;
 import org.apache.maven.embedder.MavenEmbedderException;
 import org.apache.maven.embedder.MavenEmbedderLogger;
+import org.apache.maven.embedder.PlexusLoggerAdapter;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.profiles.ProfileManager;
+import org.apache.maven.project.DefaultProjectBuilderConfiguration;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilderConfiguration;
+import org.apache.maven.project.interpolation.ModelInterpolationException;
+import org.apache.maven.project.interpolation.StringSearchModelInterpolator;
+import org.apache.maven.project.path.DefaultPathTranslator;
 import org.apache.maven.settings.MavenSettingsBuilder;
 import org.apache.maven.settings.Mirror;
 import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
+import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 import com.greenpepper.maven.runner.resolver.ProjectFileResolver;
@@ -53,6 +64,7 @@ import com.greenpepper.util.cli.ArgumentMissingException;
 
 public class CommandLineRunner {
 
+    private static final String PLUGIN_KEY = "com.github.strator-dev.greenpepper:greenpepper-maven-plugin";
     private boolean isDebug = false;
     private String projectDependencyDescriptor;
     public static final String CWD = System.getProperty("user.dir");
@@ -81,11 +93,13 @@ public class CommandLineRunner {
         this.argumentsParser = new ArgumentsParser(out);
     }
 
-    public void run(String... args) throws Exception {
+    public int run(String... args) throws Exception {
+        int exitcode = 0;
         List<String> parameters = parseCommandLine(args);
         if (!parameters.isEmpty()) {
-            runClassicRunner(parameters);
+            exitcode = runClassicRunner(parameters);
         }
+        return exitcode;
     }
 
     @SuppressWarnings("unchecked")
@@ -131,7 +145,7 @@ public class CommandLineRunner {
         }
     }
 
-    private void runClassicRunner(List<String> args) throws Exception {
+    private int runClassicRunner(List<String> args) throws Exception {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
         initMavenEmbedder(classLoader);
@@ -156,10 +170,12 @@ public class CommandLineRunner {
         Class<?> mainClass = urlClassLoader.loadClass("com.greenpepper.runner.Main");
 
         logger.debug("Invoking: com.greenpepper.runner.Main " + StringUtils.join(args, ' '));
-        ReflectionUtils.invokeMain(mainClass, args);
+        int exitCode = ReflectionUtils.invokeLaunch(mainClass, args);
+        return exitCode;
     }
 
     private void resolveProject() throws Exception {
+        logger.debug("Resolving the project.");
         File projectFile = resolveProjectFile();
 
         if (!projectFile.exists()) {
@@ -167,9 +183,23 @@ public class CommandLineRunner {
         }
 
         project = readProjectWithDependencies(projectFile);
+        
+        interpolateProject();
+        
+    }
+
+    private void interpolateProject() throws InitializationException, Exception, ModelInterpolationException {
+        StringSearchModelInterpolator interpolator = new StringSearchModelInterpolator(new DefaultPathTranslator());
+        interpolator.enableLogging(new PlexusLoggerAdapter(embedder.getLogger()));
+        interpolator.initialize();
+        ProjectBuilderConfiguration config =  new DefaultProjectBuilderConfiguration();
+        config.setLocalRepository(getLocalRepository());
+        config.setGlobalProfileManager(getProfileManager());
+        interpolator.interpolate(project.getModel(), project.getBasedir(), config, logger.isDebugEnabled());
     }
 
     private MavenProject readProjectWithDependencies(File projectFile) throws Exception {
+        logger.debug("Resolving the project with its dependencies.");
         return embedder.readProjectWithDependencies(projectFile, new ConsoleDownloadMonitor());
     }
 
@@ -209,7 +239,7 @@ public class CommandLineRunner {
             @SuppressWarnings("unchecked")
             Map<String, Artifact> plugins = project.getPluginArtifactMap();
 
-            if (plugins.get("com.github.strator-dev.greenpepper:greenpepper-maven-plugin") != null) {
+            if (plugins.get(PLUGIN_KEY) != null) {
                 Artifact fixtureArtifact = embedder.createArtifactWithClassifier(project.getGroupId(), project.getArtifactId(), project.getVersion(), project.getPackaging(),
                         "fixtures");
 
@@ -289,7 +319,29 @@ public class CommandLineRunner {
                 classpaths.add(artifact.getFile().toURI().toURL());
             }
         }
+        
+        // Add project folders, if any.
+        String buildOutputDirectory = project.getBuild().getOutputDirectory();
+        classpaths.add(new File(buildOutputDirectory).toURI().toURL());
+        
+        @SuppressWarnings("unchecked")
+        List<Plugin> buildPlugins = project.getBuildPlugins();
+        for (Plugin plugin : buildPlugins) {
+            if (StringUtils.equals(PLUGIN_KEY,plugin.getKey())) {
+                Xpp3Dom configuration = (Xpp3Dom)plugin.getConfiguration();
+                if (configuration != null) {
+                    Xpp3Dom fixtureOutputDirectory = configuration.getChild("fixtureOutputDirectory");
+                    String relativeDirectory = fixtureOutputDirectory.getValue();
+                    if (!StringUtils.isEmpty(relativeDirectory)){                            
+                        File directory = FileUtils.getFile(project.getBasedir(), relativeDirectory);
+                        classpaths.add(directory.toURI().toURL());
+                    }
+                }
+                break;
+            }
+        }
 
+        logger.debug("Classpath used: " + classpaths.toString(), null);
         return toArray(classpaths, URL.class);
     }
 
@@ -317,5 +369,13 @@ public class CommandLineRunner {
 
     private MavenSettingsBuilder getMavenSettingsBuilder() throws Exception {
         return (MavenSettingsBuilder) ReflectionUtils.getDeclaredFieldValue(embedder, "settingsBuilder");
+    }
+    
+    private ArtifactRepository getLocalRepository() throws Exception {
+        return (ArtifactRepository) ReflectionUtils.getDeclaredFieldValue(embedder, "localRepository");
+    }
+    
+    private ProfileManager getProfileManager() throws Exception {
+        return (ProfileManager) ReflectionUtils.getDeclaredFieldValue(embedder, "profileManager");
     }
 }

@@ -73,6 +73,16 @@ public class FileReportGenerator implements ReportGenerator
         }
     }
 
+    /**
+     * Utility method to guess the output name generated for this output parameter.
+     * @param output the specified output.
+     * @return the real generated filename.
+     */
+    public String outputNameFor(String output) {
+        Report report = openReport(output);
+        return outputNameOf(report);
+    }
+
     private String outputNameOf( Report report )
     {
         String name = report.getName();

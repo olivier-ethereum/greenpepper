@@ -28,8 +28,11 @@ package com.greenpepper.runner;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
+import com.greenpepper.util.cli.ParseException;
 import junit.framework.TestCase;
 
 import com.greenpepper.AlternateCalculator;
@@ -39,6 +42,7 @@ import com.greenpepper.report.XmlReport;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 import com.greenpepper.util.ExceptionUtils;
 import com.greenpepper.util.IOUtil;
+import org.apache.commons.io.FileUtils;
 
 public class CommandLineRunnerTest extends TestCase
 {
@@ -51,12 +55,16 @@ public class CommandLineRunnerTest extends TestCase
 
     private void createOutputDirectory()
     {
-        outputDir = new File(System.getProperty("java.io.tmpdir"), "specs");
+        URL testDirectory = getClass().getResource(".");
+        File parentDirectory = FileUtils.toFile(testDirectory);
+        outputDir = new File(parentDirectory, "specs");
     }
 
     protected void tearDown() throws Exception
     {
         deleteOutputDirectory();
+        String  input = getResourcePath("/specs/ABankSample.html");
+        FileUtils.deleteQuietly(new File(input + ".out"));
     }
 
     private void deleteOutputDirectory()
@@ -72,6 +80,15 @@ public class CommandLineRunnerTest extends TestCase
         new CommandLineRunner().run(input, outputFile.getAbsolutePath());
 
         assertFile(outputFile);
+    }
+
+    public void testShouldNotOverrideInputFile() throws URISyntaxException, IOException, ParseException {
+        String  input = getResourcePath("/specs/ABankSample.html");
+
+        new CommandLineRunner().run(input, input);
+
+        assertFile(new File(input));
+        assertFile(new File(input + ".out"));
     }
 
     public void testCanGenerateAUniqueReportFileNameFromSpecificationName() throws Exception

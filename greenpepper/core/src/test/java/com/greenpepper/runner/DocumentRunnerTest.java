@@ -10,6 +10,7 @@ import com.greenpepper.repository.FileSystemRepository;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 import com.greenpepper.util.TestCase;
 import com.greenpepper.util.URIUtil;
+import org.apache.commons.io.FileUtils;
 
 public class DocumentRunnerTest extends TestCase
 {
@@ -24,6 +25,11 @@ public class DocumentRunnerTest extends TestCase
 		
 		assertNotNull( specificationDirectory );
 	}
+
+    @Override
+    protected void tearDown() {
+        FileUtils.deleteQuietly(new File(specificationDirectory, "specs/ABankSample.html.out"));
+    }
 
 	public void testCallsBackOnSystemUnderDevelopmentOnStartAndEndOfDocumentExecution()
     {

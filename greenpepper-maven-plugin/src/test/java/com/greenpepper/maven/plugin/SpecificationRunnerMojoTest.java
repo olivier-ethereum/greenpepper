@@ -31,6 +31,7 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.xmlrpc.WebServer;
 import org.jmock.Mock;
 import org.jmock.core.Constraint;
@@ -59,6 +60,8 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         super.setUp();
         URL pomPath = SpecificationRunnerMojoTest.class.getResource( "pom-runner.xml");
         mojo = (SpecificationRunnerMojo) lookupMojo( "run", URIUtil.decoded(pomPath.getPath()) );
+        mojo.project = new MavenProjectStub();
+        mojo.project.setBasedir(new File("."));
         mojo.classpathElements = new ArrayList<String>( );
         String core = dependency( "greenpepper-core.jar" ).getAbsolutePath();
         mojo.classpathElements.add( core );
@@ -321,7 +324,7 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         if(ws != null) ws.shutdown();
     }
 
-    public static interface Handler {
+    public interface Handler {
 
         String getRenderedSpecification(String username, String password, Vector<Object> args);
     }

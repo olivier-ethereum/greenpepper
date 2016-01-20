@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.greenpepper.repository.DocumentRepository;
+import com.greenpepper.repository.FileSystemRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -36,6 +38,7 @@ import com.greenpepper.document.GreenPepperInterpreterSelector;
 import com.greenpepper.runner.CompositeSpecificationRunnerMonitor;
 import com.greenpepper.runner.RecorderMonitor;
 import com.greenpepper.util.IOUtil;
+import org.apache.maven.project.MavenProject;
 
 /**
  * @goal run
@@ -151,6 +154,11 @@ public class SpecificationRunnerMojo extends AbstractMojo {
      * @parameter expression="${gp.repo}"
      */
     String selectedRepository;
+
+    /**
+     * @component
+     */
+    protected MavenProject project;
 
     Statistics statistics;
 
@@ -288,7 +296,33 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     }
 
     private void runSingleTest(Repository repository, String test) throws MojoExecutionException, MojoFailureException {
-        String repoCmdOption = repository.getType() + (repository.getRoot() != null ? ";" + repository.getRoot() : "");
+        String repoCmdOption;
+        boolean managingFileSystem = false;
+        try {
+            DocumentRepository documentRepository = repository.getDocumentRepository();
+            managingFileSystem = documentRepository instanceof FileSystemRepository;
+        } catch (Exception e) {
+            throw new MojoFailureException("Unable to get the document repository", e);
+        }
+        if (managingFileSystem) {
+            File projectBasedir = project.getBasedir();
+            repoCmdOption = repository.getType() + ";";
+            if (repository.getRoot() != null){
+                File relativeRoot = new File(repository.getRoot());
+                File absoluteDir;
+                if (relativeRoot.getAbsoluteFile().compareTo(relativeRoot) == 0) {
+                    absoluteDir = relativeRoot;
+                } else {
+                    absoluteDir = new File(projectBasedir,repository.getRoot());
+                }
+                repoCmdOption += absoluteDir.getAbsolutePath();
+            } else {
+                repoCmdOption += projectBasedir.getAbsolutePath();
+            }
+        } else {
+            repoCmdOption = repository.getType() + (repository.getRoot() != null ? ";" + repository.getRoot() : "");
+        }
+
         String outputDir = new File(reportsDirectory, repository.getName()).getAbsolutePath();
 
         List<String> args = args("-f", systemUnderDevelopment, "-r", repoCmdOption, "-o", outputDir, test);

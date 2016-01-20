@@ -45,6 +45,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-compiler-javac</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-compiler-manager</artifactId>
+			<version>1.8</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.plugin-testing</groupId>
 			<artifactId>maven-plugin-testing-harness</artifactId>
@@ -72,7 +83,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<scope>test</scope>
+            <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.unitils</groupId>
@@ -96,18 +107,7 @@
 			<version>3.4</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-compiler-javac</artifactId>
-			<version>1.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-compiler-manager</artifactId>
-			<version>1.8</version>
-		</dependency>
-	</dependencies>
+    </dependencies>
 
 	<reporting>
 		<plugins>

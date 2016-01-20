@@ -28,16 +28,17 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import com.greenpepper.util.URIUtil;
+import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 
 public class SpecificationRunnerSingleMojoTest extends AbstractMojoTestCase
 {
     private SpecificationRunnerMojo mojo;
 
-
-
     public void testReadSinglePomWithSingleTestExecutionConfiguration() throws Exception {
         URL pomPath = SpecificationRunnerSingleMojoTest.class.getResource( "pom-single.xml");
         mojo = (SpecificationRunnerMojo) lookupMojo( "run", URIUtil.decoded(pomPath.getPath()) );
+        mojo.project = new MavenProjectStub();
+        mojo.project.setBasedir(new File("."));
         mojo.classpathElements = new ArrayList<String>( );
         String core = dependency( "greenpepper-core.jar" ).getAbsolutePath();
         mojo.classpathElements.add( core );

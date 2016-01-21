@@ -12,7 +12,7 @@
 	<description>GreenPepper is a collaboration platform to help business experts and developers create executable specifications in order to build the right software.</description>
 
 	<properties>
-		<slf4j.version>1.6.1</slf4j.version>
+		<slf4j.version>1.7.13</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<github.global.server>github</github.global.server>
 	</properties>

@@ -5,6 +5,6 @@
     </td>
     <td>
         <p>$greenPepper.getText('greenpepper.info.helpdesc')</p>
-		<p>$greenPepper.getText('greenpepper.macros.seealso')&nbsp;<a href="http://www.greenpeppersoftware.com/confluence/display/GP/Confluence+Macros">$greenPepper.getText('greenpepper.macros.guide')</a></p>
+		<p>$greenPepper.getText('greenpepper.macros.seealso')&nbsp;<a href="http://greenpepper.atlassian.net/wiki/display/DOC/Confluence+Macros">$greenPepper.getText('greenpepper.macros.guide')</a></p>
     </td>
 </tr>

@@ -45,6 +45,20 @@ public final class ReflectionUtils
 		mainMethod.invoke(null, convertToArray(args));
 	}
 
+   public static int invokeLaunch(Class<?> mainClass, List<String> args)
+            throws Exception
+    {
+        Method launchMethod = mainClass.getMethod("launch", Class.forName("[Ljava.lang.String;"));
+        if (launchMethod.getReturnType() == Integer.TYPE ) {
+            Object exitcodeObj = launchMethod.invoke(null, convertToArray(args));
+            Integer exitcode = (Integer)exitcodeObj;
+            return exitcode.intValue();
+        } else {
+            throw new NoSuchMethodException("The 'launch' method should return an 'int' that is the exitcode. ");
+        }
+        
+    }
+	
     public static void setDebugEnabled(ClassLoader classLoader, boolean isDebug)
             throws Exception
     {

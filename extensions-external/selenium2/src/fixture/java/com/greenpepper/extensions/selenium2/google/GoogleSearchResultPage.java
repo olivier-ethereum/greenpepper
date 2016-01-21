@@ -23,7 +23,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class GoogleSearchResultPage {
 
-	@FindBy(xpath = ".//*[@id='ires']/ol/li[1]/h3/a")
+	@FindBy(xpath = "//*[@id=\"ires\"]/ol/div[1]/h3/a")
 	private WebElement firstRow;
 
 	public String getFirstResult() {

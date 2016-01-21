@@ -25,13 +25,13 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.apache.commons.cli.MissingOptionException;
 import org.apache.maven.artifact.resolver.AbstractArtifactResolutionException;
 import org.apache.maven.embedder.MavenEmbedderException;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.greenpepper.GreenPepperCore;
-import com.greenpepper.util.cli.ArgumentMissingException;
 
 public class CommandLineRunnerTest
 {
@@ -46,7 +46,7 @@ public class CommandLineRunnerTest
     }
 
     @Test
-    public void commandLineWithoutPDDParameterMustFail()
+    public void commandLineWithoutPDDParameterMustFail() throws Exception
     {
         try
         {
@@ -54,22 +54,18 @@ public class CommandLineRunnerTest
 
             fail();
         }
-        catch (ArgumentMissingException ex)
+        catch (MissingOptionException ex)
         {
             // Expected
-        }
-        catch (Exception e)
-        {
-            fail( "Wrong exception expected!" );
         }
     }
 
     @Test
-    public void withANonExistingPomFile()
+    public void withANonExistingPomFile() throws Exception
     {
         try
         {
-            runner.run( "--pdd", "unknown-pom.xml", "--debug" );
+            runner.run( "--pdd", "unknown-pom.xml", "--debug", "test.html" );
 
             fail();
         }
@@ -78,28 +74,20 @@ public class CommandLineRunnerTest
             // Expected
             assertThat( ex.getMessage(), containsString( "Cannot resolve project dependency descriptor 'unknown-pom.xml'" ) );
         }
-        catch (Exception e)
-        {
-            fail( "Wrong exception expected!" );
-        }
     }
 
     @Test
-    public void usingUnreacheableMavenCoordinates()
+    public void usingUnreacheableMavenCoordinates() throws Exception
     {
         try
         {
-            runner.run( "--pdd", "greenpepper:unknown:"+ GreenPepperCore.VERSION );
+            runner.run( "--pdd", "greenpepper:unknown:"+ GreenPepperCore.VERSION , "test.html");
 
             fail();
         }
         catch (AbstractArtifactResolutionException ex)
         {
             // Expected
-        }
-        catch (Exception e)
-        {
-            fail( "Wrong exception expected!" );
         }
     }
 

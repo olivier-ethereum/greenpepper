@@ -1,9 +1,9 @@
 package com.greenpepper.util.cmdline;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.greenpepper.util.StringUtil;
 
 public class CommandLineExecutor
 {
@@ -25,7 +25,7 @@ public class CommandLineExecutor
 		if (log.isDebugEnabled())
 		{
 			// GP-551 : Keep trace of outputs
-			if (!StringUtil.isEmpty(getOutput()))
+			if (!StringUtils.isEmpty(getOutput()))
 			{
 				log.debug("System Output during execution : \n" + getOutput());
 			}

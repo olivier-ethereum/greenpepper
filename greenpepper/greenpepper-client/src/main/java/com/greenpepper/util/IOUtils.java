@@ -24,8 +24,8 @@ public class IOUtils
         }
         finally
         {
-            IOUtil.closeQuietly(out);
-            IOUtil.closeQuietly(reader);
+            org.apache.commons.io.IOUtils.closeQuietly(out);
+            org.apache.commons.io.IOUtils.closeQuietly(reader);
         }
     }
     

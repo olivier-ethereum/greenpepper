@@ -47,11 +47,14 @@
 			</exclusions>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-annotations</artifactId> 
-			<version>3.1beta9</version> <exclusions> <exclusion> <groupId>javax.persistence</groupId> 
-			<artifactId>ejb</artifactId> </exclusion> </exclusions> </dependency> <dependency> 
-			<groupId>javax.persistence</groupId> <artifactId>ejb</artifactId> <version>3.0</version> 
-			</dependency> -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
@@ -205,7 +208,7 @@
 					<archive>
 						<addMavenDescriptor>true</addMavenDescriptor>
 						<manifest>
-							<mainClass>com.greenpepper.runner.Main</mainClass>
+							<mainClass>com.greenpepper.server.rpc.runner.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

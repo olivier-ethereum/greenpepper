@@ -1,11 +1,11 @@
 package com.greenpepper.util.cmdline;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.greenpepper.util.StringUtil;
 
 /**
  * Basic stream manager for a process.
@@ -48,7 +48,7 @@ public class StreamGobblerImpl implements StreamGobbler
 
     public boolean hasErrors()
     {
-        return !StringUtil.isEmpty(errBuffer.toString());
+        return !StringUtils.isEmpty(errBuffer.toString());
     }
 
     public List<Exception> getExceptions()

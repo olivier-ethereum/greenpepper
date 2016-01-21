@@ -233,12 +233,12 @@ public class CommandLineRemoteRunner
 
 		cli.defineOption(cli.buildOption("locale", "-l", "--locale LANG", "Set application language (en, fr, ...)")
 				.asType(Locale.class).whenPresent(new SetLocale()));
-		cli.defineOption(cli.buildOption("url", "-u", "--url URL", "GreenPepper Server Context Path"));
-		cli.defineOption(cli.buildOption("handler", "-h", "--handle HANDLE", "GreenPepper Server XML-RPC handler")
+		cli.defineOption(cli.buildOption("url", "-u", "--url URL", "[MANDATORY]GreenPepper Server Context Path"));
+		cli.defineOption(cli.buildOption("handler", "-h", "--handle HANDLE", "GreenPepper Server XML-RPC handler (default 'greenpepper1'")
 				.defaultingTo("greenpepper1"));
-		cli.defineOption(cli.buildOption("project", "-p", "--project PROJECT", "Project Name"));
-		cli.defineOption(cli.buildOption("systemUnderTest", "-t", "--sut SUT", "System Under Test Name"));
-		cli.defineOption(cli.buildOption("repositoryId", "--rep ID", "Repository Id"));
+		cli.defineOption(cli.buildOption("project", "-p", "--project PROJECT", "[MANDATORY]Project Name"));
+		cli.defineOption(cli.buildOption("systemUnderTest", "-t", "--sut SUT", "[MANDATORY]System Under Test Name"));
+		cli.defineOption(cli.buildOption("repositoryId", "--rep ID", "[MANDATORY]Repository Id"));
 		cli.defineOption(cli.buildOption("output", "-o DIRECTORY",
 										 "Produce reports in DIRECTORY (defaults to current directory)")
 				.defaultingTo(workingDirectory).asType(File.class));

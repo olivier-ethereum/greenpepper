@@ -1,10 +1,9 @@
 package com.greenpepper.server.rpc.xmlrpc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.Vector;
+import java.util.*;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +26,6 @@ import com.greenpepper.server.license.LicenseBean;
 import com.greenpepper.server.rpc.RpcClientService;
 import com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutor;
 import com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutorFactory;
-import com.greenpepper.util.CollectionUtil;
-import com.greenpepper.util.StringUtil;
 
 public class GreenPepperXmlRpcClient implements RpcClientService
 {
@@ -64,7 +61,9 @@ public class GreenPepperXmlRpcClient implements RpcClientService
     public void uploadLicense(String newLicence, String identifier) throws GreenPepperServerException
     {
         log.debug("Uploading new license" + newLicence);
-        execute(XmlRpcMethodName.uploadNewLicense, CollectionUtil.toVector(newLicence), identifier);
+        Vector vector = new Vector();
+        Collections.addAll(vector,newLicence);
+        execute(XmlRpcMethodName.uploadNewLicense, vector, identifier);
     }
 
     /**
@@ -722,7 +721,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 
     private String getXmlRpcUrl(String hostName, String rpcContext) throws GreenPepperServerException
     {
-        if (StringUtil.isEmpty(hostName) || StringUtil.isEmpty(rpcContext))
+        if (StringUtils.isEmpty(hostName) || StringUtils.isEmpty(rpcContext))
         {
             throw new GreenPepperServerException(GreenPepperServerErrorKey.NO_CONFIGURATION, "No config");
         }
@@ -743,7 +742,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
     {
         String handlerName = propertiesManager.getProperty(ServerPropertiesManager.HANDLER, identifier);
 
-        if (StringUtil.isEmpty(handlerName))
+        if (StringUtils.isEmpty(handlerName))
         {
             throw new GreenPepperServerException(GreenPepperServerErrorKey.NO_CONFIGURATION, "No config");
         }

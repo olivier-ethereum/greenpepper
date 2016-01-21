@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Collection;
 
 import com.greenpepper.server.GreenPepperServerException;
-import com.greenpepper.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 public class CommandLineBuilder 
 {
@@ -49,7 +49,7 @@ public class CommandLineBuilder
     
     public void setSections(String sections)
     {
-        if(!StringUtil.isEmpty(sections)) 
+        if(!StringUtils.isEmpty(sections))
             addOption("-t", sections);
     }
     

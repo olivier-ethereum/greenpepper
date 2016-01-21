@@ -19,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.greenpepper.server.GreenPepperServerErrorKey;
-import com.greenpepper.util.ClassUtils;
 
 public class XmlRpcClientExecutorFactory {
 
@@ -45,13 +44,4 @@ public class XmlRpcClientExecutorFactory {
         }
     }
 
-    private static Class<?> loadClass(String className) {
-
-        try {
-            return ClassUtils.loadClass(className);
-        } catch (ClassNotFoundException e) {
-            LOGGER.debug("Error loading class " + className, e);
-            return null;
-        }
-    }
 }

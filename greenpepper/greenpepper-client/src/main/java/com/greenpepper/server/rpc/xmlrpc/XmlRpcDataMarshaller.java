@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +33,6 @@ import com.greenpepper.server.license.GreenPepperLicenceException;
 import com.greenpepper.server.license.LicenseBean;
 import com.greenpepper.server.license.LicenseErrorKey;
 import com.greenpepper.util.FormatedDate;
-import com.greenpepper.util.StringUtil;
 
 /**
  * The XML-RPC Data Marshaller.
@@ -236,7 +236,7 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of References into a Vector of Reference parameters.
      * </p>
-     * @param References
+     * @param references
      * @return the Collection of References into a Vector of Reference parameters
      */
     public static Vector<Object> toXmlRpcReferencesParameters(Collection<Reference> references)
@@ -389,7 +389,7 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[name, Vector[repository parameters], Vector[SUT parameters]]
      * </p>
-     * @param Specification
+     * @param xmlRpcParameters
      * @return the Specification.
      */
     @SuppressWarnings("unchecked")
@@ -538,7 +538,7 @@ public class XmlRpcDataMarshaller
      * </p>
      * @param projectsParams
      * @return a List of projects based on the vector of projects parameters.
-     * @see toProject(Vector<Object> xmlRpcParameters)
+     * @see #toProject(Vector)
      */
     @SuppressWarnings("unchecked")
     public static Set<Project> toProjectList(Vector<Object> projectsParams)
@@ -557,7 +557,7 @@ public class XmlRpcDataMarshaller
      * </p>
      * @param repositoriesParams
      * @return a List of repositories based on the vector of repositories parameters.
-     * @see toRepository(Vector<Object> xmlRpcParameters)
+     * @see #toRepository(Vector)
      */
     @SuppressWarnings("unchecked")
     public static Set<Repository> toRepositoryList(Vector<Object> repositoriesParams)
@@ -576,7 +576,7 @@ public class XmlRpcDataMarshaller
      * </p>
      * @param runnersParams
      * @return a List of runners based on the vector of runners parameters.
-     * @see toRunner(Vector<Object> xmlRpcParameters)
+     * @see #toRunner(Vector)
      */
     @SuppressWarnings("unchecked")
     public static TreeSet<Runner> toRunnerList(Vector<Object> runnersParams)
@@ -595,7 +595,7 @@ public class XmlRpcDataMarshaller
      * </p>
      * @param envTypesParams
      * @return a List of Environment types based on the vector of Environment types parameters.
-     * @see toEnvironmentType(Vector<Object> xmlRpcParameters)
+     * @see #toEnvironmentType(Vector)
      */
     @SuppressWarnings("unchecked")
     public static TreeSet<EnvironmentType> toEnvironmentTypeList(Vector<Object> envTypesParams)
@@ -614,7 +614,7 @@ public class XmlRpcDataMarshaller
      * </p>
      * @param sutsParams
      * @return a List of systemUnderTests based on the vector of systemUnderTests parameters.
-     * @see toSystemUnderTest(Vector<Object> xmlRpcParameters)
+     * @see #toSystemUnderTest(Vector)
      */
     @SuppressWarnings("unchecked")
     public static SortedSet<SystemUnderTest> toSystemUnderTestList(Vector<Object> sutsParams)
@@ -633,7 +633,7 @@ public class XmlRpcDataMarshaller
      * </p>
      * @param specificationsParams
      * @return a List of specifications based on the vector of specifications parameters.
-     * @see toSpecification(Vector<Object> xmlRpcParameters)
+     * @see #toSpecification(Vector)
      */
     @SuppressWarnings("unchecked")
     public static Set<Specification> toSpecificationList(Vector<Object> specificationsParams)
@@ -653,7 +653,7 @@ public class XmlRpcDataMarshaller
      * @param referencesParams
      * @return a List of References based on the vector of References parameters.
      * @throws GreenPepperServerException 
-     * @see toReference(Vector<Object> xmlRpcParameters)
+     * @see #toReference(Vector)
      */
     @SuppressWarnings("unchecked")
     public static Set<Reference> toReferencesList(Vector<Object> referencesParams) throws GreenPepperServerException
@@ -791,14 +791,14 @@ public class XmlRpcDataMarshaller
 
 	public static String toNullIfEmpty(String str)
 	{
-		return StringUtil.toNullIfEmpty(str);
+		return StringUtils.trimToNull(str);
 	}
 
 	/**
      * Checks if the message is an GreenPepper server tagged Exception.
      * If so an GreenPepperServerException will be thrown with the error id found.
      * </p>
-     * @param  the error id found.
+     * @param object the error id found.
      * @throws GreenPepperServerException
      */
     private static void checkErrors(Object object) throws GreenPepperServerException
@@ -811,7 +811,7 @@ public class XmlRpcDataMarshaller
         if (object instanceof String)
         {
             String msg = (String)object;
-            if (!StringUtil.isEmpty(msg) && msg.indexOf(GreenPepperServerErrorKey.ERROR) > -1)
+            if (!StringUtils.isEmpty(msg) && msg.indexOf(GreenPepperServerErrorKey.ERROR) > -1)
             {
                 String errorId = msg.replace(GreenPepperServerErrorKey.ERROR, "");
                 if(errorId.startsWith(LicenseErrorKey.LICENSE))

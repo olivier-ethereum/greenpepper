@@ -51,9 +51,7 @@ public class CoordinatesResolver implements ProjectFileResolver.Resolver
     private final MavenEmbedder embedder;
     private final MavenEmbedderLogger logger;
 
-    private String groupId;
-    private String artifactId;
-    private String version;
+    private MavenGAV mavenGAV;
 
     public CoordinatesResolver(MavenEmbedder embedder, MavenEmbedderLogger logger)
     {
@@ -69,15 +67,17 @@ public class CoordinatesResolver implements ProjectFileResolver.Resolver
     public final File resolve(String value) throws Exception
     {
         MavenGAV mavenGAV = resolveCoordinates( value );
-        groupId = mavenGAV.getGroupId();
-        artifactId = mavenGAV.getArtifactId();
-        version = mavenGAV.getVersion();
 
-        logger.info( String.format( "Using maven coordinates '%s:%s:%s' as project", groupId, artifactId, version ) );
+        logger.info( String.format( "Using maven coordinates '%s' as project", mavenGAV ) );
 
 		resolveTemporaryProjectFile();
 		
         return resolveProjectFile();
+    }
+
+    @Override
+    public MavenGAV getMavenGAV() {
+        return mavenGAV;
     }
 
     private MavenGAV resolveCoordinates(String value) {
@@ -89,26 +89,26 @@ public class CoordinatesResolver implements ProjectFileResolver.Resolver
             String packaging = StringUtils.strip(matcher.group(3), ":");
             String classifier = StringUtils.strip(matcher.group(4), ":");
             String version = matcher.group(5);
-            logger.info(String.format("Using maven coordinates '%s:%s:%s:%s:%s' as project", groupId, artifactId, packaging, classifier, version));
-            MavenGAV result = new MavenGAV(groupId, artifactId, version);
-            result.setPackaging(packaging);
-            result.setClassifier(classifier);
-            return result;
+            mavenGAV = new MavenGAV(groupId, artifactId, version);
+            mavenGAV.setPackaging(packaging);
+            mavenGAV.setClassifier(classifier);
+            logger.info(String.format("Using maven coordinates '%s' as project", mavenGAV));
+            return mavenGAV;
         } 
         throw new IllegalArgumentException("The value is not resolveable by the pattern: " + REGEX);
     }
 
     private void resolveTemporaryProjectFile() throws Exception
     {
-        File tmpProjectFile = createTemporaryPomFile( groupId, artifactId, version );
+        File tmpProjectFile = createTemporaryPomFile( mavenGAV.getGroupId(), mavenGAV.getArtifactId(), mavenGAV.getVersion());
         MavenProject tmpProject = embedder.readProjectWithDependencies( tmpProjectFile, new ConsoleDownloadMonitor() );
         Artifact targetedArtifact = (Artifact) tmpProject.getDependencyArtifacts().iterator().next();
-        version = targetedArtifact.getVersion();
+        mavenGAV.setVersion(targetedArtifact.getVersion());
     }
 
     private File resolveProjectFile() throws ArtifactResolutionException, ArtifactNotFoundException
     {
-        Artifact artifact = embedder.createArtifact( groupId, artifactId, version, "runtime", "pom" );
+        Artifact artifact = embedder.createArtifact( mavenGAV.getGroupId(), mavenGAV.getArtifactId(), mavenGAV.getVersion(), "runtime", "pom" );
         embedder.resolve( artifact, new ArrayList<Repository>(), embedder.getLocalRepository() );
         return artifact.getFile();
     }

@@ -81,8 +81,9 @@ public class CommandLineRunner {
     private MavenEmbedder embedder;
 
     private MavenProject project;
-    private List<Artifact> artifacts;
+    private List<Artifact> artifacts = new ArrayList<Artifact>();
     private ArgumentsParser argumentsParser;
+    private ProjectFileResolver resolvers;
 
     public CommandLineRunner() {
         this(System.out);
@@ -152,11 +153,18 @@ public class CommandLineRunner {
 
         resolveProject();
 
-        resolveScopedArtifacts();
+        ProjectFileResolver.MavenGAV mavenGAV = resolvers.getMavenGAV();
+        if (StringUtils.isNotEmpty(mavenGAV.getClassifier())) {
+            Artifact artifactWithClassifier = embedder.createArtifactWithClassifier(project.getGroupId(), project.getArtifactId(), project.getVersion(), mavenGAV.getPackaging(),
+                    mavenGAV.getClassifier());
+            resolve(artifactWithClassifier,artifacts);
+        } else {
+            resolveScopedArtifacts();
 
-        resolveMavenPluginArtifact();
+            resolveMavenPluginArtifact();
 
-        resolveProjectArtifact();
+            resolveProjectArtifact();
+        }
 
         URL[] classpaths = buildRuntimeClasspaths();
 
@@ -204,7 +212,7 @@ public class CommandLineRunner {
     }
 
     private File resolveProjectFile() throws Exception {
-        ProjectFileResolver resolvers = new ProjectFileResolver(embedder, logger);
+        resolvers = new ProjectFileResolver(embedder, logger);
         return resolvers.resolve(projectDependencyDescriptor);
     }
 
@@ -228,7 +236,6 @@ public class CommandLineRunner {
             if (selfArtifact.getFile() == null) {
                 resolve(selfArtifact, artifacts);
             }
-
         } catch (Exception ex) {
             logger.error("Resolving project artifact", ex);
         }

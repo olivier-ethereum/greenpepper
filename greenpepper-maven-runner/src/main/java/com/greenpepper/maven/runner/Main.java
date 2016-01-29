@@ -27,10 +27,7 @@ public class Main {
             System.err.println(t.getMessage());
             System.err.println("Try '--help' for more information.");
 
-            if (t.getCause() != null) {
-                System.err.println("Caused by:");
-                t.getCause().printStackTrace(System.err);
-            }
+            t.printStackTrace(System.err);
 
             System.exit(1);
         }

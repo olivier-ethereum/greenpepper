@@ -29,10 +29,11 @@ import org.apache.maven.embedder.MavenEmbedderLogger;
 public class ProjectFileResolver
 {
     private final List<Resolver> resolvers = new ArrayList<Resolver>( 2 );
+    private MavenGAV mavenGAV;
 
     public ProjectFileResolver(MavenEmbedder embedder, MavenEmbedderLogger logger)
     {
-        resolvers.add( new FileResolver() );
+        resolvers.add( new FileResolver(embedder, logger ) );
         resolvers.add( new CoordinatesResolver( embedder, logger ) );
     }
 
@@ -42,11 +43,17 @@ public class ProjectFileResolver
         {
             if (resolver.canResolve( value ))
             {
-                return resolver.resolve( value );
+                File resolved = resolver.resolve(value);
+                mavenGAV = resolver.getMavenGAV();
+                return resolved;
             }
         }
 
         throw new MavenEmbedderException( String.format( "Cannot resolve project dependency descriptor '%s'", value ) );
+    }
+
+    public MavenGAV getMavenGAV() {
+        return mavenGAV;
     }
 
     public static interface Resolver
@@ -54,6 +61,8 @@ public class ProjectFileResolver
         boolean canResolve(String value);
 
         File resolve(String value) throws Exception;
+
+        MavenGAV getMavenGAV();
     }
     
     public static class MavenGAV {
@@ -162,5 +171,15 @@ public class ProjectFileResolver
             return true;
         }
 
+        @Override
+        public String toString() {
+            return "MavenGAV{" +
+                    "groupId='" + groupId + '\'' +
+                    ", artifactId='" + artifactId + '\'' +
+                    ", packaging='" + packaging + '\'' +
+                    ", classifier='" + classifier + '\'' +
+                    ", version='" + version + '\'' +
+                    '}';
+        }
     }
 }

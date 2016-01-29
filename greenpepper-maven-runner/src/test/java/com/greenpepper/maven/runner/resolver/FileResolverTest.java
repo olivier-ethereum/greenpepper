@@ -20,30 +20,43 @@ package com.greenpepper.maven.runner.resolver;
 
 import java.io.File;
 
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
+
+import org.apache.maven.embedder.MavenEmbedder;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuildingException;
 import org.junit.Test;
 
 public class FileResolverTest
 {
-    private FileResolver resolver = new FileResolver();
+    private FileResolver resolver;
 
     @Test
     public void cannotResolveDirectory()
     {
+        resolver = new FileResolver(null, null);
         assertFalse( resolver.canResolve( System.getProperty( "user.home" ) ) );
     }
 
     @Test
     public void cannotResolveANonExistingFile()
     {
+        resolver = new FileResolver(null, null);
         assertFalse( resolver.canResolve( "unknow-pom.xml" ) );
     }
 
     @Test
-    public void canResolve()
-    {
+    public void canResolve() throws ProjectBuildingException {
+        MavenEmbedder mavenEmbedder = createMock(MavenEmbedder.class);
+        MavenProject mavenProject = new MavenProject();
+        expect(mavenEmbedder.readProject(anyObject(File.class))).andReturn(mavenProject);
+        resolver = new FileResolver(mavenEmbedder, null);
+        replay(mavenEmbedder);
+
         assertTrue( resolver.canResolve( "src/test/resources/pom.xml" ) );
         File expected = new File( "src/test/resources/pom.xml" );
         assertEquals( expected, resolver.resolve( "src/test/resources/pom.xml" ) );
+        verify(mavenEmbedder);
     }
 }

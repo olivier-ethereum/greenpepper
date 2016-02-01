@@ -88,7 +88,7 @@ public class CommandLineRunner
         String destination = destination();
         String source = source();
         String realdestination = reportGenerator.outputNameFor(destination);
-        if (source != null  && source.equals(realdestination)) {
+        if (source != null  && new File(source).equals(new File(realdestination))) {
             destination = destination + ".out";
         }
         runner.run(source, destination);

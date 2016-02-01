@@ -86,7 +86,7 @@ public class FileReportGenerator implements ReportGenerator
     private String outputNameOf( Report report )
     {
         String name = report.getName();
-        if (automaticExtension && !name.endsWith( extensionOf( report ) ))
+        if (automaticExtension && !name.endsWith( extensionOf( report )) && report.getType() != null)
             name += extensionOf( report );
         return URIUtil.escapeFileSystemForbiddenCharacters(name);
     }

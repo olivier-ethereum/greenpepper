@@ -64,7 +64,7 @@ public class CommandLineRunnerTest extends TestCase
     {
         deleteOutputDirectory();
         String  input = getResourcePath("/specs/ABankSample.html");
-        FileUtils.deleteQuietly(new File(input + ".out"));
+        FileUtils.deleteQuietly(new File(input + ".out.html"));
     }
 
     private void deleteOutputDirectory()
@@ -85,10 +85,9 @@ public class CommandLineRunnerTest extends TestCase
     public void testShouldNotOverrideInputFile() throws URISyntaxException, IOException, ParseException {
         String  input = getResourcePath("/specs/ABankSample.html");
 
-        new CommandLineRunner().run(input, input);
-
+        new CommandLineRunner().run("-o", new File(input).getParent(), input);
         assertFile(new File(input));
-        assertFile(new File(input + ".out"));
+        assertFile(new File(input + ".out.html"));
     }
 
     public void testCanGenerateAUniqueReportFileNameFromSpecificationName() throws Exception

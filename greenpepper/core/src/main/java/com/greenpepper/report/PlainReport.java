@@ -67,4 +67,12 @@ public class PlainReport implements Report
     {
         this.document = doc;
     }
+
+    @Override
+    public String getDocumentUri() {
+        if (document == null)  {
+            return null;
+        }
+        return document.getUri();
+    }
 }

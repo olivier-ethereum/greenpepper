@@ -117,7 +117,9 @@ public class FileSystemRepository implements DocumentRepository
         Reader reader = new FileReader( file );
         try
         {
-            return HtmlDocumentBuilder.tablesAndLists().build( reader );
+            Document document = HtmlDocumentBuilder.tablesAndLists().build(reader);
+            document.setUri(file.toURI().toString());
+            return document;
         }
         finally
         {

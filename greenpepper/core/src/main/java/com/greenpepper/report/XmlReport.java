@@ -77,6 +77,7 @@ public class XmlReport implements Report
 	private Document dom;
     private Element root;
     private String name;
+    private com.greenpepper.document.Document document;
 
     public static XmlReport newInstance( String name )
     {
@@ -161,6 +162,9 @@ public class XmlReport implements Report
 
     public void generate( com.greenpepper.document.Document document )
     {
+
+        this.document = document;
+
         createEmptyDocument();
         Statistics compiler = document.getStatistics();
         Element element = dom.createElement( DOCUMENT );
@@ -205,6 +209,11 @@ public class XmlReport implements Report
         addNumberValue( stats, FAILURE, compiler.wrongCount() );
         addNumberValue( stats, ERROR, compiler.exceptionCount() );
         addNumberValue( stats, IGNORED, compiler.ignoredCount() );
+    }
+
+    @Override
+    public String getDocumentUri() {
+        return document == null ? null : document.getUri();
     }
 
     public String getResults( int index )

@@ -111,7 +111,7 @@ public class VFSRepository implements DocumentRepository
 
         if ("html".equalsIgnoreCase(extension))
         {
-            return createHtmlDocument(file);
+            return  createHtmlDocument(file);
         }
 
         throw new UnsupportedDocumentException(file.getURL());
@@ -123,7 +123,9 @@ public class VFSRepository implements DocumentRepository
 
         try
         {
-            return HtmlDocumentBuilder.tablesAndLists().build(reader);
+            Document document = HtmlDocumentBuilder.tablesAndLists().build(reader);
+            document.setUri(file.getURL().toString());
+            return document;
         }
         finally
         {

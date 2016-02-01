@@ -41,4 +41,6 @@ public interface Report
 
     //
     void generate( Document doc );
+
+    String getDocumentUri();
 }

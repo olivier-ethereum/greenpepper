@@ -26,6 +26,8 @@ import com.greenpepper.util.URIUtil;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class FileReportGenerator implements ReportGenerator
 {
@@ -56,12 +58,17 @@ public class FileReportGenerator implements ReportGenerator
         return factory.newInstance( name );
     }
 
-    public void closeReport( Report report ) throws IOException
-    {
+    public void closeReport( Report report ) throws IOException, URISyntaxException {
         FileWriter out = null;
         try
         {
             File reportFile = new File( reportsDirectory, outputNameOf( report ) );
+            String documentUri = report.getDocumentUri();
+            if (documentUri != null) {
+                if (reportFile.equals(new File(new URI(documentUri)))) {
+                    reportFile = new File(reportFile.getAbsolutePath() + ".out");
+                }
+            }
             IOUtil.createDirectoryTree( reportFile.getParentFile() );
             out = new FileWriter( reportFile );
             report.printTo( out );
@@ -86,7 +93,7 @@ public class FileReportGenerator implements ReportGenerator
     private String outputNameOf( Report report )
     {
         String name = report.getName();
-        if (automaticExtension && !name.endsWith( extensionOf( report )) && report.getType() != null)
+        if (automaticExtension && !name.endsWith( extensionOf( report ) ))
             name += extensionOf( report );
         return URIUtil.escapeFileSystemForbiddenCharacters(name);
     }

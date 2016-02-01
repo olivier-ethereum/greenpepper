@@ -87,7 +87,7 @@ public class CommandLineRunnerTest extends TestCase
 
         new CommandLineRunner().run("-o", new File(input).getParent(), input);
         assertFile(new File(input));
-        assertFile(new File(input + ".out.html"));
+        assertFile(new File(input + ".out"));
     }
 
     public void testCanGenerateAUniqueReportFileNameFromSpecificationName() throws Exception
@@ -110,9 +110,9 @@ public class CommandLineRunnerTest extends TestCase
 
     private void assertFile( File file )
     {
-        assertTrue( file.exists() );
+        assertTrue( file.getAbsolutePath() + " should exist", file.exists() );
         long length = file.length();
-        assertTrue( length > 0 );
+        assertTrue( file.getAbsolutePath() + " should not be empty", length > 0 );
     }
 
     private File outputFile(String fileName) {

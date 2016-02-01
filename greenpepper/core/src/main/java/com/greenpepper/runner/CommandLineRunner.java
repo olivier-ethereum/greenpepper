@@ -33,6 +33,7 @@ import com.greenpepper.GreenPepperCore;
 import com.greenpepper.document.GreenPepperInterpreterSelector;
 import com.greenpepper.report.FileReportGenerator;
 import com.greenpepper.report.PlainReport;
+import com.greenpepper.report.ReportGenerator;
 import com.greenpepper.report.XmlReport;
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.repository.FileSystemRepository;
@@ -80,17 +81,13 @@ public class CommandLineRunner
     private void runSpec() throws IOException
     {
         options.putAll( cli.getOptionValues() );
-        FileReportGenerator reportGenerator = reportGenerator();
+        ReportGenerator reportGenerator = reportGenerator();
         options.put( "report generator", reportGenerator);
         options.put( "monitor", monitor );
         options.put( "repository", repository() );
         new Bean( runner ).setProperties( options );
         String destination = destination();
         String source = source();
-        String realdestination = reportGenerator.outputNameFor(destination);
-        if (source != null  && new File(source).equals(new File(realdestination))) {
-            destination = destination + ".out";
-        }
         runner.run(source, destination);
     }
 
@@ -101,7 +98,7 @@ public class CommandLineRunner
                 new FileSystemRepository( parentFile( input() ) );
     }
 
-    private FileReportGenerator reportGenerator() throws IOException
+    private ReportGenerator reportGenerator() throws IOException
     {
         FileReportGenerator generator = new FileReportGenerator( createOuputDirectory() );
         generator.adjustReportFilesExtensions( optionSpecified( "suite" ) || output() == null );

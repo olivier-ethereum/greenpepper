@@ -19,6 +19,7 @@ public class Document
 	private String[] sections;
 	private final String name;
 	private final String externalLink;
+    private String uri;
 
     private SpecificationListener listener = new NullSpecificationListener();
 
@@ -102,6 +103,14 @@ public class Document
     public void tally( Statistics statistics )
     {
         stats.tally( statistics );
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public class FilteredSpecification extends AbstractSpecification

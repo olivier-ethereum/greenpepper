@@ -94,13 +94,11 @@ public class CommandLineRunner {
         this.argumentsParser = new ArgumentsParser(out);
     }
 
-    public int run(String... args) throws Exception {
-        int exitcode = 0;
+    public void run(String... args) throws Exception {
         List<String> parameters = parseCommandLine(args);
         if (!parameters.isEmpty()) {
-            exitcode = runClassicRunner(parameters);
+            runClassicRunner(parameters);
         }
-        return exitcode;
     }
 
     @SuppressWarnings("unchecked")
@@ -146,7 +144,7 @@ public class CommandLineRunner {
         }
     }
 
-    private int runClassicRunner(List<String> args) throws Exception {
+    private void runClassicRunner(List<String> args) throws Exception {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
         initMavenEmbedder(classLoader);
@@ -178,12 +176,10 @@ public class CommandLineRunner {
         Class<?> mainClass = urlClassLoader.loadClass("com.greenpepper.runner.Main");
 
         logger.debug("Invoking: com.greenpepper.runner.Main " + StringUtils.join(args, ' '));
-        int exitCode = ReflectionUtils.invokeLaunch(mainClass, args);
-        return exitCode;
+        ReflectionUtils.invokeMain(mainClass, args);
     }
 
     private void resolveProject() throws Exception {
-        logger.debug("Resolving the project.");
         File projectFile = resolveProjectFile();
 
         if (!projectFile.exists()) {
@@ -207,7 +203,6 @@ public class CommandLineRunner {
     }
 
     private MavenProject readProjectWithDependencies(File projectFile) throws Exception {
-        logger.debug("Resolving the project with its dependencies.");
         return embedder.readProjectWithDependencies(projectFile, new ConsoleDownloadMonitor());
     }
 

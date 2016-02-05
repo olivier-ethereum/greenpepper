@@ -23,12 +23,6 @@ import com.greenpepper.annotation.Annotations;
 import com.greenpepper.call.Result;
 import com.greenpepper.call.Stub;
 
-package com.greenpepper.interpreter.flow.scenario;
-
-import com.greenpepper.Example;
-import com.greenpepper.annotation.Annotations;
-import com.greenpepper.call.Result;
-import com.greenpepper.call.Stub;
 class AnnotateDisplay implements Stub
 {
     private final Example example;

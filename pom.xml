@@ -94,8 +94,8 @@
 		<url>http://strator-dev.github.io/greenpepper</url>
 	</organization>
 	<scm>
-		<connection>scm:git:git://github.com/strator-dev/greenpepper.git</connection>
-		<developerConnection>scm:git:git://github.com/strator-dev/greenpepper.git</developerConnection>
+		<connection>scm:git:https://github.com/strator-dev/greenpepper.git</connection>
+		<developerConnection>scm:git:https://github.com/strator-dev/greenpepper.git</developerConnection>
 		<url>https://github.com/strator-dev/greenpepper.git</url>
 		<tag>HEAD</tag>
 	</scm>

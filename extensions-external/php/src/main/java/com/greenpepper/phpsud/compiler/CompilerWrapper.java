@@ -35,7 +35,10 @@ import javassist.NotFoundException;
 import com.greenpepper.phpsud.parser.PHPObject;
 
 /**
+ * <p>CompilerWrapper class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class CompilerWrapper {
 	
@@ -73,6 +76,14 @@ public class CompilerWrapper {
 		return src.toString();
 	}
 	
+	/**
+	 * <p>Constructor for CompilerWrapper.</p>
+	 *
+	 * @param javaClassName a {@link java.lang.String} object.
+	 * @param superClass a {@link java.lang.Class} object.
+	 * @throws javassist.CannotCompileException if any.
+	 * @throws javassist.NotFoundException if any.
+	 */
 	public CompilerWrapper(String javaClassName, Class<?> superClass) throws CannotCompileException, NotFoundException {
 		classPool = ClassPool.getDefault();
 		classPool.insertClassPath(new ClassClassPath(PHPObject.class));
@@ -81,6 +92,17 @@ public class CompilerWrapper {
 		clazz.setSuperclass(resolve(superClass));
 	}
 	
+	/**
+	 * <p>addMethod.</p>
+	 *
+	 * @param methodName a {@link java.lang.String} object.
+	 * @param returnType a {@link java.lang.Class} object.
+	 * @param params an array of {@link java.lang.Class} objects.
+	 * @param isStatic a boolean.
+	 * @param lines a {@link java.lang.String} object.
+	 * @throws javassist.CannotCompileException if any.
+	 * @throws javassist.NotFoundException if any.
+	 */
 	public void addMethod(String methodName, Class<?> returnType, Class<?> [] params, boolean isStatic, String ... lines) throws CannotCompileException, NotFoundException {
 		CtMethod m = new CtMethod(resolve(returnType), methodName, getList(params), clazz);
 		int modifiers = Modifier.PUBLIC;
@@ -92,10 +114,33 @@ public class CompilerWrapper {
 		clazz.addMethod(m);
 	}
 	
+	/**
+	 * <p>addField.</p>
+	 *
+	 * @param fieldName a {@link java.lang.String} object.
+	 * @param fildType a {@link java.lang.Class} object.
+	 * @param isPublic a boolean.
+	 * @param isStatic a boolean.
+	 * @param isFinal a boolean.
+	 * @throws javassist.CannotCompileException if any.
+	 * @throws javassist.NotFoundException if any.
+	 */
 	public void addField(String fieldName, Class<?> fildType, boolean isPublic, boolean isStatic, boolean isFinal) throws CannotCompileException, NotFoundException {
 		addField(fieldName, fildType, isPublic, isStatic, isFinal, null);
 	}
 	
+	/**
+	 * <p>addField.</p>
+	 *
+	 * @param fieldName a {@link java.lang.String} object.
+	 * @param fieldType a {@link java.lang.Class} object.
+	 * @param isPublic a boolean.
+	 * @param isStatic a boolean.
+	 * @param isFinal a boolean.
+	 * @param initCode a {@link java.lang.String} object.
+	 * @throws javassist.CannotCompileException if any.
+	 * @throws javassist.NotFoundException if any.
+	 */
 	public void addField(String fieldName, Class<?> fieldType, boolean isPublic, boolean isStatic, boolean isFinal, String initCode) throws CannotCompileException, NotFoundException {
 		CtField f = new CtField(resolve(fieldType), fieldName, clazz);
 		int modifiers = 0;
@@ -115,6 +160,14 @@ public class CompilerWrapper {
 		}
 	}
 	
+	/**
+	 * <p>addConstructor.</p>
+	 *
+	 * @param params an array of {@link java.lang.Class} objects.
+	 * @param lines a {@link java.lang.String} object.
+	 * @throws javassist.CannotCompileException if any.
+	 * @throws javassist.NotFoundException if any.
+	 */
 	public void addConstructor(Class<?> [] params, String ... lines) throws CannotCompileException, NotFoundException {
 		CtConstructor c = new CtConstructor(getList(params), clazz);
 		int modifiers = Modifier.PUBLIC;
@@ -123,6 +176,12 @@ public class CompilerWrapper {
 		clazz.addConstructor(c);
 	}
 	
+	/**
+	 * <p>getGeneratedClass.</p>
+	 *
+	 * @return a {@link java.lang.Class} object.
+	 * @throws javassist.CannotCompileException if any.
+	 */
 	public Class<?> getGeneratedClass() throws CannotCompileException {
 		if (javaClazz == null) {
 			javaClazz = clazz.toClass();

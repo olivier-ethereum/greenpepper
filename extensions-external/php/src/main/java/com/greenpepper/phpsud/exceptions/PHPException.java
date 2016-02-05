@@ -22,11 +22,19 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>Abstract PHPException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 @SuppressWarnings("serial")
 public abstract class PHPException extends Exception {
 	
+	/**
+	 * <p>Constructor for PHPException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public PHPException(String str) {
 		super(str);
 	}

@@ -28,27 +28,30 @@ import com.greenpepper.server.domain.DocumentNode;
 import com.greenpepper.server.rpc.GreenPepperRpcHelper;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>ConfluenceXmlRpcGreenPepperServiceImpl class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHelper
 {
+	/** Constant <code>SPACE_NOT_FOUND="greenpepper.rpc.spacenotfound"</code> */
 	public static final String SPACE_NOT_FOUND = "greenpepper.rpc.spacenotfound";
+	/** Constant <code>PAGE_NOT_FOUND="greenpepper.rpc.pagenotfound"</code> */
 	public static final String PAGE_NOT_FOUND = "greenpepper.rpc.pagenotfound";
+	/** Constant <code>INVALID_SESSION="greenpepper.rpc.invalidsession"</code> */
 	public static final String INVALID_SESSION = "greenpepper.rpc.invalidsession";
+	/** Constant <code>PERMISSION_DENIED="greenpepper.rpc.permissiondenied"</code> */
 	public static final String PERMISSION_DENIED = "greenpepper.rpc.permissiondenied";
+	/** Constant <code>GENERAL_EXCEPTION="greenpepper.server.generalexeerror"</code> */
 	public static final String GENERAL_EXCEPTION = "greenpepper.server.generalexeerror";
 
 	private final Logger log = Logger.getLogger(ConfluenceXmlRpcGreenPepperServiceImpl.class);
 
 	private ConfluenceGreenPepper gpUtil = new ConfluenceGreenPepper();
 
-	/**
-	 * 
-	 * @param args The vector needs to have at least 3 elements and a 4th optional one.<ul>
-	 *     <li>SpaceKey</li>
-	 *     <li>PageTitle</li>
-	 *     <li>IncludeStyle</li>
-	 *     <li>implementedVersion : false if you want the working copy</li>
-	 * </ul>
-	 */
+	/** {@inheritDoc} */
 	public String getRenderedSpecification(final String username, final String password, final Vector<?> args)
     {
     	if(args.size() < 3) return error("Parameters Missing, expecting:[SpaceKey, PageTitle, IncludeStyle] !");
@@ -87,6 +90,7 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
         });
     }
 
+    /** {@inheritDoc} */
     public Vector<?> getSpecificationHierarchy(final String username, final String password, final Vector<?> args)
     {
     	if(args.isEmpty()) return new DocumentNode("Parameters Missing, expecting:[SpaceKey] !").marshallize();
@@ -123,6 +127,7 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
         });
     }
     
+    /** {@inheritDoc} */
     public String setSpecificationAsImplemented(final String username, final String password, final Vector<?> args)
     {
     	if(args.size() < 3) return error("Parameters Missing, expecting:[SpaceKey, PageTitle] !");
@@ -160,6 +165,7 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
         });
     }
 
+	/** {@inheritDoc} */
 	public String saveExecutionResult(final String username, final String password, final Vector<?> args)
 	{
 		if(args.size() < 4) return error("Parameters Missing, expecting:[SpaceKey, PageTitle, SUT, Xml Report Data] !");

@@ -30,6 +30,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.greenpepper.server.configuration.DefaultServerProperties;
 
+/**
+ * <p>GreenPepperServerConfiguration class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperServerConfiguration implements Serializable {
     
     private static final MappingJsonFactory jsonF = new MappingJsonFactory();
@@ -39,29 +45,51 @@ public class GreenPepperServerConfiguration implements Serializable {
     private boolean isSetupComplete;
 	private Properties properties = new DefaultServerProperties();
 
+    /**
+     * <p>isSetupComplete.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isSetupComplete()
 	{
 		return isSetupComplete;
 	}
 
+    /**
+     * <p>setSetupComplete.</p>
+     *
+     * @param setupComplete a boolean.
+     */
     public void setSetupComplete(boolean setupComplete)
 	{
 		isSetupComplete = setupComplete;
 	}
 
+    /**
+     * <p>Getter for the field <code>properties</code>.</p>
+     *
+     * @return a {@link java.util.Properties} object.
+     */
     public Properties getProperties()
 	{
 		return properties;
 	}
 
+    /**
+     * <p>Setter for the field <code>properties</code>.</p>
+     *
+     * @param properties a {@link java.util.Properties} object.
+     */
     public void setProperties(Properties properties)
 	{
 		this.properties = properties;
 	}
 
-    /**
-     * We use this method to store the Configuration as JSON
-     */
+	/**
+	 * We use this method to store the Configuration as JSON
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString()
 	{
 	    try {
@@ -77,6 +105,14 @@ public class GreenPepperServerConfiguration implements Serializable {
         }
 	}
 	
+	/**
+	 * <p>fromString.</p>
+	 *
+	 * @param input a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.confluence.GreenPepperServerConfiguration} object.
+	 * @throws com.fasterxml.jackson.core.JsonParseException if any.
+	 * @throws java.io.IOException if any.
+	 */
 	public static GreenPepperServerConfiguration fromString(String input) throws JsonParseException, IOException {
 	    JsonParser parser = jsonF.createParser(input);
 	    TypeReference<GreenPepperServerConfiguration> ref = new TypeReference<GreenPepperServerConfiguration>() { };

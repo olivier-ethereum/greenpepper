@@ -27,10 +27,22 @@ import com.greenpepper.phpsud.exceptions.PHPException;
 import com.greenpepper.phpsud.parser.ObjectParser;
 
 /**
+ * <p>PHPContainerFactory class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPContainerFactory {
 	
+	/**
+	 * <p>createContainer.</p>
+	 *
+	 * @param phpExec a {@link java.lang.String} object.
+	 * @param workingDirectory a {@link java.lang.String} object.
+	 * @param phpInitFile a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public static PHPContainer createContainer(String phpExec, String workingDirectory, String phpInitFile) throws PHPException  {
 		PHPContainer container = new PHPContainer(phpExec, workingDirectory, phpInitFile);
 		container.setObjectParser(new ObjectParser());

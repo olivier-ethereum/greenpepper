@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.maven.runner.util;
 
@@ -22,11 +26,18 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
-
 public final class ReflectionUtils
 {
     private ReflectionUtils() {}
 
+	/**
+	 * <p>getDeclaredFieldValue.</p>
+	 *
+	 * @param object a {@link java.lang.Object} object.
+	 * @param declaredFieldName a {@link java.lang.String} object.
+	 * @return a {@link java.lang.Object} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public static Object getDeclaredFieldValue(Object object, String declaredFieldName)
 			throws Exception
 	{
@@ -37,6 +48,13 @@ public final class ReflectionUtils
 		return field.get(object);
 	}
 
+	/**
+	 * <p>invokeMain.</p>
+	 *
+	 * @param mainClass a {@link java.lang.Class} object.
+	 * @param args a {@link java.util.List} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public static void invokeMain(Class<?> mainClass, List<String> args)
 			throws Exception
 	{
@@ -45,6 +63,13 @@ public final class ReflectionUtils
 		mainMethod.invoke(null, convertToArray(args));
 	}
 
+    /**
+     * <p>setDebugEnabled.</p>
+     *
+     * @param classLoader a {@link java.lang.ClassLoader} object.
+     * @param isDebug a boolean.
+     * @throws java.lang.Exception if any.
+     */
     public static void setDebugEnabled(ClassLoader classLoader, boolean isDebug)
             throws Exception
     {
@@ -53,6 +78,14 @@ public final class ReflectionUtils
         setDebugEnabledMethod.invoke( null, isDebug );
     }
 
+	/**
+	 * <p>setSystemOutputs.</p>
+	 *
+	 * @param classLoader a {@link java.lang.ClassLoader} object.
+	 * @param out a {@link java.io.PrintStream} object.
+	 * @param err a {@link java.io.PrintStream} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public static void setSystemOutputs(ClassLoader classLoader, PrintStream out, PrintStream err)
 			throws Exception
 	{

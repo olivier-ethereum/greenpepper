@@ -27,7 +27,10 @@ import com.greenpepper.phpsud.parser.PHPObject;
 import com.greenpepper.reflect.Message;
 
 /**
+ * <p>PHPObjectMessage class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPObjectMessage extends Message {
 
@@ -37,16 +40,24 @@ public class PHPObjectMessage extends Message {
 	
 	private String name;
 	
+	/**
+	 * <p>Constructor for PHPObjectMessage.</p>
+	 *
+	 * @param object a {@link com.greenpepper.phpsud.parser.PHPObject} object.
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public PHPObjectMessage(PHPObject object, String name) {
 		this.object = object;
 		this.name = name;
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public int getArity() {
 		throw new UnsupportedOperationException("Not implemented yet !");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Object send(String... arg0) throws Exception {
 		LOGGER.info("Send called with " + arg0.length); 

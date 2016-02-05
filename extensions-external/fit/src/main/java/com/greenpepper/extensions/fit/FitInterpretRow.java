@@ -30,21 +30,35 @@ import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.ExampleUtil;
 import com.greenpepper.util.ExampleWrapper;
 
+/**
+ * <p>FitInterpretRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FitInterpretRow extends AbstractRow
 {
 	private SystemUnderDevelopment sud;
 	
+    /**
+     * <p>Constructor for FitInterpretRow.</p>
+     *
+     * @param sud a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public FitInterpretRow(SystemUnderDevelopment sud, Fixture fixture )
     {
         super( fixture );
         this.sud = sud;
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
         return ExampleUtil.asList(row.at(0,1));
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification table )
     {
         final Example row = table.nextExample();

@@ -32,7 +32,10 @@ import com.greenpepper.reflect.SystemUnderDevelopmentException;
 
 
 /**
+ * <p>PHPMessage class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPMessage extends Message {
 
@@ -46,6 +49,13 @@ public class PHPMessage extends Message {
 	
 	private PHPMethodDescriptor desc;
 	
+	/**
+	 * <p>Constructor for PHPMessage.</p>
+	 *
+	 * @param desc a {@link com.greenpepper.phpsud.container.PHPMethodDescriptor} object.
+	 * @param id a {@link java.lang.String} object.
+	 * @param readResponse a boolean.
+	 */
 	public PHPMessage(PHPMethodDescriptor desc, String id, boolean readResponse) {
 		this.desc = desc;
 		this.id = id;
@@ -53,11 +63,13 @@ public class PHPMessage extends Message {
 		this.readResponse = readResponse;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int getArity() {
 		throw new UnsupportedOperationException("Not implemented yet !");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Object send(String... params) throws Exception {
 		LOGGER.debug("Send on class " + desc.getClassDescriptor() + ", method " + desc + ", id " + id + " with " + params.length + " params");

@@ -19,27 +19,54 @@
 
 package com.greenpepper.samples.application.bank;
 
+/**
+ * <p>Owner class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Owner
 {
     private final String firstName;
     private final String lastName;
     
+    /**
+     * <p>Constructor for Owner.</p>
+     *
+     * @param firstName a {@link java.lang.String} object.
+     * @param lastName a {@link java.lang.String} object.
+     */
     public Owner(String firstName, String lastName)
     {
         this.firstName = firstName;
         this.lastName = lastName;
     }
     
+    /**
+     * <p>Getter for the field <code>firstName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFirstName()
     {
         return firstName;
     }
 
+    /**
+     * <p>Getter for the field <code>lastName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getLastName()
     {
         return lastName;
     }
 
+    /**
+     * <p>getFullName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFullName()
     {
         return firstName + " " + lastName;

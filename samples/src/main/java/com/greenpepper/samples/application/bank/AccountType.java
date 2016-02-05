@@ -2,6 +2,12 @@ package com.greenpepper.samples.application.bank;
 
 import java.util.EnumMap;
 
+/**
+ * <p>AccountType class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public enum AccountType
 {
 	SAVINGS ("savings", Money.$(200f), Money.$(200f), null,  Money.$(1.5f), Money.$(2.5f), Money.$(0.5f)),
@@ -30,21 +36,40 @@ public enum AccountType
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return description;
 	}
 
+	/**
+	 * <p>limitFor.</p>
+	 *
+	 * @param withdrawType a {@link com.greenpepper.samples.application.bank.WithdrawType} object.
+	 * @return a {@link com.greenpepper.samples.application.bank.Money} object.
+	 */
 	public Money limitFor(WithdrawType withdrawType)
 	{
 		return limits.get(withdrawType);
 	}
 
+	/**
+	 * <p>feesFor.</p>
+	 *
+	 * @param withdrawType a {@link com.greenpepper.samples.application.bank.WithdrawType} object.
+	 * @return a {@link com.greenpepper.samples.application.bank.Money} object.
+	 */
 	public Money feesFor(WithdrawType withdrawType)
     {
 		return fees.get(withdrawType);
 	}
 
+	/**
+	 * <p>isNoLimit.</p>
+	 *
+	 * @param limit a {@link com.greenpepper.samples.application.bank.Money} object.
+	 * @return a boolean.
+	 */
 	public static boolean isNoLimit(Money limit)
 	{
 		return limit == null;

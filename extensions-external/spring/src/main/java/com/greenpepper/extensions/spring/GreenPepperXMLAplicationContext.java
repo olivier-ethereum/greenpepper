@@ -6,6 +6,12 @@ import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * <p>GreenPepperXMLAplicationContext class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationContext
 {
     private String[] configLocations;
@@ -15,6 +21,7 @@ public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationConte
      * the given XML file and automatically refreshing the context.
      *
      * @param configLocation file path
+     * @throws org.springframework.beans.BeansException if any.
      */
     public GreenPepperXMLAplicationContext(String configLocation) throws BeansException
     {
@@ -26,6 +33,7 @@ public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationConte
      * the given XML files and automatically refreshing the context.
      *
      * @param configLocations array of file paths
+     * @throws org.springframework.beans.BeansException if any.
      */
     public GreenPepperXMLAplicationContext(String[] configLocations) throws BeansException
     {
@@ -42,6 +50,7 @@ public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationConte
      *            definitions and creating all singletons. Alternatively, call
      *            refresh manually after further configuring the context.
      * @see #refresh()
+     * @throws org.springframework.beans.BeansException if any.
      */
     public GreenPepperXMLAplicationContext(String[] configLocations, boolean refresh) throws BeansException
     {
@@ -59,6 +68,7 @@ public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationConte
      *
      * @param configLocations array of file paths
      * @param parent the parent context
+     * @throws org.springframework.beans.BeansException if any.
      */
     public GreenPepperXMLAplicationContext(String[] configLocations, ApplicationContext parent) throws BeansException
     {
@@ -76,6 +86,7 @@ public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationConte
      *            refresh manually after further configuring the context.
      * @param parent the parent context
      * @see #refresh()
+     * @throws org.springframework.beans.BeansException if any.
      */
     public GreenPepperXMLAplicationContext(String[] configLocations, boolean refresh, ApplicationContext parent)
             throws BeansException
@@ -88,11 +99,17 @@ public class GreenPepperXMLAplicationContext extends AbstractXmlApplicationConte
         }
     }
 
+    /**
+     * <p>Getter for the field <code>configLocations</code>.</p>
+     *
+     * @return an array of {@link java.lang.String} objects.
+     */
     protected String[] getConfigLocations()
     {
         return this.configLocations;
     }
 
+    /** {@inheritDoc} */
     protected Resource getResourceByPath(String path)
     {
         String classPathPrefix = org.springframework.core.io.ResourceLoader.CLASSPATH_URL_PREFIX;

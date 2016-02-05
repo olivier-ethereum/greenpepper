@@ -7,11 +7,25 @@ import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import fit.ActionFixture;
 import fit.TimedActionFixture;
 
+/**
+ * <p>Fit class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Fit 
 {
+    /** Constant <code>format</code> */
     public static DateFormat format = new SimpleDateFormat("hh:mm:ss");
 	
     
+    /**
+     * <p>isATimedActionFitInterpreter.</p>
+     *
+     * @param sud a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+     * @param name a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isATimedActionFitInterpreter(SystemUnderDevelopment sud, String name)
 	{
         try
@@ -27,6 +41,13 @@ public class Fit
     	return false;
 	}
     
+	/**
+	 * <p>isAnActionFitInterpreter.</p>
+	 *
+	 * @param sud a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public static boolean isAnActionFitInterpreter(SystemUnderDevelopment sud, String name)
 	{
         try
@@ -44,6 +65,13 @@ public class Fit
     	return false;
 	}
 	
+	/**
+	 * <p>isAFitInterpreter.</p>
+	 *
+	 * @param sud a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public static boolean isAFitInterpreter(SystemUnderDevelopment sud, String name)
 	{
         try

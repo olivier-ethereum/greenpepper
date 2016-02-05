@@ -22,12 +22,18 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>SyntaxErrorException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class SyntaxErrorException extends PHPException {
 
 	private static final long serialVersionUID = -1930263215834522100L;
 
+	/**
+	 * <p>Constructor for SyntaxErrorException.</p>
+	 */
 	public SyntaxErrorException() {
 		super("");
 	}

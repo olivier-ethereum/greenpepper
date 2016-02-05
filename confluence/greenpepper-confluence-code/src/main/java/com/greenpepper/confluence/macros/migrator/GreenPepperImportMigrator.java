@@ -14,10 +14,17 @@ import com.atlassian.confluence.xhtml.api.MacroDefinition;
 import com.greenpepper.confluence.macros.GreenPepperImport;
 import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 
+/**
+ * <p>GreenPepperImportMigrator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperImportMigrator implements MacroMigration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GreenPepperImportMigrator.class);
     
+	/** {@inheritDoc} */
 	public MacroDefinition migrate(MacroDefinition macroDefinition,
 			ConversionContext context) {
 	    LOGGER.debug("Beginning migration of macro {} ", macroDefinition);

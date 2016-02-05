@@ -15,12 +15,19 @@ import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Specification;
 
+/**
+ * <p>GreenPepperPageListener class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperPageListener implements EventListener
 {
     private static Logger log = Logger.getLogger(GreenPepperPageListener.class);
 
 	private final ConfluenceGreenPepper gp = new ConfluenceGreenPepper();
 
+	/** {@inheritDoc} */
 	public void handleEvent(Event evt)
 	{
         try
@@ -89,6 +96,11 @@ public class GreenPepperPageListener implements EventListener
 		}
 	}
 
+	/**
+	 * <p>getHandledEventClasses.</p>
+	 *
+	 * @return an array of {@link java.lang.Class} objects.
+	 */
 	public Class[] getHandledEventClasses()
     {
         return new Class[] { PageUpdateEvent.class, PageTrashedEvent.class, PageRemoveEvent.class, SpaceRemoveEvent.class};

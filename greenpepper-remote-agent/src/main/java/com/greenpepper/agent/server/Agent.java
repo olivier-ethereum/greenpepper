@@ -9,6 +9,12 @@ import org.apache.xmlrpc.secure.SecurityTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>Agent class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Agent
 {
 
@@ -16,6 +22,11 @@ public class Agent
 
 	private static WebServer webServer;
 
+	/**
+	 * <p>main.</p>
+	 *
+	 * @param args an array of {@link java.lang.String} objects.
+	 */
 	public static void main(String[] args)
 	{
 		Runtime.getRuntime().addShutdownHook(new Thread()
@@ -79,6 +90,9 @@ public class Agent
 		}
 	}
 
+	/**
+	 * <p>shutdown.</p>
+	 */
 	public static void shutdown()
 	{
 		if (webServer != null)

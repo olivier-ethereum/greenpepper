@@ -21,6 +21,12 @@ package com.greenpepper.confluence.rpc;
 import com.greenpepper.server.rpc.RpcServerService;
 import com.greenpepper.server.rpc.GreenPepperRpcHelper;
 
+/**
+ * <p>RpcClientService interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface RpcClientService extends RpcServerService, GreenPepperRpcHelper
 {
 

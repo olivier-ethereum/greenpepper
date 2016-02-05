@@ -24,12 +24,27 @@ package com.greenpepper.phpsud.container;
 import com.greenpepper.phpsud.exceptions.PHPException;
 
 /**
+ * <p>IObjectParser interface.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public interface IObjectParser {
 	
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param expr a {@link java.lang.String} object.
+	 * @return a {@link java.lang.Object} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	Object parse(String expr) throws PHPException;
 	
+	/**
+	 * <p>setPHPContainer.</p>
+	 *
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 */
 	void setPHPContainer(PHPContainer container);
 
 }

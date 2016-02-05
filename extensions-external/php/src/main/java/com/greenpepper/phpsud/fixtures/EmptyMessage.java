@@ -24,15 +24,20 @@ package com.greenpepper.phpsud.fixtures;
 import com.greenpepper.reflect.Message;
 
 /**
+ * <p>EmptyMessage class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class EmptyMessage extends Message {
 
+	/** {@inheritDoc} */
 	@Override
 	public int getArity() {
 		throw new UnsupportedOperationException("Not implemented yet !");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Object send(String... arg0) throws Exception {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);

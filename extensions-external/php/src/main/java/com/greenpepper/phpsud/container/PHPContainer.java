@@ -35,7 +35,10 @@ import com.greenpepper.phpsud.phpDriver.PHPDriver;
 import com.greenpepper.phpsud.phpDriver.PHPInterpeter;
 
 /**
+ * <p>PHPContainer class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPContainer {
 	
@@ -53,6 +56,14 @@ public class PHPContainer {
 	
 	private static Hashtable<Integer, PHPContainer> phpContainerList = new Hashtable<Integer, PHPContainer>();
 
+	/**
+	 * <p>Constructor for PHPContainer.</p>
+	 *
+	 * @param phpExec a {@link java.lang.String} object.
+	 * @param workingDirectory a {@link java.lang.String} object.
+	 * @param phpInitFile a {@link java.lang.String} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPContainer(String phpExec, String workingDirectory, String phpInitFile) throws PHPException {
 		LOGGER.info("Creating PHPContainer " + getId());
 		phpContainerList.put(getId(), this);
@@ -82,14 +93,27 @@ public class PHPContainer {
 		});
 	}
 	
+	/**
+	 * <p>getId.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getId() {
 		return this.hashCode();
 	}
 
+	/**
+	 * <p>addConsoleLogger.</p>
+	 *
+	 * @param logger a {@link com.greenpepper.phpsud.container.IConsoleLogger} object.
+	 */
 	public void addConsoleLogger(IConsoleLogger logger) {
 		loggerList.add(logger);
 	}
 	
+	/**
+	 * <p>dump.</p>
+	 */
 	public static void dump() {
 		for(PHPContainer container : phpContainerList.values()) {
 			try {
@@ -127,6 +151,9 @@ public class PHPContainer {
 		}
 	}
 
+	/**
+	 * <p>close.</p>
+	 */
 	public void close() {
 		phpContainerList.remove(getId());
 		LOGGER.info("Removing PHPContainer " + getId());
@@ -138,6 +165,12 @@ public class PHPContainer {
 		}
 	}
 	
+	/**
+	 * <p>run.</p>
+	 *
+	 * @param command a {@link java.lang.String} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public void run(String command) throws PHPException {
 		try {
 			php.execRun(command);
@@ -148,6 +181,13 @@ public class PHPContainer {
 		}
 	}
 	
+	/**
+	 * <p>get.</p>
+	 *
+	 * @param command a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public String get(String command) throws PHPException {
 		try {
 			String s = php.execGet(command);
@@ -159,33 +199,74 @@ public class PHPContainer {
 		}
 	}
 	
+	/**
+	 * <p>createObject.</p>
+	 *
+	 * @param desc a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @param params a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public String createObject(PHPClassDescriptor desc, String ... params) throws PHPException {
 		String cmd = PHPInterpeter.saveObject("new " + desc.getClassName() + "(" + Helper.formatParamList(params) + ")");
 		return get(cmd);
 	}
 	
+	/**
+	 * <p>setObjectParser.</p>
+	 *
+	 * @param parser a {@link com.greenpepper.phpsud.container.IObjectParser} object.
+	 */
 	public void setObjectParser(IObjectParser parser) {
 		this.parser = parser;
 		this.parser.setPHPContainer(this);
 	}
 	
+	/**
+	 * <p>getClassDescriptor.</p>
+	 *
+	 * @param className a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPClassDescriptor getClassDescriptor(String className) throws PHPException {
 		return classPath.getClassDescriptor(className, this);
 	}
 	
+	/**
+	 * <p>getObjectParser.</p>
+	 *
+	 * @return a {@link com.greenpepper.phpsud.container.IObjectParser} object.
+	 */
 	public IObjectParser getObjectParser() {
 		return parser;
 	}
 
+	/**
+	 * <p>Getter for the field <code>classCreatorFactory</code>.</p>
+	 *
+	 * @return a {@link com.greenpepper.phpsud.container.IPHPJavaClassCreatorFactory} object.
+	 */
 	public IPHPJavaClassCreatorFactory getClassCreatorFactory() {
 		return classCreatorFactory;
 	}
 
+	/**
+	 * <p>Setter for the field <code>classCreatorFactory</code>.</p>
+	 *
+	 * @param classCreatorFactory a {@link com.greenpepper.phpsud.container.IPHPJavaClassCreatorFactory} object.
+	 */
 	public void setClassCreatorFactory(
 			IPHPJavaClassCreatorFactory classCreatorFactory) {
 		this.classCreatorFactory = classCreatorFactory;
 	}
 	
+	/**
+	 * <p>getPHPContainer.</p>
+	 *
+	 * @param id a int.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 */
 	public static PHPContainer getPHPContainer(int id) {
 		return phpContainerList.get(id);
 	}

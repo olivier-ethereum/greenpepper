@@ -11,6 +11,12 @@ import com.greenpepper.reflect.DefaultFixture;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 
+/**
+ * <p>GuiceSystemUnderDevelopment class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GuiceSystemUnderDevelopment
 		extends DefaultSystemUnderDevelopment
 {
@@ -18,15 +24,24 @@ public class GuiceSystemUnderDevelopment
 	private Injector injector;
 	private List<String> moduleNames = new ArrayList<String>();
 
+	/**
+	 * <p>Constructor for GuiceSystemUnderDevelopment.</p>
+	 */
 	public GuiceSystemUnderDevelopment()
 	{
 	}
 
+	/**
+	 * <p>Constructor for GuiceSystemUnderDevelopment.</p>
+	 *
+	 * @param moduleNames a {@link java.lang.String} object.
+	 */
 	public GuiceSystemUnderDevelopment(String... moduleNames)
 	{
 		Collections.addAll(this.moduleNames, moduleNames);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Fixture getFixture(String name, String... params)
 			throws Throwable
@@ -76,6 +91,11 @@ public class GuiceSystemUnderDevelopment
 		return modules;
 	}
 
+	/**
+	 * <p>addModules.</p>
+	 *
+	 * @param moduleNames a {@link java.lang.String} object.
+	 */
 	public void addModules(String... moduleNames)
 	{
 		if (injector == null)

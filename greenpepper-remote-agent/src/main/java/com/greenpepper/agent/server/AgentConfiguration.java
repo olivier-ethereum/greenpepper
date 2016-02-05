@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.agent.server;
 
@@ -28,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.greenpepper.util.StringUtil;
-
 public class AgentConfiguration
 {
 
@@ -49,6 +52,12 @@ public class AgentConfiguration
 	private final String keyStore;
 	private final String keyStorePassword;
 
+	/**
+	 * <p>Constructor for AgentConfiguration.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public AgentConfiguration(String... args)
 			throws IOException
 	{
@@ -62,16 +71,32 @@ public class AgentConfiguration
 		this.keyStorePassword = getKeyStorePassword(properties);
 	}
 
+	/**
+	 * <p>Getter for the field <code>port</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getPort()
 	{
 		return port;
 	}
 
+	/**
+	 * <p>isSecured.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isSecured()
 	{
 		return secured;
 	}
 
+	/**
+	 * <p>Getter for the field <code>keyStore</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public String getKeyStore()
 			throws IOException
 	{
@@ -96,6 +121,11 @@ public class AgentConfiguration
 		return keyStore;
 	}
 
+	/**
+	 * <p>Getter for the field <code>keyStorePassword</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getKeyStorePassword()
 	{
 		if (!isSecured())

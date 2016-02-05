@@ -35,7 +35,10 @@ import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.NoSuchMessageException;
 
 /**
+ * <p>PHPFixture class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPFixture implements Fixture {
 
@@ -45,6 +48,14 @@ public class PHPFixture implements Fixture {
 	private PHPObject object;		
 	private PHPClassDescriptor desc;
 	
+	/**
+	 * <p>findClass.</p>
+	 *
+	 * @param php a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param className a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public static PHPClassDescriptor findClass(PHPContainer php, String className) throws PHPException {
 		PHPClassDescriptor desc;
 		desc = php.getClassDescriptor(className + "Fixture");
@@ -67,6 +78,13 @@ public class PHPFixture implements Fixture {
 		return null;
 	}
 	
+	/**
+	 * <p>findMethod.</p>
+	 *
+	 * @param desc a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @param methodName a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPMethodDescriptor} object.
+	 */
 	public static PHPMethodDescriptor findMethod(PHPClassDescriptor desc, String methodName) {
 		PHPMethodDescriptor meth;
 		meth = desc.getMethod(Helper.formatProcedureName(methodName));
@@ -80,6 +98,14 @@ public class PHPFixture implements Fixture {
 		return null;
 	}
 	
+	/**
+	 * <p>Constructor for PHPFixture.</p>
+	 *
+	 * @param php a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param className a {@link java.lang.String} object.
+	 * @param params a {@link java.lang.String} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPFixture(PHPContainer php, String className, String... params) throws PHPException {
 		this.desc = findClass(php, className);
 		if (this.desc == null) {
@@ -90,14 +116,17 @@ public class PHPFixture implements Fixture {
 		object = new PHPObject(php, this.desc.getClassName(), id);
 	}
 	
+	/** {@inheritDoc} */
 	public boolean canCheck(String arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public boolean canSend(String arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public Message check(String arg0) throws NoSuchMessageException {
 		String methodName = Helper.purge(arg0);
 		LOGGER.debug("Check for class " + desc + ", method " + methodName);
@@ -109,6 +138,7 @@ public class PHPFixture implements Fixture {
 		return new PHPMessage(meth, id, true);
 	}
 
+	/** {@inheritDoc} */
 	public Fixture fixtureFor(Object arg0) {
 		if (arg0 instanceof PHPObject) {
 			PHPObject object = (PHPObject) arg0;
@@ -119,6 +149,11 @@ public class PHPFixture implements Fixture {
 		return new EmptyFixture(this, arg0);
 	}
 
+	/**
+	 * <p>getTarget.</p>
+	 *
+	 * @return a {@link java.lang.Object} object.
+	 */
 	public Object getTarget() {
 		LOGGER.debug("Get Target for class " + desc);
 		PHPMethodDescriptor meth = findMethod(desc, "query");
@@ -141,6 +176,7 @@ public class PHPFixture implements Fixture {
 		return null;
 	}
 
+	/** {@inheritDoc} */
 	public Message send(String arg0) throws NoSuchMessageException {
 		String methodName = Helper.purge(arg0);
 		LOGGER.info("Send for class " + desc + ", method " + methodName);

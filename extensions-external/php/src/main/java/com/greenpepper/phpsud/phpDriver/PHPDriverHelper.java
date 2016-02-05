@@ -37,7 +37,10 @@ import org.apache.log4j.Logger;
 import com.greenpepper.util.StringUtil;
 
 /**
+ * <p>PHPDriverHelper class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPDriverHelper {
 
@@ -56,6 +59,12 @@ public class PHPDriverHelper {
 	
 	private Properties properties;
 	
+	/**
+	 * <p>getInstance.</p>
+	 *
+	 * @return a {@link com.greenpepper.phpsud.phpDriver.PHPDriverHelper} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public static PHPDriverHelper getInstance() throws IOException {
 		if (_instance == null) {
 			_instance = new PHPDriverHelper();
@@ -96,10 +105,25 @@ public class PHPDriverHelper {
 		}
 	}
 
+	/**
+	 * <p>createTmpPhpFile.</p>
+	 *
+	 * @param resourceName a {@link java.lang.String} object.
+	 * @return a {@link java.io.File} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public static File createTmpPhpFile(String resourceName) throws IOException {
 		return createTmpPhpFileFromResource(resourceName, true);
 	}
 
+	/**
+	 * <p>createTmpPhpFileFromResource.</p>
+	 *
+	 * @param resourceName a {@link java.lang.String} object.
+	 * @param deleteOnExit a boolean.
+	 * @return a {@link java.io.File} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public static File createTmpPhpFileFromResource(String resourceName, boolean deleteOnExit) throws IOException {
 		InputStream is = getInstance().getClass().getResourceAsStream(resourceName);
 		if (is == null) {
@@ -108,6 +132,14 @@ public class PHPDriverHelper {
 		return copyFile(is, deleteOnExit);
 	}
 	
+	/**
+	 * <p>copyFile.</p>
+	 *
+	 * @param is a {@link java.io.InputStream} object.
+	 * @param deleteOnExit a boolean.
+	 * @return a {@link java.io.File} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public static File copyFile(InputStream is, boolean deleteOnExit) throws IOException {
 		File f = File.createTempFile("php", ".php");
 		if (deleteOnExit) {
@@ -120,6 +152,11 @@ public class PHPDriverHelper {
 		return f;
 	}
 	
+	/**
+	 * <p>Getter for the field <code>interpretor</code>.</p>
+	 *
+	 * @return a {@link java.io.File} object.
+	 */
 	public File getInterpretor() {
 		return interpretor;
 	}
@@ -160,6 +197,13 @@ public class PHPDriverHelper {
 		throw new IOException("Unable to find PHP intrepretor. Please set the property with -D" + phpExecutableProperties + "=path/php");
 	}
 		
+	/**
+	 * <p>Getter for the field <code>phpExec</code>.</p>
+	 *
+	 * @param exec a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public String getPhpExec(String exec) throws IOException {
 		if (phpExec != null) {
 			return phpExec;
@@ -168,6 +212,11 @@ public class PHPDriverHelper {
 		return phpExec;
 	}
 	
+	/**
+	 * <p>Getter for the field <code>timeout</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getTimeout() {
 		return timeout;
 	}

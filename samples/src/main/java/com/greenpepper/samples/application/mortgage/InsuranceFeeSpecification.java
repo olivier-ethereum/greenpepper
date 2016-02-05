@@ -19,15 +19,32 @@
 
 package com.greenpepper.samples.application.mortgage;
 
+/**
+ * <p>InsuranceFeeSpecification class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class InsuranceFeeSpecification
 {
     private final Money salePrice;
 
+    /**
+     * <p>Constructor for InsuranceFeeSpecification.</p>
+     *
+     * @param salePrice a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public InsuranceFeeSpecification(Money salePrice)
     {
         this.salePrice = salePrice;
     }
 
+    /**
+     * <p>forDownpayment.</p>
+     *
+     * @param downPayment a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public Money forDownpayment(Money downPayment)
     {
         return downPayment.greaterThan(salePrice.times( Ratio.percent( 25 ) )) ?

@@ -27,16 +27,25 @@ import com.greenpepper.phpsud.container.PHPClassDescriptor;
 import com.greenpepper.phpsud.container.PHPContainer;
 
 /**
+ * <p>PHPJavaClassCreatorFactory class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPJavaClassCreatorFactory implements IPHPJavaClassCreatorFactory {
 
 	private int uniqueId;
 	
+	/**
+	 * <p>Constructor for PHPJavaClassCreatorFactory.</p>
+	 *
+	 * @param uniqueId a int.
+	 */
 	public PHPJavaClassCreatorFactory(int uniqueId) {
 		this.uniqueId = uniqueId;
 	}
 
+	/** {@inheritDoc} */
 	public IPHPJavaClassCreator getClassCreator(PHPContainer container, PHPClassDescriptor desc) {
 		return new PHPJavaClassCreator(container, desc, uniqueId);
 	}

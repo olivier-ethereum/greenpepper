@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,26 +16,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.maven.runner;
 
 import java.io.PrintStream;
 
 import org.apache.maven.embedder.AbstractMavenEmbedderLogger;
-
 public class Logger extends AbstractMavenEmbedderLogger
 {
     private final PrintStream out;
 
+    /**
+     * <p>Constructor for Logger.</p>
+     *
+     * @param out a {@link java.io.PrintStream} object.
+     */
     public Logger(PrintStream out)
     {
         this.out = out;
     }
 
+	/**
+	 * <p>Getter for the field <code>out</code>.</p>
+	 *
+	 * @return a {@link java.io.PrintStream} object.
+	 */
 	public final PrintStream getOut() {
 		return out;
 	}
 
+	/** {@inheritDoc} */
 	public final void debug(String message, Throwable throwable)
     {
         if (isDebugEnabled())
@@ -49,6 +63,7 @@ public class Logger extends AbstractMavenEmbedderLogger
         }
     }
 
+    /** {@inheritDoc} */
     public final void info(String message, Throwable throwable)
     {
         if (isInfoEnabled())
@@ -63,6 +78,7 @@ public class Logger extends AbstractMavenEmbedderLogger
         }
     }
 
+    /** {@inheritDoc} */
     public final void warn(String message, Throwable throwable)
     {
         if (isWarnEnabled())
@@ -77,6 +93,7 @@ public class Logger extends AbstractMavenEmbedderLogger
         }
     }
 
+    /** {@inheritDoc} */
     public final void error(String message, Throwable throwable)
     {
         if (isErrorEnabled())
@@ -91,6 +108,7 @@ public class Logger extends AbstractMavenEmbedderLogger
         }
     }
 
+    /** {@inheritDoc} */
     public final void fatalError(String message, Throwable throwable)
     {
         if (isFatalErrorEnabled())

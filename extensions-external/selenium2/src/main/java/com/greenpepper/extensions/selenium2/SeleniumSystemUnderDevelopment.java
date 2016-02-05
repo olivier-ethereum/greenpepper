@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2010 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.extensions.selenium2;
 
@@ -27,24 +31,30 @@ import com.greenpepper.document.Document;
 import com.greenpepper.reflect.DefaultFixture;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
-
 public class SeleniumSystemUnderDevelopment
 		extends DefaultSystemUnderDevelopment {
 
 	private Injector injector;
 	private WebDriver driver;
 
+	/**
+	 * <p>Constructor for SeleniumSystemUnderDevelopment.</p>
+	 *
+	 * @param modules a {@link com.google.inject.Module} object.
+	 */
 	public SeleniumSystemUnderDevelopment(Module... modules) {
 		super();
 
 		injector = Guice.createInjector(modules);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void onStartDocument(Document document) {
 		driver = injector.getInstance(WebDriver.class);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void onEndDocument(Document document) {
 		if (driver != null) {
@@ -52,6 +62,7 @@ public class SeleniumSystemUnderDevelopment
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Fixture getFixture(String name, String... params)
 			throws Throwable {

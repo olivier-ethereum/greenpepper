@@ -22,12 +22,20 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>NoConverterFoundException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class NoConverterFoundException extends PHPException {
 
 	private static final long serialVersionUID = 4718990869016564326L;
 
+	/**
+	 * <p>Constructor for NoConverterFoundException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public NoConverterFoundException(String str) {
 		super(str);
 	}

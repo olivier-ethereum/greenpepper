@@ -22,10 +22,19 @@
 package com.greenpepper.phpsud.helper;
 
 /**
+ * <p>Helper class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class Helper {
 
+	/**
+	 * <p>formatParamList.</p>
+	 *
+	 * @param params a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String formatParamList(String ... params) {
 		StringBuilder s = new StringBuilder();
 		for(String p : params) {
@@ -37,6 +46,12 @@ public class Helper {
 		return s.toString();
 	}
 	
+	/**
+	 * <p>formatProcedureName.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String formatProcedureName(String s) {
 		StringBuilder res = new StringBuilder();
 		boolean one = true;
@@ -52,12 +67,24 @@ public class Helper {
 		return res.toString();
 	}
 	
+	/**
+	 * <p>firstUpperCase.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String firstUpperCase(String s) {
 		String first = s.length() > 0 ? s.substring(0, 1).toUpperCase() : "";
 		String second = s.length() > 1 ? s.substring(1).toLowerCase() : "";
 		return first + second;
 	}
 	
+	/**
+	 * <p>purge.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String purge(String s) {
 		StringBuilder out = new StringBuilder();
 		for(int i = 0; i < s.length(); i ++) {
@@ -69,6 +96,12 @@ public class Helper {
 		return out.toString();
 	}
 	
+	/**
+	 * <p>parseArray.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return an array of {@link java.lang.String} objects.
+	 */
 	public static String [] parseArray(String s) {
 		// a:2:{i:0;s:12:"PHPSUD_OBJ_2";i:1;s:12:"PHPSUD_OBJ_3";}
 		String [] t = s.split(":");

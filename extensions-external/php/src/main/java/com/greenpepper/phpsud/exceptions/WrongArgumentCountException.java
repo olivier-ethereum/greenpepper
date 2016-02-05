@@ -22,12 +22,20 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>WrongArgumentCountException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class WrongArgumentCountException extends PHPException {
 
 	private static final long serialVersionUID = 6063215343190424211L;
 
+	/**
+	 * <p>Constructor for WrongArgumentCountException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public WrongArgumentCountException(String str) {
 		super(str);
 	}

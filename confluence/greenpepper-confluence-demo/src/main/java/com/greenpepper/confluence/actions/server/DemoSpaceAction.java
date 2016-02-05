@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.actions.server;
 
@@ -51,7 +55,6 @@ import com.greenpepper.server.domain.component.ContentType;
 import com.greenpepper.server.rpc.RpcServerService;
 import com.greenpepper.util.I18nUtil;
 import com.greenpepper.util.StringUtil;
-
 public class DemoSpaceAction
 		extends GreenPepperServerAction
 {
@@ -81,26 +84,51 @@ public class DemoSpaceAction
 	private String username;
 	private String pwd;
 
+	/**
+	 * <p>Getter for the field <code>pwd</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getPwd()
 	{
 		return pwd;
 	}
 
+	/**
+	 * <p>Setter for the field <code>pwd</code>.</p>
+	 *
+	 * @param pwd a {@link java.lang.String} object.
+	 */
 	public void setPwd(String pwd)
 	{
 		this.pwd = StringUtil.toNullIfEmpty(pwd.trim());
 	}
 
+	/**
+	 * <p>Getter for the field <code>username</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getUsername()
 	{
 		return username;
 	}
 
+	/**
+	 * <p>Setter for the field <code>username</code>.</p>
+	 *
+	 * @param username a {@link java.lang.String} object.
+	 */
 	public void setUsername(String username)
 	{
 		this.username = StringUtil.toNullIfEmpty(username.trim());
 	}
 
+	/**
+	 * <p>doGetDemo.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String doGetDemo()
 	{
 		if (!gpUtil.isServerReady())
@@ -113,6 +141,11 @@ public class DemoSpaceAction
 		return SUCCESS;
 	}
 
+	/**
+	 * <p>isDemoSpaceExist.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isDemoSpaceExist()
 	{
 		try
@@ -125,6 +158,11 @@ public class DemoSpaceAction
 		}
 	}
 
+	/**
+	 * <p>doCreateDemoSpace.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String doCreateDemoSpace()
 	{
         LOGGER.info("creating DEMO Space");
@@ -390,6 +428,11 @@ public class DemoSpaceAction
         getImportExportManager().doImport(ctx);
 	}
 
+	/**
+	 * <p>doRemoveDemoSpace.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String doRemoveDemoSpace()
 	{
         LOGGER.info("Removing DEMO space.");
@@ -413,6 +456,11 @@ public class DemoSpaceAction
 		return SUCCESS;
 	}
 
+	/**
+	 * <p>getDemoSpaceUrl.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getDemoSpaceUrl()
 	{
 		Space demoSpace = getDemoSpace();
@@ -421,10 +469,9 @@ public class DemoSpaceAction
 	}
 
 	/**
-	 * Custom I18n. Based on WebWork i18n.
+	 * {@inheritDoc}
 	 *
-	 * @param key Key
-	 * @return the i18nzed message. If none found key is returned.
+	 * Custom I18n. Based on WebWork i18n.
 	 */
 	@HtmlSafe
 	public String getText(String key)
@@ -456,6 +503,11 @@ public class DemoSpaceAction
 		return resourceBundle;
 	}
 
+	/**
+	 * <p>Getter for the field <code>importExportManager</code>.</p>
+	 *
+	 * @return a {@link com.atlassian.confluence.importexport.ImportExportManager} object.
+	 */
 	public ImportExportManager getImportExportManager()
     {
 		if (importExportManager == null)
@@ -466,16 +518,31 @@ public class DemoSpaceAction
 		return importExportManager;
     }
 
+    /**
+     * <p>Setter for the field <code>importExportManager</code>.</p>
+     *
+     * @param importExportManager a {@link com.atlassian.confluence.importexport.ImportExportManager} object.
+     */
     public void setImportExportManager(ImportExportManager importExportManager)
     {
         this.importExportManager = importExportManager;
     }
 
+	/**
+	 * <p>isAllowRemoteApiAnonymous.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isAllowRemoteApiAnonymous()
 	{
 		return gpUtil.getSettingsManager().getGlobalSettings().isAllowRemoteApiAnonymous();
 	}
 
+	/**
+	 * <p>getGeneralConfigSecurityRemoteApiUrl.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getGeneralConfigSecurityRemoteApiUrl()
 	{
 		return String.format("%s/admin/editgeneralconfig.action#security",

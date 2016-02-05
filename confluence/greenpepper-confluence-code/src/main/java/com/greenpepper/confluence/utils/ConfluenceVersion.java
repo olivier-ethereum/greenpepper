@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.utils;
 
@@ -22,17 +26,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.atlassian.confluence.util.GeneralUtil;
-
 public final class ConfluenceVersion
 		implements Comparable
 {
 
+	/** Constant <code>V26X</code> */
 	public static final ConfluenceVersion V26X = new ConfluenceVersion(2, 6);
+	/** Constant <code>V28X</code> */
 	public static final ConfluenceVersion V28X = new ConfluenceVersion(2, 8);
+	/** Constant <code>V29X</code> */
 	public static final ConfluenceVersion V29X = new ConfluenceVersion(2, 9);
+	/** Constant <code>V210X</code> */
 	public static final ConfluenceVersion V210X = new ConfluenceVersion(2, 10);
+	/** Constant <code>V30X</code> */
 	public static final ConfluenceVersion V30X = new ConfluenceVersion(3, 0);
+    /** Constant <code>V40X</code> */
     public static final ConfluenceVersion V40X = new ConfluenceVersion(4, 0);
+    /** Constant <code>V50X</code> */
     public static final ConfluenceVersion V50X = new ConfluenceVersion(5, 0);
 
 	private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+).(\\d+)(.\\d+)?");
@@ -48,16 +58,27 @@ public final class ConfluenceVersion
 		this.minor = minor;
 	}
 
+	/**
+	 * <p>Getter for the field <code>major</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getMajor()
 	{
 		return major;
 	}
 
+	/**
+	 * <p>Getter for the field <code>minor</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getMinor()
 	{
 		return minor;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -68,6 +89,7 @@ public final class ConfluenceVersion
 		return version.getMajor() == getMajor() && version.getMinor() == getMinor();
 	}
 
+	/** {@inheritDoc} */
 	public int compareTo(Object o)
 	{
 		ConfluenceVersion version = (ConfluenceVersion)o;
@@ -85,6 +107,11 @@ public final class ConfluenceVersion
 		return new Integer(getMinor()).compareTo(version.getMinor());
 	}
 
+	/**
+	 * <p>getCurrentVersion.</p>
+	 *
+	 * @return a {@link com.greenpepper.confluence.utils.ConfluenceVersion} object.
+	 */
 	public static ConfluenceVersion getCurrentVersion()
 	{
 		if (CURRENT == null)

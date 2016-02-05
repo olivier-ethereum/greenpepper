@@ -13,14 +13,26 @@ import fit.ColumnFixture;
 import fit.RowFixture;
 import fit.TimedActionFixture;
 
+/**
+ * <p>FitInterpreterSelector class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FitInterpreterSelector extends GreenPepperInterpreterSelector
 {	
+	/**
+	 * <p>Constructor for FitInterpreterSelector.</p>
+	 *
+	 * @param systemUnderDevelopment a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+	 */
 	public FitInterpreterSelector(SystemUnderDevelopment systemUnderDevelopment) 
 	{
 		super(systemUnderDevelopment);
     	GreenPepper.register(new DateConverter());
 	}
 
+	/** {@inheritDoc} */
 	public Interpreter selectInterpreter(Example fitTable)
 	{
         try

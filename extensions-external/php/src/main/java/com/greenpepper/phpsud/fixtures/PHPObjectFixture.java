@@ -31,7 +31,10 @@ import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.NoSuchMessageException;
 
 /**
+ * <p>PHPObjectFixture class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPObjectFixture implements Fixture {
 
@@ -41,19 +44,27 @@ public class PHPObjectFixture implements Fixture {
 	
 	private PHPClassDescriptor desc;
 	
+	/**
+	 * <p>Constructor for PHPObjectFixture.</p>
+	 *
+	 * @param object a {@link com.greenpepper.phpsud.parser.PHPObject} object.
+	 */
 	public PHPObjectFixture(PHPObject object) {
 		this.object = object;
 		this.desc = object.getClassDescriptor();
 	}
 	
+	/** {@inheritDoc} */
 	public boolean canCheck(String arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public boolean canSend(String arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public Message check(String arg0) throws NoSuchMessageException {
 		LOGGER.debug("Check for class " + desc + ", method " + arg0);
 		PHPMethodDescriptor meth = PHPFixture.findMethod(desc, arg0);
@@ -64,14 +75,21 @@ public class PHPObjectFixture implements Fixture {
 		return new PHPMessage(meth, object.getPHPSudId(), true);
 	}
 
+	/** {@inheritDoc} */
 	public Fixture fixtureFor(Object arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/**
+	 * <p>getTarget.</p>
+	 *
+	 * @return a {@link java.lang.Object} object.
+	 */
 	public Object getTarget() {
 		throw new UnsupportedOperationException("Not implemented yet !");
 	}
 
+	/** {@inheritDoc} */
 	public Message send(String arg0) throws NoSuchMessageException {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}

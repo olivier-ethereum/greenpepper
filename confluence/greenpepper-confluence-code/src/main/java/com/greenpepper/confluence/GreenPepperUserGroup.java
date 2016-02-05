@@ -30,6 +30,12 @@ import com.atlassian.user.User;
 import com.atlassian.user.search.page.Pager;
 import com.greenpepper.server.GreenPepperServerException;
 
+/**
+ * <p>GreenPepperUserGroup class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperUserGroup
 {
 	private static final Logger log = Logger.getLogger(GreenPepperUserGroup.class);
@@ -38,6 +44,9 @@ public class GreenPepperUserGroup
 
 	private GroupManager groupManager;
 
+	/**
+	 * <p>createIfNeeded.</p>
+	 */
 	public void createIfNeeded()
 	{
 		Group group = null;
@@ -64,6 +73,12 @@ public class GreenPepperUserGroup
 		}
 	}
 
+	/**
+	 * <p>getNumberOfUserForGroup.</p>
+	 *
+	 * @return a int.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public int getNumberOfUserForGroup()
 			throws GreenPepperServerException
 	{
@@ -90,6 +105,12 @@ public class GreenPepperUserGroup
 		}
 	}
 
+	/**
+	 * <p>hasMembership.</p>
+	 *
+	 * @param user a {@link com.atlassian.user.User} object.
+	 * @return a boolean.
+	 */
 	public boolean hasMembership(User user)
 	{
 		try
@@ -105,6 +126,12 @@ public class GreenPepperUserGroup
 		}
 	}
 
+	/**
+	 * <p>addMembership.</p>
+	 *
+	 * @param user a {@link com.atlassian.user.User} object.
+	 * @return a boolean.
+	 */
 	public boolean addMembership(User user)
 	{
 		try

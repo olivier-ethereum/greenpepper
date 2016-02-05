@@ -32,7 +32,10 @@ import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 import com.greenpepper.util.ExceptionImposter;
 
 /**
+ * <p>PHPSud class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPSud extends DefaultSystemUnderDevelopment {
 	
@@ -44,6 +47,11 @@ public class PHPSud extends DefaultSystemUnderDevelopment {
 	private String workingDirectory;
 	private String phpInitFile;
 	
+	/**
+	 * <p>Constructor for PHPSud.</p>
+	 *
+	 * @param params a {@link java.lang.String} object.
+	 */
 	public PHPSud(String ... params) {
 		if (params.length != 3) {
 			LOGGER.error("Syntax : phpExec;workingDirectory;phpInitFile");
@@ -54,11 +62,13 @@ public class PHPSud extends DefaultSystemUnderDevelopment {
 		this.phpInitFile = params[2];
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public void addImport(String packageName) {
 		LOGGER.info("Import package " + packageName + " ignored.");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void onEndDocument(Document document) {
 		LOGGER.info("End document");
@@ -71,6 +81,7 @@ public class PHPSud extends DefaultSystemUnderDevelopment {
 		super.onEndDocument(document);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void onStartDocument(Document document) {
 		LOGGER.info("Start document");
@@ -84,6 +95,7 @@ public class PHPSud extends DefaultSystemUnderDevelopment {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Fixture getFixture(String name, String... params) throws Throwable {
 		LOGGER.debug("GetFixture " + name + " with " + params.length + " params");

@@ -18,6 +18,12 @@ import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.database.SupportedDialects;
 import com.greenpepper.util.I18nUtil;
 
+/**
+ * <p>InstallationAction class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class InstallationAction
 		extends GreenPepperServerAction
@@ -36,82 +42,151 @@ public class InstallationAction
 
 	private boolean editMode;
 	
+	/** {@inheritDoc} */
 	@Override
 	public String getActionName(String fullClassName) {
 		return getText("greenpepper.install.title");
 	}
 
+	/**
+	 * <p>Constructor for InstallationAction.</p>
+	 */
 	public InstallationAction()
 	{
 	}
 
+	/**
+	 * <p>config.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String config() {
 		return SUCCESS;
 	}
 
+	/**
+	 * <p>getDialects.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<SupportedDialects> getDialects()
 	{
 		return Arrays.asList(SupportedDialects.values());
 	}
 
 	//We want to force edit mode if DBMS not ready 
+	/**
+	 * <p>Getter for the field <code>editMode</code>.</p>
+	 *
+	 * @return a {@link java.lang.Boolean} object.
+	 */
 	public Boolean getEditMode() {
 		return editMode | !(isServerReady());
 	}
 
+	/**
+	 * <p>Setter for the field <code>editMode</code>.</p>
+	 *
+	 * @param editMode a {@link java.lang.Boolean} object.
+	 */
 	public void setEditMode(Boolean editMode) {
 		this.editMode = editMode;
 	}
 
+	/**
+	 * <p>getIsCustomSetup.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getIsCustomSetup()
 	{
 		return isCustomSetup();
 	}
 
+	/**
+	 * <p>isCustomSetup.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isCustomSetup()
 	{
 		return getInstallType().equals("customInstall");
 	}
 
+	/**
+	 * <p>Getter for the field <code>installType</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getInstallType()
 	{
 		return  installType == null ? (getJndiUrl() == null ? "quickInstall" : "customInstall") : installType;
 	}
 
+	/**
+	 * <p>Setter for the field <code>installType</code>.</p>
+	 *
+	 * @param installType a {@link java.lang.String} object.
+	 */
 	public void setInstallType(String installType)
 	{
 		this.installType = installType;
 	}
 
+	/**
+	 * <p>changeInstallationType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String changeInstallationType()
 	{
 		return SUCCESS;
 	}
 
+	/**
+	 * <p>Getter for the field <code>jndiUrl</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getJndiUrl()
 	{
 		return jndiUrl == null ? getConfigurationActivator().getConfigJnriUrl() : jndiUrl;
 	}
 
+	/**
+	 * <p>Setter for the field <code>jndiUrl</code>.</p>
+	 *
+	 * @param jndiUrl a {@link java.lang.String} object.
+	 */
 	public void setJndiUrl(String jndiUrl)
 	{
 		this.jndiUrl = jndiUrl;
 	}
 
+	/**
+	 * <p>Getter for the field <code>hibernateDialect</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getHibernateDialect()
 	{
 		return hibernateDialect == null ? getConfigurationActivator().getConfigDialect() : hibernateDialect;
 	}
 
+	/**
+	 * <p>Setter for the field <code>hibernateDialect</code>.</p>
+	 *
+	 * @param hibernateDialect a {@link java.lang.String} object.
+	 */
 	public void setHibernateDialect(String hibernateDialect)
 	{
 		this.hibernateDialect = hibernateDialect;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Custom I18n. Based on WebWork i18n.
-	 * @param key Key
-	 * @return the i18nzed message. If none found key is returned.
 	 */
 	@HtmlSafe
 	public String getText(String key)
@@ -143,16 +218,31 @@ public class InstallationAction
 		return resourceBundle;
 	}
 
+	/**
+	 * <p>isSetupComplete.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isSetupComplete()
 	{
 		return gpUtil.isServerSetupComplete();
 	}
 
+	/**
+	 * <p>isServerReady.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isServerReady()
 	{
 		return gpUtil.isServerReady();
 	}
 
+	/**
+	 * <p>editDbmsConfiguration.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String editDbmsConfiguration()
 	{
 		try
@@ -184,6 +274,11 @@ public class InstallationAction
 		return SUCCESS;
 	}
 
+	/**
+	 * <p>testDbmsConnection.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String testDbmsConnection()
 	{
 		if (!canConnectToDbms())

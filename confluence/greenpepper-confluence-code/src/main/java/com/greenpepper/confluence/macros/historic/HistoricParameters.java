@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.macros.historic;
 
@@ -26,30 +30,49 @@ import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Repository;
 import com.greenpepper.server.domain.SystemUnderTest;
-
 public class HistoricParameters
 {
 
+	/** Constant <code>PAGETITLE="pagetitle"</code> */
 	public static final String PAGETITLE = "pagetitle";
+	/** Constant <code>SPACEKEY="spacekey"</code> */
 	public static final String SPACEKEY = "spacekey";
+	/** Constant <code>WIDTH="width"</code> */
 	public static final String WIDTH = "width";
+	/** Constant <code>HEIGHT="height"</code> */
 	public static final String HEIGHT = "height";
+	/** Constant <code>BORDER="border"</code> */
 	public static final String BORDER = "border";
+	/** Constant <code>CHILDREN="children"</code> */
 	public static final String CHILDREN = "children";
+	/** Constant <code>MAXRESULT="maxresult"</code> */
 	public static final String MAXRESULT = "maxresult";
+	/** Constant <code>SUT="sut"</code> */
 	public static final String SUT = "sut";
+	/** Constant <code>SHOWIGNORED="showignored"</code> */
 	public static final String SHOWIGNORED = "showignored";
+	/** Constant <code>TITLE="title"</code> */
 	public static final String TITLE = "title";
+	/** Constant <code>SUBTITLE="subtitle"</code> */
 	public static final String SUBTITLE = "subtitle";
+	/** Constant <code>SUBTITLE2="subtitle2"</code> */
 	public static final String SUBTITLE2 = "subtitle2";
+	/** Constant <code>LABELS="labels"</code> */
 	public static final String LABELS = "labels";
+	/** Constant <code>POPUP_WIDTH="popupwidth"</code> */
 	public static final String POPUP_WIDTH = "popupwidth";
+	/** Constant <code>POPUP_HEIGHT="popupheight"</code> */
 	public static final String POPUP_HEIGHT = "popupheight";
 
+	/** Constant <code>DEFAULT_WIDTH=500</code> */
 	public static final int DEFAULT_WIDTH = 500;
+	/** Constant <code>DEFAULT_HEIGHT=500</code> */
 	public static final int DEFAULT_HEIGHT = 500;
+	/** Constant <code>DEFAULT_MAXRESULT=30</code> */
 	public static final int DEFAULT_MAXRESULT = 30;
+	/** Constant <code>DEFAULT_POPUP_WIDTH=800</code> */
 	public static final int DEFAULT_POPUP_WIDTH = 800;
+	/** Constant <code>DEFAULT_POPUP_HEIGHT=600</code> */
 	public static final int DEFAULT_POPUP_HEIGHT = 600;
 
 	public enum Children
@@ -92,6 +115,15 @@ public class HistoricParameters
 	private final int popupWidth;
 	private final int popupHeight;
 
+	/**
+	 * <p>Constructor for HistoricParameters.</p>
+	 *
+	 * @param parameters a {@link java.util.Map} object.
+	 * @param spaceKey a {@link java.lang.String} object.
+	 * @param page a {@link com.atlassian.confluence.pages.Page} object.
+	 * @param executionUID a {@link java.lang.String} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public HistoricParameters(Map parameters, String spaceKey, Page page, String executionUID)
 			throws GreenPepperServerException
 	{
@@ -119,106 +151,211 @@ public class HistoricParameters
 		popupHeight = getParameters(parameters, POPUP_HEIGHT, isNoChildren() ? DEFAULT_POPUP_HEIGHT : height);
 	}
 
+	/**
+	 * <p>Getter for the field <code>page</code>.</p>
+	 *
+	 * @return a {@link com.atlassian.confluence.pages.Page} object.
+	 */
 	public Page getPage()
 	{
 		return page;
 	}
 
+	/**
+	 * <p>Getter for the field <code>spaceKey</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSpaceKey()
 	{
 		return spaceKey;
 	}
 
+	/**
+	 * <p>Getter for the field <code>executionUID</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getExecutionUID()
 	{
 		return executionUID;
 	}
 
+	/**
+	 * <p>Getter for the field <code>width</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getWidth()
 	{
 		return width;
 	}
 
+	/**
+	 * <p>Getter for the field <code>height</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getHeight()
 	{
 		return height;
 	}
 
+	/**
+	 * <p>isBorder.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isBorder()
 	{
 		return border;
 	}
 
+	/**
+	 * <p>Getter for the field <code>children</code>.</p>
+	 *
+	 * @return a {@link com.greenpepper.confluence.macros.historic.HistoricParameters.Children} object.
+	 */
 	public Children getChildren()
 	{
 		return children;
 	}
 
+	/**
+	 * <p>isNoChildren.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isNoChildren()
 	{
 		return Children.False == children;
 	}
 
+	/**
+	 * <p>isAllChildren.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isAllChildren()
 	{
 		return Children.All == children;
 	}
 
+	/**
+	 * <p>isFirstChildren.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isFirstChildren()
 	{
 		return Children.First == children;
 	}
 
+	/**
+	 * <p>Getter for the field <code>maxResult</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getMaxResult()
 	{
 		return maxResult;
 	}
 
+	/**
+	 * <p>Getter for the field <code>targetedSystemUnderTest</code>.</p>
+	 *
+	 * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+	 */
 	public SystemUnderTest getTargetedSystemUnderTest()
 	{
 		return targetedSystemUnderTest;
 	}
 
+	/**
+	 * <p>getSut.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSut()
 	{
 		return getTargetedSystemUnderTest().getName();
 	}
 
+	/**
+	 * <p>isShowIgnored.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isShowIgnored()
 	{
 		return showIgnored;
 	}
 
+	/**
+	 * <p>getIsShowIgnored.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getIsShowIgnored()
 	{
 		return isShowIgnored();
 	}
 
+	/**
+	 * <p>Getter for the field <code>title</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getTitle()
 	{
 		return title == null ? getDefaultTitle() : title;
 	}
 
+	/**
+	 * <p>Getter for the field <code>subTitle</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSubTitle()
 	{
 		return subTitle == null ? getDefaultSubTitle() : subTitle;
 	}
 
+	/**
+	 * <p>Getter for the field <code>subTitle2</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSubTitle2()
 	{
 		return subTitle2 == null ? getDefaultSubTitle2() : subTitle2;
 	}
 
+	/**
+	 * <p>Getter for the field <code>labels</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getLabels()
 	{
 		return labels;
 	}
 
+	/**
+	 * <p>Getter for the field <code>popupHeight</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getPopupHeight()
 	{
 		return popupHeight;
 	}
 
+	/**
+	 * <p>Getter for the field <code>popupWidth</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getPopupWidth()
 	{
 		return popupWidth;

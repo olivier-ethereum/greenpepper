@@ -1,5 +1,11 @@
 package com.greenpepper.samples.application.bank;
 
+/**
+ * <p>WithdrawType class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public enum WithdrawType
 {
 	 ATM ("ATM"),
@@ -13,6 +19,7 @@ public enum WithdrawType
 		this.description = description;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString()
 	{

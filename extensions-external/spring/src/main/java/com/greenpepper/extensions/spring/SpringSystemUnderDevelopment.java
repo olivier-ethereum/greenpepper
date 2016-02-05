@@ -10,21 +10,38 @@ import com.greenpepper.reflect.DefaultFixture;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 
+/**
+ * <p>SpringSystemUnderDevelopment class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SpringSystemUnderDevelopment extends DefaultSystemUnderDevelopment
 {
     private BeanFactory beanFactory;
 
+    /**
+     * <p>Constructor for SpringSystemUnderDevelopment.</p>
+     *
+     * @param applicationCtxes a {@link java.lang.String} object.
+     */
     public SpringSystemUnderDevelopment(String... applicationCtxes)
     {
         // TODO move this to the onDocumentStart method . It's not a good idea to play with spring in the construtor
         this.beanFactory = new GreenPepperXMLAplicationContext(applicationCtxes).getBeanFactory();
     }
 	
+    /**
+     * <p>Constructor for SpringSystemUnderDevelopment.</p>
+     *
+     * @param beanFactory a {@link org.springframework.beans.factory.BeanFactory} object.
+     */
     public SpringSystemUnderDevelopment(BeanFactory beanFactory)
     {
         this.beanFactory = beanFactory;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Fixture getFixture(String fixtureName, String... params) throws Throwable
     {

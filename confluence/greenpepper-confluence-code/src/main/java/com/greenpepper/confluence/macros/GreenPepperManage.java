@@ -13,15 +13,23 @@ import com.greenpepper.server.domain.Repository;
 import com.greenpepper.util.StringUtil;
 import com.opensymphony.util.TextUtils;
 
+/**
+ * <p>GreenPepperManage class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperManage extends AbstractHttpRetrievalMacro {
 
 	private HttpRetrievalService httpRetrievalService;
 
+	/** {@inheritDoc} */
 	public void setHttpRetrievalService(
 			HttpRetrievalService httpRetrievalService) {
 		this.httpRetrievalService = httpRetrievalService;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@SuppressWarnings("unchecked")
 	public String execute(Map parameters, String body, RenderContext context)
@@ -56,6 +64,15 @@ public class GreenPepperManage extends AbstractHttpRetrievalMacro {
 		}
 	}
 
+	/**
+	 * <p>execute2.</p>
+	 *
+	 * @param parameters a {@link java.util.Map} object.
+	 * @param body a {@link java.lang.String} object.
+	 * @param renderContext a {@link com.atlassian.renderer.RenderContext} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws com.atlassian.renderer.v2.macro.MacroException if any.
+	 */
 	public String execute2(Map parameters, String body, RenderContext renderContext)
     throws MacroException
 {
@@ -111,6 +128,11 @@ public class GreenPepperManage extends AbstractHttpRetrievalMacro {
 //    throw exception;
 }
 
+	/**
+	 * <p>getName.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getName() {
 		return "greenpepper-manage";
 	}

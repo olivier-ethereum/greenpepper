@@ -24,7 +24,10 @@ package com.greenpepper.phpsud.exceptions;
 import java.io.IOException;
 
 /**
+ * <p>PHPTimeoutException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPTimeoutException extends IOException {
 

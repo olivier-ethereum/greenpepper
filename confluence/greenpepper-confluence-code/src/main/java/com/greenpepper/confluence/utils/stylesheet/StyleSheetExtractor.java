@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,13 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.utils.stylesheet;
 
 import com.atlassian.confluence.spaces.Space;
-
 public interface StyleSheetExtractor
 {
 
+	/**
+	 * <p>renderStyleSheet.</p>
+	 *
+	 * @param space a {@link com.atlassian.confluence.spaces.Space} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	String renderStyleSheet(Space space);
 }

@@ -14,20 +14,29 @@ import ch.qos.logback.core.status.Status;
 import ch.qos.logback.core.status.StatusManager;
 import ch.qos.logback.core.status.WarnStatus;
 
+/**
+ * <p>DefaultLogbackConfigurator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DefaultLogbackConfigurator implements Configurator {
 
     private Context context;
 
+    /** {@inheritDoc} */
     @Override
     public void setContext(Context context) {
         this.context = context;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Context getContext() {
         return context;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void configure(LoggerContext loggerContext) {
         StatusManager sm = loggerContext.getStatusManager();
@@ -49,37 +58,44 @@ public class DefaultLogbackConfigurator implements Configurator {
         rootLogger.setLevel(Level.INFO);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addStatus(Status status) {
         StatusManager sm = context.getStatusManager();
         sm.add(status);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInfo(String msg) {
         context.getStatusManager().add(new InfoStatus(msg, context));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInfo(String msg, Throwable ex) {
         context.getStatusManager().add(new InfoStatus(msg, context, ex));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addWarn(String msg) {
         context.getStatusManager().add(new WarnStatus(msg, context));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addWarn(String msg, Throwable ex) {
         context.getStatusManager().add(new WarnStatus(msg, context, ex));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addError(String msg) {
         context.getStatusManager().add(new ErrorStatus(msg, context));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addError(String msg, Throwable ex) {
         context.getStatusManager().add(new ErrorStatus(msg, context, ex));

@@ -34,7 +34,10 @@ import com.greenpepper.phpsud.container.PHPMethodDescriptor;
 import com.greenpepper.phpsud.parser.PHPObject;
 
 /**
+ * <p>PHPJavaClassCreator class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPJavaClassCreator implements IPHPJavaClassCreator {
 	
@@ -52,6 +55,13 @@ public class PHPJavaClassCreator implements IPHPJavaClassCreator {
 	
 	private Constructor<?> constructor;
 	
+	/**
+	 * <p>Constructor for PHPJavaClassCreator.</p>
+	 *
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param descriptor a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @param uniqueId a int.
+	 */
 	public PHPJavaClassCreator(PHPContainer container, PHPClassDescriptor descriptor, int uniqueId) {
 		this.javaClassName = packageName + "container" + uniqueId + "." + descriptor.getClassName();
 		this.descriptor = descriptor;
@@ -200,10 +210,16 @@ public class PHPJavaClassCreator implements IPHPJavaClassCreator {
 		}	
 	}
 	
+	/**
+	 * <p>getGeneratedClass.</p>
+	 *
+	 * @return a {@link java.lang.Class} object.
+	 */
 	public Class<?> getGeneratedClass() {
 		return clazz;
 	}
 	
+	/** {@inheritDoc} */
 	public Object createNewObject(String id) {
 		if (this.clazz == null || this.constructor == null) {
 			LOGGER.error("Unable to get class or constructor");

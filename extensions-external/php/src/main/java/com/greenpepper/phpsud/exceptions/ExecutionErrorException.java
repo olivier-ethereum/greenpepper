@@ -22,12 +22,20 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>ExecutionErrorException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class ExecutionErrorException extends PHPException {
 
 	private static final long serialVersionUID = -6503494512528985655L;
 
+	/**
+	 * <p>Constructor for ExecutionErrorException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public ExecutionErrorException(String str) {
 		super(str);
 	}

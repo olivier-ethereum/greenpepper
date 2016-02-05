@@ -44,7 +44,10 @@ import com.greenpepper.phpsud.exceptions.PHPTimeoutException;
 import com.greenpepper.phpsud.exceptions.SyntaxErrorException;
 
 /**
+ * <p>PHPDriver class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPDriver {
 
@@ -78,6 +81,13 @@ public class PHPDriver {
 
 	private Socket client;
 
+	/**
+	 * <p>Constructor for PHPDriver.</p>
+	 *
+	 * @param timeout a int.
+	 * @throws java.io.IOException if any.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPDriver(int timeout) throws IOException, PHPException {
 		this(PHPDriverHelper.getInstance().getPhpExec(null), ".", timeout);
 	}
@@ -98,10 +108,27 @@ public class PHPDriver {
 		}
 	}
 
+	/**
+	 * <p>Constructor for PHPDriver.</p>
+	 *
+	 * @param exec a {@link java.lang.String} object.
+	 * @param workingDirectory a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPDriver(String exec, String workingDirectory) throws IOException, PHPException {
 		this(exec, workingDirectory, PHPDriverHelper.getInstance().getTimeout());
 	}
 
+	/**
+	 * <p>Constructor for PHPDriver.</p>
+	 *
+	 * @param exec a {@link java.lang.String} object.
+	 * @param workingDirectory a {@link java.lang.String} object.
+	 * @param timeout a int.
+	 * @throws java.io.IOException if any.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPDriver(String exec, String workingDirectory, int timeout) throws IOException, PHPException {
 		server = null;
 		client = null;
@@ -133,6 +160,13 @@ public class PHPDriver {
 		stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
 	}
 
+	/**
+	 * <p>execRun.</p>
+	 *
+	 * @param command a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public void execRun(String command) throws IOException, PHPException {
 	    writeCommand("R" + command);
 	    phpConsoleLogger.write(command);
@@ -141,6 +175,14 @@ public class PHPDriver {
 		
 	}
 
+	/**
+	 * <p>execGet.</p>
+	 *
+	 * @param command a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public String execGet(String command) throws IOException, PHPException {
 		writeCommand("G" + command);
 		phpConsoleLogger.write(command);
@@ -169,6 +211,11 @@ public class PHPDriver {
 		return cmd;
 	}
 
+	/**
+	 * <p>close.</p>
+	 *
+	 * @throws java.io.IOException if any.
+	 */
 	public void close() throws IOException {
 		out.close();
 		in.close();
@@ -203,14 +250,32 @@ public class PHPDriver {
 		}
 	}
 
+	/**
+	 * <p>Getter for the field <code>stdout</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public String getStdout() throws IOException {
 		return stdout.ready() ? stdout.readLine() : null;
 	}
 
+	/**
+	 * <p>Getter for the field <code>stderr</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public String getStderr() throws IOException {
 		return stderr.ready() ? stderr.readLine() : null;
 	}
 
+	/**
+	 * <p>flushStdout.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public List<String> flushStdout() throws IOException {
 		List<String> result = new ArrayList<String>();
 		while(stdout.ready()) {
@@ -219,6 +284,12 @@ public class PHPDriver {
 		return result;
 	}
 	
+	/**
+	 * <p>flushStderr.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public List<String> flushStderr() throws IOException {
 		List<String> result = new ArrayList<String>();
 		while(stderr.ready()) {
@@ -227,6 +298,11 @@ public class PHPDriver {
 		return result;
 	}
 	
+	/**
+	 * <p>flushConsoles.</p>
+	 *
+	 * @throws java.io.IOException if any.
+	 */
 	public void flushConsoles() throws IOException {
 		flushStderr();
 		flushStdout();

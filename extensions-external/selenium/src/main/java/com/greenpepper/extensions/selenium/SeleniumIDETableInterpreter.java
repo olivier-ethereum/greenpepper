@@ -13,6 +13,12 @@ import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.NoSuchMessageException;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>SeleniumIDETableInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SeleniumIDETableInterpreter extends AbstractInterpreter
 {
 
@@ -24,11 +30,17 @@ public class SeleniumIDETableInterpreter extends AbstractInterpreter
     private final Fixture fixture;
     private Statistics stats;
 
+    /**
+     * <p>Constructor for SeleniumIDETableInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public SeleniumIDETableInterpreter(Fixture fixture )
     {
         this.fixture = fixture;
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification specification )
     {
         stats = new Statistics();

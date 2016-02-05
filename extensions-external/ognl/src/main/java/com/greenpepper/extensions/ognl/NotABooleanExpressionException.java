@@ -19,14 +19,30 @@
 
 package com.greenpepper.extensions.ognl;
 
+/**
+ * <p>NotABooleanExpressionException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class NotABooleanExpressionException extends OgnlExpressionException
 {
+    /**
+     * <p>Constructor for NotABooleanExpressionException.</p>
+     *
+     * @param expression a {@link java.lang.String} object.
+     */
     public NotABooleanExpressionException( String expression )
     {
         super( expression );
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return getExpression();

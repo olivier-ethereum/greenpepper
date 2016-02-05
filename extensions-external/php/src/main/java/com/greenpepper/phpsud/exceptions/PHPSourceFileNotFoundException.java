@@ -22,12 +22,20 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>PHPSourceFileNotFoundException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPSourceFileNotFoundException extends PHPException {
 
 	private static final long serialVersionUID = 3333559008201270354L;
 
+	/**
+	 * <p>Constructor for PHPSourceFileNotFoundException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public PHPSourceFileNotFoundException(String str) {
 		super(str);
 		// TODO Auto-generated constructor stub

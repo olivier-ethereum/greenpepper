@@ -15,18 +15,35 @@ import com.greenpepper.util.cli.ArgumentMissingException;
 import com.greenpepper.util.cli.CommandLine;
 import com.greenpepper.util.cli.ParseException;
 
+/**
+ * <p>ListRepo class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ListRepo {
 
+	/** Constant <code>URI="http://localhost:8090"</code> */
 	public static final String URI = "http://localhost:8090";
+	/** Constant <code>RPC_PATH="/rpc/xmlrpc"</code> */
 	public static final String RPC_PATH = "/rpc/xmlrpc";
 	private static final Vector EMPTY = new Vector(0);
 
 	private CommandLine cli;
 	
+	/**
+	 * <p>Constructor for ListRepo.</p>
+	 */
 	public ListRepo() {
 		this.cli = new CommandLine();
 	}
 	
+	/**
+	 * <p>run.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public void run(String... args) throws Exception {
 		defineCommandLine();
 		
@@ -103,7 +120,9 @@ public class ListRepo {
 	}
 
 	/**
-	 * @param args
+	 * <p>main.</p>
+	 *
+	 * @param args an array of {@link java.lang.String} objects.
 	 */
 	public static void main(String[] args) {
 

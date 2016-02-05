@@ -7,35 +7,55 @@ import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.NoSuchMessageException;
 import com.greenpepper.reflect.SystemUnderTest;
 
+/**
+ * <p>OgnlFixture class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class OgnlFixture implements Fixture
 {
     private final Fixture decorated;
 
+    /**
+     * <p>Constructor for OgnlFixture.</p>
+     *
+     * @param decorated a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public OgnlFixture( Fixture decorated )
     {
         this.decorated = decorated;
     }
 
+    /**
+     * <p>getTarget.</p>
+     *
+     * @return a {@link java.lang.Object} object.
+     */
     public Object getTarget()
     {
         return decorated.getTarget();
     }
 
+    /** {@inheritDoc} */
     public Fixture fixtureFor( Object target )
     {
         return new OgnlFixture( decorated.fixtureFor( target ) );
     }
 
+    /** {@inheritDoc} */
     public boolean canSend( String message )
     {
         return decorated.canSend( message ) || getSendMessage( message ) != null;
     }
 
+    /** {@inheritDoc} */
     public boolean canCheck( String message )
     {
         return decorated.canCheck( message ) || getCheckMessage( message ) != null;
     }
 
+    /** {@inheritDoc} */
     public Message check( String message ) throws NoSuchMessageException
     {
         if (decorated.canCheck( message )) return decorated.check( message );
@@ -46,6 +66,7 @@ public class OgnlFixture implements Fixture
         return check;
     }
 
+    /** {@inheritDoc} */
     public Message send( String message ) throws NoSuchMessageException
     {
         if (decorated.canSend( message )) return decorated.send( message );

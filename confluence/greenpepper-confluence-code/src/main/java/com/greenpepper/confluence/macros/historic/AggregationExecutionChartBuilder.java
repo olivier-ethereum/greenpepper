@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.macros.historic;
 
@@ -47,7 +51,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Execution;
-
 public class AggregationExecutionChartBuilder
 		extends AbstractChartBuilder
 {
@@ -63,11 +66,24 @@ public class AggregationExecutionChartBuilder
 		this.executions = executions;
 	}
 
+	/**
+	 * <p>newInstance.</p>
+	 *
+	 * @param settings a {@link com.greenpepper.confluence.macros.historic.HistoricParameters} object.
+	 * @param executions a {@link java.util.List} object.
+	 * @return a {@link com.greenpepper.confluence.macros.historic.AggregationExecutionChartBuilder} object.
+	 */
 	public static AggregationExecutionChartBuilder newInstance(HistoricParameters settings, List<Execution> executions)
 	{
 		return new AggregationExecutionChartBuilder(settings, executions);
 	}
 
+	/**
+	 * <p>generateChart.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public String generateChart()
 			throws GreenPepperServerException
 	{

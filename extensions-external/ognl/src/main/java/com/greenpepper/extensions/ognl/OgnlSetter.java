@@ -24,22 +24,32 @@ import com.greenpepper.reflect.Message;
 /**
  * This <code>Action</code> implementation insert a value in an object returned
  * by an OGNL expression.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class OgnlSetter extends Message
 {
     private final OgnlExpression ognlExpression;
 
+    /**
+     * <p>Constructor for OgnlSetter.</p>
+     *
+     * @param ognlExpression a {@link com.greenpepper.extensions.ognl.OgnlExpression} object.
+     */
     public OgnlSetter( OgnlExpression ognlExpression )
     {
         this.ognlExpression = ognlExpression;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getArity()
     {
         return 1;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Object send( String... args ) throws Exception
     {

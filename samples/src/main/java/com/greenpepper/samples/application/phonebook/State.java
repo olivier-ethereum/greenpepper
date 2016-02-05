@@ -28,6 +28,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+/**
+ * <p>State class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @Table(name="STATE")
 @SuppressWarnings("serial")
 public class State extends AbstractEntity implements Comparable
@@ -36,6 +42,13 @@ public class State extends AbstractEntity implements Comparable
 	private String name;
 	private String code;
     
+    /**
+     * <p>Constructor for State.</p>
+     *
+     * @param country a {@link com.greenpepper.samples.application.phonebook.Country} object.
+     * @param name a {@link java.lang.String} object.
+     * @param code a {@link java.lang.String} object.
+     */
     public State(Country country, String name, String code)
     {
         super();
@@ -45,6 +58,11 @@ public class State extends AbstractEntity implements Comparable
         this.code = code;
     }
 
+    /**
+     * <p>Getter for the field <code>code</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "CODE", unique = true, nullable = false, length=255)
 	public String getCode() 
@@ -52,6 +70,11 @@ public class State extends AbstractEntity implements Comparable
 		return code;
 	}
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "NAME", unique = true, nullable = false, length=255)
 	public String getName() 
@@ -59,6 +82,11 @@ public class State extends AbstractEntity implements Comparable
 		return name;
 	}
 
+    /**
+     * <p>Getter for the field <code>country</code>.</p>
+     *
+     * @return a {@link com.greenpepper.samples.application.phonebook.Country} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="COUNTRY_ID")
 	public Country getCountry() 
@@ -66,26 +94,43 @@ public class State extends AbstractEntity implements Comparable
 		return country;
 	}
 
+	/**
+	 * <p>Setter for the field <code>code</code>.</p>
+	 *
+	 * @param code a {@link java.lang.String} object.
+	 */
 	public void setCode(String code)
 	{
 		this.code = code;
 	}
 
+	/**
+	 * <p>Setter for the field <code>name</code>.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public void setName(String name) 
 	{
 		this.name = name;
 	}
 
+	/**
+	 * <p>Setter for the field <code>country</code>.</p>
+	 *
+	 * @param country a {@link com.greenpepper.samples.application.phonebook.Country} object.
+	 */
 	public void setCountry(Country country) 
 	{
 		this.country = country;
 	}
 
+    /** {@inheritDoc} */
     public int compareTo(Object o)
     {
         return name.compareTo(((State)o).name);
     }
     
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if(!(o instanceof State))
@@ -104,6 +149,11 @@ public class State extends AbstractEntity implements Comparable
         return false;
     }
     
+    /**
+     * <p>hashCode.</p>
+     *
+     * @return a int.
+     */
     public int hashCode()
     {
     	return getName().hashCode() + getCode().hashCode() + getCountry().hashCode();

@@ -14,16 +14,29 @@ import com.greenpepper.interpreter.flow.dowith.Action;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.CollectionUtil;
 
+/**
+ * <p>CheckRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class CheckRow extends com.greenpepper.interpreter.flow.dowith.CheckRow
 {
 	private boolean timed;
 	
+	/**
+	 * <p>Constructor for CheckRow.</p>
+	 *
+	 * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+	 * @param timed a {@link java.lang.Boolean} object.
+	 */
 	public CheckRow(Fixture fixture, Boolean timed)
 	{
 		super(fixture);
 		this.timed = timed;
 	}
 
+    /** {@inheritDoc} */
     public void interpret( Specification table )
     {
         Example row = table.nextExample();
@@ -58,6 +71,7 @@ public class CheckRow extends com.greenpepper.interpreter.flow.dowith.CheckRow
         }
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row) 
     {
 		List<Example> checkRow = new ArrayList<Example>();

@@ -26,6 +26,12 @@ import com.atlassian.config.lifecycle.LifecycleItem;
 import com.atlassian.spring.container.ContainerManager;
 import com.greenpepper.server.GreenPepperServer;
 
+/**
+ * <p>GreenPepperLifeCycle class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperLifeCycle
 		implements LifecycleItem
 {
@@ -33,6 +39,7 @@ public class GreenPepperLifeCycle
 
 	private GreenPepperServerConfigurationActivator activator;
 
+	/** {@inheritDoc} */
 	public void startup(LifecycleContext lifecycleContext)
 			throws Exception
 	{
@@ -54,6 +61,7 @@ public class GreenPepperLifeCycle
 		}
 	}
 
+	/** {@inheritDoc} */
 	public void shutdown(LifecycleContext lifecycleContext)
 			throws Exception
 	{

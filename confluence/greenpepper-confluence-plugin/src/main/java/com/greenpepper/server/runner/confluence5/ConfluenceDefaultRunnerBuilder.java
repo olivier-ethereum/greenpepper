@@ -21,6 +21,12 @@ import com.greenpepper.server.domain.dao.SystemUnderTestDao;
 import com.greenpepper.server.runner.spi.DefaultRunnerBuilder;
 
 
+/**
+ * <p>ConfluenceDefaultRunnerBuilder class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ConfluenceDefaultRunnerBuilder implements DefaultRunnerBuilder {
 
     /**
@@ -29,11 +35,13 @@ public class ConfluenceDefaultRunnerBuilder implements DefaultRunnerBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfluenceDefaultRunnerBuilder.class);
 
 
+    /** {@inheritDoc} */
     @Override
     public String getRunnerName() {
         return "GPCore JAVA v." + GreenPepperCore.VERSION + " (with DemoSpace Fixtures)";
     }
 
+    /** {@inheritDoc} */
     @Override
     public void buildAndRegisterRunner(SystemUnderTestDao systemUnderTestDao, Properties properties) {
         String confluenceHome = properties.getProperty("confluence.home", null);

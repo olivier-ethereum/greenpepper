@@ -13,6 +13,12 @@ import com.greenpepper.reflect.TypeLoader;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>FitActionRowSelector class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FitActionRowSelector extends DoWithRowSelector
 {
 	private Fixture fitFixture;
@@ -20,6 +26,13 @@ public class FitActionRowSelector extends DoWithRowSelector
 	private boolean timed;
     private TypeLoader<Row> typeLoader;
 	
+    /**
+     * <p>Constructor for FitActionRowSelector.</p>
+     *
+     * @param sud a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     * @param timed a boolean.
+     */
     public FitActionRowSelector(SystemUnderDevelopment sud, Fixture fixture, boolean timed) 
     {
 		super(fixture);
@@ -30,6 +43,7 @@ public class FitActionRowSelector extends DoWithRowSelector
         typeLoader.addSuffix("Row");
 	}
 
+	/** {@inheritDoc} */
 	public Row select(Example example)
     {
         if (isARow(identifier(example)))
@@ -61,6 +75,7 @@ public class FitActionRowSelector extends DoWithRowSelector
         return new FitDefaultRow(fitFixture, fixture, timed);
     }
 
+    /** {@inheritDoc} */
     protected Row instantiateRow(Example row)
     {
         Type<Row> rowClass = loadRowType(identifier(row));
@@ -75,6 +90,7 @@ public class FitActionRowSelector extends DoWithRowSelector
         }
     }
 
+    /** {@inheritDoc} */
     protected boolean isARow(String name)
     {
         Type<Row> type = loadRowType(name);
@@ -86,6 +102,7 @@ public class FitActionRowSelector extends DoWithRowSelector
         return typeLoader.loadType(name);
     }
 
+    /** {@inheritDoc} */
     protected String identifier(Example row)
     {
         return ExampleUtil.contentOf(row.firstChild());

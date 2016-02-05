@@ -28,6 +28,12 @@ import java.util.regex.Pattern;
 import com.greenpepper.expectation.Expectation;
 import com.greenpepper.util.FactoryMethod;
 
+/**
+ * <p>OgnlExpectation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class OgnlExpectation implements Expectation
 {
     private static final String CONDITIONAL_EXPRESSION_NO_DOUBLE_QUOTES_PATTERN = "(?s).*\\?.*";
@@ -45,6 +51,12 @@ public class OgnlExpectation implements Expectation
     private final String matchee;
     private final Object target;
 
+    /**
+     * <p>create.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.extensions.ognl.OgnlExpectation} object.
+     */
     @FactoryMethod
     public static OgnlExpectation create( String expected )
     {
@@ -54,10 +66,21 @@ public class OgnlExpectation implements Expectation
         return new OgnlExpectation( expected );
     }
 
+    /**
+     * <p>Constructor for OgnlExpectation.</p>
+     *
+     * @param matchee a {@link java.lang.String} object.
+     */
     public OgnlExpectation( String matchee )
     {
         this(matchee, null);
     }
+    /**
+     * <p>Constructor for OgnlExpectation.</p>
+     *
+     * @param matchee a {@link java.lang.String} object.
+     * @param target a {@link java.lang.Object} object.
+     */
     public OgnlExpectation( String matchee, Object target)
     {
         this.target = target;
@@ -71,11 +94,13 @@ public class OgnlExpectation implements Expectation
             throw new IllegalArgumentException( "Unsupported ognl expression type" );
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder sb )
     {
         return sb.append( matchee );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         Object meets = executeExpression( result );
@@ -109,6 +134,12 @@ public class OgnlExpectation implements Expectation
         }
     }
 
+    /**
+     * <p>conditionalExpression.</p>
+     *
+     * @param expectation a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean conditionalExpression( String expectation )
     {
         String expression = expectation.replaceAll( CONDITIONAL_EXPRESSION_WITH_DOUBLE_QUOTES_PATTERN, "" );
@@ -116,11 +147,23 @@ public class OgnlExpectation implements Expectation
         return Pattern.matches( CONDITIONAL_EXPRESSION_NO_DOUBLE_QUOTES_PATTERN, expression );
     }
 
+    /**
+     * <p>extractExpression.</p>
+     *
+     * @param expectation a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean extractExpression( String expectation )
     {
         return Pattern.matches( EXTRACT_EXPRESSION_PATTERN, expectation );
     }
 
+    /**
+     * <p>formatExtractExpression.</p>
+     *
+     * @param expectation a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String formatExtractExpression( String expectation )
     {
         return String.format( EXTRACT_EXPRESSION_FORMAT, expectation );

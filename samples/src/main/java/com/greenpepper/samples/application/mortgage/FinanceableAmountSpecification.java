@@ -19,8 +19,20 @@
 
 package com.greenpepper.samples.application.mortgage;
 
+/**
+ * <p>FinanceableAmountSpecification class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FinanceableAmountSpecification
 {
+    /**
+     * <p>financeableAmmountOf.</p>
+     *
+     * @param property a {@link com.greenpepper.samples.application.mortgage.Property} object.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public Money financeableAmmountOf(Property property)
     {
         return property.getMarketValue().times(Ratio.percent( 75 ));

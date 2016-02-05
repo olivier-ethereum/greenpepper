@@ -9,8 +9,15 @@ import com.atlassian.confluence.xhtml.api.MacroDefinition;
 import com.atlassian.renderer.WikiStyleRenderer;
 import com.atlassian.spring.container.ContainerManager;
 
+/**
+ * <p>GreenPepperMacroWithBodyMigrator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperMacroWithBodyMigrator implements MacroMigration {
 
+	/** {@inheritDoc} */
 	public MacroDefinition migrate(MacroDefinition macroDefinition,
 			ConversionContext context) {
 		MacroBody body = macroDefinition.getBody();

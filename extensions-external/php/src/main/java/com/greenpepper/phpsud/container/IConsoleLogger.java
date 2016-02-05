@@ -22,12 +22,25 @@
 package com.greenpepper.phpsud.container;
 
 /**
+ * <p>IConsoleLogger interface.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public interface IConsoleLogger {
 	
+	/**
+	 * <p>stdout.</p>
+	 *
+	 * @param line a {@link java.lang.String} object.
+	 */
 	void stdout(String line);
 	
+	/**
+	 * <p>stderr.</p>
+	 *
+	 * @param line a {@link java.lang.String} object.
+	 */
 	void stderr(String line);
 
 }

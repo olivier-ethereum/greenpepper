@@ -29,6 +29,12 @@ import com.atlassian.spring.container.ContainerManager;
 import com.greenpepper.confluence.GreenPepperServerConfigurationActivator;
 import com.greenpepper.server.GreenPepperServerException;
 
+/**
+ * <p>GreenPepperPluginListener class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperPluginListener implements EventListener
 {
 
@@ -36,6 +42,7 @@ public class GreenPepperPluginListener implements EventListener
 
 	private GreenPepperServerConfigurationActivator configurationActivator;
 
+	/** {@inheritDoc} */
 	public void handleEvent(Event event)
 	{
 		if (event instanceof PluginInstallEvent
@@ -54,6 +61,11 @@ public class GreenPepperPluginListener implements EventListener
 		}
 	}
 
+	/**
+	 * <p>getHandledEventClasses.</p>
+	 *
+	 * @return an array of {@link java.lang.Class} objects.
+	 */
 	public Class[] getHandledEventClasses()
 	{
 		return new Class[] {PluginEvent.class};

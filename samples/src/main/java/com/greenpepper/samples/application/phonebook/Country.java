@@ -30,6 +30,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+/**
+ * <p>Country class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @Table(name="COUNTRY")
 @SuppressWarnings("serial")
 public class Country extends AbstractEntity
@@ -37,6 +43,11 @@ public class Country extends AbstractEntity
     private String name;
     private Set<State> states = new TreeSet<State>();
 
+    /**
+     * <p>Constructor for Country.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public Country(String name)
     {
         super();
@@ -44,6 +55,11 @@ public class Country extends AbstractEntity
     	this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "NAME", unique = true, nullable = false, length=255)
     public String getName()
@@ -51,32 +67,59 @@ public class Country extends AbstractEntity
         return name;
     }
 
+    /**
+     * <p>Getter for the field <code>states</code>.</p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
     @OneToMany(mappedBy="country", cascade=CascadeType.ALL)
     public Set<State> getStates()
     {
         return states;
     }
 
+    /**
+     * <p>Setter for the field <code>name</code>.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public void setName(String name)
     {
         this.name = name;
     }
 
+    /**
+     * <p>Setter for the field <code>states</code>.</p>
+     *
+     * @param states a {@link java.util.Set} object.
+     */
     public void setStates(Set<State> states)
     {
         this.states = states;
     }
     
+    /**
+     * <p>addState.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @param code a {@link java.lang.String} object.
+     */
     public void addState(String name, String code)
     {
     	states.add(new State(this, name, code));
     }
     
+    /**
+     * <p>removeState.</p>
+     *
+     * @param state a {@link com.greenpepper.samples.application.phonebook.State} object.
+     */
     public void removeState(State state)
     {
     	states.remove(state);
     }
     
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if(!(o instanceof Country))
@@ -93,6 +136,11 @@ public class Country extends AbstractEntity
         return false;
     }
     
+    /**
+     * <p>hashCode.</p>
+     *
+     * @return a int.
+     */
     public int hashCode()
     {
     	return getName().hashCode();

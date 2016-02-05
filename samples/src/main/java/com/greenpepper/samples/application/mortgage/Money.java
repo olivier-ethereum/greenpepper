@@ -21,15 +21,32 @@ package com.greenpepper.samples.application.mortgage;
 
 import java.math.BigDecimal;
 
+/**
+ * <p>Money class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Money
 {
     private final BigDecimal dollars;
 
+    /**
+     * <p>Constructor for Money.</p>
+     *
+     * @param dollars a {@link java.math.BigDecimal} object.
+     */
     public Money(BigDecimal dollars)
     {
         this.dollars = dollars;
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param text a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public static Money parse(String text)
     {
         return new Money( new BigDecimal( normalize( text ) ) );
@@ -40,16 +57,28 @@ public class Money
         return text.replaceAll( "\\$", "").replaceAll( ",", "").replaceAll( "\\s", "");
     }
 
+    /**
+     * <p>dollars.</p>
+     *
+     * @param amount a float.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public static Money dollars(float amount)
     {
         return new Money( new BigDecimal( amount ) );
     }
 
+    /**
+     * <p>zero.</p>
+     *
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public static Money zero()
     {
         return dollars(0f);
     }
 
+    /** {@inheritDoc} */
     public boolean equals(Object other)
     {
         if (other instanceof Money)
@@ -63,26 +92,54 @@ public class Money
         }
     }
 
+    /**
+     * <p>hashCode.</p>
+     *
+     * @return a int.
+     */
     public int hashCode()
     {
         return dollars.hashCode();
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString()
     {
         return "$" + dollars;
     }
 
+    /**
+     * <p>times.</p>
+     *
+     * @param ratio a {@link com.greenpepper.samples.application.mortgage.Ratio} object.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public Money times(Ratio ratio)
     {
         return new Money(ratio.applyTo(dollars));
     }
 
+    /**
+     * <p>minus.</p>
+     *
+     * @param subtrahend a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public Money minus(Money subtrahend)
     {
         return new Money(dollars.subtract(subtrahend.dollars));
     }
 
+    /**
+     * <p>greaterThan.</p>
+     *
+     * @param money a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     * @return a boolean.
+     */
     public boolean greaterThan(Money money)
     {
         return this.dollars.compareTo( money.dollars ) >= 0;

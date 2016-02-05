@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2010 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.extensions.selenium2;
 
@@ -22,16 +26,21 @@ import org.openqa.selenium.WebDriver;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-
 public class WebDriverModule
 		extends AbstractModule {
 
 	private final Class<? extends WebDriver> driverClass;
 
+	/**
+	 * <p>Constructor for WebDriverModule.</p>
+	 *
+	 * @param driverClass a {@link java.lang.Class} object.
+	 */
 	public WebDriverModule(Class<? extends WebDriver> driverClass) {
 		this.driverClass = driverClass;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void configure() {
 		bind(WebDriver.class).to(driverClass).in(Singleton.class);

@@ -50,6 +50,12 @@ import com.greenpepper.server.license.Authorizer;
 import com.greenpepper.server.license.OpenSourceAuthorizer;
 import com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcServer;
 
+/**
+ * <p>GreenPepperServerConfigurationActivator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperServerConfigurationActivator implements StateAware {
 
     private static final Logger log = LoggerFactory.getLogger(GreenPepperServerConfigurationActivator.class);
@@ -71,34 +77,66 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
     private boolean isServerStarted = false;
 
 
+    /**
+     * <p>enabled.</p>
+     */
     public void enabled() {
         log.info("Enabling GreenPepper Plugin");
         isPluginEnabled = true;
 
     }
 
+    /**
+     * <p>disabled.</p>
+     */
     public void disabled() {
         log.info("Disabling GreenPepper Plugin");
         isPluginEnabled = false;
         shutdown();
     }
 
+    /**
+     * <p>Setter for the field <code>bandanaManager</code>.</p>
+     *
+     * @param bandanaManager a {@link com.atlassian.bandana.BandanaManager} object.
+     */
     public void setBandanaManager(BandanaManager bandanaManager) {
         this.bandanaManager = bandanaManager;
     }
 
+    /**
+     * <p>Setter for the field <code>bootstrapManager</code>.</p>
+     *
+     * @param bootstrapManager a {@link com.atlassian.confluence.setup.BootstrapManager} object.
+     */
     public void setBootstrapManager(BootstrapManager bootstrapManager) {
         this.bootstrapManager = bootstrapManager;
     }
 
+    /**
+     * <p>Setter for the field <code>settingsManager</code>.</p>
+     *
+     * @param settingsManager a {@link com.atlassian.confluence.setup.settings.SettingsManager} object.
+     */
     public void setSettingsManager(SettingsManager settingsManager) {
         this.settingsManager = settingsManager;
     }
 
+    /**
+     * <p>isReady.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isReady() {
         return isPluginEnabled && hibernateSessionService != null;
     }
 
+    /**
+     * <p>startup.</p>
+     *
+     * @param forceStartup a boolean.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     */
     public void startup(boolean forceStartup) throws GreenPepperServerException {
         log.info("Starting Plugin");
         if (!isPluginEnabled)
@@ -157,6 +195,9 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         }
     }
 
+    /**
+     * <p>shutdown.</p>
+     */
     public void shutdown() {
         log.info("Shutting down Plugin");
         closeSession();
@@ -177,6 +218,11 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         sProperties.setProperty(DefaultRunners.DEFAULT_RUNNER_BUILDER_INTERFACE, "com.greenpepper.server.runner.confluence5.ConfluenceDefaultRunnerBuilder");
     }
 
+    /**
+     * <p>Getter for the field <code>configuration</code>.</p>
+     *
+     * @return a {@link com.greenpepper.confluence.GreenPepperServerConfiguration} object.
+     */
     public GreenPepperServerConfiguration getConfiguration() {
         if (configuration == null) {
             configuration = getConfigurationFromBandana();
@@ -185,6 +231,11 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         return configuration;
     }
 
+    /**
+     * <p>storeConfiguration.</p>
+     *
+     * @param configuration a {@link com.greenpepper.confluence.GreenPepperServerConfiguration} object.
+     */
     public void storeConfiguration(GreenPepperServerConfiguration configuration) {
         // @todo : sanity check over the previous configuration
 
@@ -221,14 +272,29 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         return bandanaManager.getValue(bandanaContext, classKey.getName());
     }
 
+    /**
+     * <p>getConfigJnriUrl.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getConfigJnriUrl() {
         return (String) getConfiguration().getProperties().get("config$hibernate.connection.datasource");
     }
 
+    /**
+     * <p>getConfigDialect.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getConfigDialect() {
         return (String) getConfiguration().getProperties().get("config$hibernate.dialect");
     }
 
+    /**
+     * <p>initQuickInstallConfiguration.</p>
+     *
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     */
     public void initQuickInstallConfiguration() throws GreenPepperServerException {
         GreenPepperServerConfiguration configuration = getConfiguration();
 
@@ -252,6 +318,13 @@ public class GreenPepperServerConfigurationActivator implements StateAware {
         startup(true);
     }
 
+    /**
+     * <p>initCustomInstallConfiguration.</p>
+     *
+     * @param hibernateDialect a {@link java.lang.String} object.
+     * @param jndiUrl a {@link java.lang.String} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     */
     public void initCustomInstallConfiguration(String hibernateDialect, String jndiUrl) throws GreenPepperServerException {
         GreenPepperServerConfiguration configuration = getConfiguration();
 

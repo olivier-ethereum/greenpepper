@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.macros;
 
@@ -44,25 +48,38 @@ import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcMethodName;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.StringUtil;
-
 public abstract class AbstractHttpRetrievalMacro extends BaseHttpRetrievalMacro implements Macro
 {
 	private final Logger log = Logger.getLogger(AbstractHttpRetrievalMacro.class);
 
+	/**
+	 * <p>Constructor for AbstractHttpRetrievalMacro.</p>
+	 */
 	public AbstractHttpRetrievalMacro()
 	{
 		super();
 	}
 
 	// Macros v4    
+	/**
+	 * <p>getBodyType.</p>
+	 *
+	 * @return a {@link com.atlassian.confluence.macro.Macro.BodyType} object.
+	 */
 	public BodyType getBodyType() {
 		 return BodyType.NONE;
 	}
 
+	/**
+	 * <p>getOutputType.</p>
+	 *
+	 * @return a {@link com.atlassian.confluence.macro.Macro.OutputType} object.
+	 */
 	public OutputType getOutputType() {
 		 return OutputType.BLOCK;
 	}
 
+	/** {@inheritDoc} */
 	public String execute(Map<String, String> parameters, String body,
 			ConversionContext context) throws MacroExecutionException {
 	      try
@@ -76,6 +93,7 @@ public abstract class AbstractHttpRetrievalMacro extends BaseHttpRetrievalMacro 
 	}
 // End Macros V4
 
+	/** {@inheritDoc} */
 	public String successfulResponse(Map parameters, RenderContext context, String url, HttpResponse response) throws MacroException
 	{
 //		InputStream is = null;
@@ -97,12 +115,28 @@ public abstract class AbstractHttpRetrievalMacro extends BaseHttpRetrievalMacro 
 //		}
 	}
 
+	/**
+	 * <p>getParameter.</p>
+	 *
+	 * @param parameters a {@link java.util.Map} object.
+	 * @param name a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	protected String getParameter(Map parameters, String name)
 	{
 		String parameter = (String)parameters.get(name);
 		return StringUtil.isBlank(parameter) ? null : parameter.trim();
 	}
 
+	/**
+	 * <p>getRepository.</p>
+	 *
+	 * @param url a {@link java.lang.String} object.
+	 * @param handler a {@link java.lang.String} object.
+	 * @param jiraUid a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Repository} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	@SuppressWarnings("unchecked")
 	protected Repository getRepository(String url, String handler, String jiraUid) throws GreenPepperServerException
 	{

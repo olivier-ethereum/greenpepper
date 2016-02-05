@@ -13,16 +13,24 @@ import com.atlassian.renderer.v2.macro.MacroException;
 import com.greenpepper.confluence.utils.MacroCounter;
 import com.greenpepper.server.GreenPepperServerException;
 
+/**
+ * <p>GreenPepperInclude class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperInclude extends AbstractGreenPepperMacro 
 {
 	private static final String INCLUDED_PAGE_PARAM_NAME = "gp$included";
 
+	/** {@inheritDoc} */
 	@Override
     public boolean isInline()
     {
         return true;
     }
 
+    /** {@inheritDoc} */
     public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext renderContext) throws MacroException
     {
 		final PageContext context = (PageContext) renderContext;

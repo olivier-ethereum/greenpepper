@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.actions.execution;
 
@@ -26,39 +30,68 @@ import com.greenpepper.confluence.actions.AbstractGreenPepperAction;
 import com.greenpepper.confluence.utils.stylesheet.StyleSheetExtractorFactory;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Execution;
-
 public class ShowExecutionResultAction
 		extends AbstractGreenPepperAction
 {
 	private Long id;
 	private Execution execution;
 
+	/**
+	 * <p>Getter for the field <code>id</code>.</p>
+	 *
+	 * @return a {@link java.lang.Long} object.
+	 */
 	public Long getId()
 	{
 		return id;
 	}
 
+	/**
+	 * <p>Setter for the field <code>id</code>.</p>
+	 *
+	 * @param id a {@link java.lang.Long} object.
+	 */
 	public void setId(Long id)
 	{
 		this.id = id;
 	}
 
+	/**
+	 * <p>Getter for the field <code>execution</code>.</p>
+	 *
+	 * @return a {@link com.greenpepper.server.domain.Execution} object.
+	 */
 	public Execution getExecution()
 	{
 		return execution;
 	}
 
+	/**
+	 * <p>Setter for the field <code>execution</code>.</p>
+	 *
+	 * @param execution a {@link com.greenpepper.server.domain.Execution} object.
+	 */
 	public void setExecution(Execution execution)
 	{
 		this.execution = execution;
 	}
 
+	/**
+	 * <p>getTitleHtml.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@HtmlSafe
 	public String getTitleHtml()
 	{
 		return getTitle(false);
 	}
 
+	/**
+	 * <p>getTitleWithAnchorHtml.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@HtmlSafe
 	public String getTitleWithAnchorHtml()
 	{
@@ -99,6 +132,11 @@ public class ShowExecutionResultAction
 													execution.getSpecification().getName());
 	}
 
+	/**
+	 * <p>getStylesheetHtml.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@HtmlSafe
 	public String getStylesheetHtml()
 	{
@@ -107,22 +145,42 @@ public class ShowExecutionResultAction
 							 StyleSheetExtractorFactory.getInstance().renderStyleSheet(space), gpUtil.getBaseUrl());
 	}
 
+	/**
+	 * <p>getHasException.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getHasException()
 	{
 		return execution != null && execution.hasException();
 	}
 
+	/**
+	 * <p>getExceptionHtml.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@HtmlSafe
 	public String getExceptionHtml()
 	{
 		return execution.getExecutionErrorId();
 	}
 
+	/**
+	 * <p>getHasBody.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getHasBody()
 	{
 		return execution != null && StringUtils.isNotEmpty(execution.getResults());
 	}
 
+	/**
+	 * <p>getBodyHtml.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@HtmlSafe
 	public String getBodyHtml()
 	{
@@ -131,17 +189,32 @@ public class ShowExecutionResultAction
 		return body.replaceAll("<html>", "").replaceAll("</html>", "");
 	}
 
+	/**
+	 * <p>getHasSections.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getHasSections()
 	{
 		return execution != null && StringUtils.isNotEmpty(execution.getSections());
 	}
 
+	/**
+	 * <p>getSectionsHtml.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@HtmlSafe
 	public String getSectionsHtml()
 	{
 		return String.format("%s : %s", gpUtil.getText("greenpepper.page.sections"), execution.getSections());
 	}
 	
+	/**
+	 * <p>show.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String show()
 	{
 		try

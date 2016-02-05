@@ -9,6 +9,12 @@ import com.greenpepper.confluence.actions.execution.ChildrenExecutionAction;
 import com.greenpepper.confluence.utils.MacroCounter;
 import com.greenpepper.server.GreenPepperServerException;
 
+/**
+ * <p>GreenPepperChildren class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperChildren extends AbstractGreenPepperMacro
 {
 	/*
@@ -43,25 +49,34 @@ public class GreenPepperChildren extends AbstractGreenPepperMacro
 		openInSameWindow Default --> false NEW in v2.1
 			You can control whether or not the link to the specification will open in the same window.
 	 */
+    /** Constant <code>TITLE_PARAM="title"</code> */
     public static final String TITLE_PARAM = "title";
 
+	/**
+	 * <p>isInline.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isInline()
     {
         return false;
     }
 	
+	/** {@inheritDoc} */
 	@Override
 	public BodyType getBodyType()
 	{
 	    return BodyType.NONE;
 	}
 	 
+	/** {@inheritDoc} */
 	@Override
 	public OutputType getOutputType()
 	{
 	    return OutputType.BLOCK;
 	}
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public String execute(Map parameters, String body, RenderContext renderContext)
     {

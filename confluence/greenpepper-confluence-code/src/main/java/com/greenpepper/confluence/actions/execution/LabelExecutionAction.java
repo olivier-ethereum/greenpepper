@@ -7,12 +7,21 @@ import java.util.StringTokenizer;
 import com.atlassian.confluence.labels.Label;
 import com.atlassian.confluence.pages.Page;
 
+/**
+ * <p>LabelExecutionAction class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class LabelExecutionAction extends AbstractListExecutionAction
 {
     private String labels;
     private boolean searchQuery;
     
+    /**
+     * <p>buildExecutableList.</p>
+     */
     public void buildExecutableList()
     {
         for(String labelExp : labels.split(","))
@@ -30,21 +39,41 @@ public class LabelExecutionAction extends AbstractListExecutionAction
         }
     }
     
+    /**
+     * <p>Getter for the field <code>labels</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getLabels()
     {
         return labels;
     }
     
+    /**
+     * <p>Setter for the field <code>labels</code>.</p>
+     *
+     * @param labels a {@link java.lang.String} object.
+     */
     public void setLabels(String labels)
     {
         this.labels = labels.replaceAll("&amp;", "&");
     }
 
+    /**
+     * <p>Getter for the field <code>searchQuery</code>.</p>
+     *
+     * @return a boolean.
+     */
     public boolean getSearchQuery()
     {
         return searchQuery;
     }
 
+    /**
+     * <p>Setter for the field <code>searchQuery</code>.</p>
+     *
+     * @param searchQuery a boolean.
+     */
     public void setSearchQuery(boolean searchQuery)
     {
         this.searchQuery = searchQuery;

@@ -21,13 +21,19 @@ package com.greenpepper.confluence.utils.stylesheet;
 /**
  * Today, this is not a real factory as it will only give you one instance.
  * The file is still here cause I don't want to take the time and refactor.
- * @author wattazoum
  *
+ * @author wattazoum
+ * @version $Id: $Id
  */
 public class StyleSheetExtractorFactory
 {
 	private static StyleSheetExtractor instance = new DefaultStyleSheetExtractorImpl();
 
+	/**
+	 * <p>Getter for the field <code>instance</code>.</p>
+	 *
+	 * @return a {@link com.greenpepper.confluence.utils.stylesheet.StyleSheetExtractor} object.
+	 */
 	public static StyleSheetExtractor getInstance()
 	{
 		return instance;

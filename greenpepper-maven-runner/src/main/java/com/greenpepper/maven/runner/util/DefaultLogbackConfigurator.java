@@ -12,56 +12,72 @@ import ch.qos.logback.core.status.InfoStatus;
 import ch.qos.logback.core.status.Status;
 import ch.qos.logback.core.status.StatusManager;
 
+/**
+ * <p>DefaultLogbackConfigurator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DefaultLogbackConfigurator implements Configurator {
 
     private Context context;
 
+    /** {@inheritDoc} */
     @Override
     public void setContext(Context context) {
         this.context = context;
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public Context getContext() {
         return context;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addStatus(Status status) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInfo(String msg) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInfo(String msg, Throwable ex) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addWarn(String msg) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addWarn(String msg, Throwable ex) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addError(String msg) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addError(String msg, Throwable ex) {
         // I don't care
     }
 
+    /** {@inheritDoc} */
     @Override
     public void configure(LoggerContext loggerContext) {
         StatusManager sm = loggerContext.getStatusManager();

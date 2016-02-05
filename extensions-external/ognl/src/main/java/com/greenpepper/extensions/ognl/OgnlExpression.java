@@ -33,6 +33,9 @@ import ognl.TypeConverter;
 
 /**
  * Wrapper of ognl expression parsing, value extraction and insertion.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class OgnlExpression
 {
@@ -53,6 +56,13 @@ public class OgnlExpression
         Ognl.setTypeConverter( this.context, new OgnlTypeConverter() );
     }
 
+    /**
+     * <p>onSingleExpression.</p>
+     *
+     * @param expression a {@link java.lang.String} object.
+     * @param targets a {@link java.lang.Object} object.
+     * @return a {@link com.greenpepper.extensions.ognl.OgnlExpression} object.
+     */
     public static OgnlExpression onSingleExpression( String expression, Object... targets )
     {
         List<String> expressions = new ArrayList<String>();
@@ -61,6 +71,13 @@ public class OgnlExpression
         return new OgnlExpression( expressions, targets );
     }
 
+    /**
+     * <p>onUnresolvedExpression.</p>
+     *
+     * @param expression a {@link java.lang.String} object.
+     * @param targets a {@link java.lang.Object} object.
+     * @return a {@link com.greenpepper.extensions.ognl.OgnlExpression} object.
+     */
     public static OgnlExpression onUnresolvedExpression( String expression, Object... targets )
     {
         OgnlResolution resolver = new OgnlResolution( expression );
@@ -68,6 +85,14 @@ public class OgnlExpression
         return new OgnlExpression( resolver.expressionsListToResolve(), targets );
     }
 
+    /**
+     * <p>onUnresolvedExpression.</p>
+     *
+     * @param expression a {@link java.lang.String} object.
+     * @param format a {@link java.lang.String} object.
+     * @param targets a {@link java.lang.Object} object.
+     * @return a {@link com.greenpepper.extensions.ognl.OgnlExpression} object.
+     */
     public static OgnlExpression onUnresolvedExpression( String expression, String format, Object... targets )
     {
         OgnlResolution resolver = new OgnlResolution( expression );
@@ -75,11 +100,23 @@ public class OgnlExpression
         return new OgnlExpression( resolver.expressionsListToResolve( format ), targets );
     }
 
+    /**
+     * <p>isGetter.</p>
+     *
+     * @param valueExpression a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isGetter( String valueExpression )
     {
         return isExpression( valueExpression );
     }
 
+    /**
+     * <p>isSetter.</p>
+     *
+     * @param valueExpression a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isSetter( String valueExpression )
     {
         return isExpression( valueExpression );
@@ -90,16 +127,32 @@ public class OgnlExpression
         return !NameUtils.isJavaIdentifier( NameUtils.decapitalize( valueExpression ) );
     }
 
+    /**
+     * <p>addContextVariable.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @param value a {@link java.lang.Object} object.
+     */
     public void addContextVariable( String name, Object value )
     {
         context.put( name, value );
     }
 
+    /**
+     * <p>extractValue.</p>
+     *
+     * @return a {@link java.lang.Object} object.
+     */
     public Object extractValue()
     {
         return executeOnTargets( GET_VALUE );
     }
 
+    /**
+     * <p>insertValue.</p>
+     *
+     * @param setValue a {@link java.lang.String} object.
+     */
     public void insertValue( String setValue )
     {
         executeOnTargets( setValue );

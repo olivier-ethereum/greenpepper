@@ -16,12 +16,20 @@ package com.greenpepper.samples.application.calculator;
 
 /**
  * Demo SUT Application.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class Division
 {
     public double dividend;
     public double divisor;
 
+    /**
+     * <p>quotient.</p>
+     *
+     * @return a double.
+     */
     public double quotient()
     {
         return dividend / divisor;

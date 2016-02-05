@@ -29,19 +29,34 @@ import com.greenpepper.phpsud.helper.Helper;
 import com.greenpepper.phpsud.phpDriver.PHPInterpeter;
 
 /**
+ * <p>ObjectParser class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class ObjectParser implements IObjectParser {
 	
 	private PHPContainer container;
 
+	/**
+	 * <p>Constructor for ObjectParser.</p>
+	 */
 	public ObjectParser() {
 	}
 	
+	/** {@inheritDoc} */
 	public Object parse(String expr) throws PHPException {
 		return parse(expr, null);
 	}
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param expr a {@link java.lang.String} object.
+	 * @param id a {@link java.lang.String} object.
+	 * @return a {@link java.lang.Object} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public Object parse(String expr, String id) throws PHPException {
 		String varName = PHPInterpeter.getVar();
 		container.run(varName + " = " + expr);
@@ -78,6 +93,7 @@ public class ObjectParser implements IObjectParser {
 		return null;
 	}
 
+	/** {@inheritDoc} */
 	public void setPHPContainer(PHPContainer container) {
 		this.container = container;
 	}

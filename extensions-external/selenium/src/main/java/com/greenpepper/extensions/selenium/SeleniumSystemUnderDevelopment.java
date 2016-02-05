@@ -4,6 +4,12 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 import com.thoughtworks.selenium.HttpCommandProcessor;
 
+/**
+ * <p>SeleniumSystemUnderDevelopment class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SeleniumSystemUnderDevelopment extends DefaultSystemUnderDevelopment
 {
 
@@ -12,10 +18,14 @@ public class SeleniumSystemUnderDevelopment extends DefaultSystemUnderDevelopmen
 	private static final String DEFAULT_URL = "http://www.greenpeppersoftware.com";
 	private static final String DEFAULT_BROWSER_COMMAND = "*firefox";
 
+	/**
+	 * <p>Constructor for SeleniumSystemUnderDevelopment.</p>
+	 */
 	public SeleniumSystemUnderDevelopment() {
 		addImport(SeleniumFixture.class.getPackage().getName());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Fixture getFixture(String name, String... params) throws Throwable {
 		if(name != null && !name.equals("selenium"))

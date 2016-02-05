@@ -16,6 +16,12 @@ import org.slf4j.LoggerFactory;
 
 import com.greenpepper.GreenPepperCore;
 
+/**
+ * <p>ArgumentsParser class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ArgumentsParser {
 
     private static final String DEFAULT_SUD = "com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment";
@@ -23,10 +29,18 @@ public class ArgumentsParser {
     private PrintWriter out;
     private Logger logger = LoggerFactory.getLogger(ArgumentsParser.class);
 
+    /**
+     * <p>Constructor for ArgumentsParser.</p>
+     */
     public ArgumentsParser() {
         this(System.out);
     }
 
+    /**
+     * <p>Constructor for ArgumentsParser.</p>
+     *
+     * @param out a {@link java.io.OutputStream} object.
+     */
     public ArgumentsParser(OutputStream out) {
         this.out = new PrintWriter(out, true);
     }
@@ -66,9 +80,11 @@ public class ArgumentsParser {
     }
 
     /**
-     * @param args
+     * <p>parse.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
      * @return null if the help is asked.
-     * @throws ParseException
+     * @throws org.apache.commons.cli.ParseException if any.
      */
     public CommandLine parse(String[] args) throws ParseException {
         // create the command line parser

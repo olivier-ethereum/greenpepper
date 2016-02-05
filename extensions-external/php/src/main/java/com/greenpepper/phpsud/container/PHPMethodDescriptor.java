@@ -31,7 +31,10 @@ import com.greenpepper.phpsud.helper.Helper;
 import com.greenpepper.phpsud.phpDriver.PHPInterpeter;
 
 /**
+ * <p>PHPMethodDescriptor class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPMethodDescriptor {
 
@@ -43,6 +46,14 @@ public class PHPMethodDescriptor {
 	
 	private PHPContainer container;
 
+	/**
+	 * <p>Constructor for PHPMethodDescriptor.</p>
+	 *
+	 * @param desc a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @param methodName a {@link java.lang.String} object.
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPMethodDescriptor(PHPClassDescriptor desc, String methodName, PHPContainer container) throws PHPException {
 		this.desc = desc;
 		this.methodName = methodName;
@@ -60,14 +71,29 @@ public class PHPMethodDescriptor {
 		}
 	}
 	
+	/**
+	 * <p>getParamList.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<String> getParamList() {
 		return paramsList;
 	}
 
+	/**
+	 * <p>Getter for the field <code>methodName</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getMethodName() {
 		return methodName;
 	}
 	
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		return getMethodName();
 	}
@@ -94,14 +120,34 @@ public class PHPMethodDescriptor {
 		return cmd;
 	}
 	
+	/**
+	 * <p>getClassDescriptor.</p>
+	 *
+	 * @return a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 */
 	public PHPClassDescriptor getClassDescriptor() {
 		return desc;
 	}
 
+	/**
+	 * <p>exec.</p>
+	 *
+	 * @param id a {@link java.lang.String} object.
+	 * @param params a {@link java.lang.String} object.
+	 * @return a {@link java.lang.Object} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public Object exec(String id, String ... params) throws PHPException {
 		return container.getObjectParser().parse(getCmd(id, params));
 	}
 	
+	/**
+	 * <p>execNoResponse.</p>
+	 *
+	 * @param id a {@link java.lang.String} object.
+	 * @param params a {@link java.lang.String} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public void execNoResponse(String id, String ... params) throws Exception {
 		container.run(getCmd(id, params));
 	}

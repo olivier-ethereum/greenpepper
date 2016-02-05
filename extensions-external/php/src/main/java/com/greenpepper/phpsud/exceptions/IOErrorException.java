@@ -22,12 +22,20 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>IOErrorException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class IOErrorException extends PHPException {
 
 	private static final long serialVersionUID = -5357035885024029993L;
 
+	/**
+	 * <p>Constructor for IOErrorException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public IOErrorException(String str) {
 		super(str);
 	}

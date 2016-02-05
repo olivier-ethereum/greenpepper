@@ -15,8 +15,19 @@
  */
 package com.greenpepper.maven.runner;
 
+/**
+ * <p>Main class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Main {
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     */
     public static void main(String... args) {
         CommandLineRunner runner = new CommandLineRunner();
 

@@ -10,11 +10,23 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 
+/**
+ * <p>HibernateDatabase class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateDatabase
 {
     private static final String HIBERNATE_CONFIG_FILE = "hibernate.cfg.xml";
     private final AnnotationConfiguration cfg;
 
+    /**
+     * <p>Constructor for HibernateDatabase.</p>
+     *
+     * @param properties a {@link java.util.Properties} object.
+     * @throws org.hibernate.HibernateException if any.
+     */
     public HibernateDatabase(Properties properties) throws HibernateException
     {
         cfg = new AnnotationConfiguration();        
@@ -23,21 +35,42 @@ public class HibernateDatabase
         loadConfig();
     }
     
+    /**
+     * <p>createDatabase.</p>
+     *
+     * @throws org.hibernate.HibernateException if any.
+     */
     public void createDatabase() throws HibernateException
     {
         new SchemaExport(cfg).create(false, true);
     }
 
+    /**
+     * <p>dropDatabase.</p>
+     *
+     * @throws org.hibernate.HibernateException if any.
+     */
     public void dropDatabase() throws HibernateException
     {
         new SchemaExport(cfg).drop(false, true);
     }
     
+    /**
+     * <p>getConfiguration.</p>
+     *
+     * @return a {@link org.hibernate.cfg.Configuration} object.
+     */
     public Configuration getConfiguration()
     {
         return cfg;
     }    
 
+    /**
+     * <p>getSessionFactory.</p>
+     *
+     * @return a {@link org.hibernate.SessionFactory} object.
+     * @throws org.hibernate.HibernateException if any.
+     */
     public SessionFactory getSessionFactory() throws HibernateException
     {
         return cfg.buildSessionFactory();

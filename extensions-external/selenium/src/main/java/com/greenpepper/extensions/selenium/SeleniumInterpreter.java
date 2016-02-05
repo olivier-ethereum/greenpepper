@@ -6,16 +6,28 @@ import com.greenpepper.util.ExceptionImposter;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
+/**
+ * <p>SeleniumInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SeleniumInterpreter extends ActionInterpreter
 {
     private final SeleniumFixture fixture;
 
+    /**
+     * <p>Constructor for SeleniumInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.extensions.selenium.SeleniumFixture} object.
+     */
     public SeleniumInterpreter(SeleniumFixture fixture)
     {
         super( fixture );
         this.fixture = fixture;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void interpret(Specification specification)
     {

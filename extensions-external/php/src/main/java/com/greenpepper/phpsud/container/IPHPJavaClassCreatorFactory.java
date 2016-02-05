@@ -22,10 +22,20 @@
 package com.greenpepper.phpsud.container;
 
 /**
+ * <p>IPHPJavaClassCreatorFactory interface.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public interface IPHPJavaClassCreatorFactory {
 
+	/**
+	 * <p>getClassCreator.</p>
+	 *
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param desc a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @return a {@link com.greenpepper.phpsud.container.IPHPJavaClassCreator} object.
+	 */
 	IPHPJavaClassCreator getClassCreator(PHPContainer container, PHPClassDescriptor desc);
 	
 }

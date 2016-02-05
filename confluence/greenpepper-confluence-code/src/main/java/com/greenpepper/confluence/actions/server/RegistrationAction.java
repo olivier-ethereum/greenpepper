@@ -25,6 +25,9 @@ import com.greenpepper.util.StringUtil;
  * Action for the <code>GreenPepper Server Properties</code>.
  * <p/>
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 @SuppressWarnings("serial")
 public class RegistrationAction extends GreenPepperServerAction
@@ -62,6 +65,11 @@ public class RegistrationAction extends GreenPepperServerAction
     private boolean editClasspathsMode;
     private boolean editFixturesMode;
 
+	/**
+	 * <p>doGetRegistration.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String doGetRegistration()
     {
 
@@ -132,6 +140,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return editMode ? doGetSystemUnderTests(): SUCCESS;
     }
 
+	/**
+	 * <p>doRegister.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String doRegister()
     {
         try
@@ -167,6 +180,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetRegistration();
     }
 
+    /**
+     * <p>doUpdateRegistration.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doUpdateRegistration()
     {
         try
@@ -202,6 +220,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetRegistration();
     }
 
+    /**
+     * <p>doGetSystemUnderTests.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doGetSystemUnderTests()
     {
         try
@@ -238,6 +261,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return SUCCESS;
     }
 
+    /**
+     * <p>doAddSystemUnderTest.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doAddSystemUnderTest()
     {
         try
@@ -261,6 +289,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
+    /**
+     * <p>doUpdateSystemUnderTest.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doUpdateSystemUnderTest()
     {
         try
@@ -307,6 +340,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return SUCCESS;
     }
 
+    /**
+     * <p>doRemoveSystemUnderTest.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doRemoveSystemUnderTest()
     {
         try
@@ -325,6 +363,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
+    /**
+     * <p>doEditClasspath.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doEditClasspath()
     {
     	try
@@ -343,30 +386,65 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
+    /**
+     * <p>getClasspaths.</p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
     public Set<String> getClasspaths() {
     	return selectedSut.getSutClasspaths();
     }
 
+    /**
+     * <p>getClasspathsAsTextAreaContent.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getClasspathsAsTextAreaContent() {
     	return stringSetToTextArea(getClasspaths());
     }
     
+    /**
+     * <p>getClasspathTitle.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getClasspathTitle() {
     	return getText("greenpepper.suts.classpath");
     }
     
+    /**
+     * <p>getFixtureClasspathTitle.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFixtureClasspathTitle() {
     	return getText("greenpepper.suts.fixture");
     }
     
+    /**
+     * <p>getFixtureClasspaths.</p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
     public Set<String> getFixtureClasspaths() {
     	return selectedSut.getFixtureClasspaths();
     }
 
+    /**
+     * <p>getFixtureClasspathsAsTextAreaContent.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFixtureClasspathsAsTextAreaContent() {
     	return stringSetToTextArea(getFixtureClasspaths());
     }
 
+    /**
+     * <p>doEditFixture.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doEditFixture()
     {
         try
@@ -385,6 +463,11 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
+    /**
+     * <p>doSetAsDefault.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String doSetAsDefault()
     {
         try
@@ -401,6 +484,7 @@ public class RegistrationAction extends GreenPepperServerAction
         return doGetSystemUnderTests();
     }
 
+    /** {@inheritDoc} */
     @Override
     public LinkedList<Project> getProjects()
     {
@@ -421,225 +505,446 @@ public class RegistrationAction extends GreenPepperServerAction
         return projects;
     }
 
+    /**
+     * <p>Getter for the field <code>selectedSut</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     */
     public SystemUnderTest getSelectedSut()
     {
         return selectedSut;
     }
 
+    /**
+     * <p>Getter for the field <code>repositoryName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getRepositoryName()
     {
         return repositoryName;
     }
 
+    /**
+     * <p>Setter for the field <code>repositoryName</code>.</p>
+     *
+     * @param repositoryName a {@link java.lang.String} object.
+     */
     public void setRepositoryName(String repositoryName)
     {
         this.repositoryName = repositoryName.trim();
     }
 
+    /**
+     * <p>getProjectName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getProjectName()
     {
         return projectName;
     }
 
+    /** {@inheritDoc} */
     public void setProjectName(String projectName)
     {
         this.projectName = projectName;
     }
 
+	/**
+	 * <p>Getter for the field <code>pwd</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getPwd()
 	{
 		return pwd;
 	}
 
+	/**
+	 * <p>Setter for the field <code>pwd</code>.</p>
+	 *
+	 * @param pwd a {@link java.lang.String} object.
+	 */
 	public void setPwd(String pwd)
 	{
 		this.pwd = StringUtil.toNullIfEmpty(pwd.trim());
 	}
 
+	/**
+	 * <p>getEscapedPassword.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getEscapedPassword() {
 		return StringEscapeUtils.escapeHtml(getPwd());
 	}
 
+	/**
+	 * <p>Getter for the field <code>username</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getUsername()
 	{
 		return username;
 	}
 
+	/**
+	 * <p>Setter for the field <code>username</code>.</p>
+	 *
+	 * @param username a {@link java.lang.String} object.
+	 */
 	public void setUsername(String username)
 	{
 		this.username = StringUtil.toNullIfEmpty(username.trim());
 	}
 
+    /**
+     * <p>Getter for the field <code>newProjectName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getNewProjectName()
     {
         return newProjectName;
     }
 
+    /**
+     * <p>Setter for the field <code>newProjectName</code>.</p>
+     *
+     * @param newProjectName a {@link java.lang.String} object.
+     */
     public void setNewProjectName(String newProjectName)
     {
         this.newProjectName = newProjectName.trim();
     }
 
+    /**
+     * <p>Getter for the field <code>newSutName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getNewSutName()
     {
         return newSutName;
     }
 
+    /**
+     * <p>Setter for the field <code>newSutName</code>.</p>
+     *
+     * @param newSutName a {@link java.lang.String} object.
+     */
     public void setNewSutName(String newSutName)
     {
         this.newSutName = newSutName.trim();
     }
 
+    /**
+     * <p>Getter for the field <code>newFixtureFactory</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getNewFixtureFactory()
     {
         return newFixtureFactory;
     }
 
+    /**
+     * <p>Setter for the field <code>newFixtureFactory</code>.</p>
+     *
+     * @param fixtureFactory a {@link java.lang.String} object.
+     */
     public void setNewFixtureFactory(String fixtureFactory)
     {
         this.newFixtureFactory = StringUtil.toNullIfEmpty(fixtureFactory.trim());
     }
 
+    /**
+     * <p>Getter for the field <code>newFixtureFactoryArgs</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getNewFixtureFactoryArgs()
     {
         return newFixtureFactoryArgs;
     }
 
+    /**
+     * <p>Setter for the field <code>newFixtureFactoryArgs</code>.</p>
+     *
+     * @param fixtureFactoryArgs a {@link java.lang.String} object.
+     */
     public void setNewFixtureFactoryArgs(String fixtureFactoryArgs)
     {
         this.newFixtureFactoryArgs = StringUtil.toNullIfEmpty(fixtureFactoryArgs.trim());
     }
 
+    /**
+     * <p>Getter for the field <code>newRunnerName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getNewRunnerName()
     {
         return newRunnerName;
     }
 
+    /**
+     * <p>Setter for the field <code>newRunnerName</code>.</p>
+     *
+     * @param runnerName a {@link java.lang.String} object.
+     */
     public void setNewRunnerName(String runnerName)
     {
         this.newRunnerName = runnerName.trim();
     }
 
+    /**
+     * <p>Getter for the field <code>sutClasspath</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getSutClasspath()
     {
         return sutClasspath;
     }
 
+    /**
+     * <p>Setter for the field <code>sutClasspath</code>.</p>
+     *
+     * @param sutClasspath a {@link java.lang.String} object.
+     */
     public void setSutClasspath(String sutClasspath)
     {
         this.sutClasspath = sutClasspath.trim();
     }
 
+    /**
+     * <p>Getter for the field <code>fixtureClasspath</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFixtureClasspath()
     {
         return fixtureClasspath;
     }
 
+    /**
+     * <p>Setter for the field <code>fixtureClasspath</code>.</p>
+     *
+     * @param fixtureClasspath a {@link java.lang.String} object.
+     */
     public void setFixtureClasspath(String fixtureClasspath)
     {
         this.fixtureClasspath = fixtureClasspath.trim();
     }
 
+	/**
+	 * <p>Getter for the field <code>newProjectDependencyDescriptor</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getNewProjectDependencyDescriptor()
 	{
 		return newProjectDependencyDescriptor;
 	}
 
+	/**
+	 * <p>Setter for the field <code>newProjectDependencyDescriptor</code>.</p>
+	 *
+	 * @param newProjectDependencyDescriptor a {@link java.lang.String} object.
+	 */
 	public void setNewProjectDependencyDescriptor(String newProjectDependencyDescriptor)
 	{
 		this.newProjectDependencyDescriptor = StringUtil.toNullIfEmpty(newProjectDependencyDescriptor.trim());
 	}
 
+	/**
+	 * <p>getDefault.</p>
+	 *
+	 * @return a {@link java.lang.Boolean} object.
+	 */
 	public Boolean getDefault()
     {
         return selected;
     }
 
+    /**
+     * <p>setDefault.</p>
+     *
+     * @param selected a {@link java.lang.Boolean} object.
+     */
     public void setDefault(Boolean selected)
     {
         this.selected = selected;
     }
 
+    /**
+     * <p>Getter for the field <code>runners</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<Runner> getRunners()
     {
         return runners;
     }
 
+    /**
+     * <p>Getter for the field <code>selectedSutName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getSelectedSutName()
     {
         return selectedSutName;
     }
 
+    /**
+     * <p>Setter for the field <code>selectedSutName</code>.</p>
+     *
+     * @param selectedSutName a {@link java.lang.String} object.
+     */
     public void setSelectedSutName(String selectedSutName)
     {
         this.selectedSutName = selectedSutName;
     }
 
+	/**
+	 * <p>isLicenseValid.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isLicenseValid()
 	{
 		return licenseValid;
 	}
 
+	/**
+	 * <p>Getter for the field <code>readonly</code>.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getReadonly()
     {
         return readonly;
     }
 
+    /**
+     * <p>Setter for the field <code>readonly</code>.</p>
+     *
+     * @param readonly a boolean.
+     */
     public void setReadonly(boolean readonly)
     {
         this.readonly = readonly;
     }
 
+    /**
+     * <p>isEditMode.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isEditMode()
     {
         return editMode;
     }
 
+    /**
+     * <p>Setter for the field <code>editMode</code>.</p>
+     *
+     * @param editMode a boolean.
+     */
     public void setEditMode(boolean editMode)
     {
         this.editMode = editMode;
     }
 
+    /**
+     * <p>isAddMode.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isAddMode()
     {
         return addMode;
     }
 
+    /**
+     * <p>Setter for the field <code>addMode</code>.</p>
+     *
+     * @param addMode a boolean.
+     */
     public void setAddMode(boolean addMode)
     {
         this.addMode = addMode;
     }
 
+    /**
+     * <p>isEditClasspathsMode.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isEditClasspathsMode()
     {
         return editClasspathsMode;
     }
 
+    /**
+     * <p>Setter for the field <code>editClasspathsMode</code>.</p>
+     *
+     * @param editClasspathsMode a boolean.
+     */
     public void setEditClasspathsMode(boolean editClasspathsMode)
     {
         this.editClasspathsMode = editClasspathsMode;
     }
 
+    /**
+     * <p>isEditFixturesMode.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isEditFixturesMode()
     {
         return editFixturesMode;
     }
 
+    /**
+     * <p>Setter for the field <code>editFixturesMode</code>.</p>
+     *
+     * @param editFixturesMode a boolean.
+     */
     public void setEditFixturesMode(boolean editFixturesMode)
     {
         this.editFixturesMode = editFixturesMode;
     }
 
+    /**
+     * <p>isEditPropertiesMode.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isEditPropertiesMode()
     {
         return editPropertiesMode;
     }
 
+    /**
+     * <p>Setter for the field <code>editPropertiesMode</code>.</p>
+     *
+     * @param editPropertiesMode a boolean.
+     */
     public void setEditPropertiesMode(boolean editPropertiesMode)
     {
         this.editPropertiesMode = editPropertiesMode;
     }
 
+	/**
+	 * <p>Getter for the field <code>systemUnderTests</code>.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<SystemUnderTest> getSystemUnderTests()
     {
         return systemUnderTests;

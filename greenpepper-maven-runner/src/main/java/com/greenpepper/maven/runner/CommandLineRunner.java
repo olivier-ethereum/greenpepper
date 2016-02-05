@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  * This is free software; you can redistribute it and/or modify
@@ -12,6 +13,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.maven.runner;
 
@@ -61,12 +65,12 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import com.greenpepper.maven.runner.resolver.ProjectFileResolver;
 import com.greenpepper.maven.runner.util.ReflectionUtils;
 import com.greenpepper.util.cli.ArgumentMissingException;
-
 public class CommandLineRunner {
 
     private static final String PLUGIN_KEY = "com.github.strator-dev.greenpepper:greenpepper-maven-plugin";
     private boolean isDebug = false;
     private String projectDependencyDescriptor;
+    /** Constant <code>CWD="System.getProperty(user.dir)"</code> */
     public static final String CWD = System.getProperty("user.dir");
     @SuppressWarnings("serial")
     private ArrayList<String> scopes = new ArrayList<String>() {
@@ -85,15 +89,29 @@ public class CommandLineRunner {
     private ArgumentsParser argumentsParser;
     private ProjectFileResolver resolvers;
 
+    /**
+     * <p>Constructor for CommandLineRunner.</p>
+     */
     public CommandLineRunner() {
         this(System.out);
     }
 
+    /**
+     * <p>Constructor for CommandLineRunner.</p>
+     *
+     * @param out a {@link java.io.PrintStream} object.
+     */
     public CommandLineRunner(PrintStream out) {
         this.logger = new Logger(out);
         this.argumentsParser = new ArgumentsParser(out);
     }
 
+    /**
+     * <p>run.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @throws java.lang.Exception if any.
+     */
     public void run(String... args) throws Exception {
         List<String> parameters = parseCommandLine(args);
         if (!parameters.isEmpty()) {

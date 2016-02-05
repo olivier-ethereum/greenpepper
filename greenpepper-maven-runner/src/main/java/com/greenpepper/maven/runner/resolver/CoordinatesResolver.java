@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.maven.runner.resolver;
 
@@ -37,7 +41,6 @@ import org.apache.maven.project.MavenProject;
 
 import com.greenpepper.maven.runner.resolver.ProjectFileResolver.MavenGAV;
 import com.greenpepper.util.StringUtil;
-
 public class CoordinatesResolver implements ProjectFileResolver.Resolver
 {
     // A Maven coordinates : http://maven.apache.org/pom.html#Maven_Coordinates
@@ -53,17 +56,25 @@ public class CoordinatesResolver implements ProjectFileResolver.Resolver
 
     private MavenGAV mavenGAV;
 
+    /**
+     * <p>Constructor for CoordinatesResolver.</p>
+     *
+     * @param embedder a {@link org.apache.maven.embedder.MavenEmbedder} object.
+     * @param logger a {@link org.apache.maven.embedder.MavenEmbedderLogger} object.
+     */
     public CoordinatesResolver(MavenEmbedder embedder, MavenEmbedderLogger logger)
     {
         this.embedder = embedder;
         this.logger = logger;
     }
 
+    /** {@inheritDoc} */
     public final boolean canResolve(String value)
     {
         return !StringUtil.isEmpty( value ) && coordinatesPattern.matcher( value ).find();
     }
 
+    /** {@inheritDoc} */
     public final File resolve(String value) throws Exception
     {
         MavenGAV mavenGAV = resolveCoordinates( value );
@@ -75,6 +86,7 @@ public class CoordinatesResolver implements ProjectFileResolver.Resolver
         return resolveProjectFile();
     }
 
+    /** {@inheritDoc} */
     @Override
     public MavenGAV getMavenGAV() {
         return mavenGAV;

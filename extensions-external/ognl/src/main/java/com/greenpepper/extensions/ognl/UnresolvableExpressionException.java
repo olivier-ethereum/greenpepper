@@ -24,21 +24,42 @@ import java.util.List;
 
 import ognl.OgnlException;
 
+/**
+ * <p>UnresolvableExpressionException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class UnresolvableExpressionException extends OgnlExpressionException
 {
     private final List<OgnlException> causes = new ArrayList<OgnlException>();
 
+    /**
+     * <p>Constructor for UnresolvableExpressionException.</p>
+     *
+     * @param expression a {@link java.lang.String} object.
+     */
     public UnresolvableExpressionException( String expression )
     {
         super( expression );
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return getExpression();
     }
 
+    /**
+     * <p>addCause.</p>
+     *
+     * @param e a {@link ognl.OgnlException} object.
+     */
     public void addCause( OgnlException e )
     {
         causes.add( e );

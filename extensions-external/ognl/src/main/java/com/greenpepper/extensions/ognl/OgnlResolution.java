@@ -27,12 +27,20 @@ import com.greenpepper.util.StringUtil;
 
 /**
  * Build an ordered expressions list to resolve at OGNL execution.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class OgnlResolution
 {
     private String expression;
     private String format;
 
+    /**
+     * <p>Constructor for OgnlResolution.</p>
+     *
+     * @param expression a {@link java.lang.String} object.
+     */
     public OgnlResolution( String expression )
     {
         if (StringUtil.isBlank( expression )) throw new IllegalArgumentException( "No expression to resolve" );
@@ -40,6 +48,11 @@ public class OgnlResolution
         this.expression = expression;
     }
 
+    /**
+     * <p>expressionsListToResolve.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<String> expressionsListToResolve()
     {
         String[] parts = expression.trim().split( "\\s+" );
@@ -52,6 +65,12 @@ public class OgnlResolution
         return expressionsList;
     }
 
+    /**
+     * <p>expressionsListToResolve.</p>
+     *
+     * @param format a {@link java.lang.String} object.
+     * @return a {@link java.util.List} object.
+     */
     public List<String> expressionsListToResolve( String format )
     {
         this.format = format;

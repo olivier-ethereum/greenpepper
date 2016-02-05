@@ -10,8 +10,15 @@ import com.greenpepper.confluence.actions.execution.LabelExecutionAction;
 import com.greenpepper.confluence.utils.MacroCounter;
 import com.greenpepper.server.GreenPepperServerException;
 
+/**
+ * <p>GreenPepperLabels class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperLabels extends AbstractGreenPepperMacro
 {
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public String execute(Map parameters, String body, RenderContext renderContext) throws MacroException 
     {

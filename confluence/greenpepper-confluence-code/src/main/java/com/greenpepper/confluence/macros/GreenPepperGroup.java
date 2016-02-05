@@ -6,13 +6,25 @@ import com.atlassian.confluence.renderer.radeox.macros.MacroUtils;
 import com.atlassian.confluence.util.velocity.VelocityUtils;
 import com.atlassian.renderer.RenderContext;
 
+/**
+ * <p>GreenPepperGroup class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperGroup extends AbstractGreenPepperMacro
 {
+    /**
+     * <p>isInline.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isInline()
     {
         return true;
     }
     
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public String execute(Map parameters, String body, RenderContext renderContext) 
     {

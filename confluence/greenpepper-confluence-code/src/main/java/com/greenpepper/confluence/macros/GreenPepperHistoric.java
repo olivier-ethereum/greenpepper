@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.macros;
 
@@ -40,11 +44,11 @@ import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Execution;
 import com.greenpepper.server.domain.Specification;
 import com.greenpepper.server.domain.SystemUnderTest;
-
 public class GreenPepperHistoric
 		extends AbstractGreenPepperMacro
 {
 
+	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
     public String execute(Map parameters, String body, RenderContext renderContext) throws MacroException
 	{
@@ -191,6 +195,14 @@ public class GreenPepperHistoric
 		});
 	}
 
+	/**
+	 * <p>getSpecificationsFromPages.</p>
+	 *
+	 * @param sut a {@link java.lang.String} object.
+	 * @param pages a {@link java.util.List} object.
+	 * @return a {@link java.util.List} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	protected List<Specification> getSpecificationsFromPages(String sut, List<Page> pages)
 			throws GreenPepperServerException
 	{

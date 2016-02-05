@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,11 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.macros.historic;
 
 import java.io.Serializable;
-
 public class ChartLongValue
 		implements Serializable, Comparable
 {
@@ -27,27 +30,43 @@ public class ChartLongValue
 	private String value;
 	private Long id;
 
+	/**
+	 * <p>Constructor for ChartLongValue.</p>
+	 */
 	public ChartLongValue()
 	{
 	}
 
+	/**
+	 * <p>Constructor for ChartLongValue.</p>
+	 *
+	 * @param value a {@link java.lang.String} object.
+	 * @param id a {@link java.lang.Long} object.
+	 */
 	public ChartLongValue(String value, Long id)
 	{
 		this.value = value;
 		this.id = id;
 	}
 
+	/**
+	 * <p>Getter for the field <code>id</code>.</p>
+	 *
+	 * @return a {@link java.lang.Long} object.
+	 */
 	public Long getId()
 	{
 		return id;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString()
 	{
 		return String.valueOf(value);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -60,6 +79,7 @@ public class ChartLongValue
 		return o.value.equals(value);
 	}
 
+	/** {@inheritDoc} */
 	public int compareTo(Object o)
 	{
 		if (o instanceof ChartLongValue)

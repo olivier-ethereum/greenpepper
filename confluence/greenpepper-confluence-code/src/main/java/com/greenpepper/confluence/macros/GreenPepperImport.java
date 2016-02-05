@@ -11,10 +11,18 @@ import com.atlassian.renderer.v2.macro.MacroException;
 import com.greenpepper.confluence.utils.MacroParametersUtils;
 import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 
+/**
+ * <p>GreenPepperImport class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperImport extends AbstractGreenPepperMacro
 {
+	/** Constant <code>IMPORTS_PARAM="imports"</code> */
 	public static final String IMPORTS_PARAM = "imports";
 
+	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
     public String execute(Map parameters, String body, RenderContext renderContext) throws MacroException 
 	{
@@ -30,6 +38,7 @@ public class GreenPepperImport extends AbstractGreenPepperMacro
         }
     }
     
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public static String getErrorView(String macroId, String errorId)
     {

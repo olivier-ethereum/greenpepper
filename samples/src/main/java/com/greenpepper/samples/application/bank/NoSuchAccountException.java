@@ -19,11 +19,22 @@
 
 package com.greenpepper.samples.application.bank;
 
+/**
+ * <p>NoSuchAccountException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class NoSuchAccountException extends Exception
 {
     private final String number;
 
+    /**
+     * <p>Constructor for NoSuchAccountException.</p>
+     *
+     * @param number a {@link java.lang.String} object.
+     */
     public NoSuchAccountException(String number)
     {
         super();
@@ -31,11 +42,21 @@ public class NoSuchAccountException extends Exception
         this.number = number;
     }
 
+    /**
+     * <p>Getter for the field <code>number</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getNumber()
     {
         return number;
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return "Account does not exist: " + number;

@@ -39,6 +39,9 @@ import com.greenpepper.confluence.velocity.ConfluenceGreenPepper;
 
 /**
  * Stylesheet extractor for version from 2.8+
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class DefaultStyleSheetExtractorImpl
 		implements StyleSheetExtractor
@@ -49,6 +52,7 @@ public class DefaultStyleSheetExtractorImpl
 	private ConfluenceGreenPepper gpUtil = new ConfluenceGreenPepper();
 	private String tableCssContent;
 	
+	/** {@inheritDoc} */
 	public String renderStyleSheet(Space space)
 	{
 		StringBuilder css = new StringBuilder();

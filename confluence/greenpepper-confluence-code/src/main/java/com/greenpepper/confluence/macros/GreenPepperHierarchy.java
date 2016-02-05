@@ -8,8 +8,15 @@ import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Repository;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>GreenPepperHierarchy class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperHierarchy extends AbstractHttpRetrievalMacro
 {
+	/** {@inheritDoc} */
 	@Override
 	@SuppressWarnings("unchecked")
 	public String execute(Map parameters, String body, RenderContext context) throws MacroException 
@@ -51,6 +58,11 @@ public class GreenPepperHierarchy extends AbstractHttpRetrievalMacro
 		}
 	}
 
+    /**
+     * <p>getName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName()
     {
         return "greenpepper-hierarchy";

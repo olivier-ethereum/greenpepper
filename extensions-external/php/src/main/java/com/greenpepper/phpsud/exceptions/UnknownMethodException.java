@@ -22,12 +22,20 @@
 package com.greenpepper.phpsud.exceptions;
 
 /**
+ * <p>UnknownMethodException class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class UnknownMethodException extends PHPException {
 
 	private static final long serialVersionUID = -8663925427494008977L;
 
+	/**
+	 * <p>Constructor for UnknownMethodException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public UnknownMethodException(String str) {
 		super(str);
 	}

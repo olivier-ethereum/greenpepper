@@ -9,6 +9,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+/**
+ * <p>PhoneBookEntry class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @Table(name="PHONEBOOK_ENTRY")
 @SuppressWarnings("serial")
 public class PhoneBookEntry extends AbstractEntity
@@ -18,6 +24,14 @@ public class PhoneBookEntry extends AbstractEntity
 	private String lastName;
 	private String number;
 	
+	/**
+	 * <p>Constructor for PhoneBookEntry.</p>
+	 *
+	 * @param phoneBook a {@link com.greenpepper.samples.application.phonebook.PhoneBook} object.
+	 * @param firstName a {@link java.lang.String} object.
+	 * @param lastName a {@link java.lang.String} object.
+	 * @param number a {@link java.lang.String} object.
+	 */
 	public PhoneBookEntry(PhoneBook phoneBook, String firstName, String lastName, String number) 
     {
         super();
@@ -28,6 +42,11 @@ public class PhoneBookEntry extends AbstractEntity
 		this.number = number;
 	}
 
+    /**
+     * <p>Getter for the field <code>firstName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "FIRSTNAME", unique = true, nullable = false, length=255)
 	public String getFirstName()
@@ -35,6 +54,11 @@ public class PhoneBookEntry extends AbstractEntity
 		return firstName;
 	}
 
+    /**
+     * <p>Getter for the field <code>lastName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "LASTNAME", unique = true, nullable = false, length=255)
 	public String getLastName() 
@@ -42,6 +66,11 @@ public class PhoneBookEntry extends AbstractEntity
 		return lastName;
 	}
 
+    /**
+     * <p>Getter for the field <code>number</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "NUMBER", unique = true, nullable = false, length=255)
 	public String getNumber() 
@@ -49,6 +78,11 @@ public class PhoneBookEntry extends AbstractEntity
 		return number;
 	}
 
+    /**
+     * <p>Getter for the field <code>phoneBook</code>.</p>
+     *
+     * @return a {@link com.greenpepper.samples.application.phonebook.PhoneBook} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="PHONEBOOK_ID")
 	public PhoneBook getPhoneBook() 
@@ -56,26 +90,47 @@ public class PhoneBookEntry extends AbstractEntity
 		return phoneBook;
 	}
 
+	/**
+	 * <p>Setter for the field <code>firstName</code>.</p>
+	 *
+	 * @param firstName a {@link java.lang.String} object.
+	 */
 	public void setFirstName(String firstName) 
 	{
 		this.firstName = firstName;
 	}
 
+	/**
+	 * <p>Setter for the field <code>lastName</code>.</p>
+	 *
+	 * @param lastName a {@link java.lang.String} object.
+	 */
 	public void setLastName(String lastName) 
 	{
 		this.lastName = lastName;
 	}
 
+	/**
+	 * <p>Setter for the field <code>number</code>.</p>
+	 *
+	 * @param number a {@link java.lang.String} object.
+	 */
 	public void setNumber(String number) 
 	{
 		this.number = number;
 	}
 
+	/**
+	 * <p>Setter for the field <code>phoneBook</code>.</p>
+	 *
+	 * @param phoneBook a {@link com.greenpepper.samples.application.phonebook.PhoneBook} object.
+	 */
 	public void setPhoneBook(PhoneBook phoneBook)
 	{
 		this.phoneBook = phoneBook;
 	}
     
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if(!(o instanceof PhoneBookEntry))
@@ -95,6 +150,11 @@ public class PhoneBookEntry extends AbstractEntity
         return false;
     }
     
+    /**
+     * <p>hashCode.</p>
+     *
+     * @return a int.
+     */
     public int hashCode()
     {
     	return getFirstName().hashCode() + getLastName().hashCode() + getNumber().hashCode() + getPhoneBook().hashCode();

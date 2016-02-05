@@ -30,7 +30,10 @@ import com.greenpepper.phpsud.exceptions.PHPException;
 import com.greenpepper.phpsud.phpDriver.PHPInterpeter;
 
 /**
+ * <p>PHPObject class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPObject {
 	
@@ -42,6 +45,13 @@ public class PHPObject {
 	
 	private PHPContainer container;
 
+	/**
+	 * <p>Constructor for PHPObject.</p>
+	 *
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param className a {@link java.lang.String} object.
+	 * @param phpSudId a {@link java.lang.String} object.
+	 */
 	public PHPObject(PHPContainer container, String className, String phpSudId) {
 		this.phpSudId = phpSudId;
 		this.container = container;
@@ -52,10 +62,21 @@ public class PHPObject {
 		}
 	}
 	
+	/**
+	 * <p>getPHPSudId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getPHPSudId() {
 		return phpSudId;
 	}
 	
+	/**
+	 * <p>invoke.</p>
+	 *
+	 * @param methodName a {@link java.lang.String} object.
+	 * @return a {@link java.lang.Object} object.
+	 */
 	public Object invoke(String methodName) {
 		IObjectParser parser = container.getObjectParser();
 		LOGGER.debug("Calling " + methodName + " on object " + phpSudId);
@@ -68,6 +89,12 @@ public class PHPObject {
 		return null;
 	}
 	
+	/**
+	 * <p>equalsTo.</p>
+	 *
+	 * @param o a {@link java.lang.Object} object.
+	 * @return a boolean.
+	 */
 	protected boolean equalsTo(Object o) {
 		if (o instanceof PHPObject) {
 			PHPObject phpObject = (PHPObject) o;
@@ -88,6 +115,12 @@ public class PHPObject {
 		return false;
 	}
 	
+	/**
+	 * <p>phpEquals.</p>
+	 *
+	 * @param o a {@link java.lang.Object} object.
+	 * @return a boolean.
+	 */
 	protected boolean phpEquals(Object o) {
 		if (o instanceof PHPObject) {
 			PHPObject phpObject = (PHPObject) o;
@@ -108,10 +141,23 @@ public class PHPObject {
 		return false;
 	}
 	
+	/**
+	 * <p>getClassDescriptor.</p>
+	 *
+	 * @return a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 */
 	public PHPClassDescriptor getClassDescriptor() {
 		return desc;
 	}
 	
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param className a {@link java.lang.String} object.
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	protected static String parse(PHPContainer container, String className, String s) {
 		try {
 			String expr = PHPInterpeter.saveObject(className + "::parse('" + s + "')");

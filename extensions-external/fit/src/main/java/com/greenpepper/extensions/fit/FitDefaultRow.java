@@ -17,11 +17,24 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.Group;
 
+/**
+ * <p>FitDefaultRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FitDefaultRow extends AbstractRow 
 {
 	private Fixture fitFixture;
 	private boolean timed;
 	
+	/**
+	 * <p>Constructor for FitDefaultRow.</p>
+	 *
+	 * @param fitFixture a {@link com.greenpepper.reflect.Fixture} object.
+	 * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+	 * @param timed a {@link java.lang.Boolean} object.
+	 */
 	public FitDefaultRow(Fixture fitFixture, Fixture fixture, Boolean timed) 
 	{
 		super(fixture);
@@ -29,6 +42,7 @@ public class FitDefaultRow extends AbstractRow
 		this.timed = timed;
 	}
 
+    /** {@inheritDoc} */
     public void interpret(Specification table) 
     {
         Example row = table.nextExample();
@@ -58,6 +72,7 @@ public class FitDefaultRow extends AbstractRow
         }
     }
 
+	/** {@inheritDoc} */
 	public List<Example> actionCells(Example row) 
 	{
 		List<Example> defaultRow = new ArrayList<Example>();

@@ -19,20 +19,42 @@
 
 package com.greenpepper.samples.application.mortgage;
 
+/**
+ * <p>Property class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Property
 {
     private Money marketValue;
 
+    /**
+     * <p>valued.</p>
+     *
+     * @param marketValue a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     * @return a {@link com.greenpepper.samples.application.mortgage.Property} object.
+     */
     public static Property valued(Money marketValue)
     {
         return new Property(marketValue);
     }
 
+    /**
+     * <p>Constructor for Property.</p>
+     *
+     * @param marketValue a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public Property(Money marketValue)
     {
         this.marketValue = marketValue;
     }
 
+    /**
+     * <p>Getter for the field <code>marketValue</code>.</p>
+     *
+     * @return a {@link com.greenpepper.samples.application.mortgage.Money} object.
+     */
     public Money getMarketValue()
     {
         return marketValue;

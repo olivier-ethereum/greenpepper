@@ -32,7 +32,10 @@ import com.greenpepper.phpsud.helper.Helper;
 import com.greenpepper.phpsud.phpDriver.PHPInterpeter;
 
 /**
+ * <p>PHPClassDescriptor class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPClassDescriptor {
 	
@@ -42,6 +45,11 @@ public class PHPClassDescriptor {
 	
 	private Hashtable<String, String> staticVarList;
 	
+	/**
+	 * <p>Getter for the field <code>staticVarList</code>.</p>
+	 *
+	 * @return a {@link java.util.Hashtable} object.
+	 */
 	public Hashtable<String, String> getStaticVarList() {
 		return staticVarList;
 	}
@@ -67,22 +75,50 @@ public class PHPClassDescriptor {
 		this.classCreator = container.getClassCreatorFactory().getClassCreator(container, this);
 	}
 
+	/**
+	 * <p>getMethod.</p>
+	 *
+	 * @param methodName a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPMethodDescriptor} object.
+	 */
 	public PHPMethodDescriptor getMethod(String methodName) {
 		return methodList.get(methodName.toLowerCase());
 	}
 	
+	/**
+	 * <p>Getter for the field <code>methodList</code>.</p>
+	 *
+	 * @return a {@link java.util.Set} object.
+	 */
 	public Set<String> getMethodList() {
 		return methodList.keySet();
 	}
 
+	/**
+	 * <p>Getter for the field <code>className</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getClassName() {
 		return className;
 	}
 	
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		return getClassName();
 	}
 	
+	/**
+	 * <p>getValue.</p>
+	 *
+	 * @param param a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public String getValue(String param) throws PHPException {
 		PHPMethodDescriptor m = getMethod("parse"); 
 		if (m != null) {
@@ -98,14 +134,34 @@ public class PHPClassDescriptor {
 		throw new NoConverterFoundException(this + " : no method parse and no static var " + param);
 	}
 	
+	/**
+	 * <p>getGeneratedClass.</p>
+	 *
+	 * @return a {@link java.lang.Class} object.
+	 */
 	public Class<?> getGeneratedClass() { 
 		return classCreator.getGeneratedClass();
 	}
 	
+	/**
+	 * <p>createNewObject.</p>
+	 *
+	 * @param id a {@link java.lang.String} object.
+	 * @return a {@link java.lang.Object} object.
+	 */
 	public Object createNewObject(String id) { 
 		return classCreator.createNewObject(id);
 	}
 	
+	/**
+	 * <p>getClassDescriptor.</p>
+	 *
+	 * @param className a {@link java.lang.String} object.
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @param classCache a {@link java.util.Hashtable} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public static PHPClassDescriptor getClassDescriptor(String className, PHPContainer container, Hashtable<String, PHPClassDescriptor> classCache) throws PHPException {
 		PHPClassDescriptor c = classCache.get(className.toLowerCase());
 		if (c != null) {

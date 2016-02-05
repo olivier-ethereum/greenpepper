@@ -8,10 +8,17 @@ import com.greenpepper.server.domain.Specification;
 import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
 
+/**
+ * <p>ServiceImpl class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ServiceImpl
 		implements Service
 {
 
+	/** {@inheritDoc} */
 	public Vector<Object> execute(Vector<Object> runnerParams,
 								  Vector<Object> sutParams,
 								  Vector<Object> specificationParams,

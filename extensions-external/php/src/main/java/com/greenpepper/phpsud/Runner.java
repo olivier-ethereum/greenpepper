@@ -27,10 +27,19 @@ import com.greenpepper.runner.LoggingMonitor;
 import com.greenpepper.runner.RecorderMonitor;
 
 /**
+ * <p>Runner class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class Runner {
 
+	/**
+	 * <p>run.</p>
+	 *
+	 * @param args an array of {@link java.lang.String} objects.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String run(String [] args) {
 		if (args.length < 4) {
 			return "Syntax error : args : " + " phpExec|default workingDirectory initPhpFile";
@@ -62,6 +71,11 @@ public class Runner {
 		}
 	}
 	
+	/**
+	 * <p>main.</p>
+	 *
+	 * @param args an array of {@link java.lang.String} objects.
+	 */
 	public static void main(String [] args) {
 		String result = run(args);
 		if (result.length() != 0) {

@@ -19,6 +19,12 @@ import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.util.ExceptionUtils;
 import com.greenpepper.util.HtmlUtil;
 
+/**
+ * <p>SpecificationAction class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class SpecificationAction extends AbstractGreenPepperAction
 {
@@ -42,6 +48,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
     protected boolean implemented;
 
 
+	/**
+	 * <p>loadSpecification.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String loadSpecification()
     {
         try
@@ -57,12 +68,22 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return SUCCESS; 
     }
     
+    /**
+     * <p>updateSelectedSystemUndertTest.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String updateSelectedSystemUndertTest()
     {
         gpUtil.saveSelectedSystemUnderTestInfo(page, selectedSystemUnderTestInfo);
         return SUCCESS;
     }
     
+    /**
+     * <p>getSystemUndertTestSelection.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getSystemUndertTestSelection()
     {
         try
@@ -79,6 +100,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return SUCCESS; 
     }
 
+    /**
+     * <p>addSystemUnderTest.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String addSystemUnderTest()
     {
         try 
@@ -100,6 +126,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return getSystemUndertTestSelection(); 
     }
     
+    /**
+     * <p>removeSystemUnderTest.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String removeSystemUnderTest()
     {
         try 
@@ -121,6 +152,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return getSystemUndertTestSelection(); 
     }
     
+    /**
+     * <p>run.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String run()
     {
 		String locale = getLocale().getLanguage();
@@ -149,6 +185,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return SUCCESS;
     }
     
+    /**
+     * <p>retrieveReferenceList.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String retrieveReferenceList()
     {
         try 
@@ -174,6 +215,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return SUCCESS;
     }
 
+    /**
+     * <p>addReference.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String addReference()
     {        
         try 
@@ -188,6 +234,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return retrieveReferenceList(); 
     }
     
+    /**
+     * <p>removeReference.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String removeReference()
     {
         isEditMode = true;
@@ -204,57 +255,112 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return retrieveReferenceList(); 
     }
     
+    /**
+     * <p>Getter for the field <code>specification</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Specification} object.
+     */
     public Specification getSpecification()
     {
         return specification;
     }
 
+    /**
+     * <p>Getter for the field <code>repositories</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<Repository> getRepositories()
     { 
         return repositories;
     }
 
+    /**
+     * <p>Getter for the field <code>projectSystemUnderTests</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<SystemUnderTest> getProjectSystemUnderTests()
     { 
         return projectSystemUnderTests;
     }
 
+    /**
+     * <p>getSpecificationSystemUnderTests.</p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
     public Set<SystemUnderTest> getSpecificationSystemUnderTests()
     {
         if(specification == null) return new HashSet<SystemUnderTest>();
         return specification.getTargetedSystemUnderTests();
     }
     
+    /**
+     * <p>Getter for the field <code>isSutEditable</code>.</p>
+     *
+     * @return a boolean.
+     */
     public boolean getIsSutEditable()
     {
         return this.isSutEditable;
     }
     
+    /**
+     * <p>Setter for the field <code>isSutEditable</code>.</p>
+     *
+     * @param isSutEditable a boolean.
+     */
     public void setIsSutEditable(boolean isSutEditable)
     {
         this.isSutEditable = isSutEditable;
     }
     
+    /**
+     * <p>Getter for the field <code>implemented</code>.</p>
+     *
+     * @return a boolean.
+     */
     public boolean getImplemented() 
     {
 		return implemented;
 	}
     
+    /**
+     * <p>Setter for the field <code>implemented</code>.</p>
+     *
+     * @param implemented a boolean.
+     */
     public void setImplemented(boolean implemented) 
     {
 		this.implemented = implemented;
 	}
 
+    /**
+     * <p>Getter for the field <code>requirementName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getRequirementName()
     {
         return requirementName;
     }
 
+    /**
+     * <p>Setter for the field <code>requirementName</code>.</p>
+     *
+     * @param requirementName a {@link java.lang.String} object.
+     */
     public void setRequirementName(String requirementName)
     {
         this.requirementName = requirementName;
     }
 
+    /**
+     * <p>setSutInfo.</p>
+     *
+     * @param sutInfo a {@link java.lang.String} object.
+     */
     public void setSutInfo(String sutInfo)
     {
         StringTokenizer stk = new StringTokenizer(sutInfo, "@");
@@ -262,46 +368,91 @@ public class SpecificationAction extends AbstractGreenPepperAction
         this.sutName = stk.nextToken();
     }
 
+    /**
+     * <p>Setter for the field <code>sutName</code>.</p>
+     *
+     * @param sutName a {@link java.lang.String} object.
+     */
     public void setSutName(String sutName)
     {
         this.sutName = sutName;
     }
 
+    /**
+     * <p>Setter for the field <code>sutProjectName</code>.</p>
+     *
+     * @param sutProjectName a {@link java.lang.String} object.
+     */
     public void setSutProjectName(String sutProjectName)
     {
         this.sutProjectName = sutProjectName;
     }
 
+    /**
+     * <p>Setter for the field <code>repositoryUid</code>.</p>
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
+     */
     public void setRepositoryUid(String repositoryUid)
     {
         this.repositoryUid = repositoryUid;
     }
 
+    /**
+     * <p>Setter for the field <code>sections</code>.</p>
+     *
+     * @param sections a {@link java.lang.String} object.
+     */
     public void setSections(String sections)
     {
         this.sections = sections.trim();
     }
     
+    /**
+     * <p>Getter for the field <code>references</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<Reference> getReferences()
     {
         return references;
     }
 
+    /**
+     * <p>getSelectedSystemUnderTest.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     */
     public SystemUnderTest getSelectedSystemUnderTest()
     {
         return gpUtil.getSelectedSystemUnderTest(page);
     }
 
+    /**
+     * <p>getIsExecutable.</p>
+     *
+     * @return a boolean.
+     */
     public boolean getIsExecutable()
     {
         return specification != null;
     }
 
+    /**
+     * <p>Getter for the field <code>execution</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Execution} object.
+     */
     public Execution getExecution()
     {
         return execution;
     }
 
+    /**
+     * <p>Getter for the field <code>selectedSystemUnderTestInfo</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getSelectedSystemUnderTestInfo()
     {
         if(selectedSystemUnderTestInfo != null){return selectedSystemUnderTestInfo;}
@@ -309,21 +460,41 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return selectedSystemUnderTestInfo;
     }
     
+    /**
+     * <p>Setter for the field <code>selectedSystemUnderTestInfo</code>.</p>
+     *
+     * @param selectedSystemUnderTestInfo a {@link java.lang.String} object.
+     */
     public void setSelectedSystemUnderTestInfo(String selectedSystemUnderTestInfo)
     {
         this.selectedSystemUnderTestInfo = selectedSystemUnderTestInfo;
     }
     
+    /**
+     * <p>Getter for the field <code>isMain</code>.</p>
+     *
+     * @return a boolean.
+     */
     public boolean getIsMain()
     {
         return isMain;
     }
     
+    /**
+     * <p>Setter for the field <code>isMain</code>.</p>
+     *
+     * @param isMain a boolean.
+     */
     public void setIsMain(boolean isMain)
     {
         this.isMain = isMain;
     }
 
+	/**
+	 * <p>getRenderedResults.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getRenderedResults()
     {
         String results = execution.getResults();
@@ -342,6 +513,12 @@ public class SpecificationAction extends AbstractGreenPepperAction
 		return null;
 	}
     
+    /**
+     * <p>isInSpecificationSelection.</p>
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @return a boolean.
+     */
     public boolean isInSpecificationSelection(SystemUnderTest systemUnderTest)
     {
         return gpUtil.isInSutList(systemUnderTest, specification.getTargetedSystemUnderTests());}
@@ -363,6 +540,11 @@ public class SpecificationAction extends AbstractGreenPepperAction
         return Reference.newInstance(requirement, specification, sut, sections);
     }
 
+	/**
+	 * <p>getNextFieldId.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getNextFieldId()
 	{
 		return getFieldId() + 1;

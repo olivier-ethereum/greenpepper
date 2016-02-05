@@ -28,7 +28,10 @@ import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.NoSuchMessageException;
 
 /**
+ * <p>EmptyFixture class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class EmptyFixture implements Fixture {
 
@@ -38,33 +41,49 @@ public class EmptyFixture implements Fixture {
 	
 	private Fixture fixture;
 	
+	/**
+	 * <p>Constructor for EmptyFixture.</p>
+	 *
+	 * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+	 * @param o a {@link java.lang.Object} object.
+	 */
 	public EmptyFixture(Fixture fixture, Object o) {
 		this.fixture = fixture;
 		this.o = o;
 	}
 	
+	/** {@inheritDoc} */
 	public boolean canCheck(String arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public boolean canSend(String arg0) {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public Message check(String arg0) throws NoSuchMessageException {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}
 
+	/** {@inheritDoc} */
 	public Fixture fixtureFor(Object arg0) {
 		LOGGER.debug("Calling parent fixture for");
 		return fixture.fixtureFor(arg0);
 	}
 
+	/**
+	 * <p>getTarget.</p>
+	 *
+	 * @return a {@link java.lang.Object} object.
+	 */
 	public Object getTarget() {
 		LOGGER.debug("Returning object");
 		return o;
 	}
 
+	/** {@inheritDoc} */
 	public Message send(String arg0) throws NoSuchMessageException {
 		throw new UnsupportedOperationException("Not implemented yet ! " + arg0);
 	}

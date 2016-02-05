@@ -27,16 +27,30 @@ import com.greenpepper.phpsud.container.PHPContainer;
 import com.greenpepper.phpsud.exceptions.PHPException;
 
 /**
+ * <p>PHPClassPath class.</p>
+ *
  * @author Bertrand Paquet
+ * @version $Id: $Id
  */
 public class PHPClassPath {
 
 	private Hashtable<String, PHPClassDescriptor> classCache;
 	
+	/**
+	 * <p>Constructor for PHPClassPath.</p>
+	 */
 	public PHPClassPath() {
 		classCache = new Hashtable<String, PHPClassDescriptor>();
 	}
 	
+	/**
+	 * <p>getClassDescriptor.</p>
+	 *
+	 * @param className a {@link java.lang.String} object.
+	 * @param container a {@link com.greenpepper.phpsud.container.PHPContainer} object.
+	 * @return a {@link com.greenpepper.phpsud.container.PHPClassDescriptor} object.
+	 * @throws com.greenpepper.phpsud.exceptions.PHPException if any.
+	 */
 	public PHPClassDescriptor getClassDescriptor(String className, PHPContainer container) throws PHPException {
 		return PHPClassDescriptor.getClassDescriptor(className, container, classCache);
 	}

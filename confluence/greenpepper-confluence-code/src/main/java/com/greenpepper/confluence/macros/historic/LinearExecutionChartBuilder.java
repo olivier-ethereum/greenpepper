@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.confluence.macros.historic;
 
@@ -43,7 +47,6 @@ import com.atlassian.confluence.core.DateFormatter;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.Execution;
 import com.greenpepper.util.StringUtil;
-
 public class LinearExecutionChartBuilder
 		extends AbstractChartBuilder
 {
@@ -57,11 +60,24 @@ public class LinearExecutionChartBuilder
 		this.executions = executions;
 	}
 
+	/**
+	 * <p>newInstance.</p>
+	 *
+	 * @param settings a {@link com.greenpepper.confluence.macros.historic.HistoricParameters} object.
+	 * @param executions a {@link java.util.List} object.
+	 * @return a {@link com.greenpepper.confluence.macros.historic.AbstractChartBuilder} object.
+	 */
 	public static AbstractChartBuilder newInstance(HistoricParameters settings, List<Execution> executions)
 	{
 		return new LinearExecutionChartBuilder(settings, executions);
 	}
 
+	/**
+	 * <p>generateChart.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public String generateChart()
 			throws GreenPepperServerException
 	{

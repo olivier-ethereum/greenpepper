@@ -23,21 +23,41 @@ import com.greenpepper.reflect.Message;
 
 /**
  * This <code>Action</code> implementation extract the value of an OGNL expression.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class OgnlGetter extends Message
 {
     private final OgnlExpression ognlExpression;
 
+    /**
+     * <p>Constructor for OgnlGetter.</p>
+     *
+     * @param ognlExpression a {@link com.greenpepper.extensions.ognl.OgnlExpression} object.
+     */
     public OgnlGetter( OgnlExpression ognlExpression )
     {
         this.ognlExpression = ognlExpression;
     }
 
+    /**
+     * <p>getArity.</p>
+     *
+     * @return a int.
+     */
     public int getArity()
     {
         return 0;
     }
 
+    /**
+     * <p>send.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object send( String... args ) throws Exception
     {
         assertArgumentsCount( args );

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.maven.runner.resolver;
 
@@ -25,18 +29,30 @@ import java.util.List;
 import org.apache.maven.embedder.MavenEmbedder;
 import org.apache.maven.embedder.MavenEmbedderException;
 import org.apache.maven.embedder.MavenEmbedderLogger;
-
 public class ProjectFileResolver
 {
     private final List<Resolver> resolvers = new ArrayList<Resolver>( 2 );
     private MavenGAV mavenGAV;
 
+    /**
+     * <p>Constructor for ProjectFileResolver.</p>
+     *
+     * @param embedder a {@link org.apache.maven.embedder.MavenEmbedder} object.
+     * @param logger a {@link org.apache.maven.embedder.MavenEmbedderLogger} object.
+     */
     public ProjectFileResolver(MavenEmbedder embedder, MavenEmbedderLogger logger)
     {
         resolvers.add( new FileResolver(embedder, logger ) );
         resolvers.add( new CoordinatesResolver( embedder, logger ) );
     }
 
+    /**
+     * <p>resolve.</p>
+     *
+     * @param value a {@link java.lang.String} object.
+     * @return a {@link java.io.File} object.
+     * @throws java.lang.Exception if any.
+     */
     public File resolve(String value) throws Exception
     {
         for (Resolver resolver : resolvers)
@@ -52,6 +68,12 @@ public class ProjectFileResolver
         throw new MavenEmbedderException( String.format( "Cannot resolve project dependency descriptor '%s'", value ) );
     }
 
+    /**
+     * <p>Getter for the field <code>mavenGAV</code>.</p>
+     *
+     * @return a {@link com.greenpepper.maven.runner.resolver.ProjectFileResolver.MavenGAV} object.
+     * @since 4.0-beta3
+     */
     public MavenGAV getMavenGAV() {
         return mavenGAV;
     }

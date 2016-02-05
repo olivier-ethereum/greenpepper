@@ -1,5 +1,11 @@
 package com.greenpepper.agent.server;
 
+/**
+ * <p>ComandLineHelper class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ComandLineHelper
 {
 
@@ -10,16 +16,31 @@ public class ComandLineHelper
 
 	private String args[];
 
+	/**
+	 * <p>Constructor for ComandLineHelper.</p>
+	 *
+	 * @param args an array of {@link java.lang.String} objects.
+	 */
 	public ComandLineHelper(String args[])
 	{
 		this.args = args;
 	}
 
+	/**
+	 * <p>getConfig.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getConfig()
 	{
 		return getParameterValue(CONFIG);
 	}
 
+	/**
+	 * <p>isSecured.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isSecured()
 	{
 		for (String arg : args)
@@ -32,6 +53,12 @@ public class ComandLineHelper
 		return false;
 	}
 
+	/**
+	 * <p>getPort.</p>
+	 *
+	 * @param defaultPort a int.
+	 * @return a {@link java.lang.Integer} object.
+	 */
 	public Integer getPort(int defaultPort)
 	{
 		String port = getParameterValue(PORT);
@@ -51,6 +78,11 @@ public class ComandLineHelper
 		return defaultPort;
 	}
 
+	/**
+	 * <p>getKeyStore.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getKeyStore()
 	{
 		return getParameterValue(KEYSTORE);

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.samples.application.system;
 
@@ -23,7 +27,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class AccountManager
 {
 	private static final String ADMINISTRATOR_GROUP_ID = "administrator";
@@ -51,6 +54,12 @@ public class AccountManager
 		 /**/
 	}
 
+	/**
+	 * <p>insertGroup.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean insertGroup(String name)
 	{
 		if (isGroupExist(name))
@@ -61,6 +70,12 @@ public class AccountManager
 		return allGroups.add(name);
 	}
 
+	/**
+	 * <p>deleteGroup.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean deleteGroup(String name)
 	{
 		if (ADMINISTRATOR_GROUP_ID.equals(name))
@@ -86,6 +101,11 @@ public class AccountManager
 		return allGroups.remove(name);
 	}
 
+	/**
+	 * <p>Getter for the field <code>allGroups</code>.</p>
+	 *
+	 * @return an array of {@link java.lang.String} objects.
+	 */
 	public String[] getAllGroups()
 	{
 		String[] groups = new String[allGroups.size()];
@@ -93,6 +113,12 @@ public class AccountManager
 		return groups;
 	}
 
+	/**
+	 * <p>insertUser.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean insertUser(String name)
 	{
 		if (isUserExist(name))
@@ -103,6 +129,12 @@ public class AccountManager
 		return allUsers.add(name);
 	}
 
+	/**
+	 * <p>deleteUser.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean deleteUser(String name)
 	{
 		if (ADMIN_USER_ID.equals(name))
@@ -120,6 +152,11 @@ public class AccountManager
 		return allUsers.remove(name);
 	}
 
+	/**
+	 * <p>Getter for the field <code>allUsers</code>.</p>
+	 *
+	 * @return an array of {@link java.lang.String} objects.
+	 */
 	public String[] getAllUsers()
 	{
 		String[] users = new String[allUsers.size()];
@@ -127,6 +164,13 @@ public class AccountManager
 		return users;
 	}
 
+	/**
+	 * <p>associateUserWithGroup.</p>
+	 *
+	 * @param user a {@link java.lang.String} object.
+	 * @param group a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean associateUserWithGroup(String user, String group)
 	{
 		if (!isUserExist(user))
@@ -157,6 +201,13 @@ public class AccountManager
 		return true;
 	}
 
+	/**
+	 * <p>isUserAssociatedToGroup.</p>
+	 *
+	 * @param user a {@link java.lang.String} object.
+	 * @param group a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean isUserAssociatedToGroup(String user, String group)
 	{
 		if (!isUserExist(user))
@@ -174,11 +225,23 @@ public class AccountManager
 		return userGroups != null && userGroups.contains(group);
 	}
 
+	/**
+	 * <p>isGroupExist.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean isGroupExist(String name)
 	{
 		return allGroups.contains(name);
 	}
 
+	/**
+	 * <p>isUserExist.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean isUserExist(String name)
 	{
 		return allUsers.contains(name);

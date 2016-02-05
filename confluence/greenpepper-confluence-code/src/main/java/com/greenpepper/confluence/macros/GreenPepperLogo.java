@@ -8,23 +8,45 @@ import com.atlassian.renderer.RenderContext;
 import com.atlassian.renderer.v2.RenderMode;
 import com.atlassian.renderer.v2.macro.MacroException;
 
+/**
+ * <p>GreenPepperLogo class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperLogo extends AbstractGreenPepperMacro
 {
+    /**
+     * <p>isInline.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isInline()
     {
         return true;
     }
     
+    /**
+     * <p>hasBody.</p>
+     *
+     * @return a boolean.
+     */
     public boolean hasBody()
     {
         return false;
     }
     
+    /**
+     * <p>getBodyRenderMode.</p>
+     *
+     * @return a {@link com.atlassian.renderer.v2.RenderMode} object.
+     */
     public RenderMode getBodyRenderMode()
     {
         return RenderMode.NO_RENDER;
     }
     
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public String execute(Map parameters, String body, RenderContext renderContext) throws MacroException 
     {

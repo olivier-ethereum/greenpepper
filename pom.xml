@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- - Basic Project Information -->
 	<groupId>com.github.strator-dev.greenpepper</groupId>
 	<artifactId>greenpepper-base</artifactId>
 	<packaging>pom</packaging>
-	<version>4.0-RC2-SNAPSHOT</version>
+	<version>4.0-beta3-SNAPSHOT</version>
 	<name>GreenPepper Master</name>
 	<description>GreenPepper is a collaboration platform to help business experts and developers create executable specifications in order to build the right software.</description>
 

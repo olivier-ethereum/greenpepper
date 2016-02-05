@@ -5,6 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * <p>CommandLineExecutor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class CommandLineExecutor
 {
     private static Logger log = LoggerFactory.getLogger(CommandLineExecutor.class);
@@ -12,11 +18,21 @@ public class CommandLineExecutor
 	private StreamGobbler gobbler;
     private String[] cmdLine;
     
+    /**
+     * <p>Constructor for CommandLineExecutor.</p>
+     *
+     * @param cmdLine an array of {@link java.lang.String} objects.
+     */
     public CommandLineExecutor(String[] cmdLine)
     {
         this.cmdLine = cmdLine;
     }
     
+    /**
+     * <p>executeAndWait.</p>
+     *
+     * @throws java.lang.Exception if any.
+     */
     public void executeAndWait() throws Exception
     {
         Process p = launchProcess();
@@ -52,6 +68,11 @@ public class CommandLineExecutor
         return p;
     }
 
+    /**
+     * <p>getOutput.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getOutput()
     {
         return gobbler.getOutput();

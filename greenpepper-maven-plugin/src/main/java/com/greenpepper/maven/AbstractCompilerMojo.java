@@ -46,6 +46,8 @@ import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;
 import com.greenpepper.maven.plugin.utils.CompilationFailureException;
 
 /**
+ * <p>Abstract AbstractCompilerMojo class.</p>
+ *
  * @author others
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
  * @version $Id: StaleSourceScannerTest.java 2393 2005-08-08 22:32:59Z kenney $
@@ -200,16 +202,49 @@ public abstract class AbstractCompilerMojo
      */
     private CompilerManager compilerManager;
 
+    /**
+     * <p>getSourceInclusionScanner.</p>
+     *
+     * @param staleMillis a int.
+     * @return a {@link org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner} object.
+     */
     protected abstract SourceInclusionScanner getSourceInclusionScanner( int staleMillis );
 
+    /**
+     * <p>getSourceInclusionScanner.</p>
+     *
+     * @param inputFileEnding a {@link java.lang.String} object.
+     * @return a {@link org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner} object.
+     */
     protected abstract SourceInclusionScanner getSourceInclusionScanner( String inputFileEnding );
 
+    /**
+     * <p>getClasspathElements.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     protected abstract List getClasspathElements();
 
+    /**
+     * <p>getCompileSourceRoots.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     protected abstract List getCompileSourceRoots();
 
+    /**
+     * <p>getOutputDirectory.</p>
+     *
+     * @return a {@link java.io.File} object.
+     */
     protected abstract File getOutputDirectory();
 
+    /**
+     * <p>execute.</p>
+     *
+     * @throws org.apache.maven.plugin.MojoExecutionException if any.
+     * @throws com.greenpepper.maven.plugin.utils.CompilationFailureException if any.
+     */
     @SuppressWarnings("unchecked")
     public void execute()
         throws MojoExecutionException, CompilationFailureException

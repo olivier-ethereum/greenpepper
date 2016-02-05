@@ -37,6 +37,12 @@ import com.greenpepper.Text;
 import com.greenpepper.annotation.Annotation;
 import com.greenpepper.util.CollectionUtil;
 
+/**
+ * <p>HtmlExample class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HtmlExample extends AbstractExample implements Text
 {
     private String lead;
@@ -52,6 +58,19 @@ public class HtmlExample extends AbstractExample implements Text
     private final Map<String, String> styles = new LinkedHashMap<String, String>();
     private final Set<String> cssClasses = new TreeSet<String>();
 
+    /**
+     * <p>Constructor for HtmlExample.</p>
+     *
+     * @param lead a {@link java.lang.String} object.
+     * @param startTag a {@link java.lang.String} object.
+     * @param tag a {@link java.lang.String} object.
+     * @param content a {@link java.lang.String} object.
+     * @param endTag a {@link java.lang.String} object.
+     * @param tail a {@link java.lang.String} object.
+     * @param childTags a {@link java.util.List} object.
+     * @param child a {@link com.greenpepper.Example} object.
+     * @param sibling a {@link com.greenpepper.Example} object.
+     */
     public HtmlExample( String lead,
                         String startTag,
                         String tag,
@@ -73,16 +92,27 @@ public class HtmlExample extends AbstractExample implements Text
         this.sibling = sibling;
     }
 
+    /**
+     * <p>firstChild.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example firstChild()
     {
         return child;
     }
 
+    /**
+     * <p>nextSibling.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example nextSibling()
     {
         return sibling;
     }
 
+    /** {@inheritDoc} */
     public void print( PrintWriter out )
     {
         out.write( lead );
@@ -95,6 +125,11 @@ public class HtmlExample extends AbstractExample implements Text
     }
 
     // Should we return null or empty string when we have children?
+    /**
+     * <p>getContent.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getContent()
     {
         String content = normalizeLineBreaks( text );
@@ -129,6 +164,11 @@ public class HtmlExample extends AbstractExample implements Text
         return String.format( "</%s>", tag );
     }
 
+    /**
+     * <p>addChild.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example addChild()
     {
         if (hasChild())
@@ -145,6 +185,11 @@ public class HtmlExample extends AbstractExample implements Text
         }
     }
 
+    /**
+     * <p>addSibling.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example addSibling()
     {
         if (hasSibling())
@@ -169,6 +214,7 @@ public class HtmlExample extends AbstractExample implements Text
         return new HtmlEntitiesDecoder( s ).decode();
     }
 
+    /** {@inheritDoc} */
     public void annotate( Annotation annotation )
     {
         annotation.writeDown( this );
@@ -207,26 +253,31 @@ public class HtmlExample extends AbstractExample implements Text
         return String.format( "(?!%s).*?", regex );
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setCssClasses(String... classes) {
         Collections.addAll(cssClasses, classes);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String[] getCssClasses() {
         return cssClasses.toArray(new String[cssClasses.size()]);
     }
 
+    /** {@inheritDoc} */
     public void setStyle( String property, String value )
     {
         styles.put( property, value );
     }
 
+    /** {@inheritDoc} */
     public String getStyle( String property)
     {
         return styles.get( property);
     }
 
+    /** {@inheritDoc} */
     public void setContent( String content )
     {
         text = content;

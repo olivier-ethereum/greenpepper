@@ -19,8 +19,21 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>Converter interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface Converter<T>
 {
+    /**
+     * <p>convert.</p>
+     *
+     * @param value a {@link java.lang.String} object.
+     * @return a T object.
+     * @throws java.lang.Exception if any.
+     */
     T convert(String value) throws Exception;
 }
 

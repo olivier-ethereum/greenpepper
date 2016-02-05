@@ -11,20 +11,29 @@ import com.greenpepper.server.database.SessionService;
 import com.greenpepper.server.domain.Project;
 import com.greenpepper.server.domain.dao.ProjectDao;
 
+/**
+ * <p>HibernateProjectDao class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateProjectDao
 		implements ProjectDao
 {
 
 	private SessionService sessionService;
 
+	/**
+	 * <p>Constructor for HibernateProjectDao.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 */
 	public HibernateProjectDao(SessionService sessionService)
 	{
 		this.sessionService = sessionService;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public Project getByName(String name)
 	{
 		final Criteria crit = sessionService.getSession().createCriteria(Project.class);
@@ -34,6 +43,11 @@ public class HibernateProjectDao
 		return project;
 	}
 
+	/**
+	 * <p>getAll.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Project> getAll()
 	{
@@ -43,9 +57,7 @@ public class HibernateProjectDao
 		return list;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public Project create(String name)
 			throws GreenPepperServerException {
 
@@ -60,9 +72,7 @@ public class HibernateProjectDao
 		return project;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public void remove(String name)
 			throws GreenPepperServerException
 	{
@@ -84,6 +94,7 @@ public class HibernateProjectDao
 		sessionService.getSession().delete(project);
 	}
 
+	/** {@inheritDoc} */
 	public Project update(String oldProjectName, Project project)
 			throws GreenPepperServerException {
 

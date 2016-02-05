@@ -20,23 +20,42 @@ import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.server.domain.dao.ProjectDao;
 import com.greenpepper.server.domain.dao.SystemUnderTestDao;
 
+/**
+ * <p>HibernateSystemUnderTestDao class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateSystemUnderTestDao implements SystemUnderTestDao
 {
     private SessionService sessionService;
     private ProjectDao projectDao;
     
+    /**
+     * <p>Constructor for HibernateSystemUnderTestDao.</p>
+     *
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     * @param projectDao a {@link com.greenpepper.server.domain.dao.ProjectDao} object.
+     */
     public HibernateSystemUnderTestDao(SessionService sessionService, ProjectDao projectDao)
     {
         this.sessionService = sessionService;
         this.projectDao = projectDao;
     }
 
+	/**
+	 * <p>Constructor for HibernateSystemUnderTestDao.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 */
 	public HibernateSystemUnderTestDao(SessionService sessionService) {
 		this(sessionService, new HibernateProjectDao(sessionService));
 	}
 
     /**
-     * @inheritDoc
+     * <p>getAllEnvironmentTypes.</p>
+     *
+     * @return a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")        
     public List<EnvironmentType> getAllEnvironmentTypes()
@@ -48,9 +67,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
 		return list;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public EnvironmentType getEnvironmentTypeByName(String name)
     {
         final Criteria crit = sessionService.getSession().createCriteria(EnvironmentType.class);
@@ -61,7 +78,10 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
 	}
 
     /**
-     * @inheritDoc
+     * <p>create.</p>
+     *
+     * @param environmentType a {@link com.greenpepper.server.domain.EnvironmentType} object.
+     * @return a {@link com.greenpepper.server.domain.EnvironmentType} object.
      */
     public EnvironmentType create(EnvironmentType environmentType)
     {
@@ -69,9 +89,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return environmentType;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Runner getRunnerByName(String name)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Runner.class);
@@ -82,7 +100,9 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
 	}
 
     /**
-     * @inheritDoc
+     * <p>getAllRunners.</p>
+     *
+     * @return a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")
 	public List<Runner> getAllRunners()
@@ -94,9 +114,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
 		return list;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Runner create(Runner runner) throws GreenPepperServerException
     {
         if(getRunnerByName(runner.getName()) != null)
@@ -111,9 +129,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return runner;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Runner update(String oldRunnerName, Runner runner) throws GreenPepperServerException
     {
         if(!runner.getName().equals(oldRunnerName) && getRunnerByName(runner.getName()) != null)
@@ -140,9 +156,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return runnerToUpdate;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeRunner(String runnerName) throws GreenPepperServerException
     {
         Runner runner = getRunnerByName(runnerName);
@@ -156,9 +170,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         sessionService.getSession().delete(runner);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public SystemUnderTest getByName(String projectName, String sutName)
     {
         final Criteria crit = sessionService.getSession().createCriteria(SystemUnderTest.class);
@@ -170,9 +182,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
 		return systemUnderTest;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<SystemUnderTest> getAllForProject(String projectName)
     {
         final Criteria crit = sessionService.getSession().createCriteria(SystemUnderTest.class);
@@ -186,9 +196,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return systemUnderTests;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<SystemUnderTest> getAllForRunner(String runnerName)
     {
         final Criteria crit = sessionService.getSession().createCriteria(SystemUnderTest.class);
@@ -202,9 +210,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return systemUnderTests;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<Reference> getAllReferences(SystemUnderTest sut)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Reference.class);
@@ -220,9 +226,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return references;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<Specification> getAllSpecifications(SystemUnderTest sut)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Specification.class);
@@ -239,7 +243,11 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
     }
 
     /**
-     * @inheritDoc
+     * <p>create.</p>
+     *
+     * @param newSut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public SystemUnderTest create(SystemUnderTest newSut) throws GreenPepperServerException
     {
@@ -260,7 +268,12 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
     }
 
     /**
-     * @inheritDoc
+     * <p>update.</p>
+     *
+     * @param oldSutName a {@link java.lang.String} object.
+     * @param updatedSut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public SystemUnderTest update(String oldSutName, SystemUnderTest updatedSut) throws GreenPepperServerException
     {
@@ -285,9 +298,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         return sutToUpdate;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void remove(String projectName, String sutName) throws GreenPepperServerException
     {
         SystemUnderTest sut = getByName(projectName, sutName);
@@ -308,9 +319,7 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         sessionService.getSession().delete(sut);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void setAsDefault(SystemUnderTest systemUnderTest) throws GreenPepperServerException
     {
         Project project = projectDao.getByName(systemUnderTest.getProject().getName());
@@ -325,6 +334,12 @@ public class HibernateSystemUnderTestDao implements SystemUnderTestDao
         sessionService.getSession().update(project);
     }
     
+    /**
+     * <p>getAllExecutions.</p>
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @return a {@link java.util.List} object.
+     */
     public List<Execution> getAllExecutions(SystemUnderTest systemUnderTest)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Execution.class);

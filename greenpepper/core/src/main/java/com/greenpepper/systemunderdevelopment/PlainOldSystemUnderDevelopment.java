@@ -22,20 +22,37 @@ package com.greenpepper.systemunderdevelopment;
 import com.greenpepper.reflect.TypeLoader;
 
 /**
- * @deprecated use {@link DefaultSystemUnderDevelopment}
+ * <p>PlainOldSystemUnderDevelopment class.</p>
+ *
+ * @deprecated use {@link com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment}
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class PlainOldSystemUnderDevelopment extends DefaultSystemUnderDevelopment
 {
+    /**
+     * <p>Constructor for PlainOldSystemUnderDevelopment.</p>
+     */
     public PlainOldSystemUnderDevelopment()
     {
         super();
     }
 
+    /**
+     * <p>Constructor for PlainOldSystemUnderDevelopment.</p>
+     *
+     * @param classLoader a {@link java.lang.ClassLoader} object.
+     */
     public PlainOldSystemUnderDevelopment(java.lang.ClassLoader classLoader)
     {
         super(classLoader);
     }
 
+    /**
+     * <p>Constructor for PlainOldSystemUnderDevelopment.</p>
+     *
+     * @param typeLoader a {@link com.greenpepper.reflect.TypeLoader} object.
+     */
     public PlainOldSystemUnderDevelopment(TypeLoader<?> typeLoader)
     {
         super(typeLoader);

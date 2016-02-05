@@ -22,22 +22,44 @@ package com.greenpepper.interpreter.collection;
 import com.greenpepper.Example;
 import com.greenpepper.reflect.Fixture;
 
+/**
+ * <p>RowFixture class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class RowFixture
 {
     private Example row;
     private Fixture adapter;
 
+    /**
+     * <p>Constructor for RowFixture.</p>
+     *
+     * @param row a {@link com.greenpepper.Example} object.
+     * @param adapter a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public RowFixture(Example row, Fixture adapter)
     {
         this.row = row;
         this.adapter = adapter;
     }
 
+    /**
+     * <p>Getter for the field <code>adapter</code>.</p>
+     *
+     * @return a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public Fixture getAdapter()
     {
         return adapter;
     }
 
+    /**
+     * <p>Getter for the field <code>row</code>.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example getRow()
     {
         return row;

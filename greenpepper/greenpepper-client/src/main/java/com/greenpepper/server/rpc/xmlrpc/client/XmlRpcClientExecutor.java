@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,13 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.xmlrpc.client;
 
 import java.util.Vector;
-
 public interface XmlRpcClientExecutor {
 
+	/**
+	 * <p>execute.</p>
+	 *
+	 * @param method a {@link java.lang.String} object.
+	 * @param params a {@link java.util.Vector} object.
+	 * @return a {@link java.lang.Object} object.
+	 * @throws com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutorException if any.
+	 */
 	Object execute(String method, Vector params)
 			throws XmlRpcClientExecutorException;
 }

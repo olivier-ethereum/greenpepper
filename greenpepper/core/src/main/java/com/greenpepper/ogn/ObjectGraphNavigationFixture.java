@@ -28,18 +28,31 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.PlainOldFixture;
 
+/**
+ * <p>ObjectGraphNavigationFixture class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ObjectGraphNavigationFixture extends AbstractFixture implements ObjectGraphNavigationMessageResolver
 {
+    /**
+     * <p>Constructor for ObjectGraphNavigationFixture.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     */
     public ObjectGraphNavigationFixture(Object target)
     {
         super(target);
     }
     
+    /** {@inheritDoc} */
     public Fixture fixtureFor( Object target )
     {
         return new ObjectGraphNavigationFixture( target );
     }
     
+    /** {@inheritDoc} */
     protected Message getCheckMessage( String name )
     {
 		PlainOldFixture plainOldFixture = new PlainOldFixture( target );
@@ -52,6 +65,7 @@ public class ObjectGraphNavigationFixture extends AbstractFixture implements Obj
         return getMessage(name, true, true);
     }
 
+    /** {@inheritDoc} */
     protected Message getSendMessage( String name )
     {
 		PlainOldFixture plainOldFixture = new PlainOldFixture( target );
@@ -64,6 +78,7 @@ public class ObjectGraphNavigationFixture extends AbstractFixture implements Obj
         return getMessage(name, false, true);
     }
 
+	/** {@inheritDoc} */
 	public Message resolve(ObjectGraphNavigationInfo info)
 	{
 		if (info.getTarget() == null)

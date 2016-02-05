@@ -7,15 +7,19 @@ import java.util.Vector;
  * All available methods are documented here.
  * <p/>
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
+ *
  * @author JCHUET
+ * @version $Id: $Id
  */
 public interface RpcServerService
 {
+	/** Constant <code>SERVICE_HANDLER="greenpepper1"</code> */
 	String SERVICE_HANDLER = "greenpepper1";
 	
-	/**
+    /**
      * Retrieves the GreenpPepper Server license.
      * <p/>
+     *
      * @return the GreenpPepper Server license message.
      */
     public Vector<Object> license();
@@ -23,7 +27,8 @@ public interface RpcServerService
     /**
      * Uploads the new GreenpPepper Server license.
      * <p/>
-     * @param newLicense
+     *
+     * @param newLicense a {@link java.lang.String} object.
      * @return success or error.
      */
     public String uploadNewLicense(String newLicense);
@@ -31,6 +36,7 @@ public interface RpcServerService
     /**
      * Test the connection to the server.
      * <p/>
+     *
      * @return success.
      */
     public String testConnection();
@@ -38,7 +44,8 @@ public interface RpcServerService
     /**
      * Pings the server.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return success.
      */
     public String ping(Vector<Object> repositoryParams);
@@ -46,6 +53,7 @@ public interface RpcServerService
     /**
      * Retrieves the EnvironmentTypes available.
      * <p/>
+     *
      * @return all the EnvironmentTypes available.
      */
     public Vector<Object> getAllEnvironmentTypes();
@@ -53,7 +61,8 @@ public interface RpcServerService
     /**
      * Retrieves the runner for a given the name.
      * <p/>
-     * @param name
+     *
+     * @param name a {@link java.lang.String} object.
      * @return the runner for a given the name.
      */
     public Vector<Object> getRunner(String name);
@@ -61,6 +70,7 @@ public interface RpcServerService
     /**
      * Retrieves all available Runners.
      * <p/>
+     *
      * @return  all available Runners
      */
     public Vector<Object> getAllRunners();
@@ -68,6 +78,7 @@ public interface RpcServerService
     /**
      * Creates a new Runner.
      * <p/>
+     *
      * @param runnerParams Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured']
      * @return error id if an error occured
      */
@@ -76,8 +87,9 @@ public interface RpcServerService
     /**
      * Updates the Runner.
      * <p/>
-     * @param oldRunnerName
-     * @param runnerParams
+     *
+     * @param oldRunnerName a {@link java.lang.String} object.
+     * @param runnerParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String updateRunner(String oldRunnerName, Vector<Object> runnerParams);
@@ -85,7 +97,8 @@ public interface RpcServerService
     /**
      * Creates a new Runner.
      * <p/>
-     * @param name
+     *
+     * @param name a {@link java.lang.String} object.
      * @return error id if an error occured
      */
     public String removeRunner(String name);
@@ -93,7 +106,8 @@ public interface RpcServerService
     /**
      * Retrieves the Repository for the uid.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return the Repository for the uid.
      */
     public Vector<Object> getRegisteredRepository(Vector<Object> repositoryParams);
@@ -102,7 +116,8 @@ public interface RpcServerService
      * Registers the repository in GreenPepper-server.
      * If project not found it will be created.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return the registered repository.
      */
     public Vector<Object> registerRepository(Vector<Object> repositoryParams);
@@ -111,20 +126,25 @@ public interface RpcServerService
      * Updates the Repository Registration.
      * If project not found it will be created.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
+     * @return a {@link java.lang.String} object.
      */
     public String updateRepositoryRegistration(Vector<Object> repositoryParams);
 
     /**
      * Removes the Repository if this one doesnt hold any specifications.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
      */
     public String removeRepository(String repositoryUid);
 
     /**
      * Retrieves the complete project list.
      * <p/>
+     *
      * @return the complete project list.
      */
     public Vector<Object> getAllProjects();
@@ -133,6 +153,7 @@ public interface RpcServerService
      * Retrieves all the Specification repository grouped by project
      * or an error id in a Hastable if an error occured.
      * <p/>
+     *
      * @return the Specification repository list grouped by types for the project
      * or an error id in a Hastable if an error occured.
      */
@@ -142,7 +163,8 @@ public interface RpcServerService
      * Retrieves the Specification repository list grouped by types for the project associated with
      * the specified repository or an error id in a Hastable if an error occured.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return the Specification repository list grouped by types for the project associated with
      * the specified repository or an error id in a Hastable if an error occured.
      */
@@ -152,7 +174,8 @@ public interface RpcServerService
      * Retrieves the Repository list for the project associated with
      * the specified system under test or an error id in a Hastable if an error occured.
      * <p/>
-     * @param systemUnderTestParams
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
      * @return the repository list for the project associated with
      * the specified systemUnderTest or an error id in a Hastable if an error occured.
      */
@@ -162,7 +185,8 @@ public interface RpcServerService
      * Retrieves the Specification repository list grouped by types for the project associated with
      * the specified SystemUnderTest or an error id in a Hastable if an error occured.
      * <p/>
-     * @param systemUnderTestParams
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
      * @return the Specification repository list grouped by types for the project associated with
      * the specified SystemUnderTest or an error id in a Hastable if an error occured.
      */
@@ -172,7 +196,8 @@ public interface RpcServerService
      * Retrieves the Requirement repository list for the project associated with
      * the specified repository or an error id in a Hastable if an error occured.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return the Requirement repository list for the project associated with
      * the specified repository or an error id in a Hastable if an error occured.
      */
@@ -182,7 +207,8 @@ public interface RpcServerService
      * Retrieves the SystemUnderTest list for the project associated with
      * the specified repository or an error id in a Hastable if an error occured.
      * <p/>
-     * @param repositoryParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return the SystemUnderTest list for the project associated with
      * the specified repository or an error id in a Hastable if an error occured.
      */
@@ -192,7 +218,8 @@ public interface RpcServerService
      * Retrieves the SystemUnderTest list for the project associated
      * or an error id in a Hastable if an error occured.
      * <p/>
-     * @param projectName
+     *
+     * @param projectName a {@link java.lang.String} object.
      * @return the SystemUnderTest list for the project associated
      * or an error id in a Hastable if an error occured.
      */
@@ -201,6 +228,7 @@ public interface RpcServerService
     /**
      * Adds the SystemUnderTest to the SystemUnderTest list of the Specification.
      * <p/>
+     *
      * @param systemUnderTestParams SUT[name,Project[name]]
      * @param specificationParams Spec[name, Repo[name,uid]]
      * @return error id if an error occured
@@ -210,8 +238,9 @@ public interface RpcServerService
     /**
      * Removes the SystemUnderTest to the SystemUnderTest list of the Specification.
      * <p/>
-     * @param systemUnderTestParams
-     * @param specificationParams
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
+     * @param specificationParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String removeSpecificationSystemUnderTest(Vector<Object>  systemUnderTestParams, Vector<Object>  specificationParams);
@@ -219,7 +248,8 @@ public interface RpcServerService
     /**
      * Checks if the Specification is in atleast one reference.
      * <p/>
-     * @param specificationParams
+     *
+     * @param specificationParams a {@link java.util.Vector} object.
      * @return true if the Specification is in atleast one reference.
      */
     public String doesSpecificationHasReferences(Vector<Object> specificationParams);
@@ -227,7 +257,8 @@ public interface RpcServerService
     /**
      * Retrieves the references list of the specified Specification
      * <p/>
-     * @param specificationParams
+     *
+     * @param specificationParams a {@link java.util.Vector} object.
      * @return the references list of the specified Specification
      */
     public Vector<Object> getSpecificationReferences(Vector<Object> specificationParams);
@@ -235,7 +266,8 @@ public interface RpcServerService
     /**
      * Checks if the Requirement is in atleast one Reference.
      * <p/>
-     * @param requirementParams
+     *
+     * @param requirementParams a {@link java.util.Vector} object.
      * @return true if the Requirement is in atleast one Reference.
      */
     public String doesRequirementHasReferences(Vector<Object> requirementParams);
@@ -243,7 +275,8 @@ public interface RpcServerService
     /**
      * Retrieves the References list of the specified requirement
      * <p/>
-     * @param requirementParams
+     *
+     * @param requirementParams a {@link java.util.Vector} object.
      * @return the References list of the specified requirement
      */
     public Vector<Object> getRequirementReferences(Vector<Object> requirementParams);
@@ -251,7 +284,8 @@ public interface RpcServerService
     /**
      * Retrieves the Reference.
      * </p>
-     * @param referenceParams
+     *
+     * @param referenceParams a {@link java.util.Vector} object.
      * @return the Reference.
      */
     public Vector<Object> getReference(Vector<Object> referenceParams);
@@ -259,8 +293,9 @@ public interface RpcServerService
     /**
      * Retrieves the systemUnderTest
      * <p/>
-     * @param systemUnderTestParams
-     * @param repositoryParams
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public Vector<Object> getSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams);
@@ -268,9 +303,10 @@ public interface RpcServerService
     /**
      * Creates the systemUnderTest
      * <p/>
-     * @param systemUnderTestParams Vector[name, Vector[project parameters], Vector[seeds classPaths], Vector[fixture classPaths], fixturefactory, 
-     *                              fixturefactoryargs, isdefault, 
-     *                              Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured'], 
+     *
+     * @param systemUnderTestParams Vector[name, Vector[project parameters], Vector[seeds classPaths], Vector[fixture classPaths], fixturefactory,
+     *                              fixturefactoryargs, isdefault,
+     *                              Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured'],
      *                              projectdependencydescriptor]
      * @param repositoryParams REPO[name, uid]
      * @return error id if an error occured
@@ -280,9 +316,10 @@ public interface RpcServerService
     /**
      * Updates the systemUnderTest
      * <p/>
-     * @param oldSystemUnderTestName
-     * @param systemUnderTestParams
-     * @param repositoryParams
+     *
+     * @param oldSystemUnderTestName a {@link java.lang.String} object.
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String updateSystemUnderTest(String oldSystemUnderTestName, Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams);
@@ -290,6 +327,7 @@ public interface RpcServerService
     /**
      * Removes the systemUnderTest
      * <p/>
+     *
      * @param systemUnderTestParams SUT[name, project[name]]
      * @param repositoryParams REPO[name,uid]
      * @return error id if an error occured
@@ -299,8 +337,9 @@ public interface RpcServerService
     /**
      * Sets the systemUnderTest as the project default SystemUnderTest
      * <p/>
-     * @param systemUnderTestParams
-     * @param repositoryParams
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String setSystemUnderTestAsDefault(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams);
@@ -308,7 +347,8 @@ public interface RpcServerService
     /**
      * Removes the Requirement.
      * <p/>
-     * @param requirementParams
+     *
+     * @param requirementParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String removeRequirement(Vector<Object> requirementParams);
@@ -316,6 +356,7 @@ public interface RpcServerService
     /**
      * Retrieves the Specification
      * <p/>
+     *
      * @param specificationParams [name,repository[name,uid]]
      * @return the Specification
      */
@@ -324,8 +365,9 @@ public interface RpcServerService
     /**
      * Retrieves all Specifications for a given SystemUnderTest and Repository
      * <p>
-     * @param systemUnderTestParams
-     * @param repositoryParams
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
+     * @param repositoryParams a {@link java.util.Vector} object.
      * @return all Specifications for a given SystemUnderTest and Repository
      */
     public Vector<Object> getSpecifications(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams);
@@ -333,8 +375,9 @@ public interface RpcServerService
     /**
      * Retrieves the Specification location list for a given SystemUnderTest and Repository
      * <p/>
-     * @param repositoryUID
-     * @param systemUnderTestName
+     *
+     * @param repositoryUID a {@link java.lang.String} object.
+     * @param systemUnderTestName a {@link java.lang.String} object.
      * @return the Specification location list for a given SystemUnderTest and Repository
      */
     public Vector<?> getListOfSpecificationLocations(String repositoryUID, String systemUnderTestName);
@@ -342,7 +385,8 @@ public interface RpcServerService
     /**
      * Creates the Specification
      * <p/>
-     * @param specificationParams
+     *
+     * @param specificationParams a {@link java.util.Vector} object.
      * @return the new Specification
      */
     public Vector<Object> createSpecification(Vector<Object> specificationParams);
@@ -350,8 +394,9 @@ public interface RpcServerService
     /**
      * Updates the Specification.
      * <p/>
-     * @param oldSpecificationParams
-     * @param newSpecificationParams
+     *
+     * @param oldSpecificationParams a {@link java.util.Vector} object.
+     * @param newSpecificationParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String updateSpecification(Vector<Object> oldSpecificationParams, Vector<Object> newSpecificationParams);
@@ -359,7 +404,8 @@ public interface RpcServerService
     /**
      * Removes the Specification.
      * <p/>
-     * @param specificationParams
+     *
+     * @param specificationParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String removeSpecification(Vector<Object> specificationParams);
@@ -367,7 +413,8 @@ public interface RpcServerService
     /**
      * Creates a Reference
      * <p/>
-     * @param referenceParams
+     *
+     * @param referenceParams a {@link java.util.Vector} object.
      * @return error id if an error occured
      */
     public String createReference(Vector<Object> referenceParams);
@@ -377,8 +424,9 @@ public interface RpcServerService
      * The Old one will be deleted based on the oldReferenceParams and a new One
      * will be created based on the newReferenceParams.
      * <p/>
-     * @param oldReferenceParams
-     * @param newReferenceParams
+     *
+     * @param oldReferenceParams a {@link java.util.Vector} object.
+     * @param newReferenceParams a {@link java.util.Vector} object.
      * @return the updated Reference
      */
     public Vector<Object> updateReference(Vector<Object> oldReferenceParams, Vector<Object> newReferenceParams);
@@ -386,7 +434,8 @@ public interface RpcServerService
     /**
      * Deletes the specified Reference.
      * <p/>
-     * @param referenceParams
+     *
+     * @param referenceParams a {@link java.util.Vector} object.
      * @return error id if an eror occured
      */
     public String removeReference(Vector<Object> referenceParams);
@@ -394,10 +443,11 @@ public interface RpcServerService
     /**
      * Executes the Specification over the selected SystemUnderTest.
      * <p/>
-     * @param systemUnderTestParams
-     * @param specificationParams
-     * @param implementedVersion
-     * @param locale
+     *
+     * @param systemUnderTestParams a {@link java.util.Vector} object.
+     * @param specificationParams a {@link java.util.Vector} object.
+     * @param implementedVersion a boolean.
+     * @param locale a {@link java.lang.String} object.
      * @return the Execution of the Specification over the selected SystemUnderTest.
      */
     public Vector<Object> runSpecification(Vector<Object> systemUnderTestParams, Vector<Object> specificationParams, boolean implementedVersion, String locale);
@@ -405,8 +455,9 @@ public interface RpcServerService
     /**
      * Executes the Reference.
      * <p/>
-     * @param referenceParams
-     * @param locale
+     *
+     * @param referenceParams a {@link java.util.Vector} object.
+     * @param locale a {@link java.lang.String} object.
      * @return the Reference executed
      */
     public Vector<Object> runReference(Vector<Object> referenceParams, String locale);
@@ -414,7 +465,8 @@ public interface RpcServerService
     /**
      * Retrieves the Requirement summary.
      * <p/>
-     * @param requirementParams
+     *
+     * @param requirementParams a {@link java.util.Vector} object.
      * @return the Requirement summary.
      */
     public Vector<Object> getRequirementSummary(Vector<Object> requirementParams);
@@ -422,8 +474,9 @@ public interface RpcServerService
     /**
      * Retrieve the specifications hierarchy for a Repository.
      * <p/>
-     * @param repositoryParams
-     * @param sutParams
+     *
+     * @param repositoryParams a {@link java.util.Vector} object.
+     * @param sutParams a {@link java.util.Vector} object.
      * @return the TestCase executed
      */
     public Vector<Object> getSpecificationHierarchy(Vector<Object> repositoryParams, Vector<Object> sutParams);

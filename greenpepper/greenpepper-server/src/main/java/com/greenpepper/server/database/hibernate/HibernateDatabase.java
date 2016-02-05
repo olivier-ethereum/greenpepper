@@ -21,10 +21,22 @@ import com.greenpepper.server.domain.Specification;
 import com.greenpepper.server.domain.SystemInfo;
 import com.greenpepper.server.domain.SystemUnderTest;
 
+/**
+ * <p>HibernateDatabase class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateDatabase
 {
     private final AnnotationConfiguration cfg;
 
+    /**
+     * <p>Constructor for HibernateDatabase.</p>
+     *
+     * @param properties a {@link java.util.Properties} object.
+     * @throws org.hibernate.HibernateException if any.
+     */
     public HibernateDatabase(Properties properties) throws HibernateException
     {
         cfg = new AnnotationConfiguration();        
@@ -32,21 +44,42 @@ public class HibernateDatabase
         setAnnotadedClasses();
     }
     
+    /**
+     * <p>createDatabase.</p>
+     *
+     * @throws org.hibernate.HibernateException if any.
+     */
     public void createDatabase() throws HibernateException
     {
         new SchemaExport(cfg).create(false, true);
     }
 
+    /**
+     * <p>dropDatabase.</p>
+     *
+     * @throws org.hibernate.HibernateException if any.
+     */
     public void dropDatabase() throws HibernateException
     {
         new SchemaExport(cfg).drop(false, true);
     }
     
+    /**
+     * <p>getConfiguration.</p>
+     *
+     * @return a {@link org.hibernate.cfg.Configuration} object.
+     */
     public Configuration getConfiguration()
     {
         return cfg;
     }    
 
+    /**
+     * <p>getSessionFactory.</p>
+     *
+     * @return a {@link org.hibernate.SessionFactory} object.
+     * @throws org.hibernate.HibernateException if any.
+     */
     public SessionFactory getSessionFactory() throws HibernateException
     {
         return cfg.buildSessionFactory();

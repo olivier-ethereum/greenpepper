@@ -26,14 +26,24 @@ import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.IOUtil;
 import com.greenpepper.util.URIUtil;
 
+/**
+ * <p>AtlassianRepository class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class AtlassianRepository implements DocumentRepository
 {
+    /** Constant <code>PAGE_NOT_FOUND="Page Not Found !"</code> */
     public static final String PAGE_NOT_FOUND = "Page Not Found !";
 
+    /** Constant <code>INSUFFICIENT_PRIVILEGES="INSUFFICIENT PRIVILEGES !"</code> */
     public static final String INSUFFICIENT_PRIVILEGES = "INSUFFICIENT PRIVILEGES !";
 
+    /** Constant <code>SESSION_INVALID="Session Invalid !"</code> */
     public static final String SESSION_INVALID = "Session Invalid !";
 
+    /** Constant <code>PARAMETERS_MISSING="Parameters Missing, expecting:[SpaceKey"{trunked}</code> */
     public static final String PARAMETERS_MISSING = "Parameters Missing, expecting:[SpaceKey, PageTitle, IncludeStyle] !";
 
     private static final Logger logger = LoggerFactory.getLogger(AtlassianRepository.class); 
@@ -44,6 +54,12 @@ public class AtlassianRepository implements DocumentRepository
 	private String username = "";
 	private String password = "";
 
+	/**
+	 * <p>Constructor for AtlassianRepository.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public AtlassianRepository(String... args) throws Exception
 	{
 		this.root = URI.create(URIUtil.raw(args[0]));
@@ -61,6 +77,7 @@ public class AtlassianRepository implements DocumentRepository
 		}
 	}
 
+	/** {@inheritDoc} */
 	public Document loadDocument(String location) throws Exception
 	{
         String spec = retrieveSpecification(URI.create(URIUtil.raw(location)));
@@ -84,6 +101,7 @@ public class AtlassianRepository implements DocumentRepository
         return loadHtmlDocument( spec );
 	}
 
+	/** {@inheritDoc} */
 	public void setDocumentAsImplemeted(String location) throws Exception
 	{
     	Vector<?> args = CollectionUtil.toVector( username , password, args(URI.create(URIUtil.raw(location))));
@@ -93,11 +111,18 @@ public class AtlassianRepository implements DocumentRepository
         if(!("<success>".equals(msg))) throw new Exception(msg);
 	}
 
+    /** {@inheritDoc} */
     public List<String> listDocuments(String uri)
     {
         return new ArrayList<String>();
     }
 
+	/**
+	 * <p>listDocumentsInHierarchy.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Object> listDocumentsInHierarchy() throws Exception
 	{

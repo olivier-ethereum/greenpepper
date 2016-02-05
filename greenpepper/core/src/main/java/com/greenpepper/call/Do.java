@@ -19,10 +19,22 @@
 
 package com.greenpepper.call;
 
+/**
+ * <p>Do class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class Do
 {
     private Do() {}
 
+    /**
+     * <p>both.</p>
+     *
+     * @param stub a {@link com.greenpepper.call.Stub} object.
+     * @return a {@link com.greenpepper.call.DoBoth} object.
+     */
     public static DoBoth both(Stub stub)
     {
         return new DoBoth( stub );

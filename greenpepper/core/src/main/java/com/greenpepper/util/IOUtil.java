@@ -27,12 +27,20 @@ import java.io.Reader;
 
 /**
  * Provides multiples static methods to deal with IO.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public final class IOUtil
 {
 
     private IOUtil() {}
 
+    /**
+     * <p>closeQuietly.</p>
+     *
+     * @param stream a {@link java.io.Closeable} object.
+     */
     public static void closeQuietly( Closeable stream )
     {
         if (stream == null) return;
@@ -47,6 +55,10 @@ public final class IOUtil
 
     /**
      * Returns the content of a file as a String.
+     *
+     * @param file a {@link java.io.File} object.
+     * @return a {@link java.lang.String} object.
+     * @throws java.io.IOException if any.
      */
     public static String readContent( File file ) throws IOException
     {
@@ -62,6 +74,13 @@ public final class IOUtil
         }
     }
 
+    /**
+     * <p>readContent.</p>
+     *
+     * @param in a {@link java.io.Reader} object.
+     * @return a {@link java.lang.String} object.
+     * @throws java.io.IOException if any.
+     */
     public static String readContent( Reader in ) throws IOException
     {
         char[] buffer = new char[2048];
@@ -75,6 +94,13 @@ public final class IOUtil
         return sb.toString();
     }
 
+    /**
+     * <p>createDirectoryTree.</p>
+     *
+     * @param file a {@link java.io.File} object.
+     * @return a {@link java.io.File} object.
+     * @throws java.io.IOException if any.
+     */
     public static File createDirectoryTree( File file ) throws IOException
     {
         if (file.isDirectory() && file.canWrite()) return file;
@@ -88,6 +114,12 @@ public final class IOUtil
         return file;
     }
 
+    /**
+     * <p>deleteDirectoryTree.</p>
+     *
+     * @param dir a {@link java.io.File} object.
+     * @return a boolean.
+     */
     public static boolean deleteDirectoryTree( File dir )
     {
         File[] files = dir.listFiles();
@@ -99,6 +131,11 @@ public final class IOUtil
         return dir.delete();
     }
 
+	/**
+	 * <p>deleteFile.</p>
+	 *
+	 * @param file a {@link java.io.File} object.
+	 */
 	public static void deleteFile( File file )
 	{
 		if (file != null && !file.delete())

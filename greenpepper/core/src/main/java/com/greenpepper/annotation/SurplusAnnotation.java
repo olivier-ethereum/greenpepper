@@ -4,8 +4,15 @@ import static com.greenpepper.GreenPepper.$;
 
 import com.greenpepper.Text;
 
+/**
+ * <p>SurplusAnnotation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SurplusAnnotation implements Annotation
 {
+    /** {@inheritDoc} */
     public void writeDown(Text text)
     {
         text.setStyle( Styles.BACKGROUND_COLOR, Colors.RED );

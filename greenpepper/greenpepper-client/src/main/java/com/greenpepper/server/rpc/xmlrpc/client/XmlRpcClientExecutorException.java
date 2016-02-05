@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,18 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.xmlrpc.client;
 
 import com.greenpepper.server.GreenPepperServerException;
-
 public class XmlRpcClientExecutorException
 		extends GreenPepperServerException {
 
+	/**
+	 * <p>Constructor for XmlRpcClientExecutorException.</p>
+	 *
+	 * @param id a {@link java.lang.String} object.
+	 * @param msg a {@link java.lang.String} object.
+	 */
 	public XmlRpcClientExecutorException(String id, String msg) {
 		super(id, msg);
 	}
 
+	/**
+	 * <p>Constructor for XmlRpcClientExecutorException.</p>
+	 *
+	 * @param id a {@link java.lang.String} object.
+	 * @param th a {@link java.lang.Throwable} object.
+	 */
 	public XmlRpcClientExecutorException(String id, Throwable th) {
 		super(id, th);
 	}

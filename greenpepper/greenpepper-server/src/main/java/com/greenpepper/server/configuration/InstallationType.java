@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,9 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.configuration;
-
 public enum InstallationType
 {
     quick( "Quick" ),
@@ -30,11 +33,22 @@ public enum InstallationType
         this.id = id;
     }
 
+    /**
+     * <p>Getter for the field <code>id</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getId()
     {
         return this.id;
     }
 
+    /**
+     * <p>fromId.</p>
+     *
+     * @param id a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.configuration.InstallationType} object.
+     */
     public static InstallationType fromId(String id)
     {
         if (id.compareToIgnoreCase( "quick" ) == 0)

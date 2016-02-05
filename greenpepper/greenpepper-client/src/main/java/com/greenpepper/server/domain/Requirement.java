@@ -17,7 +17,9 @@ import com.greenpepper.server.GreenPepperServerException;
  * Requirement Class.
  * <p/>
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
+ *
  * @author JCHUET
+ * @version $Id: $Id
  */
 
 @Entity
@@ -27,6 +29,12 @@ public class Requirement extends Document
 {
     protected Set<Reference> references = new HashSet<Reference>();
     
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.Requirement} object.
+     */
     public static Requirement newInstance(String name)
     {
         Requirement requirement = new Requirement();
@@ -34,17 +42,33 @@ public class Requirement extends Document
         return requirement;
     }
 
+    /**
+     * <p>Getter for the field <code>references</code>.</p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
     @OneToMany(mappedBy="requirement", cascade=CascadeType.ALL)
     public Set<Reference> getReferences()
     {
         return references;
     }
 
+    /**
+     * <p>Setter for the field <code>references</code>.</p>
+     *
+     * @param references a {@link java.util.Set} object.
+     */
     public void setReferences(Set<Reference> references)
     {
         this.references = references;
     }
 
+    /**
+     * <p>removeReference.</p>
+     *
+     * @param reference a {@link com.greenpepper.server.domain.Reference} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     */
     public void removeReference(Reference reference) throws GreenPepperServerException
     {
         if(!references.contains(reference))
@@ -56,6 +80,11 @@ public class Requirement extends Document
         reference.setRequirement(null);
     }
     
+    /**
+     * <p>getSummary.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.RequirementSummary} object.
+     */
     @Transient
     public RequirementSummary getSummary()
     {
@@ -76,6 +105,7 @@ public class Requirement extends Document
         return summary;
     }
 
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if (super.equals(o))

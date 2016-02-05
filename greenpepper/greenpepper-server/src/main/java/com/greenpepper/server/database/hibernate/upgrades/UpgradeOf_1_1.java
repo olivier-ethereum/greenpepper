@@ -14,15 +14,27 @@ import com.greenpepper.server.domain.dao.SystemUnderTestDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateRepositoryDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
 
+/**
+ * <p>UpgradeOf_1_1 class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class UpgradeOf_1_1 implements ServerVersionUpgrader
 {
 	private SessionService service;
 	
+	/**
+	 * <p>upgradedTo.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String upgradedTo() 
 	{
 		return "1.2";
 	}
 	
+	/** {@inheritDoc} */
 	public void upgrade(SessionService service) throws Exception 
 	{
 		this.service = service;

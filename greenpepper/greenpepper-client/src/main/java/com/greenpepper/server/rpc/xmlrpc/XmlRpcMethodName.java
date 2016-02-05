@@ -1,6 +1,12 @@
 package com.greenpepper.server.rpc.xmlrpc;
 
 
+/**
+ * <p>XmlRpcMethodName class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public enum XmlRpcMethodName
 {
     license,

@@ -21,19 +21,22 @@ package com.greenpepper.converter;
 import com.greenpepper.util.NumberUtil;
 
 /**
- * <code>TypeConverter</code> implementation that converts strings to 
+ * <code>TypeConverter</code> implementation that converts strings to
  * <code>Float</code> objects.
- * 
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class FloatConverter 
         extends AbstractTypeConverter
 {
+    /** {@inheritDoc} */
     protected Object doConvert(String value)
     {
 		return Float.valueOf(NumberUtil.substituteDecimalSeparatorToPeriod(value));
     }
 
+    /** {@inheritDoc} */
     public boolean canConvertTo(Class type)
     {
         return Float.class.isAssignableFrom(type) || float.class.isAssignableFrom(type);

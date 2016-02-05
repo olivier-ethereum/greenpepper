@@ -26,6 +26,12 @@ import com.greenpepper.util.ExceptionImposter;
 import com.greenpepper.util.StringUtil;
 import com.greenpepper.util.URIUtil;
 
+/**
+ * <p>GreenPepperRepository class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperRepository implements DocumentRepository
 {
 	private URI root;
@@ -37,6 +43,12 @@ public class GreenPepperRepository implements DocumentRepository
 	private String username = "";
 	private String password = "";
 
+	/**
+	 * <p>Constructor for GreenPepperRepository.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public GreenPepperRepository(String... args) throws Exception
     {
         if (args.length == 0) throw new IllegalArgumentException("No root specified");
@@ -66,11 +78,13 @@ public class GreenPepperRepository implements DocumentRepository
 		}
     }
 
+	/** {@inheritDoc} */
 	public void setDocumentAsImplemeted(String location) throws Exception
 	{	
 		throw new UnsupportedOperationException("Not supported");
 	}
 
+    /** {@inheritDoc} */
     public List<String> listDocuments(String uri) throws Exception
     {
         List<String> documentsURI = new ArrayList<String>();
@@ -102,11 +116,18 @@ public class GreenPepperRepository implements DocumentRepository
         return definitions;
     }
 
+	/**
+	 * <p>listDocumentsInHierarchy.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public List<Object> listDocumentsInHierarchy() throws Exception
 	{
 		throw new UnsupportedOperationException("Hierarchy not supported");
 	}
 	
+    /** {@inheritDoc} */
     public Document loadDocument(String location) throws Exception
 	{
 		Vector<String> definition = getDefinition(location);

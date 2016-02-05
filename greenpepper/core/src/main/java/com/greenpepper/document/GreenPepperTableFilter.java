@@ -3,17 +3,31 @@ package com.greenpepper.document;
 import com.greenpepper.Example;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>GreenPepperTableFilter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperTableFilter implements ExampleFilter
 {
+    /** Constant <code>BEGIN_GP_TEST="begin example"</code> */
     public static final String BEGIN_GP_TEST = "begin example";
+    /** Constant <code>END_GP_TEST="end example"</code> */
     public static final String END_GP_TEST = "end example";
     private boolean lazyMode;
 
+    /**
+     * <p>Constructor for GreenPepperTableFilter.</p>
+     *
+     * @param lazyMode a boolean.
+     */
     public GreenPepperTableFilter(boolean lazyMode)
     {
         this.lazyMode = lazyMode;
     }
 
+    /** {@inheritDoc} */
     public boolean canFilter(Example example)
     {
         Example result = example;
@@ -29,11 +43,18 @@ public class GreenPepperTableFilter implements ExampleFilter
         return !isWithinBeginAndEndTags(result);
     }
 
+    /** {@inheritDoc} */
     public Example filter(Example example)
     {
         return canFilter(example) ? doFilter(example) : example;
     }
 
+    /**
+     * <p>doFilter.</p>
+     *
+     * @param example a {@link com.greenpepper.Example} object.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     protected Example doFilter(Example example)
     {
         Example result = example;

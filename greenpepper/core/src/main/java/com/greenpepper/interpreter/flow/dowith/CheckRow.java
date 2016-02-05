@@ -32,18 +32,36 @@ import com.greenpepper.util.ExampleUtil;
 
 import java.util.List;
 
+/**
+ * <p>CheckRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class CheckRow extends AbstractRow
 {
+    /**
+     * <p>mathes.</p>
+     *
+     * @param keyword a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean mathes( String keyword )
     {
         return "check".equalsIgnoreCase( keyword );
     }
 
+    /**
+     * <p>Constructor for CheckRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public CheckRow( Fixture fixture )
     {
         super( fixture );
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification table )
     {
         Example row = table.nextExample();
@@ -73,6 +91,7 @@ public class CheckRow extends AbstractRow
         return CollectionUtil.odd( row.firstChild() );
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
         List<Example> actionCells = ExampleUtil.asList( row.at(0,1) );

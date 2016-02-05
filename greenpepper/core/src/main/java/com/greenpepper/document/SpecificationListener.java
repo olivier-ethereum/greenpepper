@@ -21,9 +21,27 @@ package com.greenpepper.document;
 import com.greenpepper.Example;
 import com.greenpepper.Statistics;
 
+/**
+ * <p>SpecificationListener interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface SpecificationListener
 {
+    /**
+     * <p>exampleDone.</p>
+     *
+     * @param table a {@link com.greenpepper.Example} object.
+     * @param statistics a {@link com.greenpepper.Statistics} object.
+     */
     void exampleDone( Example table, Statistics statistics );
 
+    /**
+     * <p>specificationDone.</p>
+     *
+     * @param spec a {@link com.greenpepper.Example} object.
+     * @param statistics a {@link com.greenpepper.Statistics} object.
+     */
     void specificationDone( Example spec, Statistics statistics );
 }

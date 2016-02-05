@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner.report;
 
@@ -24,7 +28,6 @@ import java.io.IOException;
 
 import com.greenpepper.util.Factory;
 import com.greenpepper.util.IOUtil;
-
 public class FileReportGenerator
 		implements ReportGenerator
 {
@@ -34,28 +37,45 @@ public class FileReportGenerator
 	private Class<? extends Report> reportClass;
 	private boolean automaticExtension;
 
+	/**
+	 * <p>Constructor for FileReportGenerator.</p>
+	 *
+	 * @param outputDir a {@link java.io.File} object.
+	 */
 	public FileReportGenerator(File outputDir)
 	{
 		this.reportsDirectory = outputDir;
 		this.reportClass = HtmlReport.class;
 	}
 
+	/**
+	 * <p>Setter for the field <code>reportClass</code>.</p>
+	 *
+	 * @param reportClass a {@link java.lang.Class} object.
+	 */
 	public void setReportClass(Class<? extends Report> reportClass)
 	{
 		this.reportClass = reportClass;
 	}
 
+	/**
+	 * <p>adjustReportFilesExtensions.</p>
+	 *
+	 * @param enable a boolean.
+	 */
 	public void adjustReportFilesExtensions(boolean enable)
 	{
 		this.automaticExtension = enable;
 	}
 
+	/** {@inheritDoc} */
 	public Report openReport(String name)
 	{
 		Factory<Report> factory = new Factory<Report>(reportClass);
 		return factory.newInstance(name);
 	}
 
+	/** {@inheritDoc} */
 	public void closeReport(Report report)
 			throws IOException
 	{

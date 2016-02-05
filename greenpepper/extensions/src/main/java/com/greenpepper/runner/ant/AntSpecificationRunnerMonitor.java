@@ -22,27 +22,41 @@ import com.greenpepper.Statistics;
 import com.greenpepper.runner.SpecificationRunnerMonitor;
 import com.greenpepper.util.ExceptionUtils;
 
+/**
+ * <p>AntSpecificationRunnerMonitor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class AntSpecificationRunnerMonitor
         implements SpecificationRunnerMonitor
 {
     private final CommandLineRunnerMirror.CommandLineLogger logger;
 
+    /**
+     * <p>Constructor for AntSpecificationRunnerMonitor.</p>
+     *
+     * @param logger a {@link com.greenpepper.runner.ant.CommandLineRunnerMirror.CommandLineLogger} object.
+     */
     public AntSpecificationRunnerMonitor(CommandLineRunnerMirror.CommandLineLogger logger)
     {
         this.logger = logger;
     }
 
+    /** {@inheritDoc} */
     public void testRunning(String s)
     {
         logger.info( "Running " + s );
     }
 
+    /** {@inheritDoc} */
     public void testDone(int rightCount, int wrongCount, int exceptionCount, int ignoreCount)
     {
         Statistics stats = new Statistics( rightCount, wrongCount, exceptionCount, ignoreCount );
         logger.info( stats + ( stats.indicatesFailure() ? " <<< FAILURE!\n" : "\n" ) );
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured(Throwable throwable)
     {
         logger.error( "Error: " + throwable.getMessage() );

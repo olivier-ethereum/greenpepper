@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,15 +16,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner.report;
-
 public interface ReportGenerator
 {
 
+	/**
+	 * <p>openReport.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.rpc.runner.report.Report} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	Report openReport(String name)
 			throws Exception;
 
+	/**
+	 * <p>closeReport.</p>
+	 *
+	 * @param report a {@link com.greenpepper.server.rpc.runner.report.Report} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	void closeReport(Report report)
 			throws Exception;
 }

@@ -25,19 +25,37 @@ import com.greenpepper.reflect.Fixture;
 /**
  * <code>Interpreter</code> implementation that checks the properties of a set
  * of arbitrary objects against values of a set of <code>Specification</code>.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class SetOfInterpreter extends CollectionInterpreter
 {
+    /**
+     * <p>Constructor for SetOfInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public SetOfInterpreter(Fixture fixture)
     {
         super( fixture );
     }
 
+    /**
+     * <p>mustProcessMissing.</p>
+     *
+     * @return a boolean.
+     */
     protected boolean mustProcessMissing()
     {
         return true;
     }
 
+    /**
+     * <p>mustProcessSurplus.</p>
+     *
+     * @return a boolean.
+     */
     protected boolean mustProcessSurplus()
     {
         return true;

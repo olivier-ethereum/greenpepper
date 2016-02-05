@@ -19,11 +19,22 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>InvalidOptionException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class InvalidOptionException extends ParseException
 {
     private final String name;
 
+    /**
+     * <p>Constructor for InvalidOptionException.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public InvalidOptionException( String name )
     {
         super();
@@ -31,6 +42,11 @@ public class InvalidOptionException extends ParseException
         this.name = name;
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return "Invalid option: " + name;

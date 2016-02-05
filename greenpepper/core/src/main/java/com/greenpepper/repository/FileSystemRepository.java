@@ -34,24 +34,42 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * <p>FileSystemRepository class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FileSystemRepository implements DocumentRepository
 {
     private static final FileFilter NOT_HIDDEN = new NotHiddenFilter();
     private final File root;
 
+    /**
+     * <p>Constructor for FileSystemRepository.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     */
     public FileSystemRepository( String... args )
     {
     	if (args.length != 1) throw new IllegalArgumentException("root");
         this.root = new File(URIUtil.decoded(args[0]));
     }
 
+    /**
+     * <p>Constructor for FileSystemRepository.</p>
+     *
+     * @param root a {@link java.io.File} object.
+     */
     public FileSystemRepository( File root )
     {
         this.root = root;
     }
 
+	/** {@inheritDoc} */
 	public void setDocumentAsImplemeted(String location) throws Exception{	}
 
+    /** {@inheritDoc} */
     public List<String> listDocuments( String location ) throws IOException
     {
         File parent = fileAt( location );
@@ -75,6 +93,12 @@ public class FileSystemRepository implements DocumentRepository
         return names;
     }
 
+	/**
+	 * <p>listDocumentsInHierarchy.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public List<Object> listDocumentsInHierarchy() throws Exception 
 	{
 		Vector<Object> hierarchy = toHierarchyNodeVector(root);
@@ -84,6 +108,7 @@ public class FileSystemRepository implements DocumentRepository
 		return hierarchy;
 	}
 
+    /** {@inheritDoc} */
     public Document loadDocument( String location ) throws Exception
     {
         File file = fileAt( location );

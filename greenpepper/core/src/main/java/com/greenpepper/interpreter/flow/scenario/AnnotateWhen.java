@@ -24,6 +24,13 @@ import com.greenpepper.annotation.Annotations;
 import com.greenpepper.call.Result;
 import com.greenpepper.call.Stub;
 
+package com.greenpepper.interpreter.flow.scenario;
+
+import com.greenpepper.Annotatable;
+import com.greenpepper.Statistics;
+import com.greenpepper.annotation.Annotations;
+import com.greenpepper.call.Result;
+import com.greenpepper.call.Stub;
 class AnnotateWhen implements Stub
 {
     private final Annotatable annotable;
@@ -35,6 +42,7 @@ class AnnotateWhen implements Stub
         this.statistics = stats;
     }
 
+    /** {@inheritDoc} */
     public void call(final Result result)
     {
         if (result.isException())

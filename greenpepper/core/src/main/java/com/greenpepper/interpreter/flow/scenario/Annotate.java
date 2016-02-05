@@ -23,6 +23,12 @@ import com.greenpepper.Example;
 import com.greenpepper.Statistics;
 import com.greenpepper.call.Stub;
 
+package com.greenpepper.interpreter.flow.scenario;
+
+import com.greenpepper.Annotatable;
+import com.greenpepper.Example;
+import com.greenpepper.Statistics;
+import com.greenpepper.call.Stub;
 final class Annotate
 {
     private Annotate() {}

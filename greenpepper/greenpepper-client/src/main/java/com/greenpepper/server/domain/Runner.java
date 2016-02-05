@@ -44,7 +44,9 @@ import com.greenpepper.util.cmdline.CommandLineExecutor;
  * Definition of a Runner.
  * <p/>
  * Copyright (c) 2006-2007 Pyxis technologies inc. All Rights Reserved.
+ *
  * @author JCHUET
+ * @version $Id: $Id
  */
 
 @Entity
@@ -66,6 +68,12 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     
     private SortedSet<String> classpaths = new TreeSet<String>();
     
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.Runner} object.
+     */
     public static Runner newInstance(String name)
     {
         Runner runner = new Runner();
@@ -74,6 +82,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return runner;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "NAME", unique = true, nullable = false, length=255)
     public String getName()
@@ -81,6 +94,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return name;
     }
 
+    /**
+     * <p>getEnvironmentType.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.EnvironmentType} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="ENVIRONMENT_TYPE_ID")
     public EnvironmentType getEnvironmentType()
@@ -88,6 +106,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return envType;
     }
 
+    /**
+     * <p>Getter for the field <code>serverName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "SERVER_NAME", nullable = true, length=255)
     public String getServerName()
@@ -95,6 +118,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return serverName;
     }
     
+    /**
+     * <p>Getter for the field <code>serverPort</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "SERVER_PORT", nullable = true, length=8)
     public String getServerPort()
@@ -102,6 +130,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return serverPort;
     }
 
+    /**
+     * <p>isSecured.</p>
+     *
+     * @return a boolean.
+     */
     @Basic
     @Column(name = "SECURED", nullable = true)
     public boolean isSecured()
@@ -109,6 +142,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     	return secured != null && secured.booleanValue();
     }
     
+    /**
+     * <p>Getter for the field <code>cmdLineTemplate</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "CMD_LINE_TEMPLATE", nullable = true, length=510)
     public String getCmdLineTemplate()
@@ -116,6 +154,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return cmdLineTemplate;
     }
 
+    /**
+     * <p>Getter for the field <code>mainClass</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "MAIN_CLASS", nullable = true, length=255)
     public String getMainClass()
@@ -123,6 +166,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return mainClass;
     }
 
+    /**
+     * <p>Getter for the field <code>classpaths</code>.</p>
+     *
+     * @return a {@link java.util.SortedSet} object.
+     */
     @CollectionOfElements
 	@JoinTable( name="RUNNER_CLASSPATHS", joinColumns={@JoinColumn(name="RUNNER_ID")} )
 	@Column(name = "elt", nullable = true, length=255)
@@ -132,46 +180,96 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return classpaths;
     }
 
+    /**
+     * <p>Setter for the field <code>name</code>.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public void setName(String name)
     {
         this.name = name;
     }
 
+    /**
+     * <p>setEnvironmentType.</p>
+     *
+     * @param envType a {@link com.greenpepper.server.domain.EnvironmentType} object.
+     */
     public void setEnvironmentType(EnvironmentType envType)
     {
         this.envType = envType;
     }
 
+    /**
+     * <p>Setter for the field <code>serverName</code>.</p>
+     *
+     * @param serverName a {@link java.lang.String} object.
+     */
     public void setServerName(String serverName)
     {
         this.serverName = StringUtil.toNullIfEmpty(serverName);
     }
 
+    /**
+     * <p>Setter for the field <code>serverPort</code>.</p>
+     *
+     * @param serverPort a {@link java.lang.String} object.
+     */
     public void setServerPort(String serverPort)
     {
         this.serverPort = StringUtil.toNullIfEmpty(serverPort);
     }
     
+    /**
+     * <p>Setter for the field <code>secured</code>.</p>
+     *
+     * @param secured a {@link java.lang.Boolean} object.
+     */
     public void setSecured(Boolean secured)
     {
         this.secured = secured != null && secured.booleanValue();
     }
 
+    /**
+     * <p>Setter for the field <code>cmdLineTemplate</code>.</p>
+     *
+     * @param cmdLineTemplate a {@link java.lang.String} object.
+     */
     public void setCmdLineTemplate(String cmdLineTemplate)
     {
         this.cmdLineTemplate = StringUtil.toNullIfEmpty(cmdLineTemplate);
     }
     
+    /**
+     * <p>Setter for the field <code>mainClass</code>.</p>
+     *
+     * @param mainClass a {@link java.lang.String} object.
+     */
     public void setMainClass(String mainClass)
     {
         this.mainClass = StringUtil.toNullIfEmpty(mainClass);
     }
 
+    /**
+     * <p>Setter for the field <code>classpaths</code>.</p>
+     *
+     * @param classpaths a {@link java.util.SortedSet} object.
+     */
     public void setClasspaths(SortedSet<String> classpaths)
     {
         this.classpaths = classpaths;
     }
 
+    /**
+     * <p>execute.</p>
+     *
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param implementedVersion a boolean.
+     * @param sections a {@link java.lang.String} object.
+     * @param locale a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.Execution} object.
+     */
     public Execution execute(Specification specification, SystemUnderTest systemUnderTest, boolean implementedVersion, String sections, String locale)
     {
     	if(isRemote())
@@ -240,6 +338,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         }
     }
 
+	/**
+	 * <p>marshallize.</p>
+	 *
+	 * @return a {@link java.util.Vector} object.
+	 */
 	public Vector<Object> marshallize()
     {
         Vector<Object> parameters = new Vector<Object>();
@@ -254,16 +357,23 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         return parameters;
     }
 
+    /**
+     * <p>agentUrl.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String agentUrl() 
 	{
 		return ( isSecured() ? "https://" : "http://" ) + serverName + ":" + serverPort;
 	}
     
+    /** {@inheritDoc} */
     public int compareTo(Object o)
     {
         return this.getName().compareTo(((Runner)o).getName());
     }
 
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if(o == null || !(o instanceof Runner))
@@ -275,6 +385,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
 		return getName().equals(runnerCompared.getName());
 	}
 
+    /**
+     * <p>hashCode.</p>
+     *
+     * @return a int.
+     */
     public int hashCode()
     {
         return getName().hashCode();

@@ -19,20 +19,35 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>ClassConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ClassConverter<T> implements Converter<Class<? extends T>>
 {
     private final ClassLoader classLoader;
 
+    /**
+     * <p>Constructor for ClassConverter.</p>
+     */
     public ClassConverter()
     {
         this( ClassConverter.class.getClassLoader() );
     }
 
+    /**
+     * <p>Constructor for ClassConverter.</p>
+     *
+     * @param classLoader a {@link java.lang.ClassLoader} object.
+     */
     public ClassConverter( ClassLoader classLoader )
     {
         this.classLoader = classLoader;
     }
 
+    /** {@inheritDoc} */
     public Class<? extends T> convert( String value ) throws Exception
     {
         return (Class<? extends T>) classLoader.loadClass( value );

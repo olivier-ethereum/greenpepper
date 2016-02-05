@@ -24,32 +24,57 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <p>CompositeSpecificationRunnerMonitor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class CompositeSpecificationRunnerMonitor implements SpecificationRunnerMonitor
 {
     private final List<SpecificationRunnerMonitor> monitors;
 
+    /**
+     * <p>Constructor for CompositeSpecificationRunnerMonitor.</p>
+     *
+     * @param monitors a {@link com.greenpepper.runner.SpecificationRunnerMonitor} object.
+     */
     public CompositeSpecificationRunnerMonitor( SpecificationRunnerMonitor... monitors )
     {
         this( Arrays.asList( monitors ) );
     }
 
+    /**
+     * <p>Constructor for CompositeSpecificationRunnerMonitor.</p>
+     *
+     * @param monitors a {@link java.util.List} object.
+     */
     public CompositeSpecificationRunnerMonitor( List<SpecificationRunnerMonitor> monitors )
     {
         this.monitors = new ArrayList<SpecificationRunnerMonitor>();
         this.monitors.addAll( monitors );
     }
 
+    /**
+     * <p>Constructor for CompositeSpecificationRunnerMonitor.</p>
+     */
     public CompositeSpecificationRunnerMonitor()
     {
         this( Collections.<SpecificationRunnerMonitor>emptyList() );
     }
 
+    /**
+     * <p>add.</p>
+     *
+     * @param monitor a {@link com.greenpepper.runner.SpecificationRunnerMonitor} object.
+     */
     public void add( SpecificationRunnerMonitor monitor )
     {
         monitors.add( monitor );
     }
 
 
+    /** {@inheritDoc} */
     public void testRunning( String location )
     {
         for (SpecificationRunnerMonitor monitor : monitors)
@@ -58,6 +83,7 @@ public class CompositeSpecificationRunnerMonitor implements SpecificationRunnerM
         }
     }
 
+    /** {@inheritDoc} */
     public void testDone( int rightCount, int wrongCount, int exceptionCount, int ignoreCount )
     {
         for (SpecificationRunnerMonitor monitor : monitors)
@@ -66,6 +92,7 @@ public class CompositeSpecificationRunnerMonitor implements SpecificationRunnerM
         }
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured( Throwable t )
     {
         for (SpecificationRunnerMonitor monitor : monitors)

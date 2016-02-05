@@ -3,18 +3,31 @@ package com.greenpepper.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * <p>PlainOldFixture class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class PlainOldFixture extends AbstractFixture
 {
+    /**
+     * <p>Constructor for PlainOldFixture.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     */
     public PlainOldFixture(Object target)
     {
         super(target);
     }
 
+    /** {@inheritDoc} */
     public Fixture fixtureFor(Object target)
     {
         return new PlainOldFixture(target);
     }
 
+    /** {@inheritDoc} */
     protected Message getCheckMessage(String name)
     {
         final Class type = target.getClass();
@@ -37,6 +50,7 @@ public class PlainOldFixture extends AbstractFixture
         return fixture.getCheckMessage(name);
     }
 
+    /** {@inheritDoc} */
     protected Message getSendMessage(String name)
     {
         final Class type = target.getClass();

@@ -22,39 +22,44 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * {@link Enum} converter. The <code>toString</code> result of an enum type will be matched against the name value.
+ * {@link java.lang.Enum} converter. The <code>toString</code> result of an enum type will be matched against the name value.
  * </p>
  * Ex. :
  * <code><pre>
-  	public enum WithdrawType
-	{
-		ATM("ATM"),
-		INTERACT("Interact"),
-		PERSONAL_CHECK("Personal Check");
-
-		private final String id;
-
-		private WithdrawType(String id)
-		{
-			this.id = id;
-		}
-
- 		@Override
-		public String toString()
-		{
-			return id;
-		}
-	}
- *	</pre></code> 
+ *  	public enum WithdrawType
+ *	{
+ *		ATM("ATM"),
+ *		INTERACT("Interact"),
+ *		PERSONAL_CHECK("Personal Check");
+ *
+ *		private final String id;
+ *
+ *		private WithdrawType(String id)
+ *		{
+ *			this.id = id;
+ *		}
+ *
+ * 		@Override
+ *		public String toString()
+ *		{
+ *			return id;
+ *		}
+ *	}
+ *	</pre></code>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 @SuppressWarnings("unchecked")
 public class EnumConverter extends AbstractTypeConverter
 {
+	/** {@inheritDoc} */
 	protected Object doConvert(String value)
 	{
         throw new UnsupportedOperationException( "Please call the doConvert(String, Class) method.");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected Object doConvert(String value, Class type)
 	{
@@ -71,6 +76,7 @@ public class EnumConverter extends AbstractTypeConverter
 		throw new IllegalArgumentException("Conversion failed : '" + value + "' for type '" + type + "'");
 	}
 
+	/** {@inheritDoc} */
 	public boolean canConvertTo(Class type)
 	{
 		return Enum.class.isAssignableFrom(type);

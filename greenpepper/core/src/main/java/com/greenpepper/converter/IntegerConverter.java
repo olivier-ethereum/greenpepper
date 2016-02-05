@@ -21,22 +21,23 @@ package com.greenpepper.converter;
 /**
  * Implementation of <code>TypeConverter</code> that converts strings to
  * <code>Integer</code> objects.
- * 
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class IntegerConverter extends AbstractTypeConverter
 {
     /**
+     * {@inheritDoc}
+     *
      * Converts <code>value</code> to an <code>Integer</code> object.
-     * 
-     * @param value The string value to be converted
-     * @return An Integer object, or null if value is null or empty
      */
     protected Object doConvert(String value)
     {
         return Integer.valueOf(value);
     }
 
+    /** {@inheritDoc} */
     public boolean canConvertTo(Class type)
     {
         return Integer.class.isAssignableFrom(type) || int.class.isAssignableFrom(type);

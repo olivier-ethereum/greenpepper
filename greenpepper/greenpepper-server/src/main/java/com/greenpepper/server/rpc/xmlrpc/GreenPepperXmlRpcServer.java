@@ -34,6 +34,7 @@ import com.greenpepper.util.StringUtil;
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
  *
  * @author jchuet
+ * @version $Id: $Id
  */
 public class GreenPepperXmlRpcServer implements RpcServerService
 {
@@ -41,22 +42,38 @@ public class GreenPepperXmlRpcServer implements RpcServerService
 
 	private GreenPepperServerService service;
 
+	/**
+	 * <p>Constructor for GreenPepperXmlRpcServer.</p>
+	 *
+	 * @param service a {@link com.greenpepper.server.GreenPepperServerService} object.
+	 */
 	public GreenPepperXmlRpcServer(GreenPepperServerService service)
     {
 		this.service = service;
 	}
 
+	/**
+	 * <p>Constructor for GreenPepperXmlRpcServer.</p>
+	 */
 	public GreenPepperXmlRpcServer()
 	{
 	}
 
+	/**
+	 * <p>Setter for the field <code>service</code>.</p>
+	 *
+	 * @param service a {@link com.greenpepper.server.GreenPepperServerService} object.
+	 */
 	public void setService(GreenPepperServerService service)
 	{
 		this.service = service;
 	}
 
-	/**
+    /**
+     * <p>testConnection.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link java.lang.String} object.
      */
     public String testConnection()
     {
@@ -64,7 +81,10 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
     /**
+     * <p>license.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link java.util.Vector} object.
      */
     public Vector<Object> license()
     {
@@ -78,9 +98,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
 		}
 	}
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String uploadNewLicense(String license)
     {
         try
@@ -99,9 +117,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String ping(Vector<Object> repositoryParams)
     {
         try
@@ -119,8 +135,9 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
     /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
+     * <p>getAllEnvironmentTypes.</p>
+     *
+     * @return a {@link java.util.Vector} object.
      */
     public Vector<Object> getAllEnvironmentTypes()
     {
@@ -137,10 +154,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getRunner(String name)
     {
         try
@@ -157,8 +171,9 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
     /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
+     * <p>getAllRunners.</p>
+     *
+     * @return a {@link java.util.Vector} object.
      */
     public Vector<Object> getAllRunners()
     {
@@ -175,10 +190,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String createRunner(Vector<Object> runnerParams)
     {
         try
@@ -196,10 +208,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String updateRunner(String oldRunnerName, Vector<Object> runnerParams)
     {
         try
@@ -217,10 +226,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String removeRunner(String name)
     {
         try
@@ -236,10 +242,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getRegisteredRepository(Vector<Object> repositoryParams)
     {
         try
@@ -256,10 +259,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> registerRepository(Vector<Object> repositoryParams)
     {
         try
@@ -277,10 +277,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public String updateRepositoryRegistration(Vector<Object> repositoryParams)
     {
         try
@@ -298,10 +295,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
     
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String removeRepository(String repositoryUid)
     {
         try
@@ -318,8 +312,9 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
     /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
+     * <p>getAllProjects.</p>
+     *
+     * @return a {@link java.util.Vector} object.
      */
     public Vector<Object> getAllProjects()
     {
@@ -338,8 +333,9 @@ public class GreenPepperXmlRpcServer implements RpcServerService
 
 
     /**
-     * @inheritDoc
-     * NO NEED TO SECURED THIS
+     * <p>getAllSpecificationRepositories.</p>
+     *
+     * @return a {@link java.util.Vector} object.
      */
     public Vector<Object> getAllSpecificationRepositories()
     {
@@ -356,10 +352,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSpecificationRepositoriesOfAssociatedProject(Vector<Object> repositoryParams)
     {
         try
@@ -377,10 +370,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
     
-    /**
-     * @inheritDoc
-     * CANT SECURE
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getAllRepositoriesForSystemUnderTest(Vector<Object> systemUnderTestParams)
     {
         try
@@ -397,10 +387,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
     
-    /**
-     * @inheritDoc
-     * CANT SECURE
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSpecificationRepositoriesForSystemUnderTest(Vector<Object> systemUnderTestParams)
     {
         try
@@ -417,10 +404,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getRequirementRepositoriesOfAssociatedProject(Vector<Object> repositoryParams)
     {
         try
@@ -438,10 +422,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSystemUnderTestsOfAssociatedProject(Vector<Object> repositoryParams)
     {
         try
@@ -459,10 +440,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSystemUnderTestsOfProject(String projectName)
     {
         try
@@ -479,6 +457,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public String addSpecificationSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> specificationParams)
     {
@@ -506,6 +485,8 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
     /**
+     * {@inheritDoc}
+     *
      * I just need :
      *  <ul>
      *   <li>repository uid</li>
@@ -513,10 +494,6 @@ public class GreenPepperXmlRpcServer implements RpcServerService
      *   <li>sut.project.name</li>
      *   <li>sut.name</li>
      * </ul>
-     * @param systemUnderTestParams Vector{sutName,
-     *            projectParametersVector{name}}
-     * @param specificationParams
-     *            Vector{name, repositoryParametersVector{name,uid}}
      */
     @SuppressWarnings("unchecked")
     public String removeSpecificationSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> specificationParams)
@@ -544,10 +521,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String doesSpecificationHasReferences(Vector<Object> specificationParams)
     {
         try
@@ -564,10 +538,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSpecificationReferences(Vector<Object> specificationParams)
     {
         try
@@ -585,10 +556,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public String doesRequirementHasReferences(Vector<Object> requirementParams)
     {
         try
@@ -605,10 +573,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getRequirementReferences(Vector<Object> requirementParams)
     {
         try
@@ -626,10 +591,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getRequirementSummary(Vector<Object> requirementParams)
     {
         try
@@ -647,10 +609,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getReference(Vector<Object> referenceParams)
     {
         try
@@ -673,10 +632,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
@@ -697,6 +653,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
 
+    /** {@inheritDoc} */
     public String createSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
@@ -718,10 +675,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public String updateSystemUnderTest(String oldSystemUnderTestName, Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
@@ -742,6 +696,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
     }
 
 
+    /** {@inheritDoc} */
     public String removeSystemUnderTest(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
@@ -768,10 +723,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public String setSystemUnderTestAsDefault(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
@@ -791,10 +743,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NOT SECURED FOR SYNCHRONIZATION PURPOSES
-     */
+    /** {@inheritDoc} */
     public String removeRequirement(Vector<Object> requirementParams)
     {
         try
@@ -812,10 +761,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
 		}
 	}
 
-    /**
-     * @inheritDoc
-     * NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSpecification(Vector<Object> specificationParams)
     {
         try
@@ -846,10 +792,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSpecifications(Vector<Object> systemUnderTestParams, Vector<Object> repositoryParams)
     {
         try
@@ -868,10 +811,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getListOfSpecificationLocations(String repositoryUID, String systemUnderTestName)
     {
         try
@@ -889,10 +829,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getSpecificationHierarchy(Vector<Object> repositoryParams, Vector<Object> sutParams)
     {
         try
@@ -910,10 +847,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> createSpecification(Vector<Object> specificationParams)
     {
         try
@@ -931,10 +865,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NOT SECURED FOR SYNCHRONIZATION PURPOSES
-     */
+    /** {@inheritDoc} */
     public String updateSpecification(Vector<Object> oldSpecificationParams, Vector<Object> newSpecificationParams)
     {
         try
@@ -953,10 +884,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * NOT SECURED FOR SYNCHRONIZATION PURPOSES
-     */
+    /** {@inheritDoc} */
     public String removeSpecification(Vector<Object> specificationParams)
     {
         try
@@ -974,10 +902,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public String createReference(Vector<Object> referenceParams)
     {
         try
@@ -995,10 +920,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> updateReference(Vector<Object> oldReferenceParams, Vector<Object> newReferenceParams)
     {
         try
@@ -1019,10 +941,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public String removeReference(Vector<Object> referenceParams)
     {
         try
@@ -1041,10 +960,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> runSpecification(Vector<Object> systemUnderTestParams, Vector<Object> specificationParams, boolean implementedVersion, String locale)
     {
         try
@@ -1063,10 +979,7 @@ public class GreenPepperXmlRpcServer implements RpcServerService
         }
     }
 
-    /**
-     * @inheritDoc
-     * SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> runReference(Vector<Object> referenceParams, String locale)
     {
         try

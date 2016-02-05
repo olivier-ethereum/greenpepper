@@ -19,7 +19,19 @@
 
 package com.greenpepper.runner;
 
+/**
+ * <p>SpecificationRunner interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface SpecificationRunner
 {
+    /**
+     * <p>run.</p>
+     *
+     * @param source a {@link java.lang.String} object.
+     * @param destination a {@link java.lang.String} object.
+     */
     void run( String source, String destination );
 }

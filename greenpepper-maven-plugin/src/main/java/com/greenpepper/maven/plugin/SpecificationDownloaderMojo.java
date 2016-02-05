@@ -17,9 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>SpecificationDownloaderMojo class.</p>
+ *
  * @goal freeze
  * @requiresDependencyResolution test
  * @description Downloads GreenPepper specifications
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class SpecificationDownloaderMojo extends AbstractMojo {
     /**
@@ -43,14 +47,28 @@ public class SpecificationDownloaderMojo extends AbstractMojo {
 
     int specCount;
 
+    /**
+     * <p>Constructor for SpecificationDownloaderMojo.</p>
+     */
     public SpecificationDownloaderMojo() {
         this.repositories = new ArrayList<Repository>();
     }
 
+    /**
+     * <p>addRepository.</p>
+     *
+     * @param repository a {@link com.greenpepper.maven.plugin.Repository} object.
+     */
     public void addRepository(Repository repository) {
         repositories.add(repository);
     }
 
+    /**
+     * <p>execute.</p>
+     *
+     * @throws org.apache.maven.plugin.MojoExecutionException if any.
+     * @throws org.apache.maven.plugin.MojoFailureException if any.
+     */
     public void execute() throws MojoExecutionException, MojoFailureException {
         prepareSpecsDir();
         printBanner();

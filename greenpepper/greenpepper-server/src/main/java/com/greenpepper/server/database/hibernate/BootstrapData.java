@@ -15,6 +15,12 @@ import com.greenpepper.server.domain.dao.hibernate.HibernateRepositoryDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemInfoDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
 
+/**
+ * <p>BootstrapData class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class BootstrapData
 {
     private static Logger log = LoggerFactory.getLogger(BootstrapData.class);
@@ -25,12 +31,27 @@ public class BootstrapData
 	private SystemUnderTestDao systemUnderTestDao;
 	private RepositoryDao repositoryDao;
 
+	/**
+	 * <p>Constructor for BootstrapData.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 * @param properties a {@link java.util.Properties} object.
+	 */
 	public BootstrapData(SessionService sessionService, Properties properties)
     {
 		this(sessionService, properties, new HibernateSystemInfoDao(sessionService),
 			 new HibernateSystemUnderTestDao(sessionService), new HibernateRepositoryDao(sessionService));
 	}
 
+	/**
+	 * <p>Constructor for BootstrapData.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 * @param properties a {@link java.util.Properties} object.
+	 * @param systemInfoDao a {@link com.greenpepper.server.domain.dao.SystemInfoDao} object.
+	 * @param systemUnderTestDao a {@link com.greenpepper.server.domain.dao.SystemUnderTestDao} object.
+	 * @param repositoryDao a {@link com.greenpepper.server.domain.dao.RepositoryDao} object.
+	 */
 	public BootstrapData(SessionService sessionService, Properties properties, SystemInfoDao systemInfoDao,
 						 SystemUnderTestDao systemUnderTestDao, RepositoryDao repositoryDao) {
 		this.sessionService = sessionService;
@@ -40,6 +61,11 @@ public class BootstrapData
 		this.repositoryDao = repositoryDao;
 	}
     
+    /**
+     * <p>execute.</p>
+     *
+     * @throws java.lang.Exception if any.
+     */
     public void execute() throws Exception
     {
         try 

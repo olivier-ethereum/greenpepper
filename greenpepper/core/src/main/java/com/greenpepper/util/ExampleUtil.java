@@ -28,12 +28,25 @@ import java.util.List;
 
 import com.greenpepper.Example;
 
+/**
+ * <p>ExampleUtil class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class ExampleUtil
 {
     private ExampleUtil()
     {
     }
 
+    /**
+     * <p>asArray.</p>
+     *
+     * @param example a T object.
+     * @param <T> a T object.
+     * @return an array of T objects.
+     */
     @SuppressWarnings("unchecked")
     public static <T extends Example> T[] asArray( T example )
     {
@@ -42,6 +55,12 @@ public final class ExampleUtil
         return examples.toArray( array );
     }
 
+    /**
+     * <p>asList.</p>
+     *
+     * @param example a {@link com.greenpepper.Example} object.
+     * @return a {@link java.util.List} object.
+     */
     public static List<Example> asList( Example example )
     {
         if (example == null) return new ArrayList<Example>();
@@ -54,6 +73,12 @@ public final class ExampleUtil
         return all;
     }
 
+    /**
+     * <p>content.</p>
+     *
+     * @param cells a {@link java.lang.Iterable} object.
+     * @return an array of {@link java.lang.String} objects.
+     */
     public static String[] content( Iterable<Example> cells )
     {
         if (cells == null) return new String[0];
@@ -67,11 +92,23 @@ public final class ExampleUtil
         return values.toArray( new String[values.size()] );
     }
 
+    /**
+     * <p>contentAsList.</p>
+     *
+     * @param cells a {@link java.lang.Iterable} object.
+     * @return a {@link java.util.List} object.
+     */
     public static List<String> contentAsList( Iterable<Example> cells )
     {
         return new ArrayList<String>( Arrays.asList( content( cells ) ) );
     }
 
+    /**
+     * <p>asString.</p>
+     *
+     * @param example a {@link com.greenpepper.Example} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String asString( Example example )
     {
         StringWriter sw = new StringWriter();
@@ -80,6 +117,12 @@ public final class ExampleUtil
         return sw.toString();
     }
 
+    /**
+     * <p>contentOf.</p>
+     *
+     * @param cell a {@link com.greenpepper.Example} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String contentOf( Example cell )
     {
         return cell != null ? cell.getContent() : null;

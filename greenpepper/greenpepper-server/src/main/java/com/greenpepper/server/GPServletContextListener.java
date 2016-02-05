@@ -14,10 +14,17 @@ import com.greenpepper.server.license.Authorizer;
 import com.greenpepper.server.license.OpenSourceAuthorizer;
 import com.greenpepper.util.URIUtil;
 
+/**
+ * <p>GPServletContextListener class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GPServletContextListener implements ServletContextListener
 {    
     private static String GREENPEPPER_CONFIG = "greenpepper-server.cfg.xml";
     
+    /** {@inheritDoc} */
     public void contextInitialized(ServletContextEvent servletContextEvent)
     { 
         ServletContext ctx = servletContextEvent.getServletContext();
@@ -46,6 +53,7 @@ public class GPServletContextListener implements ServletContextListener
         }      
     }
 
+    /** {@inheritDoc} */
     public void contextDestroyed(ServletContextEvent servletContextEvent)
     {
         ServletContext ctx = servletContextEvent.getServletContext();

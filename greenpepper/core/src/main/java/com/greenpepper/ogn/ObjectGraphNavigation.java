@@ -20,6 +20,12 @@ package com.greenpepper.ogn;
 
 import com.greenpepper.reflect.Message;
 
+/**
+ * <p>ObjectGraphNavigation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ObjectGraphNavigation
 {
 
@@ -27,12 +33,24 @@ public class ObjectGraphNavigation
 	private final ObjectGraphNavigationMessageResolver resolver;
 	private Message message;
 
+	/**
+	 * <p>Constructor for ObjectGraphNavigation.</p>
+	 *
+	 * @param isGetter a boolean.
+	 * @param resolver a {@link com.greenpepper.ogn.ObjectGraphNavigationMessageResolver} object.
+	 */
 	public ObjectGraphNavigation(boolean isGetter, ObjectGraphNavigationMessageResolver resolver)
 	{
 		this.isGetter = isGetter;
 		this.resolver = resolver;
 	}
 
+	/**
+	 * <p>resolveMessage.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.reflect.Message} object.
+	 */
 	public Message resolveMessage(String name)
 	{
 		String normalizedName = name.replaceAll("\\(\\)", "");

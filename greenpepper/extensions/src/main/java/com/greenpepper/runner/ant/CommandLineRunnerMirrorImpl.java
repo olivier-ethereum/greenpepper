@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,24 +16,38 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.runner.ant;
 
 import com.greenpepper.runner.CommandLineRunner;
 import com.greenpepper.runner.CompositeSpecificationRunnerMonitor;
 import com.greenpepper.util.DuckType;
-
 public class CommandLineRunnerMirrorImpl implements CommandLineRunnerMirror
 {
     private CommandLineLogger logger;
     private CommandLineMonitor recorderMonitor;
 
+    /**
+     * <p>Constructor for CommandLineRunnerMirrorImpl.</p>
+     *
+     * @param logger a {@link java.lang.Object} object.
+     * @param monitor a {@link java.lang.Object} object.
+     */
     public CommandLineRunnerMirrorImpl(Object logger, Object monitor)
     {
         this.logger = DuckType.implement( CommandLineLogger.class, logger );
         this.recorderMonitor = DuckType.implement( CommandLineMonitor.class, monitor );
     }
 
+    /**
+     * <p>run.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     * @throws java.lang.Exception if any.
+     */
     public void run(String[] args) throws Exception
     {
         CommandLineRunner runner = new CommandLineRunner();

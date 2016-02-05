@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,15 +16,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.annotation;
 
 import static com.greenpepper.GreenPepper.$;
 import com.greenpepper.Text;
-
 public class SkippedAnnotation implements Annotation
 {
 
+	/** {@inheritDoc} */
 	public void writeDown(Text text)
 	{
 		text.setStyle( Styles.BACKGROUND_COLOR, Colors.ORANGE );

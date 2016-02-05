@@ -54,6 +54,12 @@ import com.greenpepper.server.license.Permission;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>GreenPepperServerServiceImpl class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperServerServiceImpl implements GreenPepperServerService {
 
     private static Logger log = LoggerFactory.getLogger(GreenPepperServerServiceImpl.class);
@@ -65,6 +71,16 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
     private SystemUnderTestDao sutDao;
     private DocumentDao documentDao;
 
+    /**
+     * <p>Constructor for GreenPepperServerServiceImpl.</p>
+     *
+     * @param authorizer a {@link com.greenpepper.server.license.Authorizer} object.
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     * @param projectDao a {@link com.greenpepper.server.domain.dao.ProjectDao} object.
+     * @param repositoryDao a {@link com.greenpepper.server.domain.dao.RepositoryDao} object.
+     * @param sutDao a {@link com.greenpepper.server.domain.dao.SystemUnderTestDao} object.
+     * @param documentDao a {@link com.greenpepper.server.domain.dao.DocumentDao} object.
+     */
     public GreenPepperServerServiceImpl(Authorizer authorizer, SessionService sessionService, ProjectDao projectDao, RepositoryDao repositoryDao, SystemUnderTestDao sutDao,
             DocumentDao documentDao) {
         this.authorizer = authorizer;
@@ -75,44 +91,78 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         this.documentDao = documentDao;
     }
 
+    /**
+     * <p>Constructor for GreenPepperServerServiceImpl.</p>
+     */
     public GreenPepperServerServiceImpl() {
 
     }
 
+    /**
+     * <p>Setter for the field <code>authorizer</code>.</p>
+     *
+     * @param authorizer a {@link com.greenpepper.server.license.Authorizer} object.
+     */
     public void setAuthorizer(Authorizer authorizer) {
         this.authorizer = authorizer;
     }
 
+    /**
+     * <p>Setter for the field <code>sessionService</code>.</p>
+     *
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     */
     public void setSessionService(SessionService sessionService) {
         this.sessionService = sessionService;
     }
 
+    /**
+     * <p>Setter for the field <code>projectDao</code>.</p>
+     *
+     * @param projectDao a {@link com.greenpepper.server.domain.dao.ProjectDao} object.
+     */
     public void setProjectDao(ProjectDao projectDao) {
         this.projectDao = projectDao;
     }
 
+    /**
+     * <p>Setter for the field <code>repositoryDao</code>.</p>
+     *
+     * @param repositoryDao a {@link com.greenpepper.server.domain.dao.RepositoryDao} object.
+     */
     public void setRepositoryDao(RepositoryDao repositoryDao) {
         this.repositoryDao = repositoryDao;
     }
 
+    /**
+     * <p>Setter for the field <code>sutDao</code>.</p>
+     *
+     * @param sutDao a {@link com.greenpepper.server.domain.dao.SystemUnderTestDao} object.
+     */
     public void setSutDao(SystemUnderTestDao sutDao) {
         this.sutDao = sutDao;
     }
 
+    /**
+     * <p>Setter for the field <code>documentDao</code>.</p>
+     *
+     * @param documentDao a {@link com.greenpepper.server.domain.dao.DocumentDao} object.
+     */
     public void setDocumentDao(DocumentDao documentDao) {
         this.documentDao = documentDao;
     }
 
     /**
+     * <p>license.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link com.greenpepper.server.license.LicenseBean} object.
      */
     public LicenseBean license() {
         return authorizer.getLicenseBean();
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public void uploadNewLicense(String newLicense) throws GreenPepperServerException {
         try {
             authorizer.reInitialize(newLicense);
@@ -122,21 +172,27 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
     }
 
     /**
+     * <p>isCommercialLicense.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a boolean.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public boolean isCommercialLicense() throws GreenPepperServerException {
         return authorizer.isCommercialLicense();
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void verifyRepositoryPermission(Repository repository, Permission permission) throws GreenPepperLicenceException {
         authorizer.verify(repository, permission);
     }
 
     /**
+     * <p>getAllEnvironmentTypes.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link java.util.List} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public List<EnvironmentType> getAllEnvironmentTypes() throws GreenPepperServerException {
         try {
@@ -154,9 +210,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Runner getRunner(String name) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -174,7 +228,11 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
     }
 
     /**
+     * <p>getAllRunners.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link java.util.List} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public List<Runner> getAllRunners() throws GreenPepperServerException {
         try {
@@ -192,9 +250,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public void createRunner(Runner runner) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -212,9 +268,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public void updateRunner(String oldRunnerName, Runner runner) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -232,9 +286,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public void removeRunner(String name) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -252,9 +304,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Repository getRepository(String uid, Integer maxUsers) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -273,9 +323,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Repository getRegisteredRepository(Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -292,9 +340,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Repository registerRepository(Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -323,9 +369,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void updateRepositoryRegistration(Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -351,9 +395,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public void removeRepository(String repositoryUid) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -371,9 +413,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public List<Repository> getRepositoriesOfAssociatedProject(String projectName) throws GreenPepperServerException {
 
         try {
@@ -385,9 +425,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Project getProject(String name) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -402,7 +440,10 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
     }
 
     /**
+     * <p>getAllProjects.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link java.util.List} object.
      */
     public List<Project> getAllProjects() {
         try {
@@ -417,9 +458,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Project createProject(Project project) throws GreenPepperServerException {
 
         Project newProject;
@@ -442,9 +481,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         return newProject;
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Project updateProject(String oldProjectName, Project project) throws GreenPepperServerException {
 
         Project projectUpdated;
@@ -467,7 +504,11 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
     }
 
     /**
+     * <p>getAllSpecificationRepositories.</p>
+     *
      * @inheritDoc NO NEEDS TO SECURE THIS
+     * @return a {@link java.util.List} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public List<Repository> getAllSpecificationRepositories() throws GreenPepperServerException {
         try {
@@ -484,9 +525,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public List<Repository> getSpecificationRepositoriesOfAssociatedProject(String repositoryUid) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -506,9 +545,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc CANT SECURE
-     */
+    /** {@inheritDoc} */
     public List<Repository> getAllRepositoriesForSystemUnderTest(SystemUnderTest sut) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -524,9 +561,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc CANT SECURE
-     */
+    /** {@inheritDoc} */
     public List<Repository> getSpecificationRepositoriesForSystemUnderTest(SystemUnderTest sut) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -542,9 +577,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public List<Repository> getRequirementRepositoriesOfAssociatedProject(String repositoryUid) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -564,9 +597,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public List<SystemUnderTest> getSystemUnderTestsOfAssociatedProject(String repositoryUid) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -585,9 +616,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public List<SystemUnderTest> getSystemUnderTestsOfProject(String projectName) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -602,9 +631,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void addSpecificationSystemUnderTest(SystemUnderTest sut, Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -625,9 +652,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void removeSpecificationSystemUnderTest(SystemUnderTest sut, Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -648,9 +673,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public boolean doesSpecificationHasReferences(Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -666,9 +689,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public List<Reference> getSpecificationReferences(Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -687,9 +708,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public List<Execution> getSpecificationExecutions(Specification specification, SystemUnderTest sut, int maxResults) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -707,9 +726,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Execution getSpecificationExecution(Long id) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -722,9 +739,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public boolean doesRequirementHasReferences(Requirement requirement) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -739,9 +754,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public List<Reference> getRequirementReferences(Requirement requirement) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -760,9 +773,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public RequirementSummary getRequirementSummary(Requirement requirement) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -781,9 +792,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Reference getReference(Reference reference) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -805,9 +814,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public SystemUnderTest getSystemUnderTest(SystemUnderTest sut, Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -826,9 +833,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void createSystemUnderTest(SystemUnderTest sut, Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -848,9 +853,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void updateSystemUnderTest(String oldSystemUnderTestName, SystemUnderTest sut, Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -870,9 +873,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void removeSystemUnderTest(SystemUnderTest sut, Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -893,9 +894,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void setSystemUnderTestAsDefault(SystemUnderTest sut, Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -915,9 +914,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NOT SECURED FOR SYNCHRONIZATION PURPOSES
-     */
+    /** {@inheritDoc} */
     public void removeRequirement(Requirement requirement) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -935,9 +932,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Specification getSpecification(Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -957,9 +952,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public Specification getSpecificationById(Long id) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -979,9 +972,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public List<Specification> getSpecifications(SystemUnderTest systemUnderTest, Repository repository) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -999,9 +990,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Vector<Object> getListOfSpecificationLocations(String repositoryUID, String systemUnderTestName) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1033,9 +1022,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public DocumentNode getSpecificationHierarchy(Repository repository, SystemUnderTest systemUnderTest) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1060,9 +1047,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Specification createSpecification(Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1084,9 +1069,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NOT SECURED FOR SYNCHRONIZATION PURPOSES
-     */
+    /** {@inheritDoc} */
     public void updateSpecification(Specification oldSpecification, Specification newSpecification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1104,9 +1087,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NOT SECURED FOR SYNCHRONIZATION PURPOSES
-     */
+    /** {@inheritDoc} */
     public void removeSpecification(Specification specification) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1124,9 +1105,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void createReference(Reference reference) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1147,9 +1126,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Reference updateReference(Reference oldReference, Reference newReference) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1172,9 +1149,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public void removeReference(Reference reference) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1195,9 +1170,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Execution createExecution(SystemUnderTest systemUnderTest, Specification specification, XmlReport xmlReport) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1221,9 +1194,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Execution runSpecification(SystemUnderTest systemUnderTest, Specification specification, boolean implementedVersion, String locale) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1245,9 +1216,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc SECURED
-     */
+    /** {@inheritDoc} */
     public Reference runReference(Reference reference, String locale) throws GreenPepperServerException {
         try {
             sessionService.startSession();
@@ -1271,9 +1240,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
         }
     }
 
-    /**
-     * @inheritDoc NO NEEDS TO SECURE THIS
-     */
+    /** {@inheritDoc} */
     public void removeProject(Project project, boolean cascade) throws GreenPepperServerException {
         try {
             sessionService.startSession();

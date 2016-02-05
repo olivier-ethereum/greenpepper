@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter.flow.scenario;
 
@@ -25,16 +29,21 @@ import com.greenpepper.interpreter.flow.RowSelector;
 import com.greenpepper.interpreter.flow.dowith.InterpretRow;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.ExampleUtil;
-
 public class ScenarioRowSelector implements RowSelector
 {
     private final Fixture fixture;
 
+    /**
+     * <p>Constructor for ScenarioRowSelector.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public ScenarioRowSelector(Fixture fixture)
     {
         this.fixture = fixture;
     }
 
+    /** {@inheritDoc} */
     public Row select(Example example)
     {
         if (isAnInterpreter( identifier( example ) ))

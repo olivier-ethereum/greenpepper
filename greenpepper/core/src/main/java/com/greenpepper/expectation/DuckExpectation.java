@@ -25,18 +25,32 @@ import com.greenpepper.util.FactoryMethod;
 import java.util.regex.Pattern;
 
 /**
+ * <p>DuckExpectation class.</p>
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class DuckExpectation implements Expectation
 {
     private final String expected;
 
+    /**
+     * <p>create.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.expectation.DuckExpectation} object.
+     */
     @FactoryMethod
     public static DuckExpectation create( String expected )
     {
         return new DuckExpectation( expected );
     }
 
+    /**
+     * <p>Constructor for DuckExpectation.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     */
     public DuckExpectation( String expected )
     {
         this.expected = removeDoubleQuotes( expected );
@@ -51,11 +65,13 @@ public class DuckExpectation implements Expectation
         return expected;
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder sb )
     {
         return sb.append( expected );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         Object expectedValue = canCoerceTo( result ) ? coerceTo( result ) : expected;
@@ -72,6 +88,11 @@ public class DuckExpectation implements Expectation
         return result != null && TypeConversion.supports( result.getClass() );
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString()
     {
         return expected;

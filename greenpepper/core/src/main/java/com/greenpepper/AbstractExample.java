@@ -25,9 +25,17 @@ import java.util.Iterator;
 /**
  * Abstract base class for <code>Specification</code> implementations. It
  * provides default implementations for some methods.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public abstract class AbstractExample implements Example
 {
+    /**
+     * <p>iterator.</p>
+     *
+     * @return a {@link java.util.Iterator} object.
+     */
     public Iterator<Example> iterator()
     {
         return new Iterator<Example>()
@@ -51,22 +59,40 @@ public abstract class AbstractExample implements Example
         };
     }
 
+    /**
+     * <p>hasSibling.</p>
+     *
+     * @return a boolean.
+     */
     public boolean hasSibling()
     {
         return nextSibling() != null;
     }
 
+    /**
+     * <p>hasChild.</p>
+     *
+     * @return a boolean.
+     */
     public boolean hasChild()
     {
         return firstChild() != null;
     }
 
+    /** {@inheritDoc} */
     public Example at(int i)
     {
         if (i == 0) return this;
         return hasSibling() ? nextSibling().at( i - 1 ) : null;
     }
 
+    /**
+     * <p>at.</p>
+     *
+     * @param i a int.
+     * @param indexes a int.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example at(int i, int... indexes)
     {
         Example at = at( i );
@@ -79,16 +105,31 @@ public abstract class AbstractExample implements Example
         return at;
     }
 
+    /**
+     * <p>remainings.</p>
+     *
+     * @return a int.
+     */
     public int remainings()
     {
         return hasSibling() ? nextSibling().remainings() + 1 : 1;
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString()
     {
         return ExampleUtil.asString( this );
     }
 
+    /**
+     * <p>lastSibling.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example lastSibling()
     {
         return at( remainings() - 1 );

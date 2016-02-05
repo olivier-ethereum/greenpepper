@@ -19,13 +19,21 @@
 
 package com.greenpepper.converter;
 
+/**
+ * <p>StringConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class StringConverter extends AbstractTypeConverter
 {
+    /** {@inheritDoc} */
     protected Object doConvert(String value)
     {
         return value;
     }
 
+    /** {@inheritDoc} */
     public boolean canConvertTo(Class type)
     {
         return String.class.isAssignableFrom(type);

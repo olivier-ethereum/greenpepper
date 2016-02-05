@@ -35,12 +35,17 @@ import java.util.List;
  * See documentation of VFS for more detail.
  *
  * @author clapointe
+ * @version $Id: $Id
  */
 public class VFSRepository implements DocumentRepository
 {
     private final FileSystemManager fileSystemManager;
+    /** Constant <code>NOT_HIDDEN_FILE_TYPE_SELECTOR</code> */
     protected static final NotHiddenFileTypeSelector NOT_HIDDEN_FILE_TYPE_SELECTOR = new NotHiddenFileTypeSelector(FileType.FILE);
 
+    /**
+     * <p>Constructor for VFSRepository.</p>
+     */
     public VFSRepository()
     {
         try
@@ -53,8 +58,10 @@ public class VFSRepository implements DocumentRepository
         }
     }
 
+    /** {@inheritDoc} */
     public void setDocumentAsImplemeted(String location) throws Exception {}
 	
+    /** {@inheritDoc} */
     public List<String> listDocuments(String location) throws Exception
     {
         FileObject root = getFileObject( location );
@@ -75,11 +82,18 @@ public class VFSRepository implements DocumentRepository
         return names;
     }
 
+	/**
+	 * <p>listDocumentsInHierarchy.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public List<Object> listDocumentsInHierarchy() throws Exception 
 	{
 		throw new UnsupportedDocumentException("Hierechy not supported");
 	}
 
+    /** {@inheritDoc} */
     public Document loadDocument(String uri) throws Exception
     {
         FileObject file = getFileObject( uri );
@@ -91,9 +105,9 @@ public class VFSRepository implements DocumentRepository
     /**
      * For testing purpose of new VFS providers (eg. Confluence, ...)
      *
-     * @param urlScheme
-     * @param provider
-     * @throws FileSystemException
+     * @param urlScheme a {@link java.lang.String} object.
+     * @param provider a {@link org.apache.commons.vfs.provider.FileProvider} object.
+     * @throws org.apache.commons.vfs.FileSystemException if any.
      */
     public void addProvider(String urlScheme, FileProvider provider) throws FileSystemException
     {

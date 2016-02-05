@@ -10,16 +10,32 @@ import com.greenpepper.server.database.SessionService;
 import com.greenpepper.server.domain.SystemInfo;
 import com.greenpepper.server.domain.dao.SystemInfoDao;
 
+/**
+ * <p>HibernateSystemInfoDao class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateSystemInfoDao implements SystemInfoDao
 {
     private static final long SYSTEM_INFO = 1l;
     private SessionService sessionService;
     
+    /**
+     * <p>Constructor for HibernateSystemInfoDao.</p>
+     *
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     */
     public HibernateSystemInfoDao(SessionService sessionService)
     {
         this.sessionService = sessionService;
     }
     
+    /**
+     * <p>getSystemInfo.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.SystemInfo} object.
+     */
     public SystemInfo getSystemInfo()
     {
         final Criteria crit = sessionService.getSession().createCriteria(SystemInfo.class);
@@ -35,6 +51,7 @@ public class HibernateSystemInfoDao implements SystemInfoDao
 		return systemInfo;
 	}
 
+    /** {@inheritDoc} */
     public void store(SystemInfo systemInfo)
     {
         sessionService.getSession().saveOrUpdate(systemInfo);

@@ -45,21 +45,43 @@ import com.greenpepper.reflect.NoSuchMessageException;
 import com.greenpepper.util.StringUtil;
 
 // TODO: STATS compile stats here and in derived classes ( no test for that yet )
+/**
+ * <p>Abstract CollectionInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public abstract class CollectionInterpreter extends AbstractInterpreter
 {
     private final Fixture fixture;
     protected final Statistics stats = new Statistics();
 
+    /**
+     * <p>statistics.</p>
+     *
+     * @return a {@link com.greenpepper.Statistics} object.
+     */
     public Statistics statistics()
     {
         return this.stats;
     }
 
+    /**
+     * <p>Constructor for CollectionInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     protected CollectionInterpreter( Fixture fixture )
     {
         this.fixture = fixture;
     }
 
+    /**
+     * <p>toList.</p>
+     *
+     * @param results a {@link java.lang.Object} object.
+     * @return a {@link java.util.List} object.
+     */
     protected List<?> toList( Object results )
     {
         if (results instanceof Object[])
@@ -73,6 +95,13 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
         return null;
     }
 
+    /**
+     * <p>executeRow.</p>
+     *
+     * @param valuesRow a {@link com.greenpepper.Example} object.
+     * @param headers a {@link com.greenpepper.Example} object.
+     * @param rowFixtureAdapter a {@link com.greenpepper.reflect.Fixture} object.
+     */
     protected void executeRow( Example valuesRow, Example headers, Fixture rowFixtureAdapter )
     {
         stats.right();
@@ -112,6 +141,13 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
         }
     }
 
+    /**
+     * <p>addSurplusRow.</p>
+     *
+     * @param example a {@link com.greenpepper.Example} object.
+     * @param headers a {@link com.greenpepper.Example} object.
+     * @param rowFixtureAdapter a {@link com.greenpepper.reflect.Fixture} object.
+     */
     protected void addSurplusRow( Example example, Example headers, Fixture rowFixtureAdapter)
     {
         Example row = example.addSibling();
@@ -140,6 +176,11 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
         }
     }
 
+    /**
+     * <p>missingRow.</p>
+     *
+     * @param row a {@link com.greenpepper.Example} object.
+     */
     protected void missingRow( Example row )
     {
         Example firstChild = row.firstChild();
@@ -183,6 +224,12 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
     }
 
 
+    /**
+     * <p>getFixtureList.</p>
+     *
+     * @return a {@link java.util.List} object.
+     * @throws java.lang.Exception if any.
+     */
     public List<Fixture> getFixtureList() throws Exception
     {
         List results = getCollectionProvider();
@@ -215,16 +262,27 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
         return fixtures;
     }
 
+    /**
+     * <p>mustProcessMissing.</p>
+     *
+     * @return a boolean.
+     */
     protected boolean mustProcessMissing()
     {
         return false;
     }
 
+    /**
+     * <p>mustProcessSurplus.</p>
+     *
+     * @return a boolean.
+     */
     protected boolean mustProcessSurplus()
     {
         return false;
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification specification )
     {
         Example table = specification.nextExample();
@@ -232,6 +290,11 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
         specification.exampleDone( stats );
     }
 
+    /**
+     * <p>execute.</p>
+     *
+     * @param example a {@link com.greenpepper.Example} object.
+     */
     public void execute( Example example )
     {
         try
@@ -296,6 +359,11 @@ public abstract class CollectionInterpreter extends AbstractInterpreter
         }
     }
 
+	/**
+	 * <p>applyRowStatistic.</p>
+	 *
+	 * @param rowStats a {@link com.greenpepper.Statistics} object.
+	 */
 	protected void applyRowStatistic(Statistics rowStats)
 	{
 		if (rowStats.exceptionCount() > 0)

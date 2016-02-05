@@ -5,14 +5,26 @@ import java.util.UUID;
 import com.greenpepper.Text;
 import com.greenpepper.util.ExceptionUtils;
 
+/**
+ * <p>ExceptionAnnotation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ExceptionAnnotation implements Annotation {
 
     private final Throwable error;
 
+    /**
+     * <p>Constructor for ExceptionAnnotation.</p>
+     *
+     * @param error a {@link java.lang.Throwable} object.
+     */
     public ExceptionAnnotation(Throwable error) {
         this.error = error;
     }
 
+    /** {@inheritDoc} */
     public void writeDown(Text text) {
         text.setStyle(Styles.BACKGROUND_COLOR, Colors.YELLOW);
         StringBuilder textContent = new StringBuilder(text.getContent());
@@ -41,10 +53,20 @@ public class ExceptionAnnotation implements Annotation {
         text.setContent(textContent.toString());
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString() {
         return ExceptionUtils.stackTrace(error, "\n", 10);
     }
     
+    /**
+     * <p>getExceptionMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getExceptionMessage() {
         return error.getMessage();
     }

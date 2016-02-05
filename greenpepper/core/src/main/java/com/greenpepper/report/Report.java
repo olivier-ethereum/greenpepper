@@ -25,22 +25,53 @@ import java.io.Writer;
 
 /**
  * Interface for formating test results.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public interface Report
 {
+    /**
+     * <p>getName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     String getName();
 
+    /**
+     * <p>getType.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     String getType();
 
     /**
      * Adds a test result as a string to this <code>OutputFormat</code>.
+     *
+     * @param out a {@link java.io.Writer} object.
+     * @throws java.io.IOException if any.
      */
     void printTo( Writer out ) throws IOException;
 
+    /**
+     * <p>renderException.</p>
+     *
+     * @param t a {@link java.lang.Throwable} object.
+     */
     void renderException( Throwable t );
 
     //
+    /**
+     * <p>generate.</p>
+     *
+     * @param doc a {@link com.greenpepper.document.Document} object.
+     */
     void generate( Document doc );
 
+    /**
+     * <p>getDocumentUri.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     String getDocumentUri();
 }

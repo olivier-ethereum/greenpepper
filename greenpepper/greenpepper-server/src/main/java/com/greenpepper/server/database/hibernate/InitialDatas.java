@@ -16,20 +16,39 @@ import com.greenpepper.server.domain.dao.hibernate.HibernateSystemInfoDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>InitialDatas class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class InitialDatas 
 {
+	/** Constant <code>DEFAULT_VERSION="1.0"</code> */
 	public static final String DEFAULT_VERSION = "1.0";
 
     private final SystemInfoDao systDao;
     private final SystemUnderTestDao sutDao;
     private final RepositoryDao repoDao;
     
+	/**
+	 * <p>Constructor for InitialDatas.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 */
 	public InitialDatas(SessionService sessionService)
 	{
         this(new HibernateSystemInfoDao(sessionService), new HibernateSystemUnderTestDao(sessionService),
 			 new HibernateRepositoryDao(sessionService));
 	}
 
+	/**
+	 * <p>Constructor for InitialDatas.</p>
+	 *
+	 * @param systemInfoDao a {@link com.greenpepper.server.domain.dao.SystemInfoDao} object.
+	 * @param systemUnderTestDao a {@link com.greenpepper.server.domain.dao.SystemUnderTestDao} object.
+	 * @param repositoryDao a {@link com.greenpepper.server.domain.dao.RepositoryDao} object.
+	 */
 	public InitialDatas(SystemInfoDao systemInfoDao, SystemUnderTestDao systemUnderTestDao,
 						RepositoryDao repositoryDao) {
 		this.systDao = systemInfoDao;
@@ -37,6 +56,11 @@ public class InitialDatas
 		this.repoDao = repositoryDao;
 	}
 	
+	/**
+	 * <p>insert.</p>
+	 *
+	 * @throws java.lang.Exception if any.
+	 */
 	public void insert() throws Exception
 	{
 		insertSystemInfo();

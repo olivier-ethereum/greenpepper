@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter.flow.dowith;
 
@@ -29,20 +33,31 @@ import com.greenpepper.interpreter.flow.AbstractRow;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.ExampleUtil;
-
 public class DisplayRow extends AbstractRow
 {
 
+    /**
+     * <p>matches.</p>
+     *
+     * @param keyword a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean matches( String keyword )
     {
         return "display".equalsIgnoreCase( keyword );
     }
 
+    /**
+     * <p>Constructor for DisplayRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public DisplayRow( Fixture fixture )
     {
         super( fixture );
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification table )
     {
         Example row = table.nextExample();
@@ -67,6 +82,7 @@ public class DisplayRow extends AbstractRow
         return CollectionUtil.odd( row.firstChild() );
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
 		return ExampleUtil.asList(row.at(0,1));

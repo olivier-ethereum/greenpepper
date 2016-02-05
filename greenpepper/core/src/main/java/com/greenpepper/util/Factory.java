@@ -22,11 +22,22 @@ package com.greenpepper.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * <p>Factory class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Factory<T>
 {
     private final Class<? extends T> type;
     private final Method factoryMethod;
 
+    /**
+     * <p>Constructor for Factory.</p>
+     *
+     * @param type a {@link java.lang.Class} object.
+     */
     public Factory(Class<? extends T> type)
     {
         this.type = type;
@@ -34,6 +45,12 @@ public class Factory<T>
         if (factoryMethod == null) throw new IllegalArgumentException(type.getName());
     }
 
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param args a {@link java.lang.Object} object.
+     * @return a T object.
+     */
     public T newInstance(Object... args)
     {
         try

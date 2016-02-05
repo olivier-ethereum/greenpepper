@@ -8,14 +8,26 @@ import com.greenpepper.annotation.IgnoredAnnotation;
 import com.greenpepper.annotation.RightAnnotation;
 import com.greenpepper.annotation.WrongAnnotation;
 
+/**
+ * <p>MyOwnInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class MyOwnInterpreter extends AbstractInterpreter
 {
 
+    /**
+     * <p>Constructor for MyOwnInterpreter.</p>
+     *
+     * @param systemUnderDevelopment a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+     */
     public MyOwnInterpreter( SystemUnderDevelopment systemUnderDevelopment )
     {
         
     }
     
+    /** {@inheritDoc} */
     public void interpret(Specification specification)
     {
         Statistics stats = new Statistics();

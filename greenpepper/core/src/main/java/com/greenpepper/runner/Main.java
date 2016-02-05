@@ -21,10 +21,21 @@ package com.greenpepper.runner;
 
 import com.greenpepper.util.cli.ParseException;
 
+/**
+ * <p>Main class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class Main
 {
     private Main() {}
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     */
     public static void main( String[] args )
     {
         CommandLineRunner runner = new CommandLineRunner();

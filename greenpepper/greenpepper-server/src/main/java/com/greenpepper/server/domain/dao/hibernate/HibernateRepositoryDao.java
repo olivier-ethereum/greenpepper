@@ -17,21 +17,43 @@ import com.greenpepper.server.domain.component.ContentType;
 import com.greenpepper.server.domain.dao.ProjectDao;
 import com.greenpepper.server.domain.dao.RepositoryDao;
 
+/**
+ * <p>HibernateRepositoryDao class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateRepositoryDao implements RepositoryDao
 {
     private ProjectDao projectDao;
     private SessionService sessionService;
 
+	/**
+	 * <p>Constructor for HibernateRepositoryDao.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 * @param projectDao a {@link com.greenpepper.server.domain.dao.ProjectDao} object.
+	 */
 	public HibernateRepositoryDao(SessionService sessionService, ProjectDao projectDao) {
 		this.sessionService = sessionService;
 		this.projectDao = projectDao;
 	}
 
+    /**
+     * <p>Constructor for HibernateRepositoryDao.</p>
+     *
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     */
     public HibernateRepositoryDao(SessionService sessionService)
     {
 		this(sessionService, new HibernateProjectDao(sessionService));
     }
 
+    /**
+     * <p>getAll.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     @SuppressWarnings("unchecked")
     public List<Repository> getAll()
     {
@@ -41,9 +63,7 @@ public class HibernateRepositoryDao implements RepositoryDao
 		return list;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Repository getByUID(String repositoryUid)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Repository.class);
@@ -53,9 +73,7 @@ public class HibernateRepositoryDao implements RepositoryDao
 		return repository;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Repository getByName(String projectName, String repositoryName)
     {
        final Criteria crit = sessionService.getSession().createCriteria(Repository.class);
@@ -67,9 +85,7 @@ public class HibernateRepositoryDao implements RepositoryDao
 		return repository;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public RepositoryType getTypeByName(String repositoryTypeName)
     {
         final Criteria crit = sessionService.getSession().createCriteria(RepositoryType.class);
@@ -78,9 +94,7 @@ public class HibernateRepositoryDao implements RepositoryDao
 		HibernateLazyInitializer.init(repositoryType);
 		return repositoryType;
 	}
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
 	public List<Repository> getAll(String projectName)
     {
@@ -95,22 +109,19 @@ public class HibernateRepositoryDao implements RepositoryDao
 		return list;
 	}
     
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<Repository> getAllTestRepositories(String projectName)
     {
         return getAllRepositories(projectName, ContentType.TEST);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<Repository> getAllRequirementRepositories(String projectName)
     {
         return getAllRepositories(projectName, ContentType.REQUIREMENT);
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public List<Repository> getAllRepositories(ContentType type)
     {
@@ -134,10 +145,7 @@ public class HibernateRepositoryDao implements RepositoryDao
 		return list;
     }
 
-    /**
-     * @throws GreenPepperServerException
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Repository create(Repository newRepository) throws GreenPepperServerException
     {
         Project project = projectDao.getByName(newRepository.getProject().getName());
@@ -155,6 +163,7 @@ public class HibernateRepositoryDao implements RepositoryDao
         return newRepository;
     }
 
+	/** {@inheritDoc} */
 	public void update(Repository repository) throws GreenPepperServerException
 	{
 		Repository repositoryToUpdate = getByUID(repository.getUid());
@@ -198,7 +207,9 @@ public class HibernateRepositoryDao implements RepositoryDao
 	}
 
     /**
-     * @inheritDoc
+     * <p>getAllTypes.</p>
+     *
+     * @return a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")
     public List<RepositoryType> getAllTypes()
@@ -210,7 +221,10 @@ public class HibernateRepositoryDao implements RepositoryDao
 	}
 
     /**
-     * @inheritDoc
+     * <p>create.</p>
+     *
+     * @param repositoryType a {@link com.greenpepper.server.domain.RepositoryType} object.
+     * @return a {@link com.greenpepper.server.domain.RepositoryType} object.
      */
     public RepositoryType create(RepositoryType repositoryType)
     {
@@ -218,9 +232,7 @@ public class HibernateRepositoryDao implements RepositoryDao
         return repositoryType;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void remove(String repositoryUid) throws GreenPepperServerException
     {
 		Repository repositoryToDelete = getByUID(repositoryUid);

@@ -38,14 +38,23 @@ import com.greenpepper.util.StringUtil;
 /**
  * <code>Interpreter</code> implementation that checks the properties of a set
  * of arbitrary objects against values of a set of <code>Specification</code>.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class ListOfInterpreter extends CollectionInterpreter
 {
+    /**
+     * <p>Constructor for ListOfInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public ListOfInterpreter( Fixture fixture )
     {
         super( fixture );
     }
 
+    /** {@inheritDoc} */
     public void execute( Example example )
     {
         try
@@ -103,6 +112,14 @@ public class ListOfInterpreter extends CollectionInterpreter
         }
     }
 
+    /**
+     * <p>processRow.</p>
+     *
+     * @param valuesRow a {@link com.greenpepper.Example} object.
+     * @param headers a {@link com.greenpepper.Example} object.
+     * @param rowFixtureAdapter a {@link com.greenpepper.reflect.Fixture} object.
+     * @throws java.lang.Exception if any.
+     */
     protected void processRow( Example valuesRow, Example headers, Fixture rowFixtureAdapter ) throws Exception
     {
         Statistics rowStats = new Statistics();

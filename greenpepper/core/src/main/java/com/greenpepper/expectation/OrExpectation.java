@@ -19,22 +19,36 @@
 
 package com.greenpepper.expectation;
 
+/**
+ * <p>OrExpectation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class OrExpectation implements Expectation
 {
     private final Expectation left;
     private final Expectation right;
 
+    /**
+     * <p>Constructor for OrExpectation.</p>
+     *
+     * @param left a {@link com.greenpepper.expectation.Expectation} object.
+     * @param right a {@link com.greenpepper.expectation.Expectation} object.
+     */
     public OrExpectation( Expectation left, Expectation right )
     {
         this.left = left;
         this.right = right;
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder string )
     {
         return right.describeTo( left.describeTo( string ).append( " or " ) );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         return left.meets( result ) || right.meets( result );

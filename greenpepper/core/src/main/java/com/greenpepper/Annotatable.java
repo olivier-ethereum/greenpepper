@@ -21,7 +21,18 @@ package com.greenpepper;
 
 import com.greenpepper.annotation.Annotation;
 
+/**
+ * <p>Annotatable interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface Annotatable
 {
+    /**
+     * <p>annotate.</p>
+     *
+     * @param annotation a {@link com.greenpepper.annotation.Annotation} object.
+     */
     void annotate(Annotation annotation);
 }

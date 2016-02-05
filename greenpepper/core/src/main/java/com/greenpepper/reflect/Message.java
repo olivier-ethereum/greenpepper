@@ -19,12 +19,35 @@
 
 package com.greenpepper.reflect;
 
+/**
+ * <p>Abstract Message class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public abstract class Message
 {
+    /**
+     * <p>getArity.</p>
+     *
+     * @return a int.
+     */
     public abstract int getArity();
 
+    /**
+     * <p>send.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public abstract Object send( String... args ) throws Exception;
 
+    /**
+     * <p>assertArgumentsCount.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     */
     protected void assertArgumentsCount( String... args )
     {
         if (args.length != getArity())

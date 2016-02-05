@@ -1,5 +1,11 @@
 package com.greenpepper.server.license;
 
+/**
+ * <p>LicenseErrorKey interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface LicenseErrorKey
 {
     /**

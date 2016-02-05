@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.domain;
 
@@ -22,20 +26,33 @@ import java.util.Collection;
 import java.util.TreeSet;
 
 import com.greenpepper.util.StringUtil;
-
 public class ClasspathSet extends TreeSet<String>
 {
 
+    /**
+     * <p>Constructor for ClasspathSet.</p>
+     */
     public ClasspathSet()
     {
         super( new ClasspathComparator() );
     }
 
+    /**
+     * <p>Constructor for ClasspathSet.</p>
+     *
+     * @param c a {@link java.util.Collection} object.
+     */
     public ClasspathSet(Collection<? extends String> c)
     {
         super( c );
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param classpaths a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.ClasspathSet} object.
+     */
     public static ClasspathSet parse(String classpaths)
     {
 

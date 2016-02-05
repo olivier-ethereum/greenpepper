@@ -19,11 +19,35 @@
 
 package com.greenpepper.runner;
 
+/**
+ * <p>SpecificationRunnerMonitor interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface SpecificationRunnerMonitor
 {
+    /**
+     * <p>testRunning.</p>
+     *
+     * @param location a {@link java.lang.String} object.
+     */
     void testRunning( String location );
 
+    /**
+     * <p>testDone.</p>
+     *
+     * @param rightCount a int.
+     * @param wrongCount a int.
+     * @param exceptionCount a int.
+     * @param ignoreCount a int.
+     */
     void testDone( int rightCount, int wrongCount, int exceptionCount, int ignoreCount );
 
+    /**
+     * <p>exceptionOccured.</p>
+     *
+     * @param t a {@link java.lang.Throwable} object.
+     */
     void exceptionOccured( Throwable t );
 }

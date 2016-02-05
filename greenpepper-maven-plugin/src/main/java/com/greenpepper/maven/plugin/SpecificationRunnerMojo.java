@@ -41,10 +41,14 @@ import com.greenpepper.util.IOUtil;
 import org.apache.maven.project.MavenProject;
 
 /**
+ * <p>SpecificationRunnerMojo class.</p>
+ *
  * @goal run
  * @phase integration-test
  * @requiresDependencyResolution test
  * @description Runs GreenPepper specifications
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class SpecificationRunnerMojo extends AbstractMojo {
 
@@ -165,15 +169,29 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     boolean testFailed;
     boolean exceptionOccured;
 
+    /**
+     * <p>Constructor for SpecificationRunnerMojo.</p>
+     */
     public SpecificationRunnerMojo() {
         this.statistics = new Statistics();
         this.repositories = new ArrayList<Repository>();
     }
 
+    /**
+     * <p>addRepository.</p>
+     *
+     * @param repository a {@link com.greenpepper.maven.plugin.Repository} object.
+     */
     public void addRepository(Repository repository) {
         repositories.add(repository);
     }
 
+    /**
+     * <p>execute.</p>
+     *
+     * @throws org.apache.maven.plugin.MojoExecutionException if any.
+     * @throws org.apache.maven.plugin.MojoFailureException if any.
+     */
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skip) {
             getLog().info("Not executing specifications.");

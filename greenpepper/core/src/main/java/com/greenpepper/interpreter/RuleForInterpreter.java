@@ -42,6 +42,12 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.StaticInvocation;
 
+/**
+ * <p>RuleForInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class RuleForInterpreter extends AbstractInterpreter
 {
 	protected final Fixture fixture;
@@ -51,12 +57,18 @@ public class RuleForInterpreter extends AbstractInterpreter
     private Message beforeFirstExpectationMessage = null;
     private Message afterRowMessage = null;
 
+    /**
+     * <p>Constructor for RuleForInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public RuleForInterpreter( Fixture fixture )
     {
         super();
         this.fixture = fixture;
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification specification )
     {
         stats = new Statistics();
@@ -215,6 +227,12 @@ public class RuleForInterpreter extends AbstractInterpreter
 	}
 	
 
+	/**
+	 * <p>doCell.</p>
+	 *
+	 * @param column a {@link com.greenpepper.interpreter.column.Column} object.
+	 * @param cell a {@link com.greenpepper.Example} object.
+	 */
 	protected void doCell( Column column, Example cell )
     {
         try

@@ -19,16 +19,25 @@
 
 package com.greenpepper.runner;
 
+/**
+ * <p>NullSpecificationRunnerMonitor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class NullSpecificationRunnerMonitor implements SpecificationRunnerMonitor
 {
+    /** {@inheritDoc} */
     public void testRunning( String location )
     {
     }
 
+    /** {@inheritDoc} */
     public void testDone( int rightCount, int wrongCount, int exceptionCount, int ignoreCount )
     {
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured( Throwable t )
     {
     }

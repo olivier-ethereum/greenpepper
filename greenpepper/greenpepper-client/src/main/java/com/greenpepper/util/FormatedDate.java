@@ -4,20 +4,41 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * <p>FormatedDate class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FormatedDate
 {
     private Timestamp date;
     
+    /**
+     * <p>Constructor for FormatedDate.</p>
+     *
+     * @param date a {@link java.sql.Timestamp} object.
+     */
     public FormatedDate(Timestamp date)
     {
         this.date = date;
     }
     
+    /**
+     * <p>Constructor for FormatedDate.</p>
+     *
+     * @param date a {@link java.util.Date} object.
+     */
     public FormatedDate(Date date)
     {
         if(date != null) this.date = new Timestamp(date.getTime());
     }
     
+    /**
+     * <p>Constructor for FormatedDate.</p>
+     *
+     * @param formatedDate a {@link java.lang.String} object.
+     */
     public FormatedDate(String formatedDate)
     {
         if(!StringUtil.isEmpty(formatedDate))
@@ -37,6 +58,11 @@ public class FormatedDate
         }
     }
     
+    /**
+     * <p>getFormatedTimestamp.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFormatedTimestamp()
     {
         if(date == null){return "";}
@@ -54,6 +80,11 @@ public class FormatedDate
         return sb.toString();
     }
     
+    /**
+     * <p>getFormatedDate.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFormatedDate()
     {
         if(date == null){return "";}
@@ -68,12 +99,22 @@ public class FormatedDate
         return sb.toString();
     }  
     
+    /**
+     * <p>asDate.</p>
+     *
+     * @return a {@link java.util.Date} object.
+     */
     public Date asDate()
     {        
         if(date == null){return null;}
         return new Date(date.getTime());
     } 
     
+    /**
+     * <p>asTimestamp.</p>
+     *
+     * @return a {@link java.sql.Timestamp} object.
+     */
     public Timestamp asTimestamp()
     {
         return date;

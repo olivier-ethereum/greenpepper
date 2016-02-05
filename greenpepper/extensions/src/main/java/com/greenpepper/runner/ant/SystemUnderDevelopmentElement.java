@@ -27,17 +27,31 @@ import static com.greenpepper.util.StringUtil.escapeSemiColon;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 
+/**
+ * <p>SystemUnderDevelopmentElement class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SystemUnderDevelopmentElement
 {
 	private String className = DefaultSystemUnderDevelopment.class.getName();
 
 	private List<TextData> arguments = new ArrayList<TextData>();
 
+	/**
+	 * <p>Constructor for SystemUnderDevelopmentElement.</p>
+	 */
 	public SystemUnderDevelopmentElement()
 	{
 
 	}
 
+	/**
+	 * <p>createArguments.</p>
+	 *
+	 * @return a {@link com.greenpepper.runner.ant.TextData} object.
+	 */
 	public TextData createArguments()
 	{
 		TextData argument = new TextData();
@@ -45,11 +59,22 @@ public class SystemUnderDevelopmentElement
 		return argument;
 	}
 
+	/**
+	 * <p>setClass.</p>
+	 *
+	 * @param className a {@link java.lang.String} object.
+	 */
 	public void setClass(String className)
 	{
 		this.className = className;
 	}
 
+	/**
+	 * <p>toArgument.</p>
+	 *
+	 * @param task a {@link org.apache.tools.ant.Task} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toArgument(Task task)
 	{
 		task.log(String.format("System Under Development Class \"%s\"", className), Project.MSG_VERBOSE);

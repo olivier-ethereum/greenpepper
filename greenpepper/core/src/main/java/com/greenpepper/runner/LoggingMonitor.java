@@ -23,28 +23,43 @@ import com.greenpepper.Statistics;
 
 import java.io.PrintStream;
 
+/**
+ * <p>LoggingMonitor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class LoggingMonitor implements SpecificationRunnerMonitor
 {
     private PrintStream out;
     private PrintStream err;
 
+    /**
+     * <p>Constructor for LoggingMonitor.</p>
+     *
+     * @param out a {@link java.io.PrintStream} object.
+     * @param err a {@link java.io.PrintStream} object.
+     */
     public LoggingMonitor( PrintStream out, PrintStream err )
     {
         this.err = err;
         this.out = out;
     }
 
+    /** {@inheritDoc} */
     public void testRunning( String location )
     {
         out.println( "Running " + location );
     }
 
+    /** {@inheritDoc} */
     public void testDone( int rightCount, int wrongCount, int exceptionCount, int ignoreCount )
     {
         Statistics stats = new Statistics( rightCount, wrongCount, exceptionCount, ignoreCount );
         out.println( stats.toString() + (stats.indicatesFailure() ? " <<< FAILURE! " : "") );
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured( Throwable t )
     {
         if (t instanceof RuntimeException)

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,9 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.util;
-
 public class Timer
 {
 
@@ -25,10 +28,18 @@ public class Timer
 	private long finish;
 	private boolean running;
 
+	/**
+	 * <p>Constructor for Timer.</p>
+	 */
 	public Timer()
 	{
 	}
 
+	/**
+	 * <p>start.</p>
+	 *
+	 * @return a {@link com.greenpepper.util.Timer} object.
+	 */
 	public Timer start()
 	{
 		start = System.currentTimeMillis();
@@ -36,6 +47,11 @@ public class Timer
 		return this;
 	}
 
+	/**
+	 * <p>stop.</p>
+	 *
+	 * @return a {@link com.greenpepper.util.Timer} object.
+	 */
 	public Timer stop()
 	{
 		finish = System.currentTimeMillis();
@@ -43,6 +59,11 @@ public class Timer
 		return this;
 	}
 
+	/**
+	 * <p>elapse.</p>
+	 *
+	 * @return a long.
+	 */
 	public long elapse()
 	{
 		if (running)
@@ -59,6 +80,11 @@ public class Timer
 		}
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString()
 	{
 		return elapse() + " ms.";

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.license;
 
@@ -46,7 +50,6 @@ import de.schlichtherle.license.CipherParam;
 import de.schlichtherle.license.KeyStoreParam;
 import de.schlichtherle.license.LicenseManager;
 import de.schlichtherle.license.LicenseParam;
-
 public class DefaultAuthorizer
 		implements Authorizer {
 
@@ -59,6 +62,12 @@ public class DefaultAuthorizer
 	private Properties properties;
 	private License license;
 
+	/**
+	 * <p>Constructor for DefaultAuthorizer.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 * @param properties a {@link java.util.Properties} object.
+	 */
 	public DefaultAuthorizer(SessionService sessionService, Properties properties)
 	{
 		this.systDao = new HibernateSystemInfoDao(sessionService);
@@ -66,6 +75,7 @@ public class DefaultAuthorizer
 		this.properties = properties;
 	}
 
+	/** {@inheritDoc} */
 	public void initialize(Date versionDate) throws Exception
 	{
 		File licenseFile = null;
@@ -98,10 +108,10 @@ public class DefaultAuthorizer
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * ReInitializes the Authorizer with the new persisted license.
 	 * </p>
-	 * @param newLicence
-	 * @throws Exception
 	 */
 	public void reInitialize(String newLicence) throws Exception
 	{
@@ -141,17 +151,21 @@ public class DefaultAuthorizer
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * Verifies that the license supports the repository has the rgiht permission.
 	 * </p>
-	 * @param repository
-	 * @param permission
-	 * @throws GreenPepperLicenceException
 	 */
 	public void verify(Repository repository, Permission permission) throws GreenPepperLicenceException
 	{
 		license.verify(repository, securityContext, permission);
 	}
 
+	/**
+	 * <p>getLicenseBean.</p>
+	 *
+	 * @return a {@link com.greenpepper.server.license.LicenseBean} object.
+	 */
 	public LicenseBean getLicenseBean()
 	{
 		LicenseBean bean = new LicenseBean();
@@ -176,6 +190,11 @@ public class DefaultAuthorizer
 		return bean;
 	}
 
+	/**
+	 * <p>isCommercialLicense.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isCommercialLicense()
 	{
 		return LicenseType.COMMERCIAL.equals(license.getLicenseType());

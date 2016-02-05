@@ -21,25 +21,39 @@ package com.greenpepper.reflect;
 
 import com.greenpepper.util.NameUtils;
 
+/**
+ * <p>CamelCaseTypeLoader class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class CamelCaseTypeLoader<T> implements TypeLoader<T>
 {
     private final TypeLoader<T> parent;
 
+    /**
+     * <p>Constructor for CamelCaseTypeLoader.</p>
+     *
+     * @param parent a {@link com.greenpepper.reflect.TypeLoader} object.
+     */
     public CamelCaseTypeLoader(TypeLoader<T> parent)
     {
         this.parent = parent;
     }
 
+    /** {@inheritDoc} */
     public void searchPackage(String prefix)
     {
         parent.searchPackage( prefix );
     }
 
+    /** {@inheritDoc} */
     public void addSuffix(String suffix) 
     {
         parent.addSuffix( suffix );
     }
 
+    /** {@inheritDoc} */
     public Type<T> loadType(String name)
     {
         Type<T> type = parent.loadType(name);

@@ -24,16 +24,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * <code>TypeConverter</code> implementation that converts strings to 
+ * <code>TypeConverter</code> implementation that converts strings to
  * <code>Date</code> objects.
  *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class DateConverter
         extends AbstractTypeConverter
 {
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+    /** {@inheritDoc} */
     protected Object doConvert(String value)
     {
         try
@@ -46,6 +48,7 @@ public class DateConverter
         }
     }
 
+    /** {@inheritDoc} */
     public boolean canConvertTo(Class type)
     {
         return Date.class.isAssignableFrom(type);

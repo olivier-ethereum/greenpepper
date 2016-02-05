@@ -19,23 +19,48 @@
 
 package com.greenpepper.repository;
 
+/**
+ * <p>RepositoryException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class RepositoryException extends Exception
 {
+    /**
+     * <p>Constructor for RepositoryException.</p>
+     */
     public RepositoryException()
     {
         super();
     }
 
+    /**
+     * <p>Constructor for RepositoryException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public RepositoryException( String message )
     {
         super( message );
     }
 
+    /**
+     * <p>Constructor for RepositoryException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
+     */
     public RepositoryException( String message, Throwable cause )
     {
         super( message, cause );
     }
 
+    /**
+     * <p>Constructor for RepositoryException.</p>
+     *
+     * @param cause a {@link java.lang.Throwable} object.
+     */
     public RepositoryException( Throwable cause )
     {
         super( cause );

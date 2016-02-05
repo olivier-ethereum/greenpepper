@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner;
 
@@ -29,7 +33,6 @@ import com.greenpepper.server.domain.Project;
 import com.greenpepper.server.domain.Repository;
 import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.server.rpc.runner.report.ReportGenerator;
-
 public class RemoteSuiteRunner
 		implements SpecificationRunner
 {
@@ -41,51 +44,90 @@ public class RemoteSuiteRunner
 
 	private final RemoteDocumentRunner documentRunner;
 
+	/**
+	 * <p>Constructor for RemoteSuiteRunner.</p>
+	 */
 	public RemoteSuiteRunner()
 	{
 		this.documentRunner = new RemoteDocumentRunner();
 	}
 
+	/**
+	 * <p>Setter for the field <code>xmlRpcRemoteRunner</code>.</p>
+	 *
+	 * @param xmlRpcRemoteRunner a {@link com.greenpepper.server.rpc.runner.XmlRpcRemoteRunner} object.
+	 */
 	public void setXmlRpcRemoteRunner(XmlRpcRemoteRunner xmlRpcRemoteRunner)
 	{
 		this.xmlRpcRemoteRunner = xmlRpcRemoteRunner;
 		documentRunner.setXmlRpcRemoteRunner(xmlRpcRemoteRunner);
 	}
 
+	/**
+	 * <p>Setter for the field <code>monitor</code>.</p>
+	 *
+	 * @param monitor a {@link com.greenpepper.runner.SpecificationRunnerMonitor} object.
+	 */
 	public void setMonitor(SpecificationRunnerMonitor monitor)
 	{
 		this.monitor = monitor;
 		documentRunner.setMonitor(monitor);
 	}
 
+	/**
+	 * <p>Setter for the field <code>project</code>.</p>
+	 *
+	 * @param project a {@link java.lang.String} object.
+	 */
 	public void setProject(String project)
 	{
 		this.project = project;
 		documentRunner.setProject(project);
 	}
 
+	/**
+	 * <p>Setter for the field <code>systemUnderTest</code>.</p>
+	 *
+	 * @param systemUnderTest a {@link java.lang.String} object.
+	 */
 	public void setSystemUnderTest(String systemUnderTest)
 	{
 		this.systemUnderTest = systemUnderTest;
 		documentRunner.setSystemUnderTest(systemUnderTest);
 	}
 
+	/**
+	 * <p>Setter for the field <code>repositoryId</code>.</p>
+	 *
+	 * @param repositoryId a {@link java.lang.String} object.
+	 */
 	public void setRepositoryId(String repositoryId)
 	{
 		this.repositoryId = repositoryId;
 		documentRunner.setRepositoryId(repositoryId);
 	}
 
+	/**
+	 * <p>setReportGenerator.</p>
+	 *
+	 * @param reportGenerator a {@link com.greenpepper.server.rpc.runner.report.ReportGenerator} object.
+	 */
 	public void setReportGenerator(ReportGenerator reportGenerator)
 	{
 		documentRunner.setReportGenerator(reportGenerator);
 	}
 
+	/**
+	 * <p>setLocale.</p>
+	 *
+	 * @param locale a {@link java.util.Locale} object.
+	 */
 	public void setLocale(Locale locale)
 	{
 		documentRunner.setLocale(locale);
 	}
 
+	/** {@inheritDoc} */
 	public void run(String source, String destination)
 	{
 		try

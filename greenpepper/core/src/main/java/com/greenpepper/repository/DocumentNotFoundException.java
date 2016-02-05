@@ -22,21 +22,42 @@ package com.greenpepper.repository;
 import java.net.URI;
 import java.net.URL;
 
+/**
+ * <p>DocumentNotFoundException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class DocumentNotFoundException extends RepositoryException
 {
     private final String location;
 
+    /**
+     * <p>Constructor for DocumentNotFoundException.</p>
+     *
+     * @param location a {@link java.net.URI} object.
+     */
     public DocumentNotFoundException( URI location )
     {
         this( location.toASCIIString() );
     }
 
+    /**
+     * <p>Constructor for DocumentNotFoundException.</p>
+     *
+     * @param location a {@link java.net.URL} object.
+     */
     public DocumentNotFoundException( URL location )
     {
         this( location.toExternalForm() );
     }
 
+    /**
+     * <p>Constructor for DocumentNotFoundException.</p>
+     *
+     * @param location a {@link java.lang.String} object.
+     */
     public DocumentNotFoundException( String location )
     {
         super();
@@ -44,6 +65,11 @@ public class DocumentNotFoundException extends RepositoryException
         this.location = location;
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return "Document not found " + location;

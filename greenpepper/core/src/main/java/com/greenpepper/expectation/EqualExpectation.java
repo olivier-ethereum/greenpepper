@@ -21,22 +21,32 @@ package com.greenpepper.expectation;
 import java.util.Arrays;
 
 /**
+ * <p>EqualExpectation class.</p>
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class EqualExpectation implements Expectation
 {
     private final Object matchee;
 
+    /**
+     * <p>Constructor for EqualExpectation.</p>
+     *
+     * @param matchee a {@link java.lang.Object} object.
+     */
     public EqualExpectation( Object matchee )
     {
         this.matchee = matchee;
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder sb )
     {
         return sb.append( toString() );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         if (isArray( matchee ))
@@ -52,6 +62,11 @@ public class EqualExpectation implements Expectation
         return o.getClass().getComponentType() != null;
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString()
     {
         return isArray( matchee ) ? Arrays.deepToString( (Object[]) matchee ) : matchee.toString();

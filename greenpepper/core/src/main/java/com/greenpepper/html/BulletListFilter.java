@@ -24,15 +24,23 @@ import com.greenpepper.util.StringUtil;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>BulletListFilter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class BulletListFilter implements HtmlContentFilter
 {
     private static final String ELEMENT_BOUNDARY = "(?s)<\\s*(.*?)\\s*.*?>(.*?)<\\s*/\\s*\\1\\s*>";
 
+    /** {@inheritDoc} */
     public boolean handles(String tag)
     {
         return tag.equalsIgnoreCase( "li" );
     }
 
+    /** {@inheritDoc} */
     public String process(String content)
     {
         Matcher matcher = Pattern.compile( ELEMENT_BOUNDARY ).matcher( content );

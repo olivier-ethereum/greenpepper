@@ -26,10 +26,18 @@ import com.greenpepper.server.domain.Marshalizable;
  * This class is a temporary patch to make sure all objects (including depth) are all initialized by Hibernate.  We
  * try to add FetchType.EAGER for associations without success.
  *
- * To accomplish this, we use the same code from the XML-RPC side, ie, calling the Marshallize method on object. 
+ * To accomplish this, we use the same code from the XML-RPC side, ie, calling the Marshallize method on object.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class HibernateLazyInitializer
 {
+	/**
+	 * <p>init.</p>
+	 *
+	 * @param object a {@link java.lang.Object} object.
+	 */
 	public static void init(Object object)
 	{
 		if (object instanceof Collection)
@@ -43,6 +51,11 @@ public class HibernateLazyInitializer
 		}
 	}
 
+	/**
+	 * <p>initCollection.</p>
+	 *
+	 * @param collection a {@link java.util.Collection} object.
+	 */
 	public static void initCollection(Collection<?> collection)
 	{
 		for (Object object : collection)

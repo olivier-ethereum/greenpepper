@@ -22,21 +22,39 @@ package com.greenpepper.call;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * <p>DoBoth class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DoBoth implements Stub
 {
     private final List<Stub> stubs = new ArrayList<Stub>();
 
+    /**
+     * <p>Constructor for DoBoth.</p>
+     *
+     * @param stub a {@link com.greenpepper.call.Stub} object.
+     */
     public DoBoth(Stub stub)
     {
         stubs.add( stub );
     }
 
+    /**
+     * <p>and.</p>
+     *
+     * @param stub a {@link com.greenpepper.call.Stub} object.
+     * @return a {@link com.greenpepper.call.DoBoth} object.
+     */
     public DoBoth and( Stub stub )
     {
         stubs.add( stub );
         return this;
     }
 
+    /** {@inheritDoc} */
     public void call(Result result)
     {
         for (Stub stub : stubs)

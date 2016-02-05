@@ -32,6 +32,12 @@ import com.greenpepper.reflect.TypeNotFoundException;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.Bundle;
 
+/**
+ * <p>GreenPepper class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class GreenPepper
 {
     private static final String BUNDLE_NAME = "greenpepper_resource";
@@ -67,12 +73,26 @@ public final class GreenPepper
         return bundle;
     }
 
+    /**
+     * <p>Setter for the field <code>locale</code>.</p>
+     *
+     * @param locale a {@link java.util.Locale} object.
+     */
     public static void setLocale( Locale locale )
     {
         GreenPepper.locale = locale;
         bundle = null;
     }
 
+    /**
+     * <p>getInterpreter.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @param sudClass a {@link java.lang.Class} object.
+     * @param args a {@link java.lang.Object} object.
+     * @return a {@link com.greenpepper.Interpreter} object.
+     * @throws java.lang.Throwable if any.
+     */
     public static Interpreter getInterpreter( String name, Class<? extends SystemUnderDevelopment> sudClass, Object... args ) throws Throwable
     {
         Type<Interpreter> type = resolveInterpreterType(name);
@@ -85,42 +105,87 @@ public final class GreenPepper
         return interpreterLoader.loadType( resolveAlias( name ));
     }
 
+    /**
+     * <p>isAnInterpreter.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isAnInterpreter( String name )
     {
         Type<Interpreter> type = resolveInterpreterType(name);
         return type != null && !type.getUnderlyingClass().equals(Interpreter.class);
     }
 
+    /**
+     * <p>addImport.</p>
+     *
+     * @param prefix a {@link java.lang.String} object.
+     */
     public static void addImport( String prefix )
     {
         interpreterLoader.searchPackage( prefix );
     }
 
+    /**
+     * <p>addInterpreterSuffix.</p>
+     *
+     * @param suffix a {@link java.lang.String} object.
+     */
     public static void addInterpreterSuffix( String suffix )
     {
         interpreterLoader.addSuffix( suffix );
     }
 
+    /**
+     * <p>$.</p>
+     *
+     * @param key a {@link java.lang.String} object.
+     * @param params a {@link java.lang.Object} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String $( String key, Object... params )
     {
         return getBundle().format( key, params );
     }
 
+    /**
+     * <p>aliasInterpreter.</p>
+     *
+     * @param alias a {@link java.lang.String} object.
+     * @param type a {@link java.lang.Class} object.
+     */
     public static void aliasInterpreter( String alias, Class<? extends Interpreter> type )
     {
         aliasInterpreter( alias, type.getName() );
     }
 
+    /**
+     * <p>aliasInterpreter.</p>
+     *
+     * @param alias a {@link java.lang.String} object.
+     * @param name a {@link java.lang.String} object.
+     */
     public static void aliasInterpreter( String alias, String name )
     {
         aliases.put( alias, name );
     }
 
+    /**
+     * <p>register.</p>
+     *
+     * @param converter a {@link com.greenpepper.converter.TypeConverter} object.
+     */
     public static void register( TypeConverter converter )
     {
         TypeConversion.register( converter );
     }
 
+    /**
+     * <p>register.</p>
+     *
+     * @param factoryClass a {@link java.lang.Class} object.
+     */
     public static void register( Class<? extends Expectation> factoryClass )
     {
         ShouldBe.register( factoryClass );
@@ -146,31 +211,63 @@ public final class GreenPepper
         return ResourceBundle.getBundle( BUNDLE_NAME, locale, classLoader );
     }
 
+    /**
+     * <p>isDebugEnabled.</p>
+     *
+     * @return a boolean.
+     */
     public static boolean isDebugEnabled()
     {
         return debug;
     }
 
+    /**
+     * <p>setDebugEnabled.</p>
+     *
+     * @param enabled a boolean.
+     */
     public static void setDebugEnabled(boolean enabled)
     {
        debug = enabled;
     }
 
+	/**
+	 * <p>isStopOnFirstFailure.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public static boolean isStopOnFirstFailure()
 	{
 		return stopOnFirstFailure;
 	}
 
+	/**
+	 * <p>Setter for the field <code>stopOnFirstFailure</code>.</p>
+	 *
+	 * @param stop a boolean.
+	 */
 	public static void setStopOnFirstFailure( boolean stop )
 	{
 		stopOnFirstFailure = stop;
 	}
 
+	/**
+	 * <p>shouldStop.</p>
+	 *
+	 * @param stats a {@link com.greenpepper.Statistics} object.
+	 * @return a boolean.
+	 */
 	public static boolean shouldStop( Statistics stats )
 	{
 		return stopOnFirstFailure && stats.indicatesFailure();
 	}
 
+	/**
+	 * <p>canContinue.</p>
+	 *
+	 * @param stats a {@link com.greenpepper.Statistics} object.
+	 * @return a boolean.
+	 */
 	public static boolean canContinue( Statistics stats )
 	{
 		return !shouldStop( stats );

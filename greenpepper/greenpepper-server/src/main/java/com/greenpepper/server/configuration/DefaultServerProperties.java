@@ -20,10 +20,19 @@ package com.greenpepper.server.configuration;
 
 import java.util.Properties;
 
+/**
+ * <p>DefaultServerProperties class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class DefaultServerProperties extends Properties
 {
 
+	/**
+	 * <p>Constructor for DefaultServerProperties.</p>
+	 */
 	public DefaultServerProperties()
 	{
 		put("licence.keystore", "publicCerts.store");

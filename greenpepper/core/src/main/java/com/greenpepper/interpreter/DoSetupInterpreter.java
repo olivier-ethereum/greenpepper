@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter;
 
@@ -35,7 +39,6 @@ import static com.greenpepper.expectation.ShouldBe.instanceOf;
 import com.greenpepper.interpreter.flow.dowith.Action;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.ExampleUtil;
-
 public class DoSetupInterpreter
 		extends AbstractInterpreter
 {
@@ -43,11 +46,17 @@ public class DoSetupInterpreter
 	private Statistics stats;
 	private boolean skip = false;
 
+	/**
+	 * <p>Constructor for DoSetupInterpreter.</p>
+	 *
+	 * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+	 */
 	public DoSetupInterpreter(Fixture fixture)
 	{
 		this.fixture = fixture;
 	}
 
+	/** {@inheritDoc} */
 	public void interpret(Specification specification)
 	{
 		stats = new Statistics();

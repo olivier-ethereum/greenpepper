@@ -35,18 +35,31 @@ import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.ExampleUtil;
 import com.greenpepper.util.ExampleWrapper;
 
+/**
+ * <p>InterpretRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class InterpretRow extends AbstractRow
 {
+    /**
+     * <p>Constructor for InterpretRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public InterpretRow( Fixture fixture )
     {
         super( fixture );
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
         return ExampleUtil.asList(row.at(0,1));
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification table )
     {
         final Example row = table.nextExample();

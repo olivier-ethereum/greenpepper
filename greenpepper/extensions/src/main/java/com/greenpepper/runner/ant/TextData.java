@@ -18,30 +18,59 @@
  */
 package com.greenpepper.runner.ant;
 
+/**
+ * <p>TextData class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class TextData
 {
 	private String text;
 
+	/**
+	 * <p>Constructor for TextData.</p>
+	 */
 	public TextData()
 	{
 
 	}
 
+	/**
+	 * <p>addText.</p>
+	 *
+	 * @param text a {@link java.lang.String} object.
+	 */
 	public void addText(String text)
 	{
 		this.text = text;
 	}
 
+	/**
+	 * <p>Getter for the field <code>text</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getText()
 	{
 		return text;
 	}
 
+	/**
+	 * <p>Setter for the field <code>text</code>.</p>
+	 *
+	 * @param text a {@link java.lang.String} object.
+	 */
 	public void setText(String text)
 	{
 		this.text = text;
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString()
 	{
 		return getText();

@@ -27,19 +27,18 @@ import com.greenpepper.util.StringUtil;
  * implementations.
  *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public abstract class AbstractTypeConverter
         implements TypeConverter
 {
     /**
+     * {@inheritDoc}
+     *
      * Template implementation of the <code>convert()</code> method. Takes care
      * of handling null and empty string values. Once these basic operations
      * are handled, will delegate to the <code>doConvert()</code> method of
      * subclasses.
-     *
-     * @param value The string value to convert
-     * @param type
-     * @return The converted value, or null
      */
     public Object parse(String value, Class type)
     {
@@ -52,11 +51,10 @@ public abstract class AbstractTypeConverter
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Basic implementation of the <code>toString()</code> method. Takes care
      * of handling null values otherwise call the doToString of the object.
-     *
-     * @param value The value to stringnified
-     * @return The string representation of the value
      */
     public String toString(Object value)
     {
@@ -78,7 +76,7 @@ public abstract class AbstractTypeConverter
 	 * Do the conversion of the given value into the given type.
 	 *
 	 * @param value The string value to convert
-	 * @param type
+	 * @param type a {@link java.lang.Class} object.
 	 * @return The converted value, or null
 	 */
 	protected Object doConvert(String value, Class type) {

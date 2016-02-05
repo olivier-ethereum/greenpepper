@@ -10,15 +10,27 @@ import com.greenpepper.call.ResultIs;
 import com.greenpepper.reflect.Message;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>RecalledColumn class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class RecalledColumn extends Column
 {
     private final Message message;
 
+    /**
+     * <p>Constructor for RecalledColumn.</p>
+     *
+     * @param message a {@link com.greenpepper.reflect.Message} object.
+     */
     public RecalledColumn(Message message)
     {
         this.message = message;
     }
 
+    /** {@inheritDoc} */
     public Statistics doCell(Example cell) throws Exception
     {
         String symbol = ExampleUtil.contentOf( cell );

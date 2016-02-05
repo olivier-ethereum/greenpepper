@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,14 +16,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.runner.repository;
-
 public class XWikiRepository
 		extends AtlassianRepository {
 
 	/*
 		For now, XWiki use the same XML-RPC calls as Atlassian (subject to change in the future!)
+	 */
+	/**
+	 * <p>Constructor for XWikiRepository.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 * @throws java.lang.Exception if any.
 	 */
 	public XWikiRepository(String... args)
 			throws Exception {

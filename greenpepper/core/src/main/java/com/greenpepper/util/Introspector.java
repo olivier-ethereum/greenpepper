@@ -28,27 +28,57 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * <p>Introspector class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Introspector
 {
     private final Comparator comparator;
     private Class target;
 
+    /**
+     * <p>respectingCase.</p>
+     *
+     * @param target a {@link java.lang.Class} object.
+     * @return a {@link com.greenpepper.util.Introspector} object.
+     */
     public static Introspector respectingCase( Class target )
     {
         return new Introspector( target, new NaturalComparator() );
     }
 
+    /**
+     * <p>ignoringCase.</p>
+     *
+     * @param target a {@link java.lang.Class} object.
+     * @return a {@link com.greenpepper.util.Introspector} object.
+     */
     public static Introspector ignoringCase( Class target )
     {
         return new Introspector( target, new IgnoringCaseComparator() );
     }
 
+    /**
+     * <p>Constructor for Introspector.</p>
+     *
+     * @param target a {@link java.lang.Class} object.
+     * @param comparator a {@link java.util.Comparator} object.
+     */
     public Introspector( Class target, Comparator<String> comparator )
     {
         this.target = target;
         this.comparator = comparator;
     }
 
+    /**
+     * <p>getField.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link java.lang.reflect.Field} object.
+     */
     public Field getField( String name )
     {
         for (Field field : target.getFields())
@@ -58,6 +88,12 @@ public class Introspector
         return null;
     }
 
+    /**
+     * <p>getSetter.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link java.lang.reflect.Method} object.
+     */
     public Method getSetter( String name )
     {
         for (PropertyDescriptor descriptor : getPropertyDescriptors( target ))
@@ -69,6 +105,12 @@ public class Introspector
         return null;
     }
 
+    /**
+     * <p>getGetter.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link java.lang.reflect.Method} object.
+     */
     public Method getGetter( String name )
     {
         for (PropertyDescriptor descriptor : getPropertyDescriptors( target ))
@@ -80,6 +122,12 @@ public class Introspector
         return null;
     }
 
+    /**
+     * <p>getMethods.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link java.util.List} object.
+     */
     public List<Method> getMethods( String name )
     {
         List<Method> methods = new ArrayList<Method>();

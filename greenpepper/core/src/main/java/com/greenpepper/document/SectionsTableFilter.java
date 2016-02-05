@@ -7,22 +7,40 @@ import static com.greenpepper.util.ExampleUtil.contentOf;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * <p>SectionsTableFilter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SectionsTableFilter extends AbstractTableFilter
 {
     private final Sections filter;
 
+    /**
+     * <p>Constructor for SectionsTableFilter.</p>
+     *
+     * @param sections a {@link java.lang.String} object.
+     */
     public SectionsTableFilter( String... sections )
     {
         super( "section" );
         this.filter = new Sections( sections );
     }
 
+    /** {@inheritDoc} */
     public Example doFilter( Example example )
     {
         if (filter.areIncluded( content( example.at( 0, 1, 0 ) ) )) return example.nextSibling();
         return goToNextSection( example.nextSibling() );
     }
 
+    /**
+     * <p>goToNextSection.</p>
+     *
+     * @param example a {@link com.greenpepper.Example} object.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     protected Example goToNextSection( Example example )
     {
         for (Example table = example; table != null; table = table.nextSibling())
@@ -32,6 +50,11 @@ public class SectionsTableFilter extends AbstractTableFilter
         return null;
     }
 
+    /**
+     * <p>includeSections.</p>
+     *
+     * @param tags a {@link java.lang.String} object.
+     */
     public void includeSections( String... tags )
     {
         filter.allowSections( tags );

@@ -18,16 +18,25 @@ import com.greenpepper.util.ExampleUtil;
 
 /**
  * This class is responsible for selecting an interpreter from the first row of a table.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class GreenPepperInterpreterSelector implements InterpreterSelector
 {
     protected final SystemUnderDevelopment systemUnderDevelopment;
 
+    /**
+     * <p>Constructor for GreenPepperInterpreterSelector.</p>
+     *
+     * @param systemUnderDevelopment a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+     */
     public GreenPepperInterpreterSelector(SystemUnderDevelopment systemUnderDevelopment)
     {
         this.systemUnderDevelopment = systemUnderDevelopment;
     }
 
+    /** {@inheritDoc} */
     public Interpreter selectInterpreter(Example table)
     {
         Example cells = table.at(0, 0, 0);

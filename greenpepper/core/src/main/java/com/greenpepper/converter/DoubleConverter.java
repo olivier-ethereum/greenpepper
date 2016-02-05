@@ -25,15 +25,18 @@ import com.greenpepper.util.NumberUtil;
  * <code>Double</code> objects.
  *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class DoubleConverter
 		extends AbstractTypeConverter
 {
+	/** {@inheritDoc} */
 	protected Object doConvert(String value)
 	{
 		return Double.valueOf(NumberUtil.substituteDecimalSeparatorToPeriod(value));
 	}
 
+	/** {@inheritDoc} */
 	public boolean canConvertTo(Class type)
 	{
 		return Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type);

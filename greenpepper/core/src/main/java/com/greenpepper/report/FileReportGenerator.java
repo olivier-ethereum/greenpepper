@@ -29,6 +29,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * <p>FileReportGenerator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FileReportGenerator implements ReportGenerator
 {
     private final File reportsDirectory;
@@ -36,28 +42,45 @@ public class FileReportGenerator implements ReportGenerator
     private Class<? extends Report> reportClass;
     private boolean automaticExtension;
 
+    /**
+     * <p>Constructor for FileReportGenerator.</p>
+     *
+     * @param outputDir a {@link java.io.File} object.
+     */
     public FileReportGenerator( File outputDir )
     {
         this.reportsDirectory = outputDir;
         this.reportClass = PlainReport.class;
     }
 
+    /**
+     * <p>Setter for the field <code>reportClass</code>.</p>
+     *
+     * @param reportClass a {@link java.lang.Class} object.
+     */
     public void setReportClass( Class<? extends Report> reportClass )
     {
         this.reportClass = reportClass;
     }
 
+    /**
+     * <p>adjustReportFilesExtensions.</p>
+     *
+     * @param enable a boolean.
+     */
     public void adjustReportFilesExtensions( boolean enable )
     {
         this.automaticExtension = enable;
     }
 
+    /** {@inheritDoc} */
     public Report openReport( String name )
     {
         Factory<Report> factory = new Factory<Report>( reportClass );
         return factory.newInstance( name );
     }
 
+    /** {@inheritDoc} */
     public void closeReport( Report report ) throws IOException, URISyntaxException {
         FileWriter out = null;
         try
@@ -82,6 +105,7 @@ public class FileReportGenerator implements ReportGenerator
 
     /**
      * Utility method to guess the output name generated for this output parameter.
+     *
      * @param output the specified output.
      * @return the real generated filename.
      */

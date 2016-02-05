@@ -44,21 +44,33 @@ import com.greenpepper.util.cli.Converter;
  * Note: it could be interesting to see if we can make
  * {@link com.greenpepper.util.ClassUtils#findBestTypedConstructor(Class,java.lang.Object...)}
  * smarter and use it.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class FactoryConverter implements Converter
 {
     private Class expectedType;
 
+    /**
+     * <p>Constructor for FactoryConverter.</p>
+     */
     public FactoryConverter()
     {
         this(null);
     }
 
+    /**
+     * <p>Constructor for FactoryConverter.</p>
+     *
+     * @param expectedType a {@link java.lang.Class} object.
+     */
     public FactoryConverter(Class expectedType)
     {
         this.expectedType = expectedType;
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Object convert( String value ) throws Exception
     {

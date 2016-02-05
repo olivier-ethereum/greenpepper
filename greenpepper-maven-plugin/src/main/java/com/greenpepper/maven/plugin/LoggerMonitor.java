@@ -23,26 +23,40 @@ import org.apache.maven.plugin.logging.Log;
 import com.greenpepper.runner.SpecificationRunnerMonitor;
 import com.greenpepper.Statistics;
 
+/**
+ * <p>LoggerMonitor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class LoggerMonitor implements SpecificationRunnerMonitor
 {
     private Log log;
 
+    /**
+     * <p>Constructor for LoggerMonitor.</p>
+     *
+     * @param log a {@link org.apache.maven.plugin.logging.Log} object.
+     */
     public LoggerMonitor(Log log)
     {
         this.log = log;
     }
 
+    /** {@inheritDoc} */
     public void testRunning(String name)
     {
         log.info( "Running " + name );
     }
 
+    /** {@inheritDoc} */
     public void testDone(int rightCount, int wrongCount, int exceptionCount, int ignoreCount)
     {
         Statistics stats = new Statistics( rightCount, wrongCount, exceptionCount, ignoreCount );
         log.info( stats.toString() + (stats.hasFailed() ? " <<< FAILURE! " : "") );
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured(Throwable t)
     {
         log.error( "Error running specification", t );

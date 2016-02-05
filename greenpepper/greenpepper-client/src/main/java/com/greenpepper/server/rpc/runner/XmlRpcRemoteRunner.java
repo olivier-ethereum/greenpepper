@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner;
 
@@ -29,11 +33,16 @@ import com.greenpepper.server.domain.Requirement;
 import com.greenpepper.server.domain.Specification;
 import com.greenpepper.server.domain.SystemUnderTest;
 import com.greenpepper.server.rpc.xmlrpc.GreenPepperXmlRpcClient;
-
 public class XmlRpcRemoteRunner
 {
 	private final GreenPepperXmlRpcClient xmlRpc;
 
+	/**
+	 * <p>Constructor for XmlRpcRemoteRunner.</p>
+	 *
+	 * @param url a {@link java.lang.String} object.
+	 * @param handler a {@link java.lang.String} object.
+	 */
 	public XmlRpcRemoteRunner(final String url, final String handler)
 	{
 		xmlRpc = new GreenPepperXmlRpcClient(new ServerPropertiesManager()
@@ -61,12 +70,32 @@ public class XmlRpcRemoteRunner
 		});
 	}
 
+	/**
+	 * <p>getSpecificationHierarchy.</p>
+	 *
+	 * @param repository a {@link com.greenpepper.server.domain.Repository} object.
+	 * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+	 * @return a {@link com.greenpepper.server.domain.DocumentNode} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public DocumentNode getSpecificationHierarchy(Repository repository, SystemUnderTest systemUnderTest)
 			throws GreenPepperServerException
 	{
 		return xmlRpc.getSpecificationHierarchy(repository, systemUnderTest, getIdentifier());
 	}
 
+	/**
+	 * <p>runSpecification.</p>
+	 *
+	 * @param projectName a {@link java.lang.String} object.
+	 * @param sutName a {@link java.lang.String} object.
+	 * @param repositoryId a {@link java.lang.String} object.
+	 * @param specificationName a {@link java.lang.String} object.
+	 * @param implementedVersion a boolean.
+	 * @param locale a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Execution} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public Execution runSpecification(String projectName, String sutName, String repositoryId, String specificationName,
 									  boolean implementedVersion, String locale)
 			throws GreenPepperServerException
@@ -80,6 +109,16 @@ public class XmlRpcRemoteRunner
 		return runSpecification(sut, specification, implementedVersion, locale);
 	}
 
+	/**
+	 * <p>runSpecification.</p>
+	 *
+	 * @param sut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+	 * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+	 * @param implementedVersion a boolean.
+	 * @param locale a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Execution} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public Execution runSpecification(SystemUnderTest sut, Specification specification,
 									  boolean implementedVersion, String locale)
 			throws GreenPepperServerException
@@ -97,6 +136,17 @@ public class XmlRpcRemoteRunner
 		return xmlRpc.runSpecification(sut, specification, implementedVersion, locale, getIdentifier());
 	}
 
+	/**
+	 * <p>runReference.</p>
+	 *
+	 * @param projectName a {@link java.lang.String} object.
+	 * @param sutName a {@link java.lang.String} object.
+	 * @param requirementRepositoryId a {@link java.lang.String} object.
+	 * @param requirementName a {@link java.lang.String} object.
+	 * @param locale a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Reference} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public Reference runReference(String projectName, String sutName, String requirementRepositoryId,
 								  String requirementName, String locale)
 			throws GreenPepperServerException
@@ -104,6 +154,19 @@ public class XmlRpcRemoteRunner
 		return runReference(projectName,  sutName, requirementRepositoryId, requirementName, null, null, locale);
 	}
 		
+	/**
+	 * <p>runReference.</p>
+	 *
+	 * @param projectName a {@link java.lang.String} object.
+	 * @param sutName a {@link java.lang.String} object.
+	 * @param requirementRepositoryId a {@link java.lang.String} object.
+	 * @param requirementName a {@link java.lang.String} object.
+	 * @param repositoryId a {@link java.lang.String} object.
+	 * @param specificationName a {@link java.lang.String} object.
+	 * @param locale a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Reference} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public Reference runReference(String projectName, String sutName, String requirementRepositoryId,
 								  String requirementName, String repositoryId, String specificationName, String locale)
 			throws GreenPepperServerException
@@ -122,6 +185,16 @@ public class XmlRpcRemoteRunner
 		return runReference(reference, locale);
 	}
 
+	/**
+	 * <p>runReference.</p>
+	 *
+	 * @param sut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+	 * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+	 * @param requirement a {@link com.greenpepper.server.domain.Requirement} object.
+	 * @param locale a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Reference} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	public Reference runReference(SystemUnderTest sut, Specification specification, Requirement requirement, String locale)
 			throws GreenPepperServerException
 	{
@@ -145,6 +218,14 @@ public class XmlRpcRemoteRunner
 		return runReference(reference, locale);
 	}
 
+	/**
+	 * <p>runReference.</p>
+	 *
+	 * @param reference a {@link com.greenpepper.server.domain.Reference} object.
+	 * @param locale a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.Reference} object.
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
+	 */
 	@SuppressWarnings("unchecked")
 	public Reference runReference(Reference reference, String locale)
 			throws GreenPepperServerException

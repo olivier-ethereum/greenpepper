@@ -19,9 +19,27 @@
 
 package com.greenpepper.html;
 
+/**
+ * <p>HtmlContentFilter interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface HtmlContentFilter
 {
+    /**
+     * <p>handles.</p>
+     *
+     * @param tag a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     boolean handles(String tag);
 
+    /**
+     * <p>process.</p>
+     *
+     * @param content a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     String process(String content);
 }

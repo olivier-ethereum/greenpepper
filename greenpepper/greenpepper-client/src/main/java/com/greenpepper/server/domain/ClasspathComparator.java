@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,14 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.domain;
 
 import java.util.Comparator;
-
 public class ClasspathComparator implements Comparator<String>
 {
 
+    /**
+     * <p>compare.</p>
+     *
+     * @param o1 a {@link java.lang.String} object.
+     * @param o2 a {@link java.lang.String} object.
+     * @return a int.
+     */
     public int compare(String o1, String o2)
     {
         return o1.compareToIgnoreCase(o2);

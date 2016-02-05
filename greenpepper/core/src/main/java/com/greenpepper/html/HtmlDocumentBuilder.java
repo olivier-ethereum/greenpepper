@@ -39,6 +39,12 @@ import com.greenpepper.repository.DocumentBuilder;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.IOUtil;
 
+/**
+ * <p>HtmlDocumentBuilder class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HtmlDocumentBuilder implements DocumentBuilder
 {
     
@@ -48,27 +54,48 @@ public class HtmlDocumentBuilder implements DocumentBuilder
     private final List<String> tags;
     private final List<HtmlContentFilter> filters = new ArrayList<HtmlContentFilter>();
 
+    /**
+     * <p>tables.</p>
+     *
+     * @return a {@link com.greenpepper.html.HtmlDocumentBuilder} object.
+     */
     public static HtmlDocumentBuilder tables()
     {
         return new HtmlDocumentBuilder( "table", "tr", "td th" );
     }
 
+    /**
+     * <p>tablesAndLists.</p>
+     *
+     * @return a {@link com.greenpepper.html.HtmlDocumentBuilder} object.
+     */
     public static HtmlDocumentBuilder tablesAndLists()
     {
         return new HtmlDocumentBuilder( "table ul ol", "table>tr ol>li ul>li", "tr>td tr>th li>span li>b li>i li>u li>em" ).addFilter( new BulletListFilter() );
     }
 
+    /**
+     * <p>Constructor for HtmlDocumentBuilder.</p>
+     *
+     * @param tags a {@link java.lang.String} object.
+     */
     public HtmlDocumentBuilder( String... tags )
     {
         this( Arrays.asList( tags ) );
     }
 
+    /**
+     * <p>Constructor for HtmlDocumentBuilder.</p>
+     *
+     * @param tags a {@link java.util.List} object.
+     */
     public HtmlDocumentBuilder( List<String> tags )
     {
         if (tags.isEmpty()) throw new IllegalArgumentException( "Specify at least a tag" );
         this.tags = new ArrayList<String>( tags );
     }
 
+    /** {@inheritDoc} */
     public Document build( Reader reader ) throws IOException
     {
         String html = IOUtil.readContent( reader );
@@ -78,6 +105,12 @@ public class HtmlDocumentBuilder implements DocumentBuilder
         return Document.html( example, name( html ), externalLink( html ) );
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param html a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example parse( String html )
     {
         String text = removeComments( html );
@@ -270,6 +303,12 @@ public class HtmlDocumentBuilder implements DocumentBuilder
 		return matcher.find() ? matcher.group( 1 ) : null;
 	}
 
+    /**
+     * <p>useTags.</p>
+     *
+     * @param tags a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.html.HtmlDocumentBuilder} object.
+     */
     public HtmlDocumentBuilder useTags( String... tags )
     {
         this.tags.clear();
@@ -277,12 +316,24 @@ public class HtmlDocumentBuilder implements DocumentBuilder
         return this;
     }
 
+    /**
+     * <p>addAllFilters.</p>
+     *
+     * @param filters a {@link java.util.List} object.
+     * @return a {@link com.greenpepper.html.HtmlDocumentBuilder} object.
+     */
     public HtmlDocumentBuilder addAllFilters( List<HtmlContentFilter> filters )
     {
         this.filters.addAll( filters );
         return this;
     }
 
+    /**
+     * <p>addFilter.</p>
+     *
+     * @param filter a {@link com.greenpepper.html.HtmlContentFilter} object.
+     * @return a {@link com.greenpepper.html.HtmlDocumentBuilder} object.
+     */
     public HtmlDocumentBuilder addFilter( HtmlContentFilter... filter )
     {
         return addAllFilters( Arrays.asList( filter ) );

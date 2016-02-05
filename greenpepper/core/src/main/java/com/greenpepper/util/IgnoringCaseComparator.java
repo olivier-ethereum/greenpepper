@@ -21,8 +21,21 @@ package com.greenpepper.util;
 
 import java.util.Comparator;
 
+/**
+ * <p>IgnoringCaseComparator class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class IgnoringCaseComparator implements Comparator<String>
 {
+    /**
+     * <p>compare.</p>
+     *
+     * @param s1 a {@link java.lang.String} object.
+     * @param s2 a {@link java.lang.String} object.
+     * @return a int.
+     */
     public int compare( String s1, String s2 )
     {
         return s1.compareToIgnoreCase( s2 );

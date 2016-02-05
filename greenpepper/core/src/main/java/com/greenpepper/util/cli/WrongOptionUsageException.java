@@ -19,26 +19,53 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>WrongOptionUsageException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class WrongOptionUsageException extends ParseException
 {
     private final Option opt;
 
+    /**
+     * <p>Constructor for WrongOptionUsageException.</p>
+     *
+     * @param option a {@link com.greenpepper.util.cli.Option} object.
+     */
     public WrongOptionUsageException( Option option )
     {
         this( option, null );
     }
 
+    /**
+     * <p>Constructor for WrongOptionUsageException.</p>
+     *
+     * @param option a {@link com.greenpepper.util.cli.Option} object.
+     * @param cause a {@link java.lang.Throwable} object.
+     */
     public WrongOptionUsageException( Option option, Throwable cause )
     {
         super( cause );
         this.opt = option;
     }
 
+    /**
+     * <p>Getter for the field <code>opt</code>.</p>
+     *
+     * @return a {@link com.greenpepper.util.cli.Option} object.
+     */
     public Option getOpt()
     {
         return opt;
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return "Wrong option usage: " + opt.toString();

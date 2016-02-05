@@ -106,9 +106,16 @@ public abstract class AbstractJarMojo
 
     /**
      * Return the specific output directory to serve as the root for the archive.
+     *
+     * @return a {@link java.io.File} object.
      */
     protected abstract File getClassesDirectory();
 
+    /**
+     * <p>Getter for the field <code>project</code>.</p>
+     *
+     * @return a {@link org.apache.maven.project.MavenProject} object.
+     */
     protected final MavenProject getProject()
     {
         return project;
@@ -116,9 +123,19 @@ public abstract class AbstractJarMojo
 
     /**
      * Overload this to produce a test-jar, for example.
+     *
+     * @return a {@link java.lang.String} object.
      */
     protected abstract String getClassifier();
 
+    /**
+     * <p>getJarFile.</p>
+     *
+     * @param basedir a {@link java.io.File} object.
+     * @param finalName a {@link java.lang.String} object.
+     * @param classifier a {@link java.lang.String} object.
+     * @return a {@link java.io.File} object.
+     */
     protected static File getJarFile( File basedir, String finalName, String classifier )
     {
         if ( classifier == null )
@@ -135,6 +152,9 @@ public abstract class AbstractJarMojo
 
     /**
      * Generates the JAR.
+     *
+     * @return a {@link java.io.File} object.
+     * @throws org.apache.maven.plugin.MojoExecutionException if any.
      */
     public File createArchive()
         throws MojoExecutionException
@@ -173,6 +193,8 @@ public abstract class AbstractJarMojo
 
     /**
      * Generates the JAR.
+     *
+     * @throws org.apache.maven.plugin.MojoExecutionException if any.
      */
     public void execute()
         throws MojoExecutionException

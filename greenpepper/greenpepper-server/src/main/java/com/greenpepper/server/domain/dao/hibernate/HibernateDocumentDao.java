@@ -24,12 +24,25 @@ import com.greenpepper.server.domain.dao.RepositoryDao;
 import com.greenpepper.server.domain.dao.SystemUnderTestDao;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>HibernateDocumentDao class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HibernateDocumentDao implements DocumentDao
 {
     private SessionService sessionService;
     private RepositoryDao repositoryDao;
     private SystemUnderTestDao systemUnderTestDao;
 
+	/**
+	 * <p>Constructor for HibernateDocumentDao.</p>
+	 *
+	 * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+	 * @param repositoryDao a {@link com.greenpepper.server.domain.dao.RepositoryDao} object.
+	 * @param systemUnderTestDao a {@link com.greenpepper.server.domain.dao.SystemUnderTestDao} object.
+	 */
 	public HibernateDocumentDao(SessionService sessionService, RepositoryDao repositoryDao,
 								SystemUnderTestDao systemUnderTestDao)
 	{
@@ -38,15 +51,18 @@ public class HibernateDocumentDao implements DocumentDao
 		this.systemUnderTestDao = systemUnderTestDao;
 	}
 
+    /**
+     * <p>Constructor for HibernateDocumentDao.</p>
+     *
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     */
     public HibernateDocumentDao(SessionService sessionService)
     {
 		this(sessionService, new HibernateRepositoryDao(sessionService),
 			 new HibernateSystemUnderTestDao(sessionService));
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Requirement getRequirementByName(String repositoryUid, String requirementName)
     {
         Criteria crit = sessionService.getSession().createCriteria(Requirement.class);
@@ -59,9 +75,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return requirement;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Requirement createRequirement(String repositoryUid, String requirementName) throws GreenPepperServerException
     {
         Repository repository = repositoryDao.getByUID(repositoryUid);        
@@ -74,9 +88,7 @@ public class HibernateDocumentDao implements DocumentDao
         return requirement;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Requirement getOrCreateRequirement(String repositoryUid, String requirementName) throws GreenPepperServerException
     {
         Requirement requirement = getRequirementByName(repositoryUid, requirementName);
@@ -89,10 +101,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return requirement;
     }
 
-    /**
-     * @throws GreenPepperServerException 
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeRequirement(Requirement requirement) throws GreenPepperServerException
     {
         requirement = getRequirementByName(requirement.getRepository().getUid(), requirement.getName());
@@ -103,9 +112,7 @@ public class HibernateDocumentDao implements DocumentDao
         }
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Specification getSpecificationByName(String repositoryUid, String specificationName)
     {
         Criteria crit = sessionService.getSession().createCriteria(Specification.class);
@@ -118,6 +125,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return specification;
     }
     
+    /** {@inheritDoc} */
     @Override
     public List<Specification> getSpecificationsByName(String repositoryUid, List<String> specificationNames)
     {
@@ -132,9 +140,7 @@ public class HibernateDocumentDao implements DocumentDao
         return specifications;
     }
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public Specification getSpecificationById(Long id)
 	{
 		Criteria crit = sessionService.getSession().createCriteria(Specification.class);
@@ -145,9 +151,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return specification;
 	}
 
-	/**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Specification createSpecification(String systemUnderTestName, String repositoryUid, String specificationName) throws GreenPepperServerException
     {
         Specification specification = Specification.newInstance(specificationName);
@@ -180,9 +184,7 @@ public class HibernateDocumentDao implements DocumentDao
         return specification;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Specification getOrCreateSpecification(String systemUnderTestName, String repositoryUid, String specificationName) throws GreenPepperServerException
     {
         Specification specification = getSpecificationByName(repositoryUid, specificationName);
@@ -195,9 +197,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return specification;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void updateSpecification(Specification oldSpecification, Specification newSpecification)throws GreenPepperServerException 
     {
         String oldUid = oldSpecification.getRepository().getUid();        
@@ -210,9 +210,7 @@ public class HibernateDocumentDao implements DocumentDao
         sessionService.getSession().update(specificationToUpdate);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeSpecification(Specification specification) throws GreenPepperServerException
     {
         specification = getSpecificationByName(specification.getRepository().getUid(), specification.getName());
@@ -223,9 +221,7 @@ public class HibernateDocumentDao implements DocumentDao
         }
     }
 
-    /** 
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void addSystemUnderTest(SystemUnderTest systemUnderTest, Specification specification) throws GreenPepperServerException
     {
         SystemUnderTest sut = systemUnderTestDao.getByName(systemUnderTest.getProject().getName(), systemUnderTest.getName());
@@ -240,9 +236,7 @@ public class HibernateDocumentDao implements DocumentDao
         sessionService.getSession().save(specification);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeSystemUnderTest(SystemUnderTest systemUnderTest, Specification specification) throws GreenPepperServerException
     {
         if(!getAllReferences(systemUnderTest, specification).isEmpty())
@@ -260,9 +254,7 @@ public class HibernateDocumentDao implements DocumentDao
         sessionService.getSession().save(specification);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Reference get(Reference reference)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Reference.class);
@@ -295,7 +287,11 @@ public class HibernateDocumentDao implements DocumentDao
 	}
 
     /**
-     * @inheritDoc
+     * <p>getAllReferences.</p>
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @return a {@link java.util.List} object.
      */
     public List<Reference> getAllReferences(SystemUnderTest systemUnderTest, Specification specification)
     {
@@ -316,7 +312,10 @@ public class HibernateDocumentDao implements DocumentDao
     }
 
     /**
-     * @inheritDoc
+     * <p>getAllReferences.</p>
+     *
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @return a {@link java.util.List} object.
      */
     public List<Reference> getAllReferences(Specification specification)
     {
@@ -336,9 +335,7 @@ public class HibernateDocumentDao implements DocumentDao
         return references;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<Reference> getAllReferences(Requirement requirement)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Reference.class);
@@ -353,9 +350,7 @@ public class HibernateDocumentDao implements DocumentDao
         return references;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Reference createReference(Reference reference) throws GreenPepperServerException
     {
         String projectName = reference.getSystemUnderTest().getProject().getName();
@@ -397,9 +392,7 @@ public class HibernateDocumentDao implements DocumentDao
 		}
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeReference(Reference reference) throws GreenPepperServerException
     {
         reference = get(reference);
@@ -419,27 +412,21 @@ public class HibernateDocumentDao implements DocumentDao
 		}
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Reference updateReference(Reference oldReference, Reference newReference) throws GreenPepperServerException
     {
         removeReference(oldReference);
         return createReference(newReference);
     }
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public Execution createExecution(Execution execution) throws GreenPepperServerException
 	{
 		sessionService.getSession().save(execution);
 		return execution;
 	}
 
-	/**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Execution runSpecification(SystemUnderTest systemUnderTest, Specification specification, boolean implemeted, String locale) throws GreenPepperServerException
     {
 		specification = getOrCreateSpecification(systemUnderTest.getName(), specification.getRepository().getUid(),
@@ -467,9 +454,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return exe;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public Reference runReference(Reference reference, String locale) throws GreenPepperServerException
     {
 		Reference loadedReference = get(reference);
@@ -491,9 +476,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return loadedReference;
 	}
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public List<Specification> getSpecifications(SystemUnderTest sut, Repository repository)
     {
         final Criteria crit = sessionService.getSession().createCriteria(Specification.class);
@@ -513,9 +496,7 @@ public class HibernateDocumentDao implements DocumentDao
     }
 
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public List<Execution> getSpecificationExecutions(Specification specification, SystemUnderTest sut, int maxResults)
 	{
 		final Criteria crit = sessionService.getSession().createCriteria(Execution.class);
@@ -545,9 +526,7 @@ public class HibernateDocumentDao implements DocumentDao
 		return executions;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	/** {@inheritDoc} */
 	public Execution getSpecificationExecution(Long id)
 	{
 		final Criteria crit = sessionService.getSession().createCriteria(Execution.class);

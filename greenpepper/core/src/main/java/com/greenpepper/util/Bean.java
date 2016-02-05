@@ -23,15 +23,31 @@ import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.Map;
 
+/**
+ * <p>Bean class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Bean
 {
     private final Object target;
 
+    /**
+     * <p>Constructor for Bean.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     */
     public Bean( Object target )
     {
         this.target = target;
     }
 
+    /**
+     * <p>setProperties.</p>
+     *
+     * @param properties a {@link java.util.Map} object.
+     */
     public void setProperties( Map<String, Object> properties )
     {
         Introspector introspector = new Introspector( target.getClass(), new PropertyComparator() );

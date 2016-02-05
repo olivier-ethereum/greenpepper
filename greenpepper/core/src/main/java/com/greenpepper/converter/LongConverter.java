@@ -19,19 +19,22 @@
 package com.greenpepper.converter;
 
 /**
- * Implementation of <code>TypeConverter</code> that converts strings to 
+ * Implementation of <code>TypeConverter</code> that converts strings to
  * <code>Long</code> objects.
- * 
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class LongConverter 
         extends AbstractTypeConverter
 {
+    /** {@inheritDoc} */
     protected Object doConvert(String value)
     {
         return Long.valueOf(value);
     }
 
+    /** {@inheritDoc} */
     public boolean canConvertTo(Class type)
     {
         return Long.class.isAssignableFrom(type) || long.class.isAssignableFrom(type);

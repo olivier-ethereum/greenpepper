@@ -30,6 +30,19 @@ import com.greenpepper.call.Stub;
 
 import java.util.regex.MatchResult;
 
+package com.greenpepper.interpreter.flow.scenario;
+
+import com.greenpepper.Annotatable;
+import com.greenpepper.Statistics;
+import com.greenpepper.Text;
+import com.greenpepper.annotation.Annotation;
+import com.greenpepper.annotation.Annotations;
+import com.greenpepper.annotation.Colors;
+import com.greenpepper.annotation.Styles;
+import com.greenpepper.call.Result;
+import com.greenpepper.call.Stub;
+
+import java.util.regex.MatchResult;
 class AnnotateThen implements Stub
 {
     private final Annotatable annotable;
@@ -43,6 +56,7 @@ class AnnotateThen implements Stub
         this.statistics = stats;
     }
 
+    /** {@inheritDoc} */
     public void call(Result result)
     {
         if (result.isException())

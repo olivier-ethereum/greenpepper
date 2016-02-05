@@ -11,15 +11,27 @@ import com.greenpepper.server.domain.RepositoryType;
 import com.greenpepper.server.domain.dao.RepositoryDao;
 import com.greenpepper.server.domain.dao.hibernate.HibernateRepositoryDao;
 
+/**
+ * <p>UpgradeOf_1_0 class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class UpgradeOf_1_0 implements ServerVersionUpgrader
 {
 	private SessionService service;
 	
+	/**
+	 * <p>upgradedTo.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String upgradedTo()
 	{
 		return "1.1";
 	}
 
+	/** {@inheritDoc} */
 	public void upgrade(SessionService service) throws Exception
 	{
 		this.service = service;

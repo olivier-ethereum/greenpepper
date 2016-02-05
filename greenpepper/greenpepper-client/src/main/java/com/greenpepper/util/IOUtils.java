@@ -7,8 +7,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * <p>IOUtils class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class IOUtils
 {
+    /**
+     * <p>copyFile.</p>
+     *
+     * @param srcFile a {@link java.io.File} object.
+     * @param destFile a {@link java.io.File} object.
+     * @throws java.io.IOException if any.
+     */
     public static void copyFile(File srcFile, File destFile) throws IOException
     {
         InputStream reader = new FileInputStream(srcFile);
@@ -29,6 +42,14 @@ public class IOUtils
         }
     }
     
+    /**
+     * <p>uniquePath.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @param ext a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     * @throws java.io.IOException if any.
+     */
     public static String uniquePath(String name, String ext) throws IOException
     {
         File file = File.createTempFile(name, ext);

@@ -19,8 +19,15 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>StringConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class StringConverter implements Converter<String>
 {
+    /** {@inheritDoc} */
     public String convert(String value)
     {
         return value;

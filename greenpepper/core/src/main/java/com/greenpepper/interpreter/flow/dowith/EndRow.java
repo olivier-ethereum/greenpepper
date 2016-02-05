@@ -13,22 +13,26 @@ import com.greenpepper.util.CollectionUtil;
 
 /**
  * This row with the 'END' keyword will stop the flow.
- * @author wattazoum
  *
+ * @author wattazoum
+ * @version $Id: $Id
  */
 public class EndRow implements Row
 {
 
     /**
-     * 
-     * @param fixture
+     * <p>Constructor for EndRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
      */
     public EndRow(Fixture fixture) {
         
     }
     
     /**
-     * Cases of failures : 
+     * {@inheritDoc}
+     *
+     * Cases of failures :
      * <ul>
      *  <li>this row is not the last row of the Specification table</li>
      *  <li>there is more than one cell in this row</li>

@@ -20,6 +20,12 @@ package com.greenpepper;
 
 import java.io.Serializable;
 
+/**
+ * <p>Statistics class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class Statistics implements Serializable
 {
 	private static final long serialVersionUID = -1L;
@@ -30,11 +36,22 @@ public final class Statistics implements Serializable
 
     private int ignoredCount;
 
+    /**
+     * <p>Constructor for Statistics.</p>
+     */
     public Statistics()
     {
         this( 0, 0, 0, 0 );
     }
 
+    /**
+     * <p>Constructor for Statistics.</p>
+     *
+     * @param right a int.
+     * @param wrong a int.
+     * @param exception a int.
+     * @param ignored a int.
+     */
     public Statistics( int right, int wrong, int exception, int ignored )
     {
         this.rightCount = right;
@@ -43,26 +60,51 @@ public final class Statistics implements Serializable
         this.ignoredCount = ignored;
     }
 
+    /**
+     * <p>exceptionCount.</p>
+     *
+     * @return a int.
+     */
     public int exceptionCount()
     {
         return exceptionCount;
     }
 
+    /**
+     * <p>wrongCount.</p>
+     *
+     * @return a int.
+     */
     public int wrongCount()
     {
         return wrongCount;
     }
 
+    /**
+     * <p>ignoredCount.</p>
+     *
+     * @return a int.
+     */
     public int ignoredCount()
     {
         return ignoredCount;
     }
 
+    /**
+     * <p>rightCount.</p>
+     *
+     * @return a int.
+     */
     public int rightCount()
     {
         return rightCount;
     }
 
+    /**
+     * <p>tally.</p>
+     *
+     * @param other a {@link com.greenpepper.Statistics} object.
+     */
     public void tally( Statistics other )
     {
         rightCount += other.rightCount();
@@ -71,47 +113,80 @@ public final class Statistics implements Serializable
         exceptionCount += other.exceptionCount();
     }
 
+    /**
+     * <p>indicatesFailure.</p>
+     *
+     * @return a boolean.
+     */
     public boolean indicatesFailure()
     {
         return wrongCount > 0 || exceptionCount > 0;
     }
 
+    /**
+     * <p>totalCount.</p>
+     *
+     * @return a int.
+     */
     public int totalCount()
     {
         return rightCount() + wrongCount() + exceptionCount() + ignoredCount();
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString()
     {
         return String.format( "%d tests: %d right, %d wrong, %d ignored, %d exception(s)",
             totalCount(), rightCount(), wrongCount(), ignoredCount(), exceptionCount() );
     }
 
+    /**
+     * <p>right.</p>
+     */
     public void right()
     {
         rightCount++;
     }
 
+    /**
+     * <p>wrong.</p>
+     */
     public void wrong()
     {
         wrongCount++;
     }
 
+    /**
+     * <p>exception.</p>
+     */
     public void exception()
     {
         exceptionCount++;
     }
 
+    /**
+     * <p>ignored.</p>
+     */
     public void ignored()
     {
         ignoredCount++;
     }
     
+    /**
+     * <p>hasFailed.</p>
+     *
+     * @return a boolean.
+     */
     public boolean hasFailed() 
     {
         return wrongCount() > 0 || exceptionCount() > 0;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o)
     {
@@ -126,6 +201,7 @@ public final class Statistics implements Serializable
                && wrongCount == that.wrongCount;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {

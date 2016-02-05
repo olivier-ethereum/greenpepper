@@ -5,12 +5,19 @@ import com.greenpepper.Text;
 import com.greenpepper.TypeConversion;
 import com.greenpepper.expectation.Expectation;
 
+/**
+ * <p>WrongAnnotation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class WrongAnnotation implements Annotation
 {
     private Expectation expected;
     private Object actual;
     private boolean detailed;
 
+    /** {@inheritDoc} */
     public void writeDown( Text text )
     {
         text.setStyle( Styles.BACKGROUND_COLOR, Colors.RED );
@@ -26,6 +33,12 @@ public class WrongAnnotation implements Annotation
         return message.toString();
     }
 
+    /**
+     * <p>giveDetails.</p>
+     *
+     * @param expected a {@link com.greenpepper.expectation.Expectation} object.
+     * @param actual a {@link java.lang.Object} object.
+     */
     public void giveDetails( Expectation expected, Object actual )
     {
         this.expected = expected;
@@ -33,6 +46,11 @@ public class WrongAnnotation implements Annotation
         this.detailed = true;
     }
 
+    /**
+     * <p>isDetailed.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isDetailed()
     {
         return detailed;

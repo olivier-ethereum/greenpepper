@@ -24,14 +24,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * <p>ShouldBe class.</p>
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public final class ShouldBe
 {
+    /** Constant <code>TRUE</code> */
     public static final Expectation TRUE = new EqualExpectation(true);
 
+    /** Constant <code>FALSE</code> */
     public static final Expectation FALSE = new EqualExpectation(false);
 
+    /** Constant <code>NULL</code> */
     public static final Expectation NULL = new NullExpectation();
 
     private static List<Factory<Expectation>> factories = new LinkedList<Factory<Expectation>>();
@@ -47,21 +53,44 @@ public final class ShouldBe
     {
     }
 
+    /**
+     * <p>register.</p>
+     *
+     * @param factoryClass a {@link java.lang.Class} object.
+     */
     public static void register(Class<? extends Expectation> factoryClass)
     {
         factories.add(new Factory<Expectation>(factoryClass));
     }
 
+    /**
+     * <p>equal.</p>
+     *
+     * @param o a {@link java.lang.Object} object.
+     * @return a {@link com.greenpepper.expectation.Expectation} object.
+     */
     public static Expectation equal(Object o)
     {
         return new EqualExpectation(o);
     }
 
+    /**
+     * <p>instanceOf.</p>
+     *
+     * @param c a {@link java.lang.Class} object.
+     * @return a {@link com.greenpepper.expectation.Expectation} object.
+     */
     public static Expectation instanceOf(Class c)
     {
         return new IsInstanceExpectation(c);
     }
 
+    /**
+     * <p>literal.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.expectation.Expectation} object.
+     */
     public static Expectation literal(String expected)
     {
         if (expected == null)
@@ -78,11 +107,23 @@ public final class ShouldBe
         return new DuckExpectation(expected);
     }
 
+    /**
+     * <p>either.</p>
+     *
+     * @param expectation a {@link com.greenpepper.expectation.Expectation} object.
+     * @return a {@link com.greenpepper.expectation.Either} object.
+     */
     public static Either either(Expectation expectation)
     {
         return new Either(expectation);
     }
 
+	/**
+	 * <p>not.</p>
+	 *
+	 * @param expectation a {@link com.greenpepper.expectation.Expectation} object.
+	 * @return a {@link com.greenpepper.expectation.Expectation} object.
+	 */
 	public static Expectation not(Expectation expectation)
 	{
 		return new NotExpectation(expectation);

@@ -28,23 +28,50 @@ import com.greenpepper.interpreter.flow.AbstractAction;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>Action class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Action extends AbstractAction
 {
+    /**
+     * <p>Constructor for Action.</p>
+     *
+     * @param cells a {@link java.lang.Iterable} object.
+     */
     public Action( Iterable<String> cells )
     {
         super(cells);
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param cells a {@link java.lang.Iterable} object.
+     * @return a {@link com.greenpepper.interpreter.flow.dowith.Action} object.
+     */
     public static Action parse( Iterable<Example> cells )
     {
         return new Action( ExampleUtil.contentAsList(cells) );
     }
 
+    /**
+     * <p>keywords.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     protected List<String> keywords()
     {
         return even( getCells() );
     }
 
+    /**
+     * <p>parameters.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     protected List<String> parameters()
     {
         return CollectionUtil.odd( getCells() );

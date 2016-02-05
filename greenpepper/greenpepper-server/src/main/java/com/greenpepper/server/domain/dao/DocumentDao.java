@@ -10,14 +10,21 @@ import com.greenpepper.server.domain.Requirement;
 import com.greenpepper.server.domain.Specification;
 import com.greenpepper.server.domain.SystemUnderTest;
 
+/**
+ * <p>DocumentDao interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface DocumentDao
 {
     /**
      * Retrieves the Requirement for the specified repository UID.
      * If none found an GreenPepperServerException is thrown.
      * </p>
-     * @param repositoryUid
-     * @param requirementName
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @param requirementName a {@link java.lang.String} object.
      * @return the Requirement for the specified repository UID.
      */
     public Requirement getRequirementByName(String repositoryUid, String requirementName);
@@ -25,46 +32,50 @@ public interface DocumentDao
     /**
      * Saves the Requirement for the specified repository UID.
      * </p>
-     * @param repositoryUid
-     * @param requirementName
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @param requirementName a {@link java.lang.String} object.
      * @return the new Requirement
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Requirement createRequirement(String repositoryUid, String requirementName) throws GreenPepperServerException;
 
     /**
-     * Retrieves the Requirement for the specified repository UID. 
+     * Retrieves the Requirement for the specified repository UID.
      * If none found then a new is saved and returned.
      * </p>
-     * @param repositoryUid
-     * @param requirementName
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @param requirementName a {@link java.lang.String} object.
      * @return the retrieved/created Requirement
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Requirement getOrCreateRequirement(String repositoryUid, String requirementName) throws GreenPepperServerException;
 
     /**
      * Removes the Requirement.
      * </p>
-     * @param requirement
-     * @throws GreenPepperServerException
+     *
+     * @param requirement a {@link com.greenpepper.server.domain.Requirement} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public void removeRequirement(Requirement requirement) throws GreenPepperServerException;
     
     /**
      * Retrieves the Specification for the specified repository UID.
      * </p>
-     * @param repositoryUid
-     * @param specificationName
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @param specificationName a {@link java.lang.String} object.
      * @return the Specification for the specified repository UID.
      */
     public Specification getSpecificationByName(String repositoryUid, String specificationName);
 
     /**
-     * Retrieves the Specifications for the specified repository UID and Names. This method will not check if some of the 
+     * Retrieves the Specifications for the specified repository UID and Names. This method will not check if some of the
      * names given are not available.
-     * 
-     * @param repositoryUid
+     *
+     * @param repositoryUid a {@link java.lang.String} object.
      * @param specificationNames the list of specification names.
      * @return The list of Specifications. Will never return null.
      */
@@ -73,6 +84,7 @@ public interface DocumentDao
 	/**
 	 * Retrieves the Specification for the specified id.
 	 * </p>
+	 *
 	 * @param id Specification id to retrieve
 	 * @return the Specification for the given id
 	 */
@@ -81,11 +93,12 @@ public interface DocumentDao
     /**
      * Saves the Specification for the specified repository UID.
      * </p>
-     * @param systemUnderTestName
-     * @param repositoryUid
-     * @param specificationName
+     *
+     * @param systemUnderTestName a {@link java.lang.String} object.
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @param specificationName a {@link java.lang.String} object.
      * @return the new Specification
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Specification createSpecification(String systemUnderTestName, String repositoryUid, String specificationName) throws GreenPepperServerException;
 
@@ -93,70 +106,78 @@ public interface DocumentDao
      * Retrieves the Specification for the specified repository UID.
      * If none found then a new is saved and returned.
      * </p>
-     * @param systemUnderTestName
-     * @param repositoryUid
-     * @param specificationName
+     *
+     * @param systemUnderTestName a {@link java.lang.String} object.
+     * @param repositoryUid a {@link java.lang.String} object.
+     * @param specificationName a {@link java.lang.String} object.
      * @return the retrieved/created Specification
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Specification getOrCreateSpecification(String systemUnderTestName, String repositoryUid, String specificationName) throws GreenPepperServerException;
 
     /**
      * UPdates the Specification.
      * </p>
-     * @param newSpecification
-     * @param Specification
-     * @throws GreenPepperServerException 
+     *
+     * @param newSpecification a {@link com.greenpepper.server.domain.Specification} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     * @param oldSpecification a {@link com.greenpepper.server.domain.Specification} object.
      */
     public void updateSpecification(Specification oldSpecification, Specification newSpecification) throws GreenPepperServerException;
 
     /**
      * Removes the Specification.
      * </p>
-     * @param Specification
-     * @throws GreenPepperServerException 
+     *
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
      */
     public void removeSpecification(Specification specification) throws GreenPepperServerException;
 
     /**
      * Retrieves the Reference from dataBase.
      * </p>
-     * @param Reference
+     *
      * @return the Reference from dataBase.
+     * @param reference a {@link com.greenpepper.server.domain.Reference} object.
      */
     public Reference get(Reference reference);
 
     /**
      * Retrieves the list of References linked to the Specification
      * </p>
-     * @param Specification
+     *
      * @return the list of References linked to the Specification
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
      */
     public List<Reference> getAllReferences(Specification specification);
 
     /**
      * Retrieves the list of References linked to the Requirement
      * </p>
-     * @param Requirement
+     *
      * @return the list of References linked to the Requirement
+     * @param requirement a {@link com.greenpepper.server.domain.Requirement} object.
      */
     public List<Reference> getAllReferences(Requirement requirement);
 
     /**
      * Adds the SystemUnderTest to the SystemUnderTest list of the Specification
      * </p>
-     * @param systemUnderTest
-     * @param specification
-     * @throws GreenPepperServerException
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public void addSystemUnderTest(SystemUnderTest systemUnderTest, Specification specification) throws GreenPepperServerException;
     
     /**
      * Removes the SystemUnderTest to the SystemUnderTest list of the Specification
      * </p>
-     * @param systemUnderTest
-     * @param specification
-     * @throws GreenPepperServerException
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public void removeSystemUnderTest(SystemUnderTest systemUnderTest, Specification specification) throws GreenPepperServerException;
     
@@ -165,17 +186,19 @@ public interface DocumentDao
      * The Project, the repositories and the System under test have to exist
      * else an exception will be thrown.
      * </p>
-     * @param Reference
+     *
      * @return the new Created Reference
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     * @param reference a {@link com.greenpepper.server.domain.Reference} object.
      */
     public Reference createReference(Reference reference) throws GreenPepperServerException;
     
     /**
      * Deletes the Reference
      * </p>
-     * @param Reference
-     * @throws GreenPepperServerException
+     *
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
+     * @param reference a {@link com.greenpepper.server.domain.Reference} object.
      */
     public void removeReference(Reference reference) throws GreenPepperServerException;
     
@@ -183,49 +206,53 @@ public interface DocumentDao
      * Updates the old Reference with the new one.
      * Basically removes the old one and creates a new one.
      * </p>
-     * @param oldReference
-     * @param newReference
+     *
+     * @param oldReference a {@link com.greenpepper.server.domain.Reference} object.
+     * @param newReference a {@link com.greenpepper.server.domain.Reference} object.
      * @return the updated Reference
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Reference updateReference(Reference oldReference, Reference newReference) throws GreenPepperServerException;
 
 	/**
 	 * Creates the Execution.
 	 *
-	 * @param execution
+	 * @param execution a {@link com.greenpepper.server.domain.Execution} object.
 	 * @return the new created Execution
-	 * @throws GreenPepperServerException
+	 * @throws com.greenpepper.server.GreenPepperServerException if any.
 	 */
 	public Execution createExecution(Execution execution) throws GreenPepperServerException;
 	
     /**
      * Run the Specification on the SystemUnderTest.
      * </p>
-     * @param systemUnderTest
-     * @param specification
-     * @param implemeted
-     * @param locale
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @param implemeted a boolean.
+     * @param locale a {@link java.lang.String} object.
      * @return the execution of the Specification on the SystemUnderTest.
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Execution runSpecification(SystemUnderTest systemUnderTest, Specification specification, boolean implemeted, String locale) throws GreenPepperServerException;
     
     /**
      * Run the Specification of the reference.
      * </p>
-     * @param reference
-     * @param locale
+     *
+     * @param reference a {@link com.greenpepper.server.domain.Reference} object.
+     * @param locale a {@link java.lang.String} object.
      * @return the executed Reference
-     * @throws GreenPepperServerException
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public Reference runReference(Reference reference, String locale) throws GreenPepperServerException;
 
     /**
      * Retrieves all Specifications for a given SystemUnderTest and Repository
      * <p>
-     * @param sut
-     * @param repository
+     *
+     * @param sut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param repository a {@link com.greenpepper.server.domain.Repository} object.
      * @return all Specifications for a given SystemUnderTest and Repository
      */
     public List<Specification> getSpecifications(SystemUnderTest sut, Repository repository);
@@ -234,9 +261,9 @@ public interface DocumentDao
 	 * Retrieve specification Executions for a given Specification where the specification has been
 	 * executed before the given start date.
 	 *
-	 * @param specification
-	 * @param sut
-	 * @param maxResults
+	 * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+	 * @param sut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+	 * @param maxResults a int.
 	 * @return Specification executions containing at most the max-result items
 	 */
 	public List<Execution> getSpecificationExecutions(Specification specification, SystemUnderTest sut, int maxResults);
@@ -244,9 +271,9 @@ public interface DocumentDao
 	/**
 	 * Retrieve an Execution for the given id.
 	 *
-	 * @param id
+	 * @param id a {@link java.lang.Long} object.
 	 * @return execution for the given id
-	 * @throws GreenPepperServerException
+	 * @throws GreenPepperServerException if any.
 	 */
 	public Execution getSpecificationExecution(Long id);
 

@@ -27,6 +27,12 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * <p>DoWithInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DoWithInterpreter extends AbstractFlowInterpreter
 {
     private static final Collection<String> suffixes =
@@ -34,6 +40,11 @@ public class DoWithInterpreter extends AbstractFlowInterpreter
     private static final Collection<String> packages =
             Collections.synchronizedCollection( new ArrayList<String>() );
 
+    /**
+     * <p>Constructor for DoWithInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public DoWithInterpreter( Fixture fixture )
     {
         DoWithRowSelector selector = new DoWithRowSelector(fixture);
@@ -42,11 +53,21 @@ public class DoWithInterpreter extends AbstractFlowInterpreter
         setRowSelector(selector);
     }
 
+    /**
+     * <p>addRowSuffix.</p>
+     *
+     * @param suffix a {@link java.lang.String} object.
+     */
     public static void addRowSuffix( String suffix )
     {
         suffixes.add( suffix );
     }
 
+    /**
+     * <p>addRowsInPackage.</p>
+     *
+     * @param packageName a {@link java.lang.String} object.
+     */
     public static void addRowsInPackage( String packageName )
     {
         packages.add( packageName );

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,12 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.ogn;
 
 import com.greenpepper.reflect.Message;
-
 public interface ObjectGraphNavigationMessageResolver
 {
+    /**
+     * <p>resolve.</p>
+     *
+     * @param info a {@link com.greenpepper.ogn.ObjectGraphNavigationInfo} object.
+     * @return a {@link com.greenpepper.reflect.Message} object.
+     */
     Message resolve(ObjectGraphNavigationInfo info);
 }

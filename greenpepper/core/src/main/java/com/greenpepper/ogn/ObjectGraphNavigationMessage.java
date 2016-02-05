@@ -22,12 +22,24 @@ import com.greenpepper.reflect.Message;
 
 import java.util.Collection;
 
+/**
+ * <p>ObjectGraphNavigationMessage class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ObjectGraphNavigationMessage extends Message
 {
     private final Object target;
 
     private final Collection<ObjectGraphInvocable> invocableChain;
     
+    /**
+     * <p>Constructor for ObjectGraphNavigationMessage.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param invocableChain a {@link java.util.Collection} object.
+     */
     public ObjectGraphNavigationMessage(Object target, Collection<ObjectGraphInvocable> invocableChain)
     {
         super();
@@ -36,12 +48,14 @@ public class ObjectGraphNavigationMessage extends Message
         this.invocableChain = invocableChain;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getArity()
     {
         return 0;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Object send(String... args) throws Exception
     {

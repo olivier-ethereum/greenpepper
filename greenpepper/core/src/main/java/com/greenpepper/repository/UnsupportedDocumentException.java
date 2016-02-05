@@ -22,32 +22,64 @@ package com.greenpepper.repository;
 import java.net.URI;
 import java.net.URL;
 
+/**
+ * <p>UnsupportedDocumentException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class UnsupportedDocumentException extends RepositoryException
 {
     private final String location;
 
+    /**
+     * <p>Constructor for UnsupportedDocumentException.</p>
+     *
+     * @param location a {@link java.lang.String} object.
+     */
     public UnsupportedDocumentException( String location )
     {
         this( location, null );
     }
 
+    /**
+     * <p>Constructor for UnsupportedDocumentException.</p>
+     *
+     * @param location a {@link java.net.URL} object.
+     */
     public UnsupportedDocumentException( URL location )
     {
         this( location.toExternalForm() );
     }
 
+    /**
+     * <p>Constructor for UnsupportedDocumentException.</p>
+     *
+     * @param location a {@link java.net.URI} object.
+     */
     public UnsupportedDocumentException( URI location )
     {
         this( location.toString() );
     }
 
+    /**
+     * <p>Constructor for UnsupportedDocumentException.</p>
+     *
+     * @param location a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
+     */
     public UnsupportedDocumentException( String location, Throwable cause )
     {
         super( cause );
         this.location = location;
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return "Unsupported document " + location;

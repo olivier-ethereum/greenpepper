@@ -27,25 +27,38 @@ import com.greenpepper.server.rpc.RpcClientService;
 import com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutor;
 import com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutorFactory;
 
+/**
+ * <p>GreenPepperXmlRpcClient class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class GreenPepperXmlRpcClient implements RpcClientService
 {
     private static Logger log = LoggerFactory.getLogger(GreenPepperXmlRpcClient.class);
 
+    /** Constant <code>XML_RPC="rpc/xmlrpc"</code> */
     public static final String XML_RPC = "rpc/xmlrpc";
+    /** Constant <code>HANDLER_SEPARTOR="."</code> */
     public static final String HANDLER_SEPARTOR = ".";
+    /** Constant <code>PATH_SEPARTOR="/"</code> */
     public static final String PATH_SEPARTOR = "/";
+    /** Constant <code>PORT_SEPARTOR=":"</code> */
     public static final String PORT_SEPARTOR = ":";
 
     private ServerPropertiesManager propertiesManager;
 
+    /**
+     * <p>Constructor for GreenPepperXmlRpcClient.</p>
+     *
+     * @param propertiesManager a {@link com.greenpepper.server.ServerPropertiesManager} object.
+     */
     public GreenPepperXmlRpcClient(ServerPropertiesManager propertiesManager)
     {
         this.propertiesManager = propertiesManager;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public LicenseBean license(String identifier) throws GreenPepperServerException
     {
@@ -55,9 +68,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toLicense(licenseParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void uploadLicense(String newLicence, String identifier) throws GreenPepperServerException
     {
         log.debug("Uploading new license" + newLicence);
@@ -66,9 +77,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.uploadNewLicense, vector, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public boolean testConnection(String hostName, String handler) throws GreenPepperServerException
     {
         try
@@ -92,9 +101,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         }
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public boolean ping(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -105,9 +112,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return true;
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<EnvironmentType> getAllEnvironmentTypes(String identifier) throws GreenPepperServerException
     {
@@ -117,9 +122,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toEnvironmentTypeList(envTypesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Runner getRunner(String name, String identifier) throws GreenPepperServerException
     {
@@ -129,9 +132,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toRunner(runnerParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Runner> getAllRunners(String identifier) throws GreenPepperServerException
     {
@@ -141,9 +142,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRunnerList(runnersParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void createRunner(Runner runner, String identifier) throws GreenPepperServerException
     {
@@ -154,9 +153,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
     }
     
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void updateRunner(String oldRunnerName, Runner runner, String identifier) throws GreenPepperServerException
     {
@@ -166,18 +163,14 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.updateRunner, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeRunner(String name, String identifier) throws GreenPepperServerException
     {
         log.debug("Removing runner: " + name);
         execute(XmlRpcMethodName.removeRunner, CollectionUtil.toVector(name), identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Repository getRegisteredRepository(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -190,9 +183,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Repository registerRepository(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -204,9 +195,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toRepository(repositoryParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void updateRepositoryRegistration(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -216,9 +205,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.updateRepositoryRegistration, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     public void removeRepository(String repositoryUid, String identifier) throws GreenPepperServerException
     {
         Vector params = CollectionUtil.toVector(repositoryUid);
@@ -227,9 +214,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.removeRepository, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Project> getAllProjects(String identifier) throws GreenPepperServerException
     {
@@ -239,9 +224,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toProjectList(projectsParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Repository> getAllSpecificationRepositories(String identifier) throws GreenPepperServerException
     {
@@ -251,9 +234,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRepositoryList(repositoriesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Repository> getAllRepositoriesForSystemUnderTest(SystemUnderTest systemUnderTest, String identifier) throws GreenPepperServerException
     {
@@ -265,9 +246,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRepositoryList(repositoriesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Repository> getSpecificationRepositoriesOfAssociatedProject(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -279,9 +258,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRepositoryList(repositoriesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Repository> getSpecificationRepositoriesOfAssociatedProject(SystemUnderTest systemUnderTest, String identifier) throws GreenPepperServerException
     {
@@ -293,9 +270,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRepositoryList(repositoriesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Repository> getRequirementRepositoriesOfAssociatedProject(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -307,9 +282,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRepositoryList(repositoriesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<SystemUnderTest> getSystemUnderTestsOfAssociatedProject(Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -321,9 +294,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toSystemUnderTestList(sutsParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<SystemUnderTest> getSystemUnderTestsOfProject(String projectName, String identifier) throws GreenPepperServerException
     {
@@ -333,9 +304,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toSystemUnderTestList(sutsParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void addSystemUnderTest(SystemUnderTest systemUnderTest, Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -345,9 +314,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.addSpecificationSystemUnderTest, params, identifier);
      }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void removeSystemUnderTest(SystemUnderTest systemUnderTest, Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -357,9 +324,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.removeSpecificationSystemUnderTest, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public boolean hasReferences(Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -371,9 +336,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return Boolean.valueOf(hasReferences);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Reference> getReferences(Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -385,9 +348,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toReferencesList(referencesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public boolean hasReferences(Requirement requirement, String identifier) throws GreenPepperServerException
     {
@@ -399,9 +360,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return Boolean.valueOf(hasReferences);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Set<Reference> getReferences(Requirement requirement, String identifier) throws GreenPepperServerException
     {
@@ -413,9 +372,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toReferencesList(referencesParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Reference getReference(Reference reference, String identifier) throws GreenPepperServerException
     {
@@ -427,9 +384,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toReference(referenceParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public SystemUnderTest getSystemUnderTest(SystemUnderTest systemUnderTest, Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -441,9 +396,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toSystemUnderTest(sutParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void createSystemUnderTest(SystemUnderTest systemUnderTest, Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -453,9 +406,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.createSystemUnderTest, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void updateSystemUnderTest(String oldSystemUnderTestName, SystemUnderTest newSystemUnderTest, Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -465,9 +416,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.updateSystemUnderTest, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void removeSystemUnderTest(SystemUnderTest systemUnderTest, Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -477,9 +426,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.removeSystemUnderTest, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void setSystemUnderTestAsDefault(SystemUnderTest systemUnderTest, Repository repository, String identifier) throws GreenPepperServerException
     {
@@ -489,9 +436,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.setSystemUnderTestAsDefault, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void removeRequirement(Requirement requirement, String identifier) throws GreenPepperServerException
     {
@@ -501,9 +446,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.removeRequirement, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Specification getSpecification(Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -515,9 +458,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toSpecification(specificationParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Specification createSpecification(Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -529,9 +470,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toSpecification(specificationParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void updateSpecification(Specification oldSpecification, Specification newSpecification, String identifier) throws GreenPepperServerException
     {
@@ -541,9 +480,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.updateSpecification, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void removeSpecification(Specification specification, String identifier) throws GreenPepperServerException
     {
@@ -553,9 +490,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.removeSpecification, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void createReference(Reference reference, String identifier) throws GreenPepperServerException
     {
@@ -565,9 +500,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.createReference, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Reference updateReference(Reference oldReference, Reference newReference, String identifier) throws GreenPepperServerException
     {
@@ -579,9 +512,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toReference(referenceParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public void removeReference(Reference reference, String identifier) throws GreenPepperServerException
     {
@@ -591,9 +522,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         execute(XmlRpcMethodName.removeReference, params, identifier);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Execution runSpecification(SystemUnderTest systemUnderTest, Specification specification, boolean implementedVersion, String locale, String identifier) throws GreenPepperServerException
     {
@@ -605,9 +534,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toExecution(executionParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Reference runReference(Reference reference, String locale, String identifier) throws GreenPepperServerException
     {
@@ -619,9 +546,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         return XmlRpcDataMarshaller.toReference(referenceParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public RequirementSummary getSummary(Requirement requirement, String identifier) throws GreenPepperServerException
     {
@@ -633,9 +558,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
 		return XmlRpcDataMarshaller.toRequirementSummary(compilParams);
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public DocumentNode getSpecificationHierarchy(Repository repository, SystemUnderTest systemUnderTest, String identifier) throws GreenPepperServerException
     {
@@ -683,7 +606,9 @@ public class GreenPepperXmlRpcClient implements RpcClientService
     }
     
     /**
-     * @inheritDoc
+     * <p>getServerPropertiesManager.</p>
+     *
+     * @return a {@link com.greenpepper.server.ServerPropertiesManager} object.
      */
     public ServerPropertiesManager getServerPropertiesManager()
     {

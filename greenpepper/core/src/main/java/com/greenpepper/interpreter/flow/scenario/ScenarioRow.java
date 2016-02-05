@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter.flow.scenario;
 
@@ -28,19 +32,25 @@ import com.greenpepper.reflect.Fixture;
 
 import java.util.Arrays;
 import java.util.List;
-
 public class ScenarioRow extends AbstractRow
 {
+    /**
+     * <p>Constructor for ScenarioRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public ScenarioRow(Fixture fixture)
     {
         super( fixture );
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
         return Arrays.asList( row );
     }
 
+    /** {@inheritDoc} */
     public void interpret(Specification table)
     {
 

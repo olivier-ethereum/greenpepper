@@ -7,9 +7,16 @@ import com.greenpepper.TypeConversion;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>PrimitiveIntArrayConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class PrimitiveIntArrayConverter extends AbstractPrimitiveArrayConverter
 {
 
+    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("unchecked")
     public Object parse( String value, Class type )
@@ -28,6 +35,7 @@ public class PrimitiveIntArrayConverter extends AbstractPrimitiveArrayConverter
         return CollectionUtil.toPrimitiveIntArray( values );
     }
     
+    /** {@inheritDoc} */
     @Override
     public String toString(Object value)
     {

@@ -15,12 +15,16 @@ import com.greenpepper.util.ExampleUtil;
  * <p/>
  * Process a table containing a series of command.
  * Each line of table correspond to a command and its parameters.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class AbstractFlowInterpreter extends AbstractInterpreter
 {
     private int startRow;
     private RowSelector rowSelector;
 
+    /** {@inheritDoc} */
     public void interpret( Specification specification )
     {
 		Statistics stats = new Statistics();
@@ -54,11 +58,22 @@ public class AbstractFlowInterpreter extends AbstractInterpreter
         }
     }
 
+    /**
+     * <p>Setter for the field <code>rowSelector</code>.</p>
+     *
+     * @param rowSelector a {@link com.greenpepper.interpreter.flow.RowSelector} object.
+     */
     protected void setRowSelector( RowSelector rowSelector )
     {
         this.rowSelector = rowSelector;
     }
 
+    /**
+     * <p>firstRowOf.</p>
+     *
+     * @param next a {@link com.greenpepper.Example} object.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     protected Example firstRowOf(Example next)
     {
         return next.at( 0, startRow );

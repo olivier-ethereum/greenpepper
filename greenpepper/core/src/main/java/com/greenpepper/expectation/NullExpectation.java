@@ -21,10 +21,19 @@ package com.greenpepper.expectation;
 import com.greenpepper.util.FactoryMethod;
 
 /**
+ * <p>NullExpectation class.</p>
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class NullExpectation implements Expectation
 {
+    /**
+     * <p>create.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.expectation.NullExpectation} object.
+     */
     @FactoryMethod
     public static NullExpectation create( String expected )
     {
@@ -33,11 +42,13 @@ public class NullExpectation implements Expectation
                null;
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder sb )
     {
         return sb.append( "null" );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         return (result == null);

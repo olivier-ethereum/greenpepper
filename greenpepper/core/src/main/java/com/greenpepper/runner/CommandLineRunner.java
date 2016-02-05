@@ -45,6 +45,12 @@ import com.greenpepper.util.cli.CommandLine;
 import com.greenpepper.util.cli.Option;
 import com.greenpepper.util.cli.ParseException;
 
+/**
+ * <p>CommandLineRunner class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class CommandLineRunner
 {
     private final CommandLine cli;
@@ -53,11 +59,19 @@ public class CommandLineRunner
     private SpecificationRunnerMonitor monitor;
     private PrintStream out;
 
+    /**
+     * <p>Constructor for CommandLineRunner.</p>
+     */
     public CommandLineRunner()
     {
         this( System.out );
     }
 
+    /**
+     * <p>Constructor for CommandLineRunner.</p>
+     *
+     * @param out a {@link java.io.PrintStream} object.
+     */
     public CommandLineRunner(PrintStream out)
     {
         this.cli = new CommandLine();
@@ -66,11 +80,23 @@ public class CommandLineRunner
         this.out = out;
     }
 
+    /**
+     * <p>Setter for the field <code>monitor</code>.</p>
+     *
+     * @param monitor a {@link java.lang.Object} object.
+     */
     public void setMonitor(Object monitor)
     {
         this.monitor = new SpecificationRunnerMonitorProxy( monitor );
     }
 
+    /**
+     * <p>run.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @throws com.greenpepper.util.cli.ParseException if any.
+     * @throws java.io.IOException if any.
+     */
     public void run(String... args) throws ParseException,IOException
     {
         defineCommandLine();
@@ -121,6 +147,11 @@ public class CommandLineRunner
         return cli.getArgument( 1 ) != null ? decoded( cli.getArgument( 1 ) ) : null;
     }
 
+    /**
+     * <p>source.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String source()
     {
         return optionSpecified( "repository" ) ? input() : fileName( input() );

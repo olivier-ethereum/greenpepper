@@ -26,20 +26,39 @@ import com.greenpepper.reflect.Type;
 import com.greenpepper.reflect.TypeLoader;
 import com.greenpepper.reflect.TypeNotFoundException;
 
+/**
+ * <p>DefaultSystemUnderDevelopment class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DefaultSystemUnderDevelopment implements SystemUnderDevelopment
 {
     private final TypeLoader<?> typeLoader;
 
+    /**
+     * <p>Constructor for DefaultSystemUnderDevelopment.</p>
+     */
     public DefaultSystemUnderDevelopment()
     {
         this( Thread.currentThread().getContextClassLoader() );
     }
 
+    /**
+     * <p>Constructor for DefaultSystemUnderDevelopment.</p>
+     *
+     * @param classLoader a {@link java.lang.ClassLoader} object.
+     */
     public DefaultSystemUnderDevelopment( java.lang.ClassLoader classLoader )
     {
         this( new FixtureTypeLoaderChain( classLoader ) );
     }
 
+    /**
+     * <p>Constructor for DefaultSystemUnderDevelopment.</p>
+     *
+     * @param typeLoader a {@link com.greenpepper.reflect.TypeLoader} object.
+     */
     public DefaultSystemUnderDevelopment( TypeLoader<?> typeLoader)
     {
         this.typeLoader = typeLoader;
@@ -52,7 +71,8 @@ public class DefaultSystemUnderDevelopment implements SystemUnderDevelopment
      * @param params the parameters (constructor arguments)
      * @return a new instance of the fixtureClass with fields populated using
      *         Constructor
-     * @throws Exception
+     * @throws Exception if any.
+     * @throws java.lang.Throwable if any.
      */
     public Fixture getFixture( String name, String... params ) throws Throwable
     {
@@ -61,6 +81,12 @@ public class DefaultSystemUnderDevelopment implements SystemUnderDevelopment
         return new DefaultFixture( target );
     }
 
+    /**
+     * <p>loadType.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.reflect.Type} object.
+     */
     protected Type<?> loadType( String name )
     {
         Type<?> type = typeLoader.loadType( name );
@@ -68,15 +94,18 @@ public class DefaultSystemUnderDevelopment implements SystemUnderDevelopment
         return type;
     }
 
+    /** {@inheritDoc} */
     public void addImport( String packageName )
     {
         typeLoader.searchPackage(packageName);
     }
 
+    /** {@inheritDoc} */
     public void onEndDocument(Document document)
     {
     }
 
+    /** {@inheritDoc} */
     public void onStartDocument(Document document)
     {
     }

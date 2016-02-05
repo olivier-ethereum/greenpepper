@@ -22,18 +22,38 @@ import com.greenpepper.TypeConversion;
 
 import java.lang.reflect.Method;
 
+/**
+ * <p>ObjectGraphMethodInvocation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ObjectGraphMethodInvocation implements ObjectGraphInvocable
 {
     private final Method method;
 
     private final boolean getter;
 
+    /**
+     * <p>Constructor for ObjectGraphMethodInvocation.</p>
+     *
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param isGetter a boolean.
+     */
     public ObjectGraphMethodInvocation(Method method, boolean isGetter)
     {
         this.method = method;
         this.getter = isGetter;
     }
 
+    /**
+     * <p>invoke.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object invoke(Object target, String... args) throws Exception
     {
         if (getter || method.getParameterTypes().length == 0)

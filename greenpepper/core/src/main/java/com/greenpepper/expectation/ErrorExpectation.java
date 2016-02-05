@@ -21,23 +21,34 @@ package com.greenpepper.expectation;
 import com.greenpepper.util.FactoryMethod;
 
 /**
+ * <p>ErrorExpectation class.</p>
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class ErrorExpectation implements Expectation
 {
     static final String ERROR = "error";
 
+    /**
+     * <p>create.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.expectation.ErrorExpectation} object.
+     */
     @FactoryMethod
     public static ErrorExpectation create( String expected )
     {
         return "error".equalsIgnoreCase( expected ) ? new ErrorExpectation() : null;
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder sb )
     {
         return sb.append( ERROR );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         return Throwable.class.isInstance( result );

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner;
 
@@ -43,7 +47,6 @@ import com.greenpepper.util.cli.ArgumentMissingException;
 import com.greenpepper.util.cli.CommandLine;
 import com.greenpepper.util.cli.Option;
 import com.greenpepper.util.cli.ParseException;
-
 public class CommandLineRemoteRunner
 {
 
@@ -53,11 +56,19 @@ public class CommandLineRemoteRunner
 	private SpecificationRunnerMonitor monitor;
 	private PrintStream out;
 
+	/**
+	 * <p>Constructor for CommandLineRemoteRunner.</p>
+	 */
 	public CommandLineRemoteRunner()
 	{
 		this(System.out);
 	}
 
+	/**
+	 * <p>Constructor for CommandLineRemoteRunner.</p>
+	 *
+	 * @param out a {@link java.io.PrintStream} object.
+	 */
 	public CommandLineRemoteRunner(PrintStream out)
 	{
 		this.cli = new CommandLine();
@@ -66,11 +77,22 @@ public class CommandLineRemoteRunner
 		this.out = out;
 	}
 
+	/**
+	 * <p>Setter for the field <code>monitor</code>.</p>
+	 *
+	 * @param monitor a {@link java.lang.Object} object.
+	 */
 	public void setMonitor(Object monitor)
 	{
 		this.monitor = new SpecificationRunnerMonitorProxy(monitor);
 	}
 
+	/**
+	 * <p>run.</p>
+	 *
+	 * @param args a {@link java.lang.String} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public void run(String... args)
 			throws Exception
 	{
@@ -132,6 +154,11 @@ public class CommandLineRemoteRunner
 		return cli.getArgument(1) != null ? decoded(cli.getArgument(1)) : null;
 	}
 
+	/**
+	 * <p>source.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String source()
 	{
 		return optionSpecified("repository") ? input() : fileName(input());

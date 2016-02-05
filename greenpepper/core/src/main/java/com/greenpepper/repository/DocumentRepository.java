@@ -25,9 +25,19 @@ import java.util.List;
 
 /**
  * Retrieving of test specifications is done through the Repository interface.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public interface DocumentRepository
 {
+    /**
+     * <p>loadDocument.</p>
+     *
+     * @param location a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.document.Document} object.
+     * @throws java.lang.Exception if any.
+     */
     Document loadDocument( String location ) throws Exception;
 
     /**
@@ -35,18 +45,31 @@ public interface DocumentRepository
      * and having a method listDocumentsAt( String location )
      * that would return the child specs exactly at the location
      * (i.e. no recursivity)
+     *
+     * @param location a {@link java.lang.String} object.
+     * @return a {@link java.util.List} object.
+     * @throws java.lang.Exception if any.
      */
     List<String> listDocuments( String location ) throws Exception;
 
+    /**
+     * <p>listDocumentsInHierarchy.</p>
+     *
+     * @return a {@link java.util.List} object.
+     * @throws java.lang.Exception if any.
+     */
     List<Object> listDocumentsInHierarchy() throws Exception;
 
     /**
-      TODO We should extract this method into its own interface
-      and let Repository  implementations decide to implement the new
-      interface or not.
-      The eclipse plugin could check for the presence of that interface
-      to decide whether to show the Set As Implemented context action
-      on pages.
-    */
+     *      TODO We should extract this method into its own interface
+     *      and let Repository  implementations decide to implement the new
+     *      interface or not.
+     *      The eclipse plugin could check for the presence of that interface
+     *      to decide whether to show the Set As Implemented context action
+     *      on pages.
+     *
+     * @param location a {@link java.lang.String} object.
+     * @throws java.lang.Exception if any.
+     */
     void setDocumentAsImplemeted( String location ) throws Exception;
 }

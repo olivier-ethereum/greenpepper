@@ -6,6 +6,12 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.introspection.ReflectionValueExtractor;
 
+/**
+ * <p>ReflectionProperties class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ReflectionProperties extends Properties {
 
 
@@ -15,6 +21,12 @@ public class ReflectionProperties extends Properties {
 
     private Log logger;
 
+    /**
+     * <p>Constructor for ReflectionProperties.</p>
+     *
+     * @param aProject a {@link org.apache.maven.project.MavenProject} object.
+     * @param logger a {@link org.apache.maven.plugin.logging.Log} object.
+     */
     public ReflectionProperties(MavenProject aProject, Log logger) {
         super();
 
@@ -22,6 +34,7 @@ public class ReflectionProperties extends Properties {
         this.logger = logger;
     }
 
+    /** {@inheritDoc} */
     public Object get(Object key) {
         Object value = null;
         try {

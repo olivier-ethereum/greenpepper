@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter.flow.scenario;
 
@@ -30,7 +34,6 @@ import java.lang.reflect.Method;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class ScenarioMessage extends Message
 {
     private final Object target;
@@ -40,6 +43,12 @@ public class ScenarioMessage extends Message
 
     private Object[] arguments;
 
+    /**
+     * <p>Constructor for ScenarioMessage.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param example a {@link java.lang.String} object.
+     */
     public ScenarioMessage(Object target, String example)
     {
         this.target = target;
@@ -47,11 +56,23 @@ public class ScenarioMessage extends Message
         init( example );
     }
 
+    /**
+     * <p>getArity.</p>
+     *
+     * @return a int.
+     */
     public int getArity()
     {
         return 0; //not used
     }
 
+    /**
+     * <p>send.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object send(String... args) throws Exception
     {
 
@@ -71,21 +92,42 @@ public class ScenarioMessage extends Message
         }
     }
 
+    /**
+     * <p>annotationIs.</p>
+     *
+     * @param annotationType a {@link java.lang.Class} object.
+     * @return a {@link com.greenpepper.call.ResultMatcher} object.
+     */
     public ResultMatcher annotationIs(Class<? extends Annotation> annotationType)
     {
         return new AnnotationResultMatcher( annotation, annotationType );
     }
 
+    /**
+     * <p>arguments.</p>
+     *
+     * @return an array of {@link java.lang.Object} objects.
+     */
     public Object[] arguments()
     {
         return arguments;
     }
 
+    /**
+     * <p>matchResult.</p>
+     *
+     * @return a {@link java.util.regex.MatchResult} object.
+     */
     public MatchResult matchResult()
     {
         return matchResult;
     }
 
+    /**
+     * <p>getIgnoredExceptions.</p>
+     *
+     * @return an array of {@link java.lang.Class} objects.
+     */
     public Class<? extends Throwable>[] getIgnoredExceptions()
     {
         IgnoredException ignoredException = method.getAnnotation( IgnoredException.class );

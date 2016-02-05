@@ -18,7 +18,21 @@
  */
 package com.greenpepper.ogn;
 
+/**
+ * <p>ObjectGraphInvocable interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface ObjectGraphInvocable
 {
+    /**
+     * <p>invoke.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     Object invoke(Object target, String... args) throws Exception;
 }

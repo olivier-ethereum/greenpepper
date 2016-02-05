@@ -1,7 +1,19 @@
 package com.greenpepper.util;
 
+/**
+ * <p>HtmlUtil class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class HtmlUtil
 {    
+    /**
+     * <p>cleanUpResults.</p>
+     *
+     * @param resultsToClean a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String cleanUpResults(String resultsToClean)
     {
         if(resultsToClean != null)

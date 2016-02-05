@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.util;
 
@@ -23,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 public final class BOMUtil
 {
     /**
@@ -54,11 +57,24 @@ public final class BOMUtil
 
     private BOMUtil() {}
 
+    /**
+     * <p>getBOMType.</p>
+     *
+     * @param bytes an array of byte.
+     * @return a int.
+     */
     public static int getBOMType(byte[] bytes)
     {
         return getBOMType( bytes, bytes.length );
     }
 
+    /**
+     * <p>getBOMType.</p>
+     *
+     * @param bytes an array of byte.
+     * @param length a int.
+     * @return a int.
+     */
     public static int getBOMType(byte[] bytes, int length)
     {
         for (int i = 0; i < BOMBYTES.length; i++)
@@ -78,6 +94,13 @@ public final class BOMUtil
         return NONE;
     }
 
+    /**
+     * <p>getBOMType.</p>
+     *
+     * @param file a {@link java.io.File} object.
+     * @return a int.
+     * @throws java.io.IOException if any.
+     */
     public static int getBOMType(File file)
             throws IOException
     {
@@ -96,6 +119,12 @@ public final class BOMUtil
         }
     }
 
+    /**
+     * <p>getSkipBytes.</p>
+     *
+     * @param bomType a int.
+     * @return a int.
+     */
     public static int getSkipBytes(int bomType)
     {
         if (bomType < 0 || bomType >= BOMBYTES.length)
@@ -105,6 +134,13 @@ public final class BOMUtil
         return BOMBYTES[bomType].length;
     }
 
+    /**
+     * <p>newReader.</p>
+     *
+     * @param file a {@link java.io.File} object.
+     * @return a {@link java.io.Reader} object.
+     * @throws java.io.IOException if any.
+     */
     public static Reader newReader(File file)
             throws IOException
     {
@@ -113,6 +149,14 @@ public final class BOMUtil
         return newReader( file, greenPepperEncoding );
     }
 
+    /**
+     * <p>newReader.</p>
+     *
+     * @param file a {@link java.io.File} object.
+     * @param encoding a {@link java.lang.String} object.
+     * @return a {@link java.io.Reader} object.
+     * @throws java.io.IOException if any.
+     */
     public static Reader newReader(File file, String encoding)
             throws IOException
     {

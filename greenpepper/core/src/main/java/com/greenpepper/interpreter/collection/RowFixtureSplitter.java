@@ -25,22 +25,43 @@ import com.greenpepper.reflect.Fixture;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>RowFixtureSplitter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class RowFixtureSplitter
 {
     private List<RowFixture> match = new ArrayList<RowFixture>();
     private List<Example> missing = new ArrayList<Example>();
     private List<Fixture> surplus = new ArrayList<Fixture>();
 
+    /**
+     * <p>Getter for the field <code>match</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<RowFixture> getMatch()
     {
         return match;
     }
 
+    /**
+     * <p>Getter for the field <code>missing</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<Example> getMissing()
     {
         return missing;
     }
 
+    /**
+     * <p>Getter for the field <code>surplus</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<Fixture> getSurplus()
     {
         return surplus;

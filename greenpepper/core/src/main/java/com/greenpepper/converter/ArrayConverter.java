@@ -26,20 +26,35 @@ import com.greenpepper.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>ArrayConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ArrayConverter implements TypeConverter
 {
     protected final String separators;
 
+    /**
+     * <p>Constructor for ArrayConverter.</p>
+     */
     public ArrayConverter()
     {
         this( "," );
     }
 
+    /**
+     * <p>Constructor for ArrayConverter.</p>
+     *
+     * @param separators a {@link java.lang.String} object.
+     */
     public ArrayConverter( String separators )
     {
         this.separators = separators;
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Object parse( String value, Class type )
     {
@@ -57,6 +72,12 @@ public class ArrayConverter implements TypeConverter
         return CollectionUtil.toArray( values, type.getComponentType() );
     }
 
+    /**
+     * <p>removeSquareBrackets.</p>
+     *
+     * @param value a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     protected String removeSquareBrackets( String value )
     {
         if (value.startsWith( "[" ) && value.endsWith( "]" ))
@@ -66,6 +87,7 @@ public class ArrayConverter implements TypeConverter
     }
 
 
+	/** {@inheritDoc} */
 	public String toString(Object value) {
 		Object[] array = (Object[]) value;
 
@@ -84,12 +106,19 @@ public class ArrayConverter implements TypeConverter
 
 	}
 
+    /** {@inheritDoc} */
     public boolean canConvertTo( Class type )
     {
         return isArray( type ) && TypeConversion.supports( type.getComponentType() ) && ! type.getComponentType().isPrimitive();
     }
 
 
+    /**
+     * <p>isArray.</p>
+     *
+     * @param type a {@link java.lang.Class} object.
+     * @return a boolean.
+     */
     protected boolean isArray( Class type )
     {
         return type.getComponentType() != null;

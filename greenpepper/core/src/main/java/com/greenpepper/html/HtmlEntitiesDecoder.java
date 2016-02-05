@@ -24,8 +24,12 @@ import java.util.TreeMap;
 import com.greenpepper.util.StringUtil;
 
 /**
+ * <p>HtmlEntitiesDecoder class.</p>
+ *
  * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">
  *      Character entity references in HTML 4</a>
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class HtmlEntitiesDecoder
 {
@@ -322,11 +326,21 @@ public class HtmlEntitiesDecoder
 
     private String content;
 
+    /**
+     * <p>Constructor for HtmlEntitiesDecoder.</p>
+     *
+     * @param content a {@link java.lang.String} object.
+     */
     public HtmlEntitiesDecoder(String content)
     {
         this.content = content;
     }
 
+    /**
+     * <p>decode.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String decode()
     {
         if (StringUtil.isEmpty( content )) return content;

@@ -21,8 +21,15 @@ package com.greenpepper.util.cli;
 
 import java.util.Locale;
 
+/**
+ * <p>LocaleConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class LocaleConverter implements Converter
 {
+    /** {@inheritDoc} */
     public Object convert(String value)
     {
         return new Locale(value);

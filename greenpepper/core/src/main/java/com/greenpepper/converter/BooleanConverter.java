@@ -18,12 +18,19 @@
  */
 package com.greenpepper.converter;
 
+/**
+ * <p>BooleanConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class BooleanConverter
         extends AbstractTypeConverter
 {
     private static final String YES = "yes";
     private static final String NO = "no";
     
+    /** {@inheritDoc} */
     @Override
     protected Object doConvert(String value)
     {
@@ -40,6 +47,7 @@ public class BooleanConverter
         return Boolean.valueOf(value);
     }
 
+    /** {@inheritDoc} */
     public boolean canConvertTo(Class type)
     {
         return Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type);

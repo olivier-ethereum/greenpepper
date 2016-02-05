@@ -35,7 +35,9 @@ import com.greenpepper.util.StringUtil;
  * SystemUnderTest Class.
  * <p/>
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
+ *
  * @author JCHUET
+ * @version $Id: $Id
  */
 
 @Entity
@@ -59,6 +61,12 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
 
 	private String projectDependencyDescriptor;
 
+	/**
+	 * <p>newInstance.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+	 */
 	public static SystemUnderTest newInstance(String name)
     {
         SystemUnderTest sut = new SystemUnderTest();
@@ -66,6 +74,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return sut;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "NAME", nullable = false, length=255)
     public String getName()
@@ -73,6 +86,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return name;
     }
 
+    /**
+     * <p>Getter for the field <code>runner</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Runner} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="RUNNER_ID")
     public Runner getRunner()
@@ -80,6 +98,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return runner;
     }
 
+    /**
+     * <p>Getter for the field <code>project</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Project} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="PROJECT_ID")
     public Project getProject()
@@ -87,6 +110,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return project;
     }
 
+    /**
+     * <p>Getter for the field <code>fixtureClasspaths</code>.</p>
+     *
+     * @return a {@link java.util.SortedSet} object.
+     */
     @CollectionOfElements
 	@JoinTable( name="SUT_FIXTURE_CLASSPATHS", joinColumns={@JoinColumn(name="SUT_ID")} )
 	@Column(name = "elt", nullable = true, length=255)
@@ -96,6 +124,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return fixtureClasspaths;
     }
 
+    /**
+     * <p>Getter for the field <code>sutClasspaths</code>.</p>
+     *
+     * @return a {@link java.util.SortedSet} object.
+     */
     @CollectionOfElements
 	@JoinTable( name="SUT_CLASSPATHS", joinColumns={@JoinColumn(name="SUT_ID")} )
 	@Column(name = "elt", nullable = true, length=255)
@@ -105,6 +138,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return sutClasspaths;
     }
 
+    /**
+     * <p>Getter for the field <code>fixtureFactory</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "FIXTURE_FACTORY", nullable = true, length=255)
     public String getFixtureFactory()
@@ -112,6 +150,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return fixtureFactory;
     }
 
+    /**
+     * <p>Getter for the field <code>fixtureFactoryArgs</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "FIXTURE_FACTORY_ARGS", nullable = true, length=255)
     public String getFixtureFactoryArgs()
@@ -119,6 +162,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return fixtureFactoryArgs;
     }
 
+    /**
+     * <p>Getter for the field <code>selected</code>.</p>
+     *
+     * @return a byte.
+     */
     @Basic
     @Column(name = "SELECTED")
     public byte getSelected()
@@ -126,6 +174,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return selected;
     }
 
+	/**
+	 * <p>Getter for the field <code>projectDependencyDescriptor</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	@Basic
 	@Column(name = "PROJECT_DEPENDENCY_DESCRIPTOR", nullable = true, length=255)
 	public String getProjectDependencyDescriptor()
@@ -133,67 +186,136 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
 		return projectDependencyDescriptor;
 	}
 
+	/**
+	 * <p>Setter for the field <code>name</code>.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public void setName(String name)
     {
         this.name = name;
     }
 
+    /**
+     * <p>Setter for the field <code>runner</code>.</p>
+     *
+     * @param runner a {@link com.greenpepper.server.domain.Runner} object.
+     */
     public void setRunner(Runner runner)
     {
         this.runner = runner;
     }
 
+    /**
+     * <p>Setter for the field <code>project</code>.</p>
+     *
+     * @param project a {@link com.greenpepper.server.domain.Project} object.
+     */
     public void setProject(Project project)
     {
         this.project = project;
     }
 
+    /**
+     * <p>Setter for the field <code>fixtureClasspaths</code>.</p>
+     *
+     * @param fixturesClasspaths a {@link java.util.SortedSet} object.
+     */
     public void setFixtureClasspaths(SortedSet<String> fixturesClasspaths)
     {
         this.fixtureClasspaths = fixturesClasspaths;
     }
 
+    /**
+     * <p>Setter for the field <code>sutClasspaths</code>.</p>
+     *
+     * @param sutClasspaths a {@link java.util.SortedSet} object.
+     */
     public void setSutClasspaths(SortedSet<String> sutClasspaths)
     {
         this.sutClasspaths = sutClasspaths;
     }
 
+    /**
+     * <p>Setter for the field <code>fixtureFactory</code>.</p>
+     *
+     * @param fixtureFactory a {@link java.lang.String} object.
+     */
     public void setFixtureFactory(String fixtureFactory)
     {
         this.fixtureFactory = fixtureFactory;
     }
 
+    /**
+     * <p>Setter for the field <code>fixtureFactoryArgs</code>.</p>
+     *
+     * @param fixtureFactoryArgs a {@link java.lang.String} object.
+     */
     public void setFixtureFactoryArgs(String fixtureFactoryArgs)
     {
         this.fixtureFactoryArgs = fixtureFactoryArgs;
     }
 
+    /**
+     * <p>Setter for the field <code>selected</code>.</p>
+     *
+     * @param selected a byte.
+     */
     public void setSelected(byte selected)
     {
         this.selected = selected;
     }
 
+	/**
+	 * <p>Setter for the field <code>projectDependencyDescriptor</code>.</p>
+	 *
+	 * @param projectDependencyDescriptor a {@link java.lang.String} object.
+	 */
 	public void setProjectDependencyDescriptor(String projectDependencyDescriptor)
 	{
 		this.projectDependencyDescriptor = projectDependencyDescriptor;
 	}
 
+	/**
+	 * <p>isDefault.</p>
+	 *
+	 * @return a boolean.
+	 */
 	@Transient
     public boolean isDefault()
     {
         return selected == (byte)1;
     }
 
+    /**
+     * <p>setIsDefault.</p>
+     *
+     * @param isSelected a boolean.
+     */
     public void setIsDefault(boolean isSelected)
     {
         this.selected = isSelected ? (byte)1 : (byte)0;
     }
 
+    /**
+     * <p>execute.</p>
+     *
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @param implementedVersion a boolean.
+     * @param sections a {@link java.lang.String} object.
+     * @param locale a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.Execution} object.
+     */
     public Execution execute(Specification specification, boolean implementedVersion, String sections, String locale)
     {
         return runner.execute(specification, this, implementedVersion, sections, locale);
     }
 
+    /**
+     * <p>fixtureFactoryCmdLineOption.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String fixtureFactoryCmdLineOption()
     {
         if(StringUtil.isEmpty(fixtureFactory)) return getDefaultFixtureFactory();
@@ -214,6 +336,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
 		}
 	}
 
+	/**
+	 * <p>marshallize.</p>
+	 *
+	 * @return a {@link java.util.Vector} object.
+	 */
 	public Vector<Object> marshallize()
     {
         Vector<Object> parameters = new Vector<Object>();
@@ -229,6 +356,7 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
 		return parameters;
     }
     
+    /** {@inheritDoc} */
     public int compareTo(Object o)
     {
         if(isDefault()) return -1;
@@ -236,6 +364,12 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return name.compareTo(((SystemUnderTest)o).name);
     }
     
+    /**
+     * <p>equalsTo.</p>
+     *
+     * @param o a {@link java.lang.Object} object.
+     * @return a boolean.
+     */
     public boolean equalsTo(Object o)
     {
         if(o == null || !(o instanceof SystemUnderTest))
@@ -250,6 +384,7 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         return true;
     }
 
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if(o == null || !(o instanceof SystemUnderTest))

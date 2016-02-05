@@ -50,6 +50,8 @@ import com.greenpepper.maven.plugin.utils.ReflectionProperties;
  *
  * @goal resources
  * @phase pre-integration-test
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class FixtureResourcesMojo
     extends AbstractMojo
@@ -102,6 +104,11 @@ public class FixtureResourcesMojo
      */
     private List<String> filters;
 
+	/**
+	 * <p>execute.</p>
+	 *
+	 * @throws org.apache.maven.plugin.MojoExecutionException if any.
+	 */
 	public void execute()
         throws MojoExecutionException
     {
@@ -115,6 +122,13 @@ public class FixtureResourcesMojo
 		}
 	}
 
+    /**
+     * <p>copyResources.</p>
+     *
+     * @param resources a {@link java.util.List} object.
+     * @param outputDirectory a {@link java.lang.String} object.
+     * @throws org.apache.maven.plugin.MojoExecutionException if any.
+     */
     protected void copyResources( List<Resource> resources, String outputDirectory ) throws MojoExecutionException
     {
         initializeFiltering();

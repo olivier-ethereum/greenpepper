@@ -39,6 +39,12 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.Message;
 import com.greenpepper.reflect.StaticInvocation;
 
+/**
+ * <p>SetupInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SetupInterpreter extends AbstractInterpreter
 {
 	private final Fixture fixture;
@@ -46,6 +52,11 @@ public class SetupInterpreter extends AbstractInterpreter
 	private Message enterRowMessage;
 	private Statistics stats;
 	
+	/**
+	 * <p>Constructor for SetupInterpreter.</p>
+	 *
+	 * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+	 */
 	public SetupInterpreter(Fixture fixture )
 	{
         super();
@@ -53,6 +64,7 @@ public class SetupInterpreter extends AbstractInterpreter
 		this.fixture = fixture;
 	}
 	
+	/** {@inheritDoc} */
 	public void interpret( Specification specification )
 	{
 		stats = new Statistics();

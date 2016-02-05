@@ -23,8 +23,22 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 
+/**
+ * <p>ClassUtils class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class ClassUtils
 {
+	/**
+	 * <p>loadClass.</p>
+	 *
+	 * @param className a {@link java.lang.String} object.
+	 * @param <T> a T object.
+	 * @return a {@link java.lang.Class} object.
+	 * @throws java.lang.ClassNotFoundException if any.
+	 */
 	@SuppressWarnings("unchecked")
     public static <T> Class<T> loadClass(String className)
 			throws ClassNotFoundException
@@ -32,6 +46,15 @@ public final class ClassUtils
 		return (Class<T>) ClassUtils.class.getClassLoader().loadClass(className);
 	}
 
+	/**
+	 * <p>findBestTypedConstructor.</p>
+	 *
+	 * @param klass a {@link java.lang.Class} object.
+	 * @param args a {@link java.lang.Object} object.
+	 * @param <T> a T object.
+	 * @return a {@link java.lang.reflect.Constructor} object.
+	 * @throws java.lang.NoSuchMethodException if any.
+	 */
 	@SuppressWarnings("unchecked")
     public static <T> Constructor<T> findBestTypedConstructor( Class<T> klass, Object... args ) throws NoSuchMethodException
     {
@@ -48,6 +71,15 @@ public final class ClassUtils
         return new NoSuchMethodException( klass.getName() + ".<init>(" + toString( args ) + ")" );
     }
 
+    /**
+     * <p>findPossibleConstructor.</p>
+     *
+     * @param klass a {@link java.lang.Class} object.
+     * @param args a {@link java.lang.Object} object.
+     * @param <T> a T object.
+     * @return a {@link java.lang.reflect.Constructor} object.
+     * @throws java.lang.NoSuchMethodException if any.
+     */
     @SuppressWarnings({"unchecked"})
     public static <T> Constructor<T> findPossibleConstructor( Class<T> klass, Object... args ) throws NoSuchMethodException
     {
@@ -113,6 +145,15 @@ public final class ClassUtils
         return type;
     }
 
+    /**
+     * <p>invoke.</p>
+     *
+     * @param constructor a {@link java.lang.reflect.Constructor} object.
+     * @param args a {@link java.lang.Object} object.
+     * @param <T> a T object.
+     * @return a T object.
+     * @throws java.lang.Throwable if any.
+     */
     public static <T> T invoke( Constructor<T> constructor, Object... args ) throws Throwable
     {
         try
@@ -125,11 +166,23 @@ public final class ClassUtils
         }
     }
 
+    /**
+     * <p>isStatic.</p>
+     *
+     * @param member a {@link java.lang.reflect.Member} object.
+     * @return a boolean.
+     */
     public static boolean isStatic( Member member )
     {
         return Modifier.isStatic( member.getModifiers() );
     }
 
+    /**
+     * <p>isPublic.</p>
+     *
+     * @param member a {@link java.lang.reflect.Member} object.
+     * @return a boolean.
+     */
     public static boolean isPublic( Member member )
     {
         return Modifier.isPublic( member.getModifiers() );

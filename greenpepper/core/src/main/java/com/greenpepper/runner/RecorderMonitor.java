@@ -21,48 +21,82 @@ package com.greenpepper.runner;
 
 import com.greenpepper.Statistics;
 
+/**
+ * <p>RecorderMonitor class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class RecorderMonitor implements SpecificationRunnerMonitor
 {
     private Statistics statistics = new Statistics();
     private Throwable exception;
 	private int locationCount = 0;
 
+	/** {@inheritDoc} */
 	public void testRunning( String location )
     {
 		locationCount++;
 	}
 
+    /** {@inheritDoc} */
     public void testDone( int rightCount, int wrongCount, int exceptionCount, int ignoreCount )
     {
         Statistics stats = new Statistics( rightCount, wrongCount, exceptionCount, ignoreCount );
         statistics.tally( stats );
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured( Throwable t )
     {
         exception = t;
     }
 
+    /**
+     * <p>Getter for the field <code>statistics</code>.</p>
+     *
+     * @return a {@link com.greenpepper.Statistics} object.
+     */
     public Statistics getStatistics()
     {
         return statistics;
     }
 
+    /**
+     * <p>Getter for the field <code>exception</code>.</p>
+     *
+     * @return a {@link java.lang.Throwable} object.
+     */
     public Throwable getException()
     {
         return exception;
     }
 
+    /**
+     * <p>hasException.</p>
+     *
+     * @return a boolean.
+     */
     public boolean hasException()
     {
         return exception != null;
     }
 
+    /**
+     * <p>hasTestFailures.</p>
+     *
+     * @return a boolean.
+     */
     public boolean hasTestFailures()
     {
         return statistics.indicatesFailure();
     }
 
+	/**
+	 * <p>Getter for the field <code>locationCount</code>.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getLocationCount()
 	{
 		return locationCount;

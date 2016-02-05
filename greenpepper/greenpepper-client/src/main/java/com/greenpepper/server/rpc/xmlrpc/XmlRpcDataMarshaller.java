@@ -40,92 +40,165 @@ import com.greenpepper.util.FormatedDate;
  * Provides static methods to pass from XML-RPC supported objects to POJO.
  * <p/>
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
+ *
  * @author JCHUET
+ * @version $Id: $Id
  */
 public class XmlRpcDataMarshaller
 {
+	/** Constant <code>MARSHALLING_VERSION="Marshall v. 1.0"</code> */
 	public static final String MARSHALLING_VERSION = "Marshall v. 1.0";
     
+    /** Constant <code>LICENSE_TYPE_IDX=0</code> */
     public static final int LICENSE_TYPE_IDX = 0;
+    /** Constant <code>LICENSE_EXPIRY_DATE_IDX=1</code> */
     public static final int LICENSE_EXPIRY_DATE_IDX = 1;
+    /** Constant <code>LICENSE_SUPPORT_EXPIRY_DATE_IDX=2</code> */
     public static final int LICENSE_SUPPORT_EXPIRY_DATE_IDX = 2;
+    /** Constant <code>LICENSE_MAX_USERS_IDX=3</code> */
     public static final int LICENSE_MAX_USERS_IDX = 3;
+    /** Constant <code>LICENSE_INFO_IDX=4</code> */
     public static final int LICENSE_INFO_IDX = 4;
+    /** Constant <code>LICENSE_VERSION_IDX=5</code> */
     public static final int LICENSE_VERSION_IDX = 5;
+    /** Constant <code>LICENSE_EXTRA_IDX=6</code> */
     public static final int LICENSE_EXTRA_IDX = 6;
+    /** Constant <code>LICENSE_HOLDER_NAME_IDX=7</code> */
     public static final int LICENSE_HOLDER_NAME_IDX = 7;
+	/** Constant <code>LICENSE_EFFECTIVE_DATE_IDX=8</code> */
 	public static final int LICENSE_EFFECTIVE_DATE_IDX = 8;
 
+	/** Constant <code>PROJECT_NAME_IDX=0</code> */
 	public static final int PROJECT_NAME_IDX = 0;
     
+    /** Constant <code>REPOSITORY_TYPE_NAME_IDX=0</code> */
     public static final int REPOSITORY_TYPE_NAME_IDX = 0;
+    /** Constant <code>REPOSITORY_TYPE_REPOCLASSES_IDX=1</code> */
     public static final int REPOSITORY_TYPE_REPOCLASSES_IDX = 1;
+    /** Constant <code>REPOSITORY_TYPE_NAME_FORMAT_IDX=2</code> */
     public static final int REPOSITORY_TYPE_NAME_FORMAT_IDX = 2;
+    /** Constant <code>REPOSITORY_TYPE_URI_FORMAT_IDX=3</code> */
     public static final int REPOSITORY_TYPE_URI_FORMAT_IDX = 3;
     
+    /** Constant <code>REPOSITORY_NAME_IDX=0</code> */
     public static final int REPOSITORY_NAME_IDX = 0;
+    /** Constant <code>REPOSITORY_UID_IDX=1</code> */
     public static final int REPOSITORY_UID_IDX = 1;
+    /** Constant <code>REPOSITORY_PROJECT_IDX=2</code> */
     public static final int REPOSITORY_PROJECT_IDX = 2;
+    /** Constant <code>REPOSITORY_TYPE_IDX=3</code> */
     public static final int REPOSITORY_TYPE_IDX = 3;
+    /** Constant <code>REPOSITORY_CONTENTTYPE_IDX=4</code> */
     public static final int REPOSITORY_CONTENTTYPE_IDX = 4;
+    /** Constant <code>REPOSITORY_BASE_URL_IDX=5</code> */
     public static final int REPOSITORY_BASE_URL_IDX = 5;
+    /** Constant <code>REPOSITORY_BASEREPO_URL_IDX=6</code> */
     public static final int REPOSITORY_BASEREPO_URL_IDX = 6;
+    /** Constant <code>REPOSITORY_BASETEST_URL_IDX=7</code> */
     public static final int REPOSITORY_BASETEST_URL_IDX = 7;
+    /** Constant <code>REPOSITORY_USERNAME_IDX=8</code> */
     public static final int REPOSITORY_USERNAME_IDX = 8;
+    /** Constant <code>REPOSITORY_PASSWORD_IDX=9</code> */
     public static final int REPOSITORY_PASSWORD_IDX = 9;
+    /** Constant <code>REPOSITORY_MAX_USERS_IDX=10</code> */
     public static final int REPOSITORY_MAX_USERS_IDX = 10;
     
+    /** Constant <code>DOCUMENT_NAME_IDX=0</code> */
     public static final int DOCUMENT_NAME_IDX = 0;
+    /** Constant <code>DOCUMENT_REPOSITORY_IDX=1</code> */
     public static final int DOCUMENT_REPOSITORY_IDX = 1;
+    /** Constant <code>SPECIFICATION_SUTS_IDX=2</code> */
     public static final int SPECIFICATION_SUTS_IDX = 2;
 
+    /** Constant <code>RUNNER_NAME_IDX=0</code> */
     public static final int RUNNER_NAME_IDX = 0;
+    /** Constant <code>RUNNER_CMDLINE_IDX=1</code> */
     public static final int RUNNER_CMDLINE_IDX = 1;
+    /** Constant <code>RUNNER_ENVTYPE_IDX=2</code> */
     public static final int RUNNER_ENVTYPE_IDX = 2;
+    /** Constant <code>RUNNER_SERVER_NAME_IDX=3</code> */
     public static final int RUNNER_SERVER_NAME_IDX = 3;
+    /** Constant <code>RUNNER_SERVER_PORT_IDX=4</code> */
     public static final int RUNNER_SERVER_PORT_IDX = 4;
+    /** Constant <code>RUNNER_MAINCLASS_IDX=5</code> */
     public static final int RUNNER_MAINCLASS_IDX = 5;
+    /** Constant <code>RUNNER_CLASSPATH_IDX=6</code> */
     public static final int RUNNER_CLASSPATH_IDX = 6;
+    /** Constant <code>RUNNER_SECURED_IDX=7</code> */
     public static final int RUNNER_SECURED_IDX = 7;
 
+    /** Constant <code>ENVTYPE_NAME_IDX=0</code> */
     public static final int ENVTYPE_NAME_IDX = 0;
     
+    /** Constant <code>SUT_NAME_IDX=0</code> */
     public static final int SUT_NAME_IDX = 0;
+    /** Constant <code>SUT_PROJECT_IDX=1</code> */
     public static final int SUT_PROJECT_IDX = 1;
+    /** Constant <code>SUT_CLASSPATH_IDX=2</code> */
     public static final int SUT_CLASSPATH_IDX = 2;
+    /** Constant <code>SUT_FIXTURE_CLASSPATH_IDX=3</code> */
     public static final int SUT_FIXTURE_CLASSPATH_IDX = 3;
+    /** Constant <code>SUT_FIXTURE_FACTORY_IDX=4</code> */
     public static final int SUT_FIXTURE_FACTORY_IDX = 4;
+    /** Constant <code>SUT_FIXTURE_FACTORY_ARGS_IDX=5</code> */
     public static final int SUT_FIXTURE_FACTORY_ARGS_IDX = 5;
+    /** Constant <code>SUT_IS_DEFAULT_IDX=6</code> */
     public static final int SUT_IS_DEFAULT_IDX = 6;
+    /** Constant <code>SUT_RUNNER_IDX=7</code> */
     public static final int SUT_RUNNER_IDX = 7;
+	/** Constant <code>SUT_PROJECT_DEPENDENCY_DESCRIPTOR_IDX=8</code> */
 	public static final int SUT_PROJECT_DEPENDENCY_DESCRIPTOR_IDX = 8;
 
+	/** Constant <code>REFERENCE_REQUIREMENT_IDX=0</code> */
 	public static final int REFERENCE_REQUIREMENT_IDX = 0;
+    /** Constant <code>REFERENCE_SPECIFICATION_IDX=1</code> */
     public static final int REFERENCE_SPECIFICATION_IDX = 1;
+    /** Constant <code>REFERENCE_SUT_IDX=2</code> */
     public static final int REFERENCE_SUT_IDX = 2;
+    /** Constant <code>REFERENCE_SECTIONS_IDX=3</code> */
     public static final int REFERENCE_SECTIONS_IDX = 3;
+    /** Constant <code>REFERENCE_LAST_EXECUTION_IDX=4</code> */
     public static final int REFERENCE_LAST_EXECUTION_IDX = 4;
     
+    /** Constant <code>EXECUTION_RESULTS_IDX=0</code> */
     public static final int EXECUTION_RESULTS_IDX = 0;
+    /** Constant <code>EXECUTION_ERRORID_IDX=1</code> */
     public static final int EXECUTION_ERRORID_IDX = 1;
+    /** Constant <code>EXECUTION_FAILIURES_IDX=2</code> */
     public static final int EXECUTION_FAILIURES_IDX = 2;
+    /** Constant <code>EXECUTION_ERRORS_IDX=3</code> */
     public static final int EXECUTION_ERRORS_IDX = 3;
+    /** Constant <code>EXECUTION_SUCCESS_IDX=4</code> */
     public static final int EXECUTION_SUCCESS_IDX = 4;
+    /** Constant <code>EXECUTION_IGNORED_IDX=5</code> */
     public static final int EXECUTION_IGNORED_IDX = 5;
+    /** Constant <code>EXECUTION_EXECUTION_DATE_IDX=6</code> */
     public static final int EXECUTION_EXECUTION_DATE_IDX = 6;
     
+    /** Constant <code>SUMMARY_REFERENCES_IDX=0</code> */
     public static final int SUMMARY_REFERENCES_IDX = 0;
+    /** Constant <code>SUMMARY_FAILIURES_IDX=1</code> */
     public static final int SUMMARY_FAILIURES_IDX = 1;
+    /** Constant <code>SUMMARY_ERRORS_IDX=2</code> */
     public static final int SUMMARY_ERRORS_IDX = 2;
+    /** Constant <code>SUMMARY_SUCCESS_IDX=3</code> */
     public static final int SUMMARY_SUCCESS_IDX = 3;
+    /** Constant <code>SUMMARY_EXCEPTION_IDX=4</code> */
     public static final int SUMMARY_EXCEPTION_IDX = 4;
     
+    /** Constant <code>NODE_TITLE_INDEX=0</code> */
     public final static int NODE_TITLE_INDEX = 0;
+    /** Constant <code>NODE_EXECUTABLE_INDEX=1</code> */
     public final static int NODE_EXECUTABLE_INDEX = 1;
+    /** Constant <code>NODE_CAN_BE_IMPLEMENTED_INDEX=2</code> */
     public final static int NODE_CAN_BE_IMPLEMENTED_INDEX = 2;
+    /** Constant <code>NODE_CHILDREN_INDEX=3</code> */
     public final static int NODE_CHILDREN_INDEX = 3;
+    /** Constant <code>NODE_REPOSITORY_UID_INDEX=4</code> */
     public final static int NODE_REPOSITORY_UID_INDEX = 4;
+    /** Constant <code>NODE_SUT_NAME_INDEX=5</code> */
     public final static int NODE_SUT_NAME_INDEX = 5;
+    /** Constant <code>NODE_SECTION_INDEX=6</code> */
     public final static int NODE_SECTION_INDEX = 6;
 
     private final static Logger logger = LoggerFactory.getLogger(XmlRpcDataMarshaller.class);
@@ -133,7 +206,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of projects into a Vector of project parameters.
      * </p>
-     * @param projects
+     *
+     * @param projects a {@link java.util.Collection} object.
      * @return the Collection of projects into a Vector of projects parameters
      */
     public static Vector<Object> toXmlRpcProjectsParameters(Collection<Project> projects)
@@ -150,7 +224,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of runners into a Vector of runners parameters.
      * </p>
-     * @param runners
+     *
+     * @param runners a {@link java.util.Collection} object.
      * @return the Collection of runners into a Vector of runners parameters
      */
     public static Vector<Object> toXmlRpcRunnersParameters(Collection<Runner> runners)
@@ -167,7 +242,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of EnvironmentTypes into a Vector of EnvironmentTypes parameters.
      * </p>
-     * @param envTypes
+     *
+     * @param envTypes a {@link java.util.Collection} object.
      * @return the Collection of EnvironmentTypes into a Vector of EnvironmentTypes parameters
      */
     public static Vector<Object> toXmlRpcEnvironmentTypesParameters(Collection<EnvironmentType> envTypes)
@@ -184,7 +260,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of SystemUnderTests into a Vector of SystemUnderTests parameters.
      * </p>
-     * @param suts
+     *
+     * @param suts a {@link java.util.Collection} object.
      * @return the Collection of SystemUnderTests into a Vector of SystemUnderTests parameters
      */
     public static Vector<Object> toXmlRpcSystemUnderTestsParameters(Collection<SystemUnderTest> suts)
@@ -199,10 +276,11 @@ public class XmlRpcDataMarshaller
     }
 
     /**
-     * Transforms the Collection of Repositories into a Vector of Repositories parameters 
+     * Transforms the Collection of Repositories into a Vector of Repositories parameters
      * by repositoriy types.
      * </p>
-     * @param repositories
+     *
+     * @param repositories a {@link java.util.Collection} object.
      * @return the Collection of Repositories into a Vecotr of Repositories parameters by type.
      */
     public static Vector<Object> toXmlRpcRepositoriesParameters(Collection<Repository> repositories)
@@ -219,7 +297,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of Specifications into a Vector of Specification parameters.
      * </p>
-     * @param specifications
+     *
+     * @param specifications a {@link java.util.Collection} object.
      * @return the Collection of Specifications into a Vector of Specification parameters
      */
     public static Vector<Object> toXmlRpcSpecificationsParameters(Collection<Specification> specifications)
@@ -236,7 +315,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Collection of References into a Vector of Reference parameters.
      * </p>
-     * @param references
+     *
+     * @param references a {@link java.util.Collection} object.
      * @return the Collection of References into a Vector of Reference parameters
      */
     public static Vector<Object> toXmlRpcReferencesParameters(Collection<Reference> references)
@@ -255,7 +335,8 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[type, exepryDate, maxUsers]
      * </p>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the Licence.
      */
     public static LicenseBean toLicense(Vector<Object> xmlRpcParameters)
@@ -289,9 +370,10 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Vector of the Project parameters into a Project Object.<br>
      * Structure of the parameters:<br>
-     * Vector[name] 
+     * Vector[name]
      * </p>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the Project.
      */
     public static Project toProject(Vector<Object> xmlRpcParameters)
@@ -305,14 +387,15 @@ public class XmlRpcDataMarshaller
         return project;
     }
 
-    /**
-     * Transforms the Vector of the RepositoryType parameters into a RepositoryType Object.<br>
-     * Structure of the parameters:<br>
-     * Vector[name, uriFormat] 
-     * </p>
-     * @param xmlRpcParameters
-     * @return the RepositoryType.
-     */
+	/**
+	 * Transforms the Vector of the RepositoryType parameters into a RepositoryType Object.<br>
+	 * Structure of the parameters:<br>
+	 * Vector[name, uriFormat]
+	 * </p>
+	 *
+	 * @param xmlRpcParameters a {@link java.util.Vector} object.
+	 * @return the RepositoryType.
+	 */
 	public static RepositoryType toRepositoryType(Vector<Object> xmlRpcParameters)
     {
         RepositoryType repositoryType = null;
@@ -337,6 +420,7 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[name, Vector[project parameters], type, content type, uri]
      * </p>
+     *
      * @param xmlRpcParameters Vector[name, Vector[project parameters], type, content type, uri]
      * @return the Repository.
      */
@@ -367,7 +451,8 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[name, Vector[repository parameters]]
      * </p>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the Requirement.
      */
     @SuppressWarnings("unchecked")
@@ -389,7 +474,8 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[name, Vector[repository parameters], Vector[SUT parameters]]
      * </p>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the Specification.
      */
     @SuppressWarnings("unchecked")
@@ -409,6 +495,7 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Vector of the Runner parameters into a Runner Object.<br>
      * </p>
+     *
      * @param xmlRpcParameters Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured']
      * @return the Runner.
      */
@@ -440,7 +527,8 @@ public class XmlRpcDataMarshaller
     /**
      * Transforms the Vector of the EnvironmentType parameters into a EnvironmentType Object.<br>
      * </p>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the EnvironmentType.
      */
     public static EnvironmentType toEnvironmentType(Vector<Object> xmlRpcParameters)
@@ -457,7 +545,8 @@ public class XmlRpcDataMarshaller
      * Structure of the parameters:<br>
      * Vector[name, Vector[project parameters], Vector[seeds classPaths], Vector[fixture classPaths], fixturefactory, fixturefactoryargs, isdefault, Runner['name','cmd',['envtypename'],'servername','serverport','mainclass',['cp1','cp2'],'secured'], projectdependencydescriptor]
      * </p>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the SystemUnderTest.
      */
     @SuppressWarnings("unchecked")
@@ -485,7 +574,8 @@ public class XmlRpcDataMarshaller
 
     /**
      * Transforms the Vector of the Reference parameters into a Reference Object.<br>
-     * @param xmlRpcParameters
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
      * @return the Reference.
      */
     @SuppressWarnings("unchecked")
@@ -506,6 +596,12 @@ public class XmlRpcDataMarshaller
         return reference;
     }
     
+    /**
+     * <p>toExecution.</p>
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
+     * @return a {@link com.greenpepper.server.domain.Execution} object.
+     */
     public static Execution toExecution(Vector<Object> xmlRpcParameters)
     {
         Execution execution = new Execution();        
@@ -521,6 +617,12 @@ public class XmlRpcDataMarshaller
         return execution;
     }
 
+    /**
+     * <p>toRequirementSummary.</p>
+     *
+     * @param xmlRpcParameters a {@link java.util.Vector} object.
+     * @return a {@link com.greenpepper.server.domain.RequirementSummary} object.
+     */
     public static RequirementSummary toRequirementSummary(Vector<Object> xmlRpcParameters)
     {
         RequirementSummary summary = new RequirementSummary();
@@ -536,7 +638,8 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of projects based on the vector of projects parameters.
      * </p>
-     * @param projectsParams
+     *
+     * @param projectsParams a {@link java.util.Vector} object.
      * @return a List of projects based on the vector of projects parameters.
      * @see #toProject(Vector)
      */
@@ -555,7 +658,8 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of repositories based on the vector of repositories parameters.
      * </p>
-     * @param repositoriesParams
+     *
+     * @param repositoriesParams a {@link java.util.Vector} object.
      * @return a List of repositories based on the vector of repositories parameters.
      * @see #toRepository(Vector)
      */
@@ -574,7 +678,8 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of runners based on the vector of runners parameters.
      * </p>
-     * @param runnersParams
+     *
+     * @param runnersParams a {@link java.util.Vector} object.
      * @return a List of runners based on the vector of runners parameters.
      * @see #toRunner(Vector)
      */
@@ -593,7 +698,8 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of Environment types based on the vector of Environment types parameters.
      * </p>
-     * @param envTypesParams
+     *
+     * @param envTypesParams a {@link java.util.Vector} object.
      * @return a List of Environment types based on the vector of Environment types parameters.
      * @see #toEnvironmentType(Vector)
      */
@@ -612,7 +718,8 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of systemUnderTests based on the vector of systemUnderTests parameters.
      * </p>
-     * @param sutsParams
+     *
+     * @param sutsParams a {@link java.util.Vector} object.
      * @return a List of systemUnderTests based on the vector of systemUnderTests parameters.
      * @see #toSystemUnderTest(Vector)
      */
@@ -631,7 +738,8 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of specifications based on the vector of specifications parameters.
      * </p>
-     * @param specificationsParams
+     *
+     * @param specificationsParams a {@link java.util.Vector} object.
      * @return a List of specifications based on the vector of specifications parameters.
      * @see #toSpecification(Vector)
      */
@@ -650,9 +758,10 @@ public class XmlRpcDataMarshaller
     /**
      * Rebuild a List of References with theire last execution based on the vector of References parameters.
      * </p>
-     * @param referencesParams
+     *
+     * @param referencesParams a {@link java.util.Vector} object.
      * @return a List of References based on the vector of References parameters.
-     * @throws GreenPepperServerException 
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      * @see #toReference(Vector)
      */
     @SuppressWarnings("unchecked")
@@ -668,10 +777,11 @@ public class XmlRpcDataMarshaller
     }
 
     /**
-     * Rebuilds a DocumentNode based on the given vector. 
+     * Rebuilds a DocumentNode based on the given vector.
      * </p>
-     * @param documentNodeParams
-     * @return a DocumentNode based on the given vector. 
+     *
+     * @param documentNodeParams a {@link java.util.Vector} object.
+     * @return a DocumentNode based on the given vector.
      */
     public static DocumentNode toDocumentNode(Vector documentNodeParams)
     {
@@ -714,8 +824,10 @@ public class XmlRpcDataMarshaller
      * Structure of the error:<br>
      * TAG_ERROR errorId
      * </p>
-     * @param msgId
+     *
+     * @param msgId a {@link java.lang.String} object.
      * @returna the error message id as a String.
+     * @return a {@link java.lang.String} object.
      */
     public static String errorAsString(String msgId)
     {
@@ -727,8 +839,10 @@ public class XmlRpcDataMarshaller
      * Structure of the error:<br>
      * Vector[Vector[TAG_ERROR errorId]]
      * </p>
-     * @param msgId
+     *
+     * @param msgId a {@link java.lang.String} object.
      * @returna the error message id as a Vector.
+     * @return a {@link java.util.Vector} object.
      */
     public static Vector<Object> errorAsVector(String msgId)
     {
@@ -743,8 +857,10 @@ public class XmlRpcDataMarshaller
      * Structure of the error:<br>
      * Hashtable[TAG_ERROR, Vector[Vector[TAG_ERROR errorId]]]
      * </p>
-     * @param msgId
+     *
+     * @param msgId a {@link java.lang.String} object.
      * @returna the error message id as a Hashtable.
+     * @return a {@link java.util.Hashtable} object.
      */
     public static Hashtable<String,Vector<Object>> errorAsHastable(String msgId)
     {
@@ -757,8 +873,9 @@ public class XmlRpcDataMarshaller
      * Checks if the XML-RPC response is an GreenPepper server Exception.
      * If so an GreenPepperServerException will be thrown with the error id found.
      * </p>
-     * @param xmlRpcResponse
-     * @throws GreenPepperServerException
+     *
+     * @param xmlRpcResponse a {@link java.lang.Object} object.
+     * @throws com.greenpepper.server.GreenPepperServerException if any.
      */
     public static void checkForErrors(Object xmlRpcResponse) throws GreenPepperServerException
     {
@@ -784,11 +901,23 @@ public class XmlRpcDataMarshaller
         }
     }
 
+    /**
+     * <p>padNull.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     */
     public static Object padNull(String str)
     {
         return (str == null) ? "" : str;
     }
 
+	/**
+	 * <p>toNullIfEmpty.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String toNullIfEmpty(String str)
 	{
 		return StringUtils.trimToNull(str);

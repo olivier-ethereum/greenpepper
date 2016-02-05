@@ -19,9 +19,28 @@
 
 package com.greenpepper.report;
 
+/**
+ * <p>ReportGenerator interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface ReportGenerator
 {
+    /**
+     * <p>openReport.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.report.Report} object.
+     * @throws java.lang.Exception if any.
+     */
     Report openReport( String name ) throws Exception;
 
+    /**
+     * <p>closeReport.</p>
+     *
+     * @param report a {@link com.greenpepper.report.Report} object.
+     * @throws java.lang.Exception if any.
+     */
     void closeReport( Report report ) throws Exception;
 }

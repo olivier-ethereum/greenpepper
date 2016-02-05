@@ -22,18 +22,38 @@ import com.greenpepper.TypeConversion;
 
 import java.lang.reflect.Field;
 
+/**
+ * <p>ObjectGraphFieldInvocation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ObjectGraphFieldInvocation implements ObjectGraphInvocable
 {
     private final Field field;
 
     private final boolean getter;
 
+    /**
+     * <p>Constructor for ObjectGraphFieldInvocation.</p>
+     *
+     * @param field a {@link java.lang.reflect.Field} object.
+     * @param isGetter a boolean.
+     */
     public ObjectGraphFieldInvocation(Field field, boolean isGetter)
     {
         this.field = field;
         this.getter = isGetter;
     }
 
+    /**
+     * <p>invoke.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object invoke(Object target, String... args) throws Exception
     {
         if (getter)

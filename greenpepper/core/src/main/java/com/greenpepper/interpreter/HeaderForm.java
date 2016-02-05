@@ -28,10 +28,22 @@ import com.greenpepper.interpreter.column.SavedColumn;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>HeaderForm class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class HeaderForm
 {
     private final String text;
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param text a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.interpreter.HeaderForm} object.
+     */
     public static HeaderForm parse(String text)
     {
         return new HeaderForm( text );
@@ -42,11 +54,21 @@ public final class HeaderForm
         this.text = text;
     }
 
+    /**
+     * <p>isGiven.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isGiven()
     {
         return !isExpected() && !isSaved();
     }
 
+    /**
+     * <p>isExpected.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isExpected()
     {
         return header().endsWith( "()" ) || header().endsWith( "?" );
@@ -57,21 +79,43 @@ public final class HeaderForm
         return text.trim();
     }
 
+    /**
+     * <p>isSaved.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isSaved()
     {
         return header().endsWith( "=" );
     }
 
+    /**
+     * <p>isRecalled.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isRecalled()
     {
         return header().startsWith( "=" );
     }
 
+    /**
+     * <p>message.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String message()
     {
         return header().replaceAll( "=", "" ).replaceAll( "\\?", "" ).replaceAll( "\\(\\)", "" );
     }
 
+    /**
+     * <p>selectColumn.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     * @return a {@link com.greenpepper.interpreter.column.Column} object.
+     * @throws java.lang.Exception if any.
+     */
     public Column selectColumn(Fixture fixture) throws Exception
     {
         if (isNull()) return new NullColumn();
@@ -83,6 +127,11 @@ public final class HeaderForm
         return new GivenColumn( fixture.send( message() ) );
     }
 
+    /**
+     * <p>isNull.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isNull()
     {
         return StringUtil.isBlank( text );

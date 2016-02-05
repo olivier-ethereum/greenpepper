@@ -24,20 +24,39 @@ import com.greenpepper.GreenPepper;
 
 /**
  * Utility methods for manipulating <code>Throwable</code> objects.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public final class ExceptionUtils
 {
+    /** Constant <code>FULL</code> */
     public final static Integer FULL = Integer.MAX_VALUE;
     
     private ExceptionUtils()
     {
     }
 
+    /**
+     * <p>stackTrace.</p>
+     *
+     * @param t a {@link java.lang.Throwable} object.
+     * @param separator a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String stackTrace( Throwable t, String separator )
     {
         return stackTrace( t, separator, FULL);
     }
 
+    /**
+     * <p>stackTrace.</p>
+     *
+     * @param t a {@link java.lang.Throwable} object.
+     * @param separator a {@link java.lang.String} object.
+     * @param depth a int.
+     * @return a {@link java.lang.String} object.
+     */
     public static String stackTrace( Throwable t, String separator, int depth )
     {
         if (GreenPepper.isDebugEnabled()) depth = FULL;

@@ -22,6 +22,12 @@ import java.beans.Introspector;
 
 import static com.greenpepper.util.StringUtil.removeDiacritics;
 
+/**
+ * <p>NameUtils class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class NameUtils
 {
     /**
@@ -42,9 +48,9 @@ public final class NameUtils
      * <li>Secondly, any whitespace, by virtue of
      * <code>Character.isWhitespace()</code> is removed from the camel cased
      * <code>string</code>.
-     * <li>Third, all accented characters (diacritis) are replaced by their 
+     * <li>Third, all accented characters (diacritis) are replaced by their
      * non-accented equivalent (ex: \u00e9 -> e)</li>
-	 * <li>Fourth, all non java identifier characters are removed</li>
+     * <li>Fourth, all non java identifier characters are removed</li>
      * </ul>
      * <p/>
      * The only exception to executing these two steps is when
@@ -62,11 +68,23 @@ public final class NameUtils
         return removeNonJavaIdentifierCharacters( removeDiacritics( toUpperCamelCase( s ) ) );
     }
 
+    /**
+     * <p>toUpperCamelCase.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String toUpperCamelCase( String s )
     {
         return capitalizeFirst( toLowerCamelCase( s ) );
     }
 
+    /**
+     * <p>toLowerCamelCase.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String toLowerCamelCase( String s )
     {
         if (StringUtil.isBlank( s )) return s.trim();
@@ -83,6 +101,12 @@ public final class NameUtils
         return sb.toString();
     }
 
+    /**
+     * <p>humanize.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String humanize( String s )
     {
 
@@ -104,6 +128,12 @@ public final class NameUtils
         return literal.toString();
     }
 
+    /**
+     * <p>decapitalize.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String decapitalize( String s )
     {
         StringBuilder sb = new StringBuilder();
@@ -117,6 +147,12 @@ public final class NameUtils
         return sb.toString();
     }
 
+    /**
+     * <p>capitalizeFirst.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String capitalizeFirst( String s )
     {
         if (StringUtil.isEmpty( s )) return s;
@@ -127,11 +163,23 @@ public final class NameUtils
         return sb.toString();
     }
 
+    /**
+     * <p>capitalize.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String capitalize( String s )
     {
         return capitalizeFirst( s.toLowerCase() );
     }
 
+    /**
+     * <p>isJavaIdentifier.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isJavaIdentifier( String s )
     {
         if (!Character.isJavaIdentifierStart( s.codePointAt( 0 ) )) return false;
@@ -143,11 +191,23 @@ public final class NameUtils
         return true;
     }
 
+    /**
+     * <p>toJavaIdentifierForm.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String toJavaIdentifierForm( String name )
     {
         return removeNonJavaIdentifierCharacters( removeDiacritics( toLowerCamelCase( name ) ) );
     }
     
+    /**
+     * <p>removeNonJavaIdentifierCharacters.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String removeNonJavaIdentifierCharacters( String name )
     {
         StringBuilder javaIdentifier = new StringBuilder();

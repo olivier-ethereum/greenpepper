@@ -19,6 +19,12 @@
 
 package com.greenpepper.maven.plugin;
 
+/**
+ * <p>Resource class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class Resource extends org.apache.maven.model.Resource
 {

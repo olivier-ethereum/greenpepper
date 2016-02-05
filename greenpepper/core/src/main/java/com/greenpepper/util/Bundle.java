@@ -23,15 +23,33 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * <p>Bundle class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Bundle
 {
     private final ResourceBundle bundle;
 
+    /**
+     * <p>Constructor for Bundle.</p>
+     *
+     * @param bundle a {@link java.util.ResourceBundle} object.
+     */
     public Bundle( ResourceBundle bundle )
     {
         this.bundle = bundle;
     }
 
+    /**
+     * <p>format.</p>
+     *
+     * @param key a {@link java.lang.String} object.
+     * @param params a {@link java.lang.Object} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String format( String key, Object... params )
     {
         try

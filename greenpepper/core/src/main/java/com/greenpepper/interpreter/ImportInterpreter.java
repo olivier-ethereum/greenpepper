@@ -27,16 +27,25 @@ import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 /**
  * <code>Interpreter</code> implementation that pushes imports into the
  * context import stack.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class ImportInterpreter extends AbstractInterpreter
 {
     private final SystemUnderDevelopment systemUnderDevelopment;
 
+    /**
+     * <p>Constructor for ImportInterpreter.</p>
+     *
+     * @param systemUnderDevelopment a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+     */
     public ImportInterpreter( SystemUnderDevelopment systemUnderDevelopment )
     {
         this.systemUnderDevelopment = systemUnderDevelopment;
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification specification )
     {
         Example table = specification.nextExample();

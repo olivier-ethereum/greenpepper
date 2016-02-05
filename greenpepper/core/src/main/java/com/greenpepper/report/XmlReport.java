@@ -50,6 +50,12 @@ import com.greenpepper.util.ExceptionUtils;
 import com.greenpepper.util.IOUtil;
 import com.greenpepper.util.StringUtil;
 
+/**
+ * <p>XmlReport class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class XmlReport implements Report
 {
     private static final String DOCUMENTS = "documents";
@@ -79,21 +85,42 @@ public class XmlReport implements Report
     private String name;
     private com.greenpepper.document.Document document;
 
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.report.XmlReport} object.
+     */
     public static XmlReport newInstance( String name )
     {
         return new XmlReport( name );
     }
 
+    /**
+     * <p>Constructor for XmlReport.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public XmlReport( String name )
     {
         this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * <p>getType.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getType()
     {
         return "xml";
@@ -117,21 +144,49 @@ public class XmlReport implements Report
         root = dom.getDocumentElement();
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param content a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.report.XmlReport} object.
+     * @throws java.lang.Exception if any.
+     */
     public static XmlReport parse( String content ) throws Exception
     {
         return parse( new StringReader( content ) );
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param in a {@link java.io.Reader} object.
+     * @return a {@link com.greenpepper.report.XmlReport} object.
+     * @throws java.lang.Exception if any.
+     */
     public static XmlReport parse( Reader in ) throws Exception
     {
         return parse( new InputSource( in ) );
     }
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param is a {@link java.io.InputStream} object.
+     * @return a {@link com.greenpepper.report.XmlReport} object.
+     * @throws java.lang.Exception if any.
+     */
     public static XmlReport parse( InputStream is ) throws Exception
     {
         return parse( new InputSource( is ) );
     }
 
+	/**
+	 * <p>parse.</p>
+	 *
+	 * @param file a {@link java.io.File} object.
+	 * @return a {@link com.greenpepper.report.XmlReport} object.
+	 * @throws java.lang.Exception if any.
+	 */
 	public static XmlReport parse( File file ) throws Exception
 	{
 		Reader in = BOMUtil.newReader( file );
@@ -146,6 +201,7 @@ public class XmlReport implements Report
 		}
 	}
 
+    /** {@inheritDoc} */
     public void renderException( Throwable throwable )
     {
         createEmptyDocument();
@@ -160,6 +216,7 @@ public class XmlReport implements Report
         dom.appendChild( root );
     }
 
+    /** {@inheritDoc} */
     public void generate( com.greenpepper.document.Document document )
     {
 
@@ -211,71 +268,144 @@ public class XmlReport implements Report
         addNumberValue( stats, IGNORED, compiler.ignoredCount() );
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getDocumentUri() {
         return document == null ? null : document.getUri();
     }
 
+    /**
+     * <p>getResults.</p>
+     *
+     * @param index a int.
+     * @return a {@link java.lang.String} object.
+     */
     public String getResults( int index )
     {
         return getTextValue( RESULTS, index );
     }
 
+    /**
+     * <p>getGlobalException.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getGlobalException()
     {
         return getTextValue( GLOBAL_EXCEPTION, 0 );
     }
 
+    /**
+     * <p>getSuccess.</p>
+     *
+     * @param index a int.
+     * @return a int.
+     */
     public int getSuccess( int index )
     {
         return getIntValue( SUCCESS, index );
     }
 
+    /**
+     * <p>getFailure.</p>
+     *
+     * @param index a int.
+     * @return a int.
+     */
     public int getFailure( int index )
     {
         return getIntValue( FAILURE, index );
     }
 
+    /**
+     * <p>getError.</p>
+     *
+     * @param index a int.
+     * @return a int.
+     */
     public int getError( int index )
     {
         return getIntValue( ERROR, index );
     }
 
+    /**
+     * <p>getIgnored.</p>
+     *
+     * @param index a int.
+     * @return a int.
+     */
     public int getIgnored( int index )
     {
         return getIntValue( IGNORED, index );
     }
 
+    /**
+     * <p>getAnnotation.</p>
+     *
+     * @param index a int.
+     * @return a int.
+     */
     public int getAnnotation( int index )
     {
         return getIntValue( ANNOTATION, index );
     }
 
+	/**
+	 * <p>getSections.</p>
+	 *
+	 * @param index a int.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSections( int index )
 	{
 		return getTextValue( SECTION, index );
 	}
 
+	/**
+	 * <p>getExecutionTime.</p>
+	 *
+	 * @param index a int.
+	 * @return a long.
+	 */
 	public long getExecutionTime( int index )
 	{
 		return getLongValue( EXECUTION_TIME, index );
 	}
 
+	/**
+	 * <p>getTotalTime.</p>
+	 *
+	 * @param index a int.
+	 * @return a long.
+	 */
 	public long getTotalTime( int index )
 	{
 		return getLongValue( TOTAL_TIME, index );
 	}
 
+	/**
+	 * <p>getDocumentName.</p>
+	 *
+	 * @param index a int.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getDocumentName( int index )
 	{
 		return getTextValue( DOCUMENT_NAME, index );
 	}
 
+	/**
+	 * <p>getDocumentExternalLink.</p>
+	 *
+	 * @param index a int.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getDocumentExternalLink( int index )
 	{
 		return getTextValue(DOCUMENT_EXTERNAL_LINK, index );
 	}
 
+    /** {@inheritDoc} */
     public void printTo( Writer out ) throws IOException
     {
 		try
@@ -288,11 +418,25 @@ public class XmlReport implements Report
 		}
 	}
 
+    /**
+     * <p>parse.</p>
+     *
+     * @param source a {@link org.xml.sax.InputSource} object.
+     * @return a {@link com.greenpepper.report.XmlReport} object.
+     * @throws java.lang.Exception if any.
+     */
     public static XmlReport parse( InputSource source ) throws Exception
     {
         return new XmlReport( source );
     }
 
+	/**
+	 * <p>toXml.</p>
+	 *
+	 * @param document a {@link com.greenpepper.document.Document} object.
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public static String toXml(com.greenpepper.document.Document document) throws IOException
 	{
 		StringWriter sw = new StringWriter();
@@ -304,11 +448,21 @@ public class XmlReport implements Report
 		return sw.toString();
 	}
 
+	/**
+	 * <p>toStatistics.</p>
+	 *
+	 * @return a {@link com.greenpepper.Statistics} object.
+	 */
 	public Statistics toStatistics()
 	{
 		return new Statistics(getSuccess(0), getFailure(0), getError(0), getIgnored(0));
 	}
 
+	/**
+	 * <p>toTimeStatistics.</p>
+	 *
+	 * @return a {@link com.greenpepper.TimeStatistics} object.
+	 */
 	public TimeStatistics toTimeStatistics()
 	{
 		return new TimeStatistics(getTotalTime(0), getExecutionTime(0));

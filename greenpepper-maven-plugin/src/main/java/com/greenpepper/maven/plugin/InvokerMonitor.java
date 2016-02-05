@@ -19,11 +19,32 @@
 
 package com.greenpepper.maven.plugin;
 
+/**
+ * <p>InvokerMonitor interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface InvokerMonitor
 {
+    /**
+     * <p>testRunning.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     void testRunning(String name);
 
+    /**
+     * <p>testDone.</p>
+     *
+     * @param statistics a {@link java.lang.Object} object.
+     */
     void testDone(Object statistics);
 
+    /**
+     * <p>exceptionOccured.</p>
+     *
+     * @param t a {@link java.lang.Throwable} object.
+     */
     void exceptionOccured(Throwable t);
 }

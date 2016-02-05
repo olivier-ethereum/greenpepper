@@ -14,6 +14,7 @@ import java.lang.reflect.Proxy;
  * the type to implement must be present on the target object.
  *
  * @author Adapted from Dave Orme work, see http://www.coconut-palm-software.com/the_visual_editor/?p=25
+ * @version $Id: $Id
  */
 public class DuckType implements InvocationHandler
 {
@@ -28,7 +29,8 @@ public class DuckType implements InvocationHandler
      *
      * @param type   The Java class of the interface to implement
      * @param object The object to force to implement interfaceToImplement
-     * @return object, but now implementing interfaceToImplement
+     * @param <T> a T object.
+     * @return a T object.
      */
     public static <T> T implement(Class<T> type, Object object)
     {
@@ -65,6 +67,11 @@ public class DuckType implements InvocationHandler
         return true;
     }
 
+    /**
+     * <p>Constructor for DuckType.</p>
+     *
+     * @param object a {@link java.lang.Object} object.
+     */
     protected DuckType(Object object)
     {
         this.object = object;
@@ -75,6 +82,15 @@ public class DuckType implements InvocationHandler
     protected Class objectClass;
 
 
+    /**
+     * <p>invoke.</p>
+     *
+     * @param proxy a {@link java.lang.Object} object.
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param args an array of {@link java.lang.Object} objects.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Throwable if any.
+     */
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
     {
         Method realMethod = objectClass.getMethod(method.getName(), (Class[])method.getParameterTypes());

@@ -25,7 +25,9 @@ import javax.persistence.UniqueConstraint;
  * Main association class between a requirement, a test docuement and a system under test.
  * <p/>
  * Copyright (c) 2006 Pyxis technologies inc. All Rights Reserved.
+ *
  * @author JCHUET
+ * @version $Id: $Id
  */
 
 @Entity
@@ -39,11 +41,28 @@ public class Reference extends AbstractUniqueEntity implements Comparable
     private SystemUnderTest systemUnderTest;
     private Execution lastExecution;
 
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param requirement a {@link com.greenpepper.server.domain.Requirement} object.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @param sut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @return a {@link com.greenpepper.server.domain.Reference} object.
+     */
     public static Reference newInstance(Requirement requirement, Specification specification, SystemUnderTest sut)
     {
         return newInstance(requirement, specification, sut, null);
     }
 
+    /**
+     * <p>newInstance.</p>
+     *
+     * @param requirement a {@link com.greenpepper.server.domain.Requirement} object.
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     * @param sut a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     * @param sections a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.Reference} object.
+     */
     public static Reference newInstance(Requirement requirement, Specification specification, SystemUnderTest sut, String sections)
     {
         Reference reference = new Reference();
@@ -58,6 +77,11 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return reference;
     }
 
+    /**
+     * <p>Getter for the field <code>sections</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Basic
     @Column(name = "SECTIONS", nullable = true, length=50)
     public String getSections()
@@ -65,6 +89,11 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return sections;
     }
 
+    /**
+     * <p>Getter for the field <code>requirement</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Requirement} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.ALL} )
     @JoinColumn(name="REQUIREMENT_ID")
     public Requirement getRequirement()
@@ -72,6 +101,11 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return requirement;
     }
 
+    /**
+     * <p>Getter for the field <code>specification</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Specification} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="SPECIFICATION_ID")
     public Specification getSpecification()
@@ -79,6 +113,11 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return specification;
     }
 
+    /**
+     * <p>Getter for the field <code>systemUnderTest</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="SUT_ID")
     public SystemUnderTest getSystemUnderTest()
@@ -86,6 +125,11 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return systemUnderTest;
     }
     
+    /**
+     * <p>Getter for the field <code>lastExecution</code>.</p>
+     *
+     * @return a {@link com.greenpepper.server.domain.Execution} object.
+     */
     @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JoinColumn(name="LAST_EXECUTION_ID")
     public Execution getLastExecution()
@@ -93,37 +137,72 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return lastExecution;
     }
     
+    /**
+     * <p>Setter for the field <code>sections</code>.</p>
+     *
+     * @param sections a {@link java.lang.String} object.
+     */
     public void setSections(String sections)
     {
         this.sections = StringUtil.toNullIfEmpty(sections);
     }
 
+    /**
+     * <p>Setter for the field <code>requirement</code>.</p>
+     *
+     * @param requirement a {@link com.greenpepper.server.domain.Requirement} object.
+     */
     public void setRequirement(Requirement requirement)
     {
         this.requirement = requirement;
     }
 
+    /**
+     * <p>Setter for the field <code>specification</code>.</p>
+     *
+     * @param specification a {@link com.greenpepper.server.domain.Specification} object.
+     */
     public void setSpecification(Specification specification)
     {
         this.specification = specification;
     }
 
+    /**
+     * <p>Setter for the field <code>systemUnderTest</code>.</p>
+     *
+     * @param systemUnderTest a {@link com.greenpepper.server.domain.SystemUnderTest} object.
+     */
     public void setSystemUnderTest(SystemUnderTest systemUnderTest)
     {
         this.systemUnderTest = systemUnderTest;
     }
 
+    /**
+     * <p>Setter for the field <code>lastExecution</code>.</p>
+     *
+     * @param lastExecution a {@link com.greenpepper.server.domain.Execution} object.
+     */
     public void setLastExecution(Execution lastExecution)
     {
         this.lastExecution = lastExecution;
     }
     
+    /**
+     * <p>getStatus.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Transient
     public String getStatus()
     {
         return lastExecution != null ? lastExecution.getStatus() : Execution.IGNORED; 
     }
 
+    /**
+     * <p>marshallize.</p>
+     *
+     * @return a {@link java.util.Vector} object.
+     */
     public Vector<Object> marshallize()
     {
         Vector<Object> parameters = new Vector<Object>();        
@@ -136,11 +215,19 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return parameters;
     }
     
+    /**
+     * <p>execute.</p>
+     *
+     * @param implementedVersion a boolean.
+     * @param locale a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.domain.Execution} object.
+     */
     public Execution execute(boolean implementedVersion, String locale)
     {
         return systemUnderTest.execute(specification, implementedVersion, sections, locale);
     }
 
+    /** {@inheritDoc} */
     public int compareTo(Object o)
     {
         Reference referenceCompared = (Reference)o;
@@ -165,6 +252,12 @@ public class Reference extends AbstractUniqueEntity implements Comparable
 		return StringUtil.compare(sections, referenceCompared.sections);
 	}
     
+    /**
+     * <p>equalsTo.</p>
+     *
+     * @param o a {@link java.lang.Object} object.
+     * @return a boolean.
+     */
     public boolean equalsTo(Object o)
     {
         if(o == null || !(o instanceof Reference))
@@ -181,6 +274,7 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         return true;
     }
 
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if(o == null || !(o instanceof Reference))

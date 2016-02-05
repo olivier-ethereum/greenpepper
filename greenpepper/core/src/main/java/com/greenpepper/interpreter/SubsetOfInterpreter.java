@@ -22,13 +22,29 @@ package com.greenpepper.interpreter;
 import com.greenpepper.interpreter.collection.CollectionInterpreter;
 import com.greenpepper.reflect.Fixture;
 
+/**
+ * <p>SubsetOfInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SubsetOfInterpreter extends CollectionInterpreter
 {
+    /**
+     * <p>Constructor for SubsetOfInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public SubsetOfInterpreter(Fixture fixture)
     {
         super( fixture );
     }
 
+    /**
+     * <p>mustProcessMissing.</p>
+     *
+     * @return a boolean.
+     */
     protected boolean mustProcessMissing()
     {
         return true;

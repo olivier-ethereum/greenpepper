@@ -27,37 +27,72 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <p>Group class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class Group implements Annotatable
 {
     private final List<Annotatable> annotatables;
 
+    /**
+     * <p>Constructor for Group.</p>
+     *
+     * @param annotatables a {@link java.util.Collection} object.
+     */
     public Group( Collection<Annotatable> annotatables )
     {
         this.annotatables = new ArrayList<Annotatable>( annotatables );
     }
 
+    /**
+     * <p>empty.</p>
+     *
+     * @return a {@link com.greenpepper.util.Group} object.
+     */
     public static Group empty()
     {
         return new Group( Collections.<Annotatable>emptyList() );
     }
 
+    /**
+     * <p>composedOf.</p>
+     *
+     * @param annotatables a {@link java.util.Collection} object.
+     * @return a {@link com.greenpepper.util.Group} object.
+     */
     @SuppressWarnings("unchecked")
     public static Group composedOf( Collection annotatables )
     {
         return new Group( annotatables );
     }
 
+    /**
+     * <p>composedOf.</p>
+     *
+     * @param annotatables a {@link com.greenpepper.Annotatable} object.
+     * @return a {@link com.greenpepper.util.Group} object.
+     */
     public static Group composedOf( Annotatable... annotatables )
     {
         return composedOf( Arrays.asList( annotatables ) );
     }
 
+    /**
+     * <p>and.</p>
+     *
+     * @param listener a {@link com.greenpepper.Annotatable} object.
+     * @return a {@link com.greenpepper.util.Group} object.
+     */
     public Group and( Annotatable listener )
     {
         annotatables.add( listener );
         return this;
     }
 
+    /** {@inheritDoc} */
     public void annotate( Annotation annotation )
     {
         for (Annotatable listener : annotatables)

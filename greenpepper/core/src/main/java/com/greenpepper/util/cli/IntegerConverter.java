@@ -19,8 +19,15 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>IntegerConverter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class IntegerConverter implements Converter<Integer>
 {
+    /** {@inheritDoc} */
     public Integer convert(String value)
     {
         return Integer.valueOf(value);

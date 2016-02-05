@@ -13,12 +13,23 @@ import com.greenpepper.util.ExampleUtil;
 
 import java.util.Collection;
 
+/**
+ * <p>DoWithRowSelector class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DoWithRowSelector implements RowSelector
 {
     protected final Fixture fixture;
 
     private TypeLoader<Row> typeLoader;
 
+    /**
+     * <p>Constructor for DoWithRowSelector.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public DoWithRowSelector(Fixture fixture)
     {
         this.fixture = fixture;
@@ -27,11 +38,21 @@ public class DoWithRowSelector implements RowSelector
         addSuffix("Row");
     }
 
+    /**
+     * <p>searchPackage.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public void searchPackage(String name)
     {
         typeLoader.searchPackage(name);
     }
 
+    /**
+     * <p>addSuffix.</p>
+     *
+     * @param suffix a {@link java.lang.String} object.
+     */
     public void addSuffix(String suffix)
     {
         typeLoader.addSuffix(suffix);
@@ -40,6 +61,7 @@ public class DoWithRowSelector implements RowSelector
     /* (non-Javadoc)
 	 * @see com.greenpepper.interpreter.dowith.RowSelector#select(com.greenpepper.Example)
 	 */
+    /** {@inheritDoc} */
     public Row select(Example example)
     {
         if (isARow(identifier(example)))
@@ -81,6 +103,11 @@ public class DoWithRowSelector implements RowSelector
         }
     }
 
+    /**
+     * <p>addSuffixes.</p>
+     *
+     * @param suffixes a {@link java.util.Collection} object.
+     */
     public void addSuffixes(Collection<String> suffixes)
     {
         for (String suffix : suffixes)
@@ -89,6 +116,11 @@ public class DoWithRowSelector implements RowSelector
         }
     }
 
+    /**
+     * <p>addPackages.</p>
+     *
+     * @param packages a {@link java.util.Collection} object.
+     */
     public void addPackages(Collection<String> packages)
     {
         for (String aPackage : packages)

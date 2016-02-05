@@ -21,27 +21,62 @@ package com.greenpepper;
 
 import java.io.PrintWriter;
 
+/**
+ * <p>Example interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface Example extends Annotatable, Iterable<Example>
 {
     /**
      * Returns the example content.
+     *
+     * @return a {@link java.lang.String} object.
      */
     String getContent();
 
+    /**
+     * <p>hasChild.</p>
+     *
+     * @return a boolean.
+     */
     boolean hasChild();
 
+    /**
+     * <p>firstChild.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     Example firstChild();
 
+    /**
+     * <p>hasSibling.</p>
+     *
+     * @return a boolean.
+     */
     boolean hasSibling();
 
+    /**
+     * <p>nextSibling.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     Example nextSibling();
 
     /**
      * Returns the last sibling of this example or this example if it has
      * no sibling.
+     *
+     * @return a {@link com.greenpepper.Example} object.
      */
     Example lastSibling();
 
+    /**
+     * <p>remainings.</p>
+     *
+     * @return a int.
+     */
     int remainings();
 
     /**
@@ -75,7 +110,7 @@ public interface Example extends Annotatable, Iterable<Example>
      * <p/>
      *
      * @param i         the position
-     * @param positions
+     * @param positions a int.
      * @return the descendent of the i(th) sibling
      */
     Example at( int i, int... positions );
@@ -85,9 +120,16 @@ public interface Example extends Annotatable, Iterable<Example>
 
     /**
      * Recursivly prints this example and its children.
+     *
+     * @param out a {@link java.io.PrintWriter} object.
      */
     void print( PrintWriter out );
 
+    /**
+     * <p>setContent.</p>
+     *
+     * @param content a {@link java.lang.String} object.
+     */
     void setContent( String content );
 
     /**

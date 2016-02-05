@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  * This is free software; you can redistribute it and/or modify
@@ -12,6 +13,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.xmlrpc.client;
 
@@ -19,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.greenpepper.server.GreenPepperServerErrorKey;
-
 public class XmlRpcClientExecutorFactory {
 
     /**
@@ -28,6 +31,13 @@ public class XmlRpcClientExecutorFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlRpcClientExecutorFactory.class);
 
 
+    /**
+     * <p>newExecutor.</p>
+     *
+     * @param url a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutor} object.
+     * @throws com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutorException if any.
+     */
     public static XmlRpcClientExecutor newExecutor(String url) throws XmlRpcClientExecutorException {
 
         try {

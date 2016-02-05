@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,12 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.runner.ant;
 
 import com.greenpepper.Statistics;
 import com.greenpepper.runner.SpecificationRunnerMonitor;
-
 public interface CommandLineRunnerMirror
 {
     public interface CommandLineLogger
@@ -43,5 +46,11 @@ public interface CommandLineRunnerMirror
         int getLocationCount();
     }
 
+    /**
+     * <p>run.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     * @throws java.lang.Exception if any.
+     */
     void run(String[] args) throws Exception;
 }

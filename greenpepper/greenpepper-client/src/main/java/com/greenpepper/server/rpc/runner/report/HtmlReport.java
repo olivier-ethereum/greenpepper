@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner.report;
 
@@ -26,7 +30,6 @@ import com.greenpepper.server.domain.Execution;
 import com.greenpepper.server.rpc.runner.XmlRpcRemoteRunner;
 import com.greenpepper.util.ExceptionImposter;
 import com.greenpepper.util.ExceptionUtils;
-
 public class HtmlReport
 		implements Report
 {
@@ -35,26 +38,48 @@ public class HtmlReport
 	private Execution execution;
 	private Throwable exception;
 
+	/**
+	 * <p>newInstance.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.rpc.runner.report.HtmlReport} object.
+	 */
 	public static HtmlReport newInstance(String name)
 	{
 		return new HtmlReport(name);
 	}
 
+	/**
+	 * <p>Constructor for HtmlReport.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public HtmlReport(String name)
 	{
 		this.name = name;
 	}
 
+	/**
+	 * <p>Getter for the field <code>name</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * <p>getType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getType()
 	{
 		return "html";
 	}
 
+	/** {@inheritDoc} */
 	public void printTo(Writer writer)
 			throws IOException
 	{
@@ -72,11 +97,13 @@ public class HtmlReport
 		}
 	}
 
+	/** {@inheritDoc} */
 	public void renderException(Throwable t)
 	{
 		this.exception = t;
 	}
 
+	/** {@inheritDoc} */
 	public void generate(Execution execution)
 	{
 		this.execution = execution;

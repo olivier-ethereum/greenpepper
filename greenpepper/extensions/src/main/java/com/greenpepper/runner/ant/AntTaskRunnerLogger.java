@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,26 +16,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.runner.ant;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-
 public class AntTaskRunnerLogger implements CommandLineRunnerMirror.CommandLineLogger
 {
     private final Task task;
 
+    /**
+     * <p>Constructor for AntTaskRunnerLogger.</p>
+     *
+     * @param task a {@link org.apache.tools.ant.Task} object.
+     */
     public AntTaskRunnerLogger(Task task)
     {
         this.task = task;
     }
 
+    /** {@inheritDoc} */
     public void info(String message)
     {
         task.log( message, Project.MSG_INFO );
     }
 
+    /** {@inheritDoc} */
     public void error(String message)
     {
         task.log( message, Project.MSG_ERR );

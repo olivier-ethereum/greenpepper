@@ -23,6 +23,12 @@ import com.greenpepper.call.ResultMatcher;
 
 import java.lang.annotation.Annotation;
 
+package com.greenpepper.interpreter.flow.scenario;
+
+import com.greenpepper.call.Result;
+import com.greenpepper.call.ResultMatcher;
+
+import java.lang.annotation.Annotation;
 class AnnotationResultMatcher implements ResultMatcher
 {
     private final boolean match;
@@ -32,6 +38,7 @@ class AnnotationResultMatcher implements ResultMatcher
         this.match = annotation.annotationType().equals( expected );
     }
 
+    /** {@inheritDoc} */
     public boolean matches(Result result)
     {
         return match;

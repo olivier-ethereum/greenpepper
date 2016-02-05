@@ -13,19 +13,32 @@ import com.greenpepper.interpreter.flow.AbstractRow;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>ActionRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ActionRow extends AbstractRow
 {
+	/**
+	 * <p>Constructor for ActionRow.</p>
+	 *
+	 * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+	 */
 	protected ActionRow(Fixture fixture)
     {
 		super(fixture);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<Example> actionCells(Example row)
     {
 		return ExampleUtil.asList(row.firstChild());
 	}
 
+	/** {@inheritDoc} */
 	public void interpret(Specification spec)
     {
         Example row = spec.nextExample();

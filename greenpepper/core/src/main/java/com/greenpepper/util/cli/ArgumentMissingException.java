@@ -19,11 +19,22 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>ArgumentMissingException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class ArgumentMissingException extends ParseException
 {
     private final String name;
 
+    /**
+     * <p>Constructor for ArgumentMissingException.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public ArgumentMissingException( String name )
     {
         super();
@@ -31,6 +42,11 @@ public class ArgumentMissingException extends ParseException
         this.name = name;
     }
 
+    /**
+     * <p>getMessage.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return "Argument is required: " + name;

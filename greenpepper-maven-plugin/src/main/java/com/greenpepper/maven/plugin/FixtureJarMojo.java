@@ -27,7 +27,7 @@ import com.greenpepper.maven.AbstractJarMojo;
  * @version $Id$
  * @goal fixture-jar
  * @phase post-integration-test
- * @requiresProject
+ * @author oaouattara
  */
 public class FixtureJarMojo
     extends AbstractJarMojo
@@ -49,6 +49,7 @@ public class FixtureJarMojo
      */
     private File fixtureOutputDirectory;
 
+	/** {@inheritDoc} */
 	@Override
 	public void execute() throws MojoExecutionException
 	{
@@ -62,6 +63,11 @@ public class FixtureJarMojo
 		}
 	}
 
+	/**
+	 * <p>getClassifier.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	protected String getClassifier()
     {
         return "fixtures";
@@ -69,6 +75,8 @@ public class FixtureJarMojo
 
     /**
      * Return the fixture-classes directory, to serve as the root of the fixtures jar.
+     *
+     * @return a {@link java.io.File} object.
      */
     protected File getClassesDirectory()
     {

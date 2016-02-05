@@ -22,12 +22,21 @@ import com.greenpepper.util.ClassUtils;
 import com.greenpepper.util.FactoryMethod;
 
 /**
+ * <p>IsInstanceExpectation class.</p>
+ *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public class IsInstanceExpectation implements Expectation
 {
     private final Class type;
 
+    /**
+     * <p>create.</p>
+     *
+     * @param expected a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.expectation.IsInstanceExpectation} object.
+     */
     @FactoryMethod
     public static IsInstanceExpectation create( String expected )
     {
@@ -47,16 +56,23 @@ public class IsInstanceExpectation implements Expectation
         return null;
     }
 
+    /**
+     * <p>Constructor for IsInstanceExpectation.</p>
+     *
+     * @param type a {@link java.lang.Class} object.
+     */
     public IsInstanceExpectation( Class type )
     {
         this.type = type;
     }
 
+    /** {@inheritDoc} */
     public StringBuilder describeTo( StringBuilder sb )
     {
         return sb.append( "instance of " ).append( type.getName() );
     }
 
+    /** {@inheritDoc} */
     public boolean meets( Object result )
     {
         return type.isInstance( result );

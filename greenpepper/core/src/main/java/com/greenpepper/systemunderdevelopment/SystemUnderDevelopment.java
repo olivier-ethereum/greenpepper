@@ -22,13 +22,42 @@ package com.greenpepper.systemunderdevelopment;
 import com.greenpepper.document.Document;
 import com.greenpepper.reflect.Fixture;
 
+/**
+ * <p>SystemUnderDevelopment interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface SystemUnderDevelopment
 {
+    /**
+     * <p>getFixture.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     * @param params a {@link java.lang.String} object.
+     * @return a {@link com.greenpepper.reflect.Fixture} object.
+     * @throws java.lang.Throwable if any.
+     */
     Fixture getFixture( String name, String... params ) throws Throwable;
 
+    /**
+     * <p>addImport.</p>
+     *
+     * @param packageName a {@link java.lang.String} object.
+     */
     void addImport( String packageName );
 
+    /**
+     * <p>onStartDocument.</p>
+     *
+     * @param document a {@link com.greenpepper.document.Document} object.
+     */
     void onStartDocument(Document document);
 
+    /**
+     * <p>onEndDocument.</p>
+     *
+     * @param document a {@link com.greenpepper.document.Document} object.
+     */
     void onEndDocument(Document document);
 }

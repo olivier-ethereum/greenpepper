@@ -21,6 +21,12 @@ package com.greenpepper.util;
 
 import java.text.Normalizer;
 
+/**
+ * <p>StringUtil class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class StringUtil
 {
     private static final String EMPTY_STRING = "";
@@ -29,21 +35,47 @@ public final class StringUtil
     {
     }
 
+    /**
+     * <p>isEmpty.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isEmpty( String s )
     {
         return s == null || s.equals( EMPTY_STRING );
     }
 
+    /**
+     * <p>isBlank.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isBlank( String s )
     {
         return s == null || isEmpty( s.trim() );
     }
 
+	/**
+	 * <p>isEquals.</p>
+	 *
+	 * @param s1 a {@link java.lang.String} object.
+	 * @param s2 a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public static boolean isEquals( String s1, String s2)
 	{
 		return s1 == null ? s2 == null : s1.equals(s2);
 	}
 
+	/**
+	 * <p>compare.</p>
+	 *
+	 * @param s1 a {@link java.lang.String} object.
+	 * @param s2 a {@link java.lang.String} object.
+	 * @return a int.
+	 */
 	public static int compare( String s1, String s2)
 	{
 		if (s1 == null && s2 == null)
@@ -64,26 +96,56 @@ public final class StringUtil
 		}
 	}
 
+	/**
+	 * <p>toNullIfEmpty.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String toNullIfEmpty( String s )
 	{
 		return isEmpty( s ) ? null : s;
 	}
 
+	/**
+	 * <p>toEmptyIfNull.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String toEmptyIfNull( String s )
 	{
 		return s == null ? "" : s;
 	}
 
+    /**
+     * <p>removeDiacritics.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String removeDiacritics( String s )
     {
         return Normalizer.normalize( s, Normalizer.Form.NFD ).replaceAll( "\\p{InCombiningDiacriticalMarks}+", "" );
     }
 
+    /**
+     * <p>escapeSemiColon.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String escapeSemiColon(String s)
     {
         return s == null ? null : s.replaceAll( ";", "%3B" );
     }
 
+    /**
+     * <p>unescapeSemiColon.</p>
+     *
+     * @param s a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String unescapeSemiColon(String s)
     {
         return s == null ? null : s.replaceAll( "%3B", ";" );

@@ -24,14 +24,28 @@ import java.util.List;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 
+/**
+ * <p>SectionElement class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SectionElement
 {
 	private List<TextData> includes = new ArrayList<TextData>();
 
+	/**
+	 * <p>Constructor for SectionElement.</p>
+	 */
 	public SectionElement()
 	{
 	}
 
+	/**
+	 * <p>createIncludes.</p>
+	 *
+	 * @return a {@link com.greenpepper.runner.ant.TextData} object.
+	 */
 	public TextData createIncludes()
 	{
 		TextData include = new TextData();
@@ -39,6 +53,12 @@ public class SectionElement
 		return include;
 	}
 
+	/**
+	 * <p>toArgument.</p>
+	 *
+	 * @param task a {@link org.apache.tools.ant.Task} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toArgument(Task task)
 	{
 		StringBuilder argumentBuilder = new StringBuilder();

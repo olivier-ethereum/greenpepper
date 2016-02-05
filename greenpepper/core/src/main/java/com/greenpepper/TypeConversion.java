@@ -42,6 +42,12 @@ import com.greenpepper.converter.TypeConverter;
 import com.greenpepper.interpreter.flow.scenario.ExpectationTypeConverter;
 import com.greenpepper.util.ClassUtils;
 
+/**
+ * <p>TypeConversion class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class TypeConversion
 {
     private static final List<TypeConverter> converters = new LinkedList<TypeConverter>();
@@ -68,11 +74,22 @@ public final class TypeConversion
 
     private TypeConversion() {}
 
+    /**
+     * <p>register.</p>
+     *
+     * @param converter a {@link com.greenpepper.converter.TypeConverter} object.
+     */
     public static void register( TypeConverter converter )
     {
         converters.add( 0, converter );
     }
 
+    /**
+     * <p>supports.</p>
+     *
+     * @param type a {@link java.lang.Class} object.
+     * @return a boolean.
+     */
     public static boolean supports( Class type )
     {
         return converterRegisteredFor( type ) || canSelfConvert( "parse", type ) || canSelfConvert( "valueOf", type );
@@ -195,6 +212,12 @@ public final class TypeConversion
     }
 
 
+    /**
+     * <p>converterForType.</p>
+     *
+     * @param type a {@link java.lang.Class} object.
+     * @return a {@link com.greenpepper.converter.TypeConverter} object.
+     */
     public static TypeConverter converterForType( Class type )
     {
         for (TypeConverter converter : converters)
@@ -205,6 +228,13 @@ public final class TypeConversion
         return null;
     }
 
+    /**
+     * <p>convert.</p>
+     *
+     * @param values an array of {@link java.lang.String} objects.
+     * @param toTypes an array of {@link java.lang.Class} objects.
+     * @return an array of {@link java.lang.Object} objects.
+     */
     public static Object[] convert( String[] values, Class[] toTypes )
     {
         Object[] converted = new Object[values.length];

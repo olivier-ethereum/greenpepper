@@ -19,7 +19,18 @@
 
 package com.greenpepper;
 
+/**
+ * <p>Interpreter interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface Interpreter
 {
+    /**
+     * <p>interpret.</p>
+     *
+     * @param specification a {@link com.greenpepper.Specification} object.
+     */
     void interpret(Specification specification);
 }

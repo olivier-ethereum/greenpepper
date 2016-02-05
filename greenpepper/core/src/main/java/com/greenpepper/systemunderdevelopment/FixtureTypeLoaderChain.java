@@ -21,8 +21,19 @@ package com.greenpepper.systemunderdevelopment;
 
 import com.greenpepper.TypeLoaderChain;
 
+/**
+ * <p>FixtureTypeLoaderChain class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FixtureTypeLoaderChain extends TypeLoaderChain<Object>
 {
+    /**
+     * <p>Constructor for FixtureTypeLoaderChain.</p>
+     *
+     * @param classLoader a {@link java.lang.ClassLoader} object.
+     */
     public FixtureTypeLoaderChain(ClassLoader classLoader)
     {
         super( Object.class, classLoader );

@@ -35,10 +35,14 @@ import com.greenpepper.maven.AbstractCompilerMojo;
 import com.greenpepper.maven.plugin.utils.CompilationFailureException;
 
 /**
+ * <p>FixtureCompilerMojo class.</p>
+ *
  * @goal compile
  * @phase pre-integration-test
  * @requiresDependencyResolution compile
  * @description Compiles fixture test sources
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class FixtureCompilerMojo
     extends AbstractCompilerMojo
@@ -90,6 +94,7 @@ public class FixtureCompilerMojo
      */
     private Set testExcludes = new HashSet();
 
+	/** {@inheritDoc} */
 	@Override
 	public void execute()
         throws MojoExecutionException, CompilationFailureException
@@ -106,6 +111,11 @@ public class FixtureCompilerMojo
         }
     }
 
+    /**
+     * <p>getCompileSourceRoots.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     @SuppressWarnings("unchecked")
     protected List getCompileSourceRoots()
     {
@@ -114,16 +124,32 @@ public class FixtureCompilerMojo
         return roots;
     }
 
+    /**
+     * <p>Getter for the field <code>classpathElements</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     protected List getClasspathElements()
     {
         return classpathElements;
     }
 
+    /**
+     * <p>getOutputDirectory.</p>
+     *
+     * @return a {@link java.io.File} object.
+     */
     protected File getOutputDirectory()
     {
         return fixtureOutputDirectory;
     }
 
+    /**
+     * <p>getSourceInclusionScanner.</p>
+     *
+     * @param staleMillis a int.
+     * @return a {@link org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner} object.
+     */
     @SuppressWarnings("unchecked")
     protected SourceInclusionScanner getSourceInclusionScanner( int staleMillis )
     {
@@ -145,6 +171,7 @@ public class FixtureCompilerMojo
         return scanner;
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     protected SourceInclusionScanner getSourceInclusionScanner( String inputFileEnding )
     {

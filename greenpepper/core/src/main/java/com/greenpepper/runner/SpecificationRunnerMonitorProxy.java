@@ -21,10 +21,21 @@ package com.greenpepper.runner;
 
 import com.greenpepper.util.DuckType;
 
+/**
+ * <p>SpecificationRunnerMonitorProxy class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SpecificationRunnerMonitorProxy implements SpecificationRunnerMonitor
 {
     private final SpecificationRunnerMonitor proxied;
 
+    /**
+     * <p>Constructor for SpecificationRunnerMonitorProxy.</p>
+     *
+     * @param proxied a {@link java.lang.Object} object.
+     */
     public SpecificationRunnerMonitorProxy( Object proxied )
     {
         if (!DuckType.instanceOf( SpecificationRunnerMonitor.class, proxied ))
@@ -32,16 +43,19 @@ public class SpecificationRunnerMonitorProxy implements SpecificationRunnerMonit
         this.proxied = DuckType.implement( SpecificationRunnerMonitor.class, proxied );
     }
 
+    /** {@inheritDoc} */
     public void testRunning( String location )
     {
         proxied.testRunning( location );
     }
 
+    /** {@inheritDoc} */
     public void testDone( int rightCount, int wrongCount, int exceptionCount, int ignoreCount )
     {
         proxied.testDone( rightCount, wrongCount, exceptionCount, ignoreCount );
     }
 
+    /** {@inheritDoc} */
     public void exceptionOccured( Throwable t )
     {
         proxied.exceptionOccured( t );

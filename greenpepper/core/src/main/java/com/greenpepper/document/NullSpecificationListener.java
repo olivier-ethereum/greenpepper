@@ -22,12 +22,20 @@ package com.greenpepper.document;
 import com.greenpepper.Example;
 import com.greenpepper.Statistics;
 
+/**
+ * <p>NullSpecificationListener class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class NullSpecificationListener implements SpecificationListener
 {
+    /** {@inheritDoc} */
     public void exampleDone( Example table, Statistics statistics )
     {
     }
 
+    /** {@inheritDoc} */
     public void specificationDone( Example spec, Statistics statistics )
     {
     }

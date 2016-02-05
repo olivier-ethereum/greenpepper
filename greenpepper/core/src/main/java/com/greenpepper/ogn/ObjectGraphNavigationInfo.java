@@ -18,22 +18,46 @@
  */
 package com.greenpepper.ogn;
 
+/**
+ * <p>ObjectGraphNavigationInfo class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ObjectGraphNavigationInfo
 {
 	private final boolean isGetter;
     private final String target;
     private final String methodName;
 
+	/**
+	 * <p>Constructor for ObjectGraphNavigationInfo.</p>
+	 *
+	 * @param methodName a {@link java.lang.String} object.
+	 */
 	public ObjectGraphNavigationInfo(String methodName)
 	{
 		this(false, null, methodName);
 	}
 
+	/**
+	 * <p>Constructor for ObjectGraphNavigationInfo.</p>
+	 *
+	 * @param target a {@link java.lang.String} object.
+	 * @param methodName a {@link java.lang.String} object.
+	 */
 	public ObjectGraphNavigationInfo(String target, String methodName)
 	{
 		this(false, target, methodName);
 	}
 
+    /**
+     * <p>Constructor for ObjectGraphNavigationInfo.</p>
+     *
+     * @param isGetter a boolean.
+     * @param target a {@link java.lang.String} object.
+     * @param methodName a {@link java.lang.String} object.
+     */
     public ObjectGraphNavigationInfo(boolean isGetter, String target, String methodName)
     {
 		this.isGetter = isGetter;
@@ -41,21 +65,37 @@ public class ObjectGraphNavigationInfo
         this.methodName = methodName;
     }
 
+	/**
+	 * <p>isGetter.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isGetter()
 	{
 		return isGetter;
 	}
 
+	/**
+	 * <p>Getter for the field <code>methodName</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getMethodName()
     {
         return methodName;
     }
 
+    /**
+     * <p>Getter for the field <code>target</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getTarget()
     {
         return target;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

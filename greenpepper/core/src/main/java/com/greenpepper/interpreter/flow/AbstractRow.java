@@ -29,28 +29,62 @@ import com.greenpepper.reflect.Fixture;
 
 import java.util.List;
 
+/**
+ * <p>Abstract AbstractRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public abstract class AbstractRow implements Row
 {
     protected final Fixture fixture;
     protected Example reportCell;
 
+    /**
+     * <p>Constructor for AbstractRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     protected AbstractRow( Fixture fixture )
     {
         this.fixture = fixture;
     }
 
+    /**
+     * <p>actionCells.</p>
+     *
+     * @param row a {@link com.greenpepper.Example} object.
+     * @return a {@link java.util.List} object.
+     */
     public abstract List<Example> actionCells(Example row);
 
+    /**
+     * <p>reportException.</p>
+     *
+     * @param table a {@link com.greenpepper.Specification} object.
+     */
     protected void reportException( Specification table )
     {
         countRowOf( table ).exception().unconditionnaly();
     }
 
+    /**
+     * <p>countRowOf.</p>
+     *
+     * @param table a {@link com.greenpepper.Specification} object.
+     * @return a {@link com.greenpepper.interpreter.flow.AbstractRow.CountStatistics} object.
+     */
     protected CountStatistics countRowOf( Specification table )
     {
         return new CountStatistics( table );
     }
 
+    /**
+     * <p>tallyStatistics.</p>
+     *
+     * @param table a {@link com.greenpepper.Specification} object.
+     * @return a {@link com.greenpepper.call.Stub} object.
+     */
     protected Stub tallyStatistics( Specification table )
     {
         return new TallyStatistics( table );

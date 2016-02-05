@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,15 +16,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter;
 
 import com.greenpepper.interpreter.flow.AbstractFlowInterpreter;
 import com.greenpepper.interpreter.flow.scenario.ScenarioRowSelector;
 import com.greenpepper.reflect.Fixture;
-
 public class ScenarioInterpreter extends AbstractFlowInterpreter
 {
+    /**
+     * <p>Constructor for ScenarioInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public ScenarioInterpreter(Fixture fixture)
     {
         setRowSelector( new ScenarioRowSelector( fixture ) );

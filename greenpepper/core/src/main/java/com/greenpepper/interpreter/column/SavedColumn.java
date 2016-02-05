@@ -10,15 +10,27 @@ import com.greenpepper.call.Stub;
 import com.greenpepper.reflect.Message;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>SavedColumn class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SavedColumn extends Column
 {
     private final Message message;
 
+    /**
+     * <p>Constructor for SavedColumn.</p>
+     *
+     * @param message a {@link com.greenpepper.reflect.Message} object.
+     */
     public SavedColumn(Message message)
     {
         this.message = message;
     }
 
+    /** {@inheritDoc} */
     public Statistics doCell(final Example cell) throws Exception
     {
         final String symbol = ExampleUtil.contentOf( cell );

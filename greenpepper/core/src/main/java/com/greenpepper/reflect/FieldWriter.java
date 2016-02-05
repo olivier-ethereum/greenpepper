@@ -22,12 +22,24 @@ import com.greenpepper.TypeConversion;
 
 import java.lang.reflect.Field;
 
+/**
+ * <p>FieldWriter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class FieldWriter
     extends Message
 {
     private final Object target;
     private final Field field;
 
+    /**
+     * <p>Constructor for FieldWriter.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param field a {@link java.lang.reflect.Field} object.
+     */
     public FieldWriter( Object target, Field field )
     {
         super();
@@ -36,11 +48,23 @@ public class FieldWriter
         this.field = field;
     }
 
+    /**
+     * <p>getArity.</p>
+     *
+     * @return a int.
+     */
     public int getArity()
     {
         return 1;
     }
 
+    /**
+     * <p>send.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object send( String... args ) throws Exception
     {
         assertArgumentsCount( args );

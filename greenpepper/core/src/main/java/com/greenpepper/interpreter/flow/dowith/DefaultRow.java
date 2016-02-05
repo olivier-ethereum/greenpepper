@@ -34,13 +34,25 @@ import com.greenpepper.util.Group;
 
 import java.util.List;
 
+/**
+ * <p>DefaultRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DefaultRow extends AbstractRow
 {
+    /**
+     * <p>Constructor for DefaultRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public DefaultRow(Fixture fixture)
     {
         super(fixture);
     }
 
+    /** {@inheritDoc} */
     public void interpret(Specification table)
     {
         Example row = table.nextExample();
@@ -68,6 +80,7 @@ public class DefaultRow extends AbstractRow
         return CollectionUtil.even(row.firstChild());
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
         return ExampleUtil.asList(row.firstChild());

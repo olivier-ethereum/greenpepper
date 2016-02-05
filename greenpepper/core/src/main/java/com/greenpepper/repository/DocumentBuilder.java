@@ -24,7 +24,20 @@ import com.greenpepper.document.Document;
 import java.io.IOException;
 import java.io.Reader;
 
+/**
+ * <p>DocumentBuilder interface.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public interface DocumentBuilder
 {
+    /**
+     * <p>build.</p>
+     *
+     * @param reader a {@link java.io.Reader} object.
+     * @return a {@link com.greenpepper.document.Document} object.
+     * @throws java.io.IOException if any.
+     */
     Document build( Reader reader ) throws IOException;
 }

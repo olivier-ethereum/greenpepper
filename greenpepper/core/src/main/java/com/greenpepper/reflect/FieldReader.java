@@ -23,12 +23,21 @@ import java.lang.reflect.Field;
 /**
  * This <code>Action</code> implementation reads the value of a <code>class</code>
  * public <code>Field</code>.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 public class FieldReader extends Message
 {
     private final Object target;
     private final Field field;
 
+    /**
+     * <p>Constructor for FieldReader.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param field a {@link java.lang.reflect.Field} object.
+     */
     public FieldReader( Object target, Field field )
     {
         super();
@@ -37,12 +46,24 @@ public class FieldReader extends Message
         this.field = field;
     }
 
+    /**
+     * <p>send.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object send( String... args ) throws Exception
     {
         assertArgumentsCount( args );
         return field.get( target );
     }
 
+    /**
+     * <p>getArity.</p>
+     *
+     * @return a int.
+     */
     public int getArity()
     {
         return 0;

@@ -36,6 +36,12 @@ import com.greenpepper.GreenPepper;
 import com.greenpepper.GreenPepperCore;
 import com.greenpepper.util.DuckType;
 
+/**
+ * <p>AntTaskRunner class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class AntTaskRunner extends Task
 {
 	private boolean failOnError = false;
@@ -53,70 +59,138 @@ public class AntTaskRunner extends Task
     private Path classpath;
     private Path runtimeClasspath;
 
+	/**
+	 * <p>Constructor for AntTaskRunner.</p>
+	 */
 	public AntTaskRunner()
 	{
         super();
 	}
 
+    /**
+     * <p>isFailOnError.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isFailOnError()
     {
         return failOnError;
     }
 
+    /**
+     * <p>Setter for the field <code>failOnError</code>.</p>
+     *
+     * @param failOnError a boolean.
+     */
     public void setFailOnError(boolean failOnError)
 	{
 		this.failOnError = failOnError;
 	}
 
+    /**
+     * <p>isSuite.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isSuite()
     {
         return suite;
     }
 
+    /**
+     * <p>Setter for the field <code>suite</code>.</p>
+     *
+     * @param suite a boolean.
+     */
     public void setSuite(boolean suite)
 	{
 		this.suite = suite;
 	}
 
+    /**
+     * <p>Getter for the field <code>input</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getInput()
     {
         return input;
     }
 
+    /**
+     * <p>Setter for the field <code>input</code>.</p>
+     *
+     * @param input a {@link java.lang.String} object.
+     */
     public void setInput(String input)
 	{
 		this.input = input;
 	}
 
+    /**
+     * <p>Getter for the field <code>output</code>.</p>
+     *
+     * @return a {@link java.io.File} object.
+     */
     public File getOutput()
     {
         return output;
     }
 
+    /**
+     * <p>Setter for the field <code>output</code>.</p>
+     *
+     * @param output a {@link java.io.File} object.
+     */
     public void setOutput(File output)
 	{
 		this.output = output;
 	}
 
+    /**
+     * <p>Getter for the field <code>outputType</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getOutputType()
     {
         return outputType;
     }
 
+    /**
+     * <p>Setter for the field <code>outputType</code>.</p>
+     *
+     * @param type a {@link java.lang.String} object.
+     */
     public void setOutputType(String type) {
 		this.outputType = type.equalsIgnoreCase("xml") ? "xml": null;
 	}
 
+    /**
+     * <p>Getter for the field <code>section</code>.</p>
+     *
+     * @return a {@link com.greenpepper.runner.ant.SectionElement} object.
+     */
     public SectionElement getSection()
     {
         return section;
     }
 
+    /**
+     * <p>Setter for the field <code>section</code>.</p>
+     *
+     * @param section a {@link com.greenpepper.runner.ant.SectionElement} object.
+     */
     public void setSection(SectionElement section)
     {
         this.section = section;
     }
 
+    /**
+     * <p>createSection.</p>
+     *
+     * @return a {@link com.greenpepper.runner.ant.SectionElement} object.
+     */
     public SectionElement createSection()
 	{
 		if (getSection() != null)
@@ -128,11 +202,21 @@ public class AntTaskRunner extends Task
 		return section;
 	}
 
+    /**
+     * <p>Getter for the field <code>systemDevelopment</code>.</p>
+     *
+     * @return a {@link com.greenpepper.runner.ant.SystemUnderDevelopmentElement} object.
+     */
     public SystemUnderDevelopmentElement getSystemDevelopment()
     {
         return systemDevelopment;
     }
 
+    /**
+     * <p>createSystemUnderDevelopment.</p>
+     *
+     * @return a {@link com.greenpepper.runner.ant.SystemUnderDevelopmentElement} object.
+     */
     public SystemUnderDevelopmentElement createSystemUnderDevelopment()
     {
 		if (systemDevelopment != null)
@@ -144,11 +228,21 @@ public class AntTaskRunner extends Task
 		return systemDevelopment;
 	}
 
+    /**
+     * <p>Getter for the field <code>repository</code>.</p>
+     *
+     * @return a {@link com.greenpepper.runner.ant.RepositoryElement} object.
+     */
     public RepositoryElement getRepository()
     {
         return repository;
     }
 
+    /**
+     * <p>createRepository.</p>
+     *
+     * @return a {@link com.greenpepper.runner.ant.RepositoryElement} object.
+     */
     public RepositoryElement createRepository()
     {
 		if (repository != null)
@@ -160,46 +254,91 @@ public class AntTaskRunner extends Task
 		return repository;
 	}
 
+	/**
+	 * <p>isStopOnFirstFailure.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isStopOnFirstFailure()
 	{
 		return stopOnFirstFailure;
 	}
 
+	/**
+	 * <p>Setter for the field <code>stopOnFirstFailure</code>.</p>
+	 *
+	 * @param stopOnFirstFailure a boolean.
+	 */
 	public void setStopOnFirstFailure(boolean stopOnFirstFailure)
 	{
 		this.stopOnFirstFailure = stopOnFirstFailure;
 	}
 
+	/**
+	 * <p>Getter for the field <code>locale</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getLocale()
 	{
 		return locale;
 	}
 
+	/**
+	 * <p>Setter for the field <code>locale</code>.</p>
+	 *
+	 * @param locale a {@link java.lang.String} object.
+	 */
 	public void setLocale(String locale)
 	{
 		this.locale = locale;
 	}
 
+	/**
+	 * <p>Getter for the field <code>selector</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSelector()
 	{
 		return selector;
 	}
 
+	/**
+	 * <p>Setter for the field <code>selector</code>.</p>
+	 *
+	 * @param selector a {@link java.lang.String} object.
+	 */
 	public void setSelector(String selector)
 	{
 		this.selector = selector;
 	}
 
+	/**
+	 * <p>isDebug.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isDebug()
 	{
 		return debug;
 	}
 
+	/**
+	 * <p>Setter for the field <code>debug</code>.</p>
+	 *
+	 * @param debug a boolean.
+	 */
 	public void setDebug(boolean debug)
 	{
 		this.debug = debug;
 	}
 
+    /**
+     * <p>createClasspath.</p>
+     *
+     * @return a {@link org.apache.tools.ant.types.Path} object.
+     */
     public Path createClasspath() {
         if (classpath == null) {
             classpath = new Path(getProject());
@@ -207,6 +346,11 @@ public class AntTaskRunner extends Task
         return classpath;
     }
 
+	/**
+	 * <p>execute.</p>
+	 *
+	 * @throws org.apache.tools.ant.BuildException if any.
+	 */
 	public void execute()
 			throws BuildException
 	{

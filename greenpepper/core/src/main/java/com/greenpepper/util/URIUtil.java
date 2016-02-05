@@ -5,6 +5,12 @@ import java.net.URI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>URIUtil class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class URIUtil
 {
 	private URIUtil() {}
@@ -13,6 +19,9 @@ public final class URIUtil
 	 * A basic quoting implementation. It escapes path separators and spaces.
 	 * If a more robust solution is required look at {@link java.net.URI} or
 	 * org.apache.commons.httpclient.URI.
+	 *
+	 * @param uri a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public static String raw(String uri)
 	{
@@ -24,6 +33,12 @@ public final class URIUtil
 		return quoted;
 	}
 
+	/**
+	 * <p>decoded.</p>
+	 *
+	 * @param uri a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String decoded(String uri)
 	{
 		String decoded = uri.replaceAll("%20", " ");
@@ -35,6 +50,12 @@ public final class URIUtil
 		return decoded;
 	}
 
+	/**
+	 * <p>flatten.</p>
+	 *
+	 * @param uri a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String flatten(String uri)
 	{
 		URI normalized = URI.create( raw( uri ) ).normalize();
@@ -44,6 +65,13 @@ public final class URIUtil
 		return path;
 	}
 
+	/**
+	 * <p>relativize.</p>
+	 *
+	 * @param base a {@link java.lang.String} object.
+	 * @param uri a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String relativize(String base, String uri)
 	{
 		URI child = URI.create( raw( uri ) );
@@ -51,6 +79,13 @@ public final class URIUtil
 		return parent.relativize( child ).getPath();
 	}
 
+	/**
+	 * <p>resolve.</p>
+	 *
+	 * @param base a {@link java.lang.String} object.
+	 * @param child a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String resolve( String base, String child )
 	{
 		String childPath = child.startsWith( "/" ) ? child.substring( 1 ) : child;
@@ -58,6 +93,13 @@ public final class URIUtil
 		return basePath + childPath;
 	}
 
+	/**
+	 * <p>getAttribute.</p>
+	 *
+	 * @param uri a {@link java.net.URI} object.
+	 * @param attributeName a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String getAttribute(URI uri, String attributeName)
 	{
 		String query = uri.getQuery();
@@ -77,6 +119,12 @@ public final class URIUtil
 		return path.startsWith( "/" ) ? path.substring( 1 ) : path;
 	}
 
+	/**
+	 * <p>escapeFileSystemForbiddenCharacters.</p>
+	 *
+	 * @param input a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String escapeFileSystemForbiddenCharacters(String input) {
 		return input
 					.replace("?", "%3F")

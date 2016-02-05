@@ -18,11 +18,22 @@
  */
 package com.greenpepper.reflect;
 
+/**
+ * <p>NoSuchMessageException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 @SuppressWarnings("serial")
 public class NoSuchMessageException extends RuntimeException
 {
     private final String message;
 
+    /**
+     * <p>Constructor for NoSuchMessageException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public NoSuchMessageException( String message )
     {
         super();
@@ -30,6 +41,11 @@ public class NoSuchMessageException extends RuntimeException
         this.message = message;
     }
 
+    /**
+     * <p>Getter for the field <code>message</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage()
     {
         return message;

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.interpreter;
 
@@ -24,15 +28,20 @@ import com.greenpepper.Specification;
 import com.greenpepper.Statistics;
 import com.greenpepper.annotation.Annotations;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
-
 public class OptionsInterpreter
 		extends AbstractInterpreter
 {
+	/**
+	 * <p>Constructor for OptionsInterpreter.</p>
+	 *
+	 * @param sud a {@link com.greenpepper.systemunderdevelopment.SystemUnderDevelopment} object.
+	 */
 	public OptionsInterpreter(SystemUnderDevelopment sud)
 	{
 
 	}
 
+	/** {@inheritDoc} */
 	public void interpret(Specification specification)
 	{
 		Example table = specification.nextExample();

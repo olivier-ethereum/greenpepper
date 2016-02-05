@@ -25,13 +25,31 @@ import com.greenpepper.annotation.Annotation;
 
 import java.io.PrintWriter;
 
+/**
+ * <p>ExampleWrapper class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class ExampleWrapper extends AbstractExample
 {
+    /**
+     * <p>sandbox.</p>
+     *
+     * @param firstChild a {@link com.greenpepper.Example} object.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public static Example sandbox( Example firstChild )
     {
         return new ExampleWrapper( firstChild, null );
     }
 
+    /**
+     * <p>empty.</p>
+     *
+     * @param nextSibling a {@link com.greenpepper.Example} object.
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public static Example empty( Example nextSibling )
     {
         return new ExampleWrapper( null, nextSibling );
@@ -41,6 +59,12 @@ public class ExampleWrapper extends AbstractExample
 
     private final Example firstChild;
 
+    /**
+     * <p>Constructor for ExampleWrapper.</p>
+     *
+     * @param firstChild a {@link com.greenpepper.Example} object.
+     * @param nextSibling a {@link com.greenpepper.Example} object.
+     */
     protected ExampleWrapper( Example firstChild, Example nextSibling )
     {
         super();
@@ -49,41 +73,69 @@ public class ExampleWrapper extends AbstractExample
         this.firstChild = firstChild;
     }
 
+    /**
+     * <p>firstChild.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example firstChild()
     {
         return firstChild;
     }
 
+    /**
+     * <p>nextSibling.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example nextSibling()
     {
         return nextSibling;
     }
 
+    /**
+     * <p>getContent.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getContent()
     {
         return null;
     }
 
+    /** {@inheritDoc} */
     public void annotate( Annotation annotation )
     {
         throw new UnsupportedOperationException();
     }
 
+    /** {@inheritDoc} */
     public void print( PrintWriter out )
     {
         throw new UnsupportedOperationException();
     }
 
+    /** {@inheritDoc} */
     public void setContent( String content )
     {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * <p>addSibling.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example addSibling()
     {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * <p>addChild.</p>
+     *
+     * @return a {@link com.greenpepper.Example} object.
+     */
     public Example addChild()
     {
         throw new UnsupportedOperationException();

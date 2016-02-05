@@ -22,13 +22,29 @@ package com.greenpepper.interpreter;
 import com.greenpepper.interpreter.collection.CollectionInterpreter;
 import com.greenpepper.reflect.Fixture;
 
+/**
+ * <p>SupersetOfInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class SupersetOfInterpreter extends CollectionInterpreter
 {
+    /**
+     * <p>Constructor for SupersetOfInterpreter.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public SupersetOfInterpreter(Fixture fixture)
     {
         super( fixture );
     }
 
+    /**
+     * <p>mustProcessSurplus.</p>
+     *
+     * @return a boolean.
+     */
     protected boolean mustProcessSurplus()
     {
         return true;

@@ -23,11 +23,23 @@ import java.lang.reflect.Method;
 
 import com.greenpepper.TypeConversion;
 
+/**
+ * <p>StaticInvocation class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class StaticInvocation extends Message
 {
     private final Object target;
     private final Method method;
 
+    /**
+     * <p>Constructor for StaticInvocation.</p>
+     *
+     * @param target a {@link java.lang.Object} object.
+     * @param method a {@link java.lang.reflect.Method} object.
+     */
     public StaticInvocation( Object target, Method method )
     {
         super();
@@ -36,11 +48,23 @@ public class StaticInvocation extends Message
         this.method = method;
     }
 
+    /**
+     * <p>getArity.</p>
+     *
+     * @return a int.
+     */
     public int getArity()
     {
         return method.getParameterTypes().length;
     }
 
+    /**
+     * <p>send.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     * @throws java.lang.Exception if any.
+     */
     public Object send( String... args ) throws Exception
     {
         try

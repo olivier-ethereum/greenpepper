@@ -23,9 +23,16 @@ package com.greenpepper.converter;
  * object of another type.
  *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public interface TypeConverter
 {
+    /**
+     * <p>canConvertTo.</p>
+     *
+     * @param type a {@link java.lang.Class} object.
+     * @return a boolean.
+     */
     boolean canConvertTo( Class type );
 
     /**
@@ -33,14 +40,15 @@ public interface TypeConverter
      * subclass implementation.
      *
      * @param value Value to be converted
-     * @param type
+     * @param type a {@link java.lang.Class} object.
      * @return Converted value
      */
     Object parse( String value, Class type );
 
     /**
      * Convert value to a string representation.
-     * @param value
+     *
+     * @param value a {@link java.lang.Object} object.
      * @return the string representation of value
      */
     String toString( Object value );

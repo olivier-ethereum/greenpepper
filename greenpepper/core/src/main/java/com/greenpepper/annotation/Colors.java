@@ -20,14 +20,31 @@ package com.greenpepper.annotation;
 
 import java.awt.Color;
 
+/**
+ * <p>Colors class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public final class Colors
 {
+    /** Constant <code>YELLOW="#FFFFAA"</code> */
     public static final String YELLOW = "#FFFFAA"; // 255, 255, 170
+    /** Constant <code>GREEN="#AAFFAA"</code> */
     public static final String GREEN = "#AAFFAA"; // 170, 255, 170
+    /** Constant <code>GRAY="#CCCCCC"</code> */
     public static final String GRAY = "#CCCCCC"; // 204, 204, 204
+    /** Constant <code>RED="#FFAAAA"</code> */
     public static final String RED = "#FFAAAA"; // 255, 170, 170 
+	/** Constant <code>ORANGE="#FFC800"</code> */
 	public static final String ORANGE = "#FFC800"; // 255, 200, 0
 
+    /**
+     * <p>toRGB.</p>
+     *
+     * @param color a {@link java.awt.Color} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String toRGB(Color color)
     {
         String rgb = "#";

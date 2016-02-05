@@ -19,13 +19,27 @@
 
 package com.greenpepper.util.cli;
 
+/**
+ * <p>Abstract ParseException class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public abstract class ParseException extends Exception
 {
+    /**
+     * <p>Constructor for ParseException.</p>
+     */
     protected ParseException()
     {
         super();
     }
 
+    /**
+     * <p>Constructor for ParseException.</p>
+     *
+     * @param cause a {@link java.lang.Throwable} object.
+     */
     public ParseException( Throwable cause )
     {
         super( cause );

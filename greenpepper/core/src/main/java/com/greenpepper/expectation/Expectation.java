@@ -26,12 +26,16 @@ package com.greenpepper.expectation;
  * test output.
  *
  * @version $Revision: $ $Date: $
+ * @author oaouattara
  */
 public interface Expectation
 {
     /**
      * Utility method to create a textual representation of this
      * <code>Expectation</code>.
+     *
+     * @param string a {@link java.lang.StringBuilder} object.
+     * @return a {@link java.lang.StringBuilder} object.
      */
     StringBuilder describeTo(StringBuilder string);
 

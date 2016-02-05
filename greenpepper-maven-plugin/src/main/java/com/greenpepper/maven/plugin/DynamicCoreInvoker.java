@@ -22,22 +22,44 @@ package com.greenpepper.maven.plugin;
 import com.greenpepper.runner.NullSpecificationRunnerMonitor;
 import com.greenpepper.runner.SpecificationRunnerMonitor;
 
+/**
+ * <p>DynamicCoreInvoker class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DynamicCoreInvoker
 {
     private final ClassLoader classLoader;
     private SpecificationRunnerMonitor monitor;
 
+    /**
+     * <p>Constructor for DynamicCoreInvoker.</p>
+     *
+     * @param classLoader a {@link java.lang.ClassLoader} object.
+     */
     public DynamicCoreInvoker(ClassLoader classLoader)
     {
         this.classLoader = classLoader;
         monitor = new NullSpecificationRunnerMonitor();
     }
 
+    /**
+     * <p>Setter for the field <code>monitor</code>.</p>
+     *
+     * @param monitor a {@link com.greenpepper.runner.SpecificationRunnerMonitor} object.
+     */
     public void setMonitor(SpecificationRunnerMonitor monitor)
     {
         this.monitor = monitor;
     }
 
+    /**
+     * <p>run.</p>
+     *
+     * @param args a {@link java.lang.String} object.
+     * @throws java.lang.Exception if any.
+     */
     public void run(String... args) throws Exception
     {
         ClassLoader old = Thread.currentThread().getContextClassLoader();

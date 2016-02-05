@@ -33,18 +33,36 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.util.CollectionUtil;
 import com.greenpepper.util.ExampleUtil;
 
+/**
+ * <p>AcceptRow class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class AcceptRow extends AbstractRow
 {
+    /**
+     * <p>matches.</p>
+     *
+     * @param keyword a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean matches( String keyword )
     {
         return "accept".equalsIgnoreCase( keyword );
     }
 
+    /**
+     * <p>Constructor for AcceptRow.</p>
+     *
+     * @param fixture a {@link com.greenpepper.reflect.Fixture} object.
+     */
     public AcceptRow( Fixture fixture )
     {
         super( fixture );
     }
 
+    /** {@inheritDoc} */
     public void interpret( Specification table )
     {
         Example row = table.nextExample();
@@ -72,6 +90,7 @@ public class AcceptRow extends AbstractRow
         return CollectionUtil.odd( row.firstChild() );
     }
 
+    /** {@inheritDoc} */
     public List<Example> actionCells(Example row)
     {
 		return ExampleUtil.asList(row.at(0,1));

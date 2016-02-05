@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2008 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.runner.report;
 
@@ -35,7 +39,6 @@ import com.greenpepper.util.ExceptionImposter;
 import com.greenpepper.util.ExceptionUtils;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
 public class XmlReport
 		implements Report
 {
@@ -58,21 +61,42 @@ public class XmlReport
 	private Element root;
 	private String name;
 
+	/**
+	 * <p>newInstance.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @return a {@link com.greenpepper.server.rpc.runner.report.XmlReport} object.
+	 */
 	public static XmlReport newInstance(String name)
 	{
 		return new XmlReport(name);
 	}
 
+	/**
+	 * <p>Constructor for XmlReport.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public XmlReport(String name)
 	{
 		this.name = name;
 	}
 
+	/**
+	 * <p>Getter for the field <code>name</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * <p>getType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getType()
 	{
 		return "xml";
@@ -90,6 +114,7 @@ public class XmlReport
 		}
 	}
 
+	/** {@inheritDoc} */
 	public void renderException(Throwable throwable)
 	{
 		createEmptyDocument();
@@ -104,6 +129,7 @@ public class XmlReport
 		dom.appendChild(root);
 	}
 
+	/** {@inheritDoc} */
 	public void generate(Execution execution)
 	{
 		createEmptyDocument();
@@ -133,6 +159,7 @@ public class XmlReport
 		addIntValue(stats, IGNORED, execution.getIgnored());
 	}
 
+	/** {@inheritDoc} */
 	public void printTo(Writer out)
 			throws IOException
 	{

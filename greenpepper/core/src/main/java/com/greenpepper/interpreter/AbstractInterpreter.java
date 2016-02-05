@@ -21,6 +21,12 @@ package com.greenpepper.interpreter;
 
 import com.greenpepper.Interpreter;
 
+/**
+ * <p>Abstract AbstractInterpreter class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public abstract class AbstractInterpreter implements Interpreter
 {
 }

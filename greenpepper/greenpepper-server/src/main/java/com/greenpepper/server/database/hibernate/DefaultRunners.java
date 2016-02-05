@@ -21,8 +21,15 @@ import com.greenpepper.server.domain.dao.hibernate.HibernateSystemUnderTestDao;
 import com.greenpepper.server.runner.spi.DefaultRunnerBuilder;
 import com.greenpepper.util.URIUtil;
 
+/**
+ * <p>DefaultRunners class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class DefaultRunners {
 
+    /** Constant <code>DEFAULT_RUNNER_BUILDER_INTERFACE="com.greenpepper.server.runner.spi.Defau"{trunked}</code> */
     public static final String DEFAULT_RUNNER_BUILDER_INTERFACE = "com.greenpepper.server.runner.spi.DefaultRunnerBuilder";
 
     private static Logger log = LoggerFactory.getLogger(DefaultRunners.class);
@@ -34,16 +41,33 @@ public class DefaultRunners {
     private String version;
     private String jarFile;
 
+    /**
+     * <p>Constructor for DefaultRunners.</p>
+     *
+     * @param sessionService a {@link com.greenpepper.server.database.SessionService} object.
+     * @param properties a {@link java.util.Properties} object.
+     */
     public DefaultRunners(SessionService sessionService, Properties properties) {
         this(new HibernateSystemUnderTestDao(sessionService), properties);
     }
 
+    /**
+     * <p>Constructor for DefaultRunners.</p>
+     *
+     * @param systemUnderTestDao a {@link com.greenpepper.server.domain.dao.SystemUnderTestDao} object.
+     * @param properties a {@link java.util.Properties} object.
+     */
     public DefaultRunners(SystemUnderTestDao systemUnderTestDao, Properties properties) {
         this.sutDao = systemUnderTestDao;
         this.properties = properties;
         this.serviceLoader = ServiceLoader.load(DefaultRunnerBuilder.class);
     }
 
+    /**
+     * <p>insert.</p>
+     *
+     * @throws java.lang.Exception if any.
+     */
     public void insert() throws Exception {
         insertJavaRunner();
         insertDotNetRunner();

@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2009 Pyxis Technologies inc.
  *
@@ -15,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA,
  * or see the FSF site: http://www.fsf.org.
+ *
+ * @author oaouattara
+ * @version $Id: $Id
  */
 package com.greenpepper.server.rpc.xmlrpc.client;
 
@@ -32,7 +36,6 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.apache.xmlrpc.client.XmlRpcLiteHttpTransportFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 public class XmlRpcV3ClientImpl
 		implements XmlRpcClientExecutor {
 
@@ -40,6 +43,12 @@ public class XmlRpcV3ClientImpl
 
 	private final XmlRpcClient client;
 
+	/**
+	 * <p>Constructor for XmlRpcV3ClientImpl.</p>
+	 *
+	 * @param url a {@link java.lang.String} object.
+	 * @throws com.greenpepper.server.rpc.xmlrpc.client.XmlRpcClientExecutorException if any.
+	 */
 	public XmlRpcV3ClientImpl(String url)
 			throws XmlRpcClientExecutorException {
 
@@ -57,6 +66,7 @@ public class XmlRpcV3ClientImpl
 		}
 	}
 
+	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
 	public Object execute(String method, Vector params)
 			throws XmlRpcClientExecutorException {

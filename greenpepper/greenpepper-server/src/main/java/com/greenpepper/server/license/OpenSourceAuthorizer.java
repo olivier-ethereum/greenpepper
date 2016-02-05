@@ -9,24 +9,40 @@ import com.greenpepper.server.database.hibernate.HibernateSessionService;
 import com.greenpepper.server.domain.Repository;
 import com.greenpepper.util.FormatedDate;
 
+/**
+ * <p>OpenSourceAuthorizer class.</p>
+ *
+ * @author oaouattara
+ * @version $Id: $Id
+ */
 public class OpenSourceAuthorizer implements Authorizer {
 
+    /**
+     * <p>Constructor for OpenSourceAuthorizer.</p>
+     *
+     * @param service a {@link com.greenpepper.server.database.hibernate.HibernateSessionService} object.
+     * @param sProperties a {@link java.util.Properties} object.
+     */
     public OpenSourceAuthorizer(HibernateSessionService service, Properties sProperties) {
     }
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(Date versionDate) throws Exception {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public void reInitialize(String newLicence) throws Exception {
     }
 
+    /** {@inheritDoc} */
     @Override
     public void verify(Repository repository, Permission permission) throws GreenPepperLicenceException {
     }
 
+    /** {@inheritDoc} */
     @Override
     public LicenseBean getLicenseBean() {
         Calendar debut = Calendar.getInstance();
@@ -47,6 +63,7 @@ public class OpenSourceAuthorizer implements Authorizer {
         return bean;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isCommercialLicense() {
         return false;

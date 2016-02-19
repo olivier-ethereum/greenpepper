@@ -23,6 +23,7 @@ import org.unitils.easymock.annotation.Mock;
 import org.unitils.inject.annotation.TestedObject;
 
 import com.greenpepper.GreenPepperCore;
+import com.greenpepper.confluence.Plugin;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.EnvironmentType;
 import com.greenpepper.server.domain.Runner;
@@ -32,7 +33,7 @@ import com.greenpepper.server.domain.dao.SystemUnderTestDao;
 public class ConfluenceDefaultRunnerBuilderTest {
 
     private static final String clientJarFileName = "greenpepper-client-" + GreenPepperCore.VERSION + "-complete.jar";
-    private static final String demoJarFileName = "greenpepper-confluence-demo-" + GreenPepperCore.VERSION + "-fixtures.jar";
+    private static final String demoJarFileName = "greenpepper-confluence-demo-" + Plugin.VERSION + "-fixtures.jar";
 
     @TestedObject
     private ConfluenceDefaultRunnerBuilder builder;

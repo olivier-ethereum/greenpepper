@@ -24,7 +24,9 @@ import static org.junit.Assert.fail;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Properties;
 
 import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.lang3.StringUtils;
@@ -39,8 +41,15 @@ import com.greenpepper.GreenPepperCore;
 public class CommandLineRunnerTest
 {
 
+    private String pluginVersion;
     private CommandLineRunner runner;
 
+    public CommandLineRunnerTest() throws IOException {
+        Properties testing = new Properties(); 
+        testing.load(getClass().getResourceAsStream("/testing.properties"));
+        pluginVersion = testing.getProperty("plugin.version");
+    }
+    
     @Before
     public void setUp()
             throws Exception
@@ -99,11 +108,11 @@ public class CommandLineRunnerTest
     {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner( new PrintStream( byteOut ) );
-        runner.run( "--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:pom:" + GreenPepperCore.VERSION,
+        runner.run( "--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:pom:" + pluginVersion,
                 "src/test/resources/collection.html", "-o", "target/reports", "--xml" );
         String output = byteOut.toString();
-        assertThat( output, containsString( "Artifact: com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures:" + GreenPepperCore.VERSION ) );
-        assertThat( output, containsString( "Artifact: com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:" + GreenPepperCore.VERSION ) );
+        assertThat( output, containsString( "Artifact: com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures:" + pluginVersion ) );
+        assertThat( output, containsString( "Artifact: com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:" + pluginVersion ) );
         assertThat( output, containsString( "Running collection.html" ) );
         assertThat( output, containsString( "38 tests: 38 right, 0 wrong, 0 ignored, 0 exception(s)" ) );
     }
@@ -139,7 +148,7 @@ public class CommandLineRunnerTest
     {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner( new PrintStream( byteOut ) );
-        runner.run( "--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:complete:" + GreenPepperCore.VERSION,
+        runner.run( "--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:complete:" + pluginVersion,
                 "src/test/resources/collection.html", "-o", "target/reports", "--xml" );
     }
 

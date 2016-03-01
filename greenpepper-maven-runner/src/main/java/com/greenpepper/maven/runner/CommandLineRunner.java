@@ -123,31 +123,32 @@ public class CommandLineRunner {
     private List<String> parseCommandLine(String[] args) throws ArgumentMissingException, IOException, ParseException {
         List<String> parameters = new ArrayList<String>();
         CommandLine commandLine = argumentsParser.parse(args);
-        Option[] options = commandLine.getOptions();
-        for (Option option : options) {
-            if ("v".equals(option.getOpt())) {
-                isDebug = true;
-                parameters.add("--debug");
-            } else if ("p".equals(option.getOpt())) {
-                projectDependencyDescriptor = option.getValue();
-            } else if ("m".equals(option.getOpt())) {
-                usingScopes(option.getValue());
-            } else if ("o".equals(option.getOpt())) {
-                parameters.add("-" + option.getOpt());
-                parameters.add(option.getValue());
-            } else if ("r".equals(option.getOpt())) {
-                parameters.add("-" + option.getOpt());
-                parameters.add(option.getValue());
-            } else {
-                parameters.add("--" + option.getLongOpt());
-                if (option.hasArg()) {
+        if (commandLine != null) {
+            Option[] options = commandLine.getOptions();
+            for (Option option : options) {
+                if ("v".equals(option.getOpt())) {
+                    isDebug = true;
+                    parameters.add("--debug");
+                } else if ("p".equals(option.getOpt())) {
+                    projectDependencyDescriptor = option.getValue();
+                } else if ("m".equals(option.getOpt())) {
+                    usingScopes(option.getValue());
+                } else if ("o".equals(option.getOpt())) {
+                    parameters.add("-" + option.getOpt());
                     parameters.add(option.getValue());
+                } else if ("r".equals(option.getOpt())) {
+                    parameters.add("-" + option.getOpt());
+                    parameters.add(option.getValue());
+                } else {
+                    parameters.add("--" + option.getLongOpt());
+                    if (option.hasArg()) {
+                        parameters.add(option.getValue());
+                    }
                 }
             }
-        }
-        parameters.addAll(commandLine.getArgList());
-
-        return parameters;
+            parameters.addAll(commandLine.getArgList());  
+        } 
+        return parameters;            
     }
 
     private void usingScopes(String values) {

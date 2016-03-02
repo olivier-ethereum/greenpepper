@@ -266,7 +266,6 @@ public class ConfluenceXmlRpcGreenPepperServiceImpl implements GreenPepperRpcHel
     	        basicRenderedPage.append("<style>\n");
 				basicRenderedPage.append(StyleSheetExtractorFactory.getInstance().renderStyleSheet(page.getSpace()));
 				basicRenderedPage.append("</style>\n");
-    	        basicRenderedPage.append("<base href=\"").append(baseUrl).append("\"/>\n");
 			}
 
 			basicRenderedPage.append("</head>\n<body>\n");

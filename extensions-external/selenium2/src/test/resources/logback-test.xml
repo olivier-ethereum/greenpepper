@@ -8,6 +8,7 @@
 	</appender>
 
 	<logger name="com.greenpepper" level="WARN"/>
+	<logger name="com.greenpepper.report.FileReportGenerator" level="TRACE"/>
 
 	<root level="WARN">
 		<appender-ref ref="STDOUT" />

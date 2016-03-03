@@ -17,6 +17,7 @@
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
 			<version>${project.version}</version>
+			<classifier>complete</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>

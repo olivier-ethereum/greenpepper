@@ -19,15 +19,20 @@
 
 package com.greenpepper.report;
 
-import com.greenpepper.util.Factory;
-import com.greenpepper.util.IOUtil;
-import com.greenpepper.util.URIUtil;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.greenpepper.util.Factory;
+import com.greenpepper.util.IOUtil;
+import com.greenpepper.util.URIUtil;
 
 /**
  * <p>FileReportGenerator class.</p>
@@ -37,6 +42,7 @@ import java.net.URISyntaxException;
  */
 public class FileReportGenerator implements ReportGenerator
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileReportGenerator.class);
     private final File reportsDirectory;
 
     private Class<? extends Report> reportClass;
@@ -93,8 +99,13 @@ public class FileReportGenerator implements ReportGenerator
                 }
             }
             IOUtil.createDirectoryTree( reportFile.getParentFile() );
+            StringWriter strOut = new StringWriter();
+            report.printTo( strOut );
+            strOut.flush();
             out = new FileWriter( reportFile );
-            report.printTo( out );
+            String reportString = strOut.toString();
+            LOGGER.trace("Final Report to be written :\n {}", reportString);
+            IOUtils.write(reportString, out);
             out.flush();
         }
         finally

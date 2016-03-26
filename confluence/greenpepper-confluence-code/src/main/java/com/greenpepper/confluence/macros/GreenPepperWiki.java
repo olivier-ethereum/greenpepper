@@ -49,7 +49,7 @@ public class GreenPepperWiki extends AbstractGreenPepperMacro
     
     /**
      * Confluence 2 and 3
-     * 
+     *
      * @param parameters
      * @param body
      * @param renderContext

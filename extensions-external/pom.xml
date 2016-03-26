@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.github.strator-dev.greenpepper</groupId>
 		<artifactId>greenpepper-open</artifactId>
-		<version>4.0-RC2-SNAPSHOT</version>
+		<version>4.0</version>
 	</parent>
 
 	<!--

@@ -145,6 +145,13 @@
 		</resource>
 	</macro>
 
+	<macro name='greenpepper-wiki' class='com.greenpepper.confluence.macros.GreenPepperWiki' key='greenpepper-wiki'
+				 icon="/download/resources/com.greenpepper.confluence.plugin/icons/logo.jpg"
+				 documentation-url="https://confluence.atlassian.com/display/CONF50/Confluence+Wiki+Markup">
+		<category name="development"/>
+		<parameters/>
+	</macro>
+
 	<!-- XHTML MACRO-->
     
     <xhtml-macro name='greenpepper-logo' class='com.greenpepper.confluence.macros.GreenPepperLogo' key='greenpepper-logo-xhtml' hidden='true'>

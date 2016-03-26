@@ -2,6 +2,8 @@ package com.greenpepper.confluence.macros;
 
 import java.util.Map;
 
+import com.atlassian.confluence.content.render.xhtml.ConversionContext;
+import com.atlassian.confluence.macro.MacroExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,13 +47,42 @@ public class GreenPepperWiki extends AbstractGreenPepperMacro
         return BodyType.PLAIN_TEXT;
     }
     
-    /** {@inheritDoc} */
+    /**
+     * Confluence 2 and 3
+     * 
+     * @param parameters
+     * @param body
+     * @param renderContext
+     * @return
+     * @throws MacroException
+     */
     @Override
     public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext renderContext) throws MacroException 
     {
         try
         {
-            String xhtmlRendered = gpUtil.getWikiStyleRenderer().convertWikiToXHtml(renderContext, body);
+            return body;
+        }
+        catch (Exception e)
+        {
+            return getErrorView("greenpepper.info.macroid", e.getMessage());
+        }
+    }
+
+    /**
+     * Confluence 4+
+     * @param parameters
+     * @param body
+     * @param context
+     * @return
+     * @throws MacroExecutionException
+     */
+    @Override
+    public String execute(Map<String, String> parameters, String body,
+                          ConversionContext context) throws MacroExecutionException {
+        try
+        {
+            String xhtmlRendered = gpUtil.getWikiStyleRenderer().convertWikiToXHtml(context.getPageContext(), body);
             LOGGER.trace("rendering : \n - source \n {} \n - output \n {}", body, xhtmlRendered);
             return xhtmlRendered;
         }

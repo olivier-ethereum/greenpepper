@@ -6,12 +6,6 @@
         <param name="configure.url">/admin/plugins/greenpepper/config.action</param>
     </plugin-info>
 
-    <web-resource key="scriptaculous" name="Scriptaculous" >
-        <!-- resource type="download" name="scriptaculous.js" location="includes/js/effects/scriptaculous.js" / -->
-        <resource type="download" name="effects.js" location="includes/js/effects/effects.js" />
-		<context>greenpepper-resources</context>
-    </web-resource>
-
     <resource type="download" name="js/" location="includes/js/"/>
     <resource type="download" name="css/" location="includes/css/"/>
     <resource type="download" name="images/" location="includes/images/"/>

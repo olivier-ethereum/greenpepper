@@ -20,7 +20,6 @@
 				&nbsp;
 				#if(!$action.implemented && $action.isExecutable)
 					<div id="conf_configPopup_${action.bulkUID}_${action.executionUID}_0" class="conf_configPopup" style="display:none; margin:0px; padding:0px;"><span id="conf_configPopup_display_${action.bulkUID}_${action.executionUID}_0"></span></div>
-					<script language="JavaScript" type="text/javascript">new Draggable('conf_configPopup_${action.bulkUID}_${action.executionUID}_0');</script>
 				#end
 			</td>
 			<td width="50%" align="right" cellpadding="0" cellspacing="0">

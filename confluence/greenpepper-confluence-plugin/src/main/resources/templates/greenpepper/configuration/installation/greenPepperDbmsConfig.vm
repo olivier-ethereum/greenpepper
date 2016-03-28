@@ -12,7 +12,7 @@
 					<div class="field-group">
 						<label for="installType_Cmb" >$action.getText('greenpepper.install.installtypelabel')</label>
 						<select id="installType_Cmb" 
-							onchange="_prototype_$$('#installPreference div[id]').each(function(s){s.hide();});$('#' +this.value).show();gpProperties.changeInstallationType();" 
+							onchange="$('#installPreference div[id]').each(function(s){s.hide();});$('#' +this.value).show();gpProperties.changeInstallationType();"
 							#if(!$action.editMode)disabled="disabled"#end
 							class="select">
 							<option value="quickInstall" #if(!$action.isCustomSetup)selected="selected"#end>$action.getText('greenpepper.install.quick')</option>

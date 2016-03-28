@@ -1,8 +1,6 @@
 <html>
 	<link rel="stylesheet" href="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/css/server-properties.css" type="text/css"/>
-	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/prototype.js"></script>
-	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/scriptaculous.js"></script>
-	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/effects.js"></script>
+	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/inheritance.js"></script>
 	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/gp-pyxis-util-${greenPepper.getVersion()}.js"></script>
 	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/ConfluenceActions-${greenPepper.getVersion()}.js"></script>
 	<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/server-properties-${greenPepper.getVersion()}.js"></script>

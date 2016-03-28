@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.greenpepper.confluence.Plugin;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -131,7 +132,7 @@ public class ConfluenceGreenPepper {
      * @return a {@link java.lang.String} object.
      */
     public String getVersion() {
-        return GreenPepperServer.VERSION;
+        return Plugin.VERSION;
     }
 
     /**

@@ -23,207 +23,184 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-	var GP = { VERSION: '1.0' };
-	GP.View =
-	{
-		show: function(id){
-			if (_prototype_$(id)){
-				_prototype_$(id).opacity=1.0;
-				Element.show(id);
-			}
-		},
-		switchView: function(switchShow, switchHide){
+var GP = { VERSION: '1.0' };
+GP.View =
+{
+	show: function(id){
+		var element = AJS.$('#'+id);
+		if (element.length){
+			element.css('opacity',1.0);
+			element.show();
+		}
+	},
+	switchView: function(switchShow, switchHide){
+		this.hide(switchHide);
+		this.show(switchShow);
+	},
+	switchShadowedView: function(switchShow, switchHide){
+		if (this.isVisible(switchHide)){
 			this.hide(switchHide);
 			this.show(switchShow);
-		},
-		switchShadowedView: function(switchShow, switchHide){
-			if (this.isVisible(switchHide)){
-			this.hide(switchHide);
-			this.show(switchShow);
-			}
-		},
-		toPath: function(string){ return string.replace(/\\/g, "/");},
-		hide: function(id){ if (_prototype_$(id))  Element.hide(id); },
-		isVisible: function(id){return (_prototype_$(id) && Element.visible(id)); },
-		getInnerValue: function(field){ return _prototype_$(field) ? _prototype_$(field).innerHTML : '';},
-		setValue: function(id, value) {if (_prototype_$(id)) _prototype_$(id).value = value; },
-		write: function(id, content){ if (_prototype_$(id)) _prototype_$(id).innerHTML = content; },
-		appear: function(id, time){ if (_prototype_$(id)) new Effect.Appear(id, {duration:time,queue:'parallel'}); },
-		fade: function(id, time){ if (_prototype_$(id)) new Effect.Fade(id, {duration:time,queue:'parallel'});},
-		setClassName: function(id, className){  if (_prototype_$(id)) _prototype_$(id).className = className; },
-		inputFocus: function(element, className){
-			element.className = className;
-			element.value = '';
-		},
-		verifyKeyCode: function(evt){
-			var charCode = (evt.which) ? evt.which : evt.keyCode;
-			if (charCode == 95 || charCode == 33 || charCode == 32 || charCode == 8){ return true; }
-			//Permet les touches home, end, les fl�ches et le tab
-			if (charCode ==  9 || (charCode >= 35 && charCode <= 40)){ return true; }
-			if (charCode > 43 && charCode < 60){ return true; }
-			if (charCode > 64 && charCode < 91){ return true; }
-			if (charCode > 96 && charCode < 123){ return true; }
-			return false;
-		},
-		findPos: function(obj){
-			var curleft = curtop = 0;
-			if (obj.offsetParent) {
-				curleft = obj.offsetLeft
-				curtop = obj.offsetTop
-				while (obj = obj.offsetParent) {
-					curleft += obj.offsetLeft
-					curtop += obj.offsetTop
-				}
-			}
-			return [curleft,curtop];
-		},
-		showPane: function(paneToShow, paneContainerID, panesTagType){
-			if (_prototype_$(paneContainerID) && panesTagType != '' && _prototype_$(paneToShow)){
-				_prototype_$$('#'+ _prototype_$(paneContainerID).id + ' ' + panesTagType).each(function(s){ jQuery(s).removeClass('active-pane'); });
-				jQuery('#'+ _prototype_$(paneContainerID).id + ' #' + paneToShow).addClass('active-pane');
-				this.show(paneToShow);
+		}
+	},
+	toPath: function(string){ return string.replace(/\\/g, "/");},
+	hide: function(id){ if (AJS.$('#'+id).length) AJS.$('#'+id).hide(); },
+	isVisible: function(id){return (AJS.$('#'+id).length && AJS.$('#'+id).is(':visible')); },
+	getInnerValue: function(field){ return AJS.$('#'+field).length ? AJS.$('#'+field).html() : '';},
+	setValue: function(id, value) {if (AJS.$('#'+id).length) AJS.$('#'+id).val(value); },
+	write: function(id, content){ if (AJS.$('#'+id).length) AJS.$('#'+id).html(content); },
+	appear: function(id, time){ if (AJS.$('#'+id).length) AJS.$('#'+id).fadeIn(time); },
+	fade: function(id, time){ if (AJS.$('#'+id).length) AJS.$('#'+id).fadeOut(time); },
+	setClassName: function(id, className){  if (AJS.$('#'+id).length) AJS.$('#'+id).attr('class', className); },
+	inputFocus: function(element, className){
+		var target = AJS.$(element);
+		target.attr('class', className);
+		target.val('');
+	},
+	verifyNumericOnly: function(evt){
+		if (evt.which >= 48 && evt.which <= 57){return true;}    //Allows numerics
+		if (evt.keyCode >= 37 && evt.keyCode <=40){return true;} //Allows arrow keys
+		if (evt.keyCode == 8 || evt.keyCode == 46){return true;} //Allows backspace and delete
+		if (evt.keyCode == 9){return true;}                      //Allows tabulator
+		return false;
+	},
+	verifyKeyCode: function(evt){
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		if (charCode == 95 || charCode == 33 || charCode == 32 || charCode == 8){ return true; }
+		//Allows the home, end, the arrows and the tab keys
+		if (charCode ==  9 || (charCode >= 35 && charCode <= 40)){ return true; }
+		if (charCode > 43 && charCode < 60){ return true; }
+		if (charCode > 64 && charCode < 91){ return true; }
+		if (charCode > 96 && charCode < 123){ return true; }
+		return false;
+	},
+	findPos: function(obj){
+		var curleft = curtop = 0;
+		if (obj.offsetParent) {
+			curleft = obj.offsetLeft
+			curtop = obj.offsetTop
+			while (obj = obj.offsetParent) {
+				curleft += obj.offsetLeft
+				curtop += obj.offsetTop
 			}
 		}
-	};
-	
-	function $M(object) {
-		var map = $H(object);
-		Object.extend(map, GP.HashExtensions);  
-		return map;
-	};
-	GP.HashExtensions =
-	{
-		remove:function(key) { try{ delete this[key]; }catch(e){} },
-		size:function() { return this.keys().length; },
-		isEmpty:function() { return this.size() === 0; },
-		clear:function() {
-			for (var key in this) {
-				var value = this[key];
-				if (typeof value == 'function'){ continue; }
-					delete this[key];
-			}
-		},
-		eachEntry:function(iterator) {
-			this.each(function(entry, index) {
-				iterator(entry[0], entry[1]);
-			});
-		},
-		eachValue:function(iterator) {
-			this.eachEntry(function(key, value) {
-				if (typeof value != 'function'){iterator(value); }
-			});
-		},
-		findValue:function(iterator) {
-			var result = this.detect(function(entry, index) {
-				return iterator(entry[1]);
-			});
-			return result ? result[1] : result;
+		return [curleft,curtop];
+	},
+	showPane: function(paneToShow, paneContainerID, panesTagType){
+		if ($('#'+paneContainerID) && panesTagType != '' && $('#'+paneToShow)){
+			$('#'+ paneContainerID + ' ' + panesTagType).each(function(s){ jQuery(s).removeClass('active-pane'); });
+			jQuery('#'+ paneContainerID + ' #' + paneToShow).addClass('active-pane');
+			this.show(paneToShow);
 		}
-	};
-	
-	var BrowserDetect = {
-		init: function () {
-			this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
-			this.version = this.searchVersion(navigator.userAgent)
-				|| this.searchVersion(navigator.appVersion)
-				|| "an unknown version";
-			this.OS = this.searchString(this.dataOS) || "an unknown OS";
-		},
-		searchString: function (data) {
-			for (var i=0;i<data.length;i++)	{
-				var dataString = data[i].string;
-				var dataProp = data[i].prop;
-				this.versionSearchString = data[i].versionSearch || data[i].identity;
-				if (dataString) {
-					if (dataString.indexOf(data[i].subString) != -1)
-						return data[i].identity;
-				}
-				else if (dataProp)
+	}
+};
+
+function $F(elementId){
+	return AJS.$('#' + elementId).val();
+}
+
+var BrowserDetect = {
+	init: function () {
+		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+			|| this.searchVersion(navigator.appVersion)
+			|| "an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString: function (data) {
+		for (var i=0;i<data.length;i++)	{
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1)
 					return data[i].identity;
 			}
+			else if (dataProp)
+				return data[i].identity;
+		}
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) return;
+		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+	},
+	dataBrowser: [
+		{ 	string: navigator.userAgent,
+			subString: "OmniWeb",
+			versionSearch: "OmniWeb/",
+			identity: "OmniWeb"
 		},
-		searchVersion: function (dataString) {
-			var index = dataString.indexOf(this.versionSearchString);
-			if (index == -1) return;
-			return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+		{
+			string: navigator.vendor,
+			subString: "Apple",
+			identity: "Safari"
 		},
-		dataBrowser: [
-			{ 	string: navigator.userAgent,
-				subString: "OmniWeb",
-				versionSearch: "OmniWeb/",
-				identity: "OmniWeb"
-			},
-			{
-				string: navigator.vendor,
-				subString: "Apple",
-				identity: "Safari"
-			},
-			{
-				prop: window.opera,
-				identity: "Opera"
-			},
-			{
-				string: navigator.vendor,
-				subString: "iCab",
-				identity: "iCab"
-			},
-			{
-				string: navigator.vendor,
-				subString: "KDE",
-				identity: "Konqueror"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "Firefox",
-				identity: "Firefox"
-			},
-			{
-				string: navigator.vendor,
-				subString: "Camino",
-				identity: "Camino"
-			},
-			{		// for newer Netscapes (6+)
-				string: navigator.userAgent,
-				subString: "Netscape",
-				identity: "Netscape"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "MSIE",
-				identity: "Explorer",
-				versionSearch: "MSIE"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "Gecko",
-				identity: "Mozilla",
-				versionSearch: "rv"
-			},
-			{ 		// for older Netscapes (4-)
-				string: navigator.userAgent,
-				subString: "Mozilla",
-				identity: "Netscape",
-				versionSearch: "Mozilla"
-			}
-		],
-		dataOS : [
-			{
-				string: navigator.platform,
-				subString: "Win",
-				identity: "Windows"
-			},
-			{
-				string: navigator.platform,
-				subString: "Mac",
-				identity: "Mac"
-			},
-			{
-				string: navigator.platform,
-				subString: "Linux",
-				identity: "Linux"
-			}
-		]
-	
-	};
-	BrowserDetect.init();
-	
+		{
+			prop: window.opera,
+			identity: "Opera"
+		},
+		{
+			string: navigator.vendor,
+			subString: "iCab",
+			identity: "iCab"
+		},
+		{
+			string: navigator.vendor,
+			subString: "KDE",
+			identity: "Konqueror"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Firefox",
+			identity: "Firefox"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Camino",
+			identity: "Camino"
+		},
+		{		// for newer Netscapes (6+)
+			string: navigator.userAgent,
+			subString: "Netscape",
+			identity: "Netscape"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "MSIE",
+			identity: "Explorer",
+			versionSearch: "MSIE"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Gecko",
+			identity: "Mozilla",
+			versionSearch: "rv"
+		},
+		{ 		// for older Netscapes (4-)
+			string: navigator.userAgent,
+			subString: "Mozilla",
+			identity: "Netscape",
+			versionSearch: "Mozilla"
+		}
+	],
+	dataOS : [
+		{
+			string: navigator.platform,
+			subString: "Win",
+			identity: "Windows"
+		},
+		{
+			string: navigator.platform,
+			subString: "Mac",
+			identity: "Mac"
+		},
+		{
+			string: navigator.platform,
+			subString: "Linux",
+			identity: "Linux"
+		}
+	]
+
+};
+BrowserDetect.init();

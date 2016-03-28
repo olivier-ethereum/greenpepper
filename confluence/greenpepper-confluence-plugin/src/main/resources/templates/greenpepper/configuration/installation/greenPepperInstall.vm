@@ -4,9 +4,7 @@
 		<title>$action.getText('greenpepper.install.title')</title>
     </head>
     <body>
-		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/prototype.js"></script>
-		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/scriptaculous.js"></script>
-		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/effects.js"></script>
+		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/lib/inheritance.js"></script>
 		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/gp-pyxis-util-${greenPepper.getVersion()}.js"></script>
 		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/ConfluenceActions-${greenPepper.getVersion()}.js"></script>
 		<script language="JavaScript" type="text/javascript" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/js/server-properties-${greenPepper.getVersion()}.js"></script>
@@ -16,7 +14,7 @@
 			
 			function updateTabsUI(selectedTab)
 			{
-				_prototype_$$('#gpconfig-tabs .tabs-menu li').each(function(s){s.className="menu-item";});
+				$('#gpconfig-tabs .tabs-menu li').each(function(s){s.className="menu-item";});
 				selectedTab.className='menu-item active-tab';
 			}
 		</script>
@@ -65,8 +63,8 @@
             </div>
         #end
         	<script language="JavaScript" type="text/javascript">
-				_prototype_$$('#gpconfig-tabs .tabs-menu .menu-item a')[0].onclick();
-				jQuery(_prototype_$$('#gpconfig-tabs .tabs-menu .menu-item')[0]).addClass("active-tab");
+				$('#gpconfig-tabs .tabs-menu .menu-item a')[0].onclick();
+                $('#gpconfig-tabs .tabs-menu .menu-item:first').addClass("active-tab");
 			</script>
     </body>
 </html>

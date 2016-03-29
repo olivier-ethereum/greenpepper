@@ -41,6 +41,6 @@ public class MacroParametersUtils {
 	 */
 	public static String[] extractParameterMultiple(String name, Map parameters) {
 		String paramValues = extractParameter(name, parameters);
-		return StringUtils.split(paramValues, ", ");
+		return StringUtils.stripAll(StringUtils.split(paramValues, ", "));
 	}
 }

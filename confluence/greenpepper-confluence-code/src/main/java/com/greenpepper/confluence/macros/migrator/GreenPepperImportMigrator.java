@@ -38,9 +38,8 @@ public class GreenPepperImportMigrator implements MacroMigration {
 
 		MacroDefinition newMacroDefinition = new MacroDefinition();
 		newMacroDefinition.setName(macroDefinition.getName());
-		newMacroDefinition.setParameters(params);
-		//MacroBody macroBody = new PlainTextMacroBody(imports.replaceAll(",", "\n"));
-		//newMacroDefinition.setBody(macroBody);
+		MacroBody macroBody = new PlainTextMacroBody(imports.replaceAll(",", "\n"));
+		newMacroDefinition.setBody(macroBody);
 		LOGGER.debug("Migrated Macro: {}", newMacroDefinition);
 		return newMacroDefinition;
 	}

@@ -3,6 +3,7 @@ package com.greenpepper.confluence.macros.migrator;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,33 +28,26 @@ public class GreenPepperImportMigrator implements MacroMigration {
 	/** {@inheritDoc} */
 	public MacroDefinition migrate(MacroDefinition macroDefinition,
 			ConversionContext context) {
+
 	    LOGGER.debug("Beginning migration of macro {} ", macroDefinition);
 		final String imports = getV3Imports(macroDefinition);
-		LOGGER.debug("Migrated Parameters to : {}", imports);
+		LOGGER.trace("Migrated Parameters to : {}", imports);
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put(GreenPepperImport.IMPORTS_PARAM, imports);
-		
-		macroDefinition.setParameters(params);
-		MacroBody macroBody = new PlainTextMacroBody(imports.replaceAll(",", "\n"));
-		macroDefinition.setBody(macroBody);
-		return macroDefinition;
+
+		MacroDefinition newMacroDefinition = new MacroDefinition();
+		newMacroDefinition.setName(macroDefinition.getName());
+		newMacroDefinition.setParameters(params);
+		//MacroBody macroBody = new PlainTextMacroBody(imports.replaceAll(",", "\n"));
+		//newMacroDefinition.setBody(macroBody);
+		LOGGER.debug("Migrated Macro: {}", newMacroDefinition);
+		return newMacroDefinition;
 	}
 
 	private String getV3Imports(MacroDefinition macroDefinition) {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(macroDefinition.getDefaultParameterValue());
-		int index = 1;
 		Map<String, String> parameters = macroDefinition.getParameters();
-		String importParam = (String)parameters.get(String.valueOf(index));
-		
-		while(importParam != null)
-		{
-		    LOGGER.debug("got value {}", importParam);
-			buffer.append(",");
-			buffer.append(ConfluenceGreenPepper.clean(importParam));
-			importParam = (String)parameters.get(String.valueOf(++index));
-		}
-		return buffer.toString();
+		String newParameters = StringUtils.join(parameters.values(),',');
+		return newParameters;
 	}
 }

@@ -63,9 +63,10 @@ public class GreenPepperImport extends AbstractGreenPepperMacro
         
         // v4
         String[] values = MacroParametersUtils.extractParameterMultiple(IMPORTS_PARAM, parameters);
-        for (String value : values)
-        if (values != null) {
-        	imports.add(ConfluenceGreenPepper.clean(value));
+        for (String value : values) {
+            if (value != null) {
+                imports.add(ConfluenceGreenPepper.clean(value));
+            }
         }
         
         return imports;

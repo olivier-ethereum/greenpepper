@@ -164,9 +164,9 @@ public class CommandLineRunner {
     }
 
     private void runClassicRunner(List<String> args) throws Exception {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
-        initMavenEmbedder(classLoader);
+        initMavenEmbedder(originalClassLoader);
 
         resolveProject();
 
@@ -185,7 +185,7 @@ public class CommandLineRunner {
 
         URL[] classpaths = buildRuntimeClasspaths();
 
-        URLClassLoader urlClassLoader = new URLClassLoader(classpaths, classLoader);
+        URLClassLoader urlClassLoader = new URLClassLoader(classpaths, originalClassLoader);
 
         Thread.currentThread().setContextClassLoader(urlClassLoader);
 
@@ -196,6 +196,10 @@ public class CommandLineRunner {
 
         logger.debug("Invoking: com.greenpepper.runner.Main " + StringUtils.join(args, ' '));
         ReflectionUtils.invokeMain(mainClass, args);
+
+        Thread.currentThread().setContextClassLoader(originalClassLoader);
+
+
     }
 
     private void resolveProject() throws Exception {

@@ -12,8 +12,10 @@ GPProperties.prototype =
     },
 
     uploadLicense:function(){
-        if ($F('license_txt') == ''){return;}
-        this.action.uploadLicense(this.createParams({refreshRegistration:false, newLicense:$F('license_txt')}));
+        var license = $F('license_txt');
+        if (license && license != '') {
+            this.action.uploadLicense(this.createParams({refreshRegistration: false, newLicense: license}));
+        }
     },
 
     getRunnersPane: function (id) {
@@ -32,26 +34,21 @@ GPProperties.prototype =
     addRunner: function (id) {
         var runnerName = $F('runnerName');
         var serverName = $F('serverName');
-        if (runnerName == '' || serverName == '') {
-            return;
+        if (runnerName && serverName && serverName != '' && runnerName != '') {
+            var runnerClasspath = $replace_windows_sep($F('editClasspathInput'));
+            this.action.addRunner(this.createParams({
+                id: id,
+                newRunnerName: runnerName,
+                newCmdLineTemplate: $F('cmdLineTemplate'),
+                newMainClass: $F('mainClass'),
+                newServerName: $F('serverName'),
+                newServerPort: $F('serverPort'),
+                newEnvType: $F('envType'),
+                secured: $('#secured').is(':checked'),
+                classpath: runnerClasspath,
+                addMode: true
+            }));
         }
-
-        var runnerClasspath;
-        if ($F('editClasspathInput') != '') {
-            runnerClasspath = $F('editClasspathInput').replace(/\\/g, "/");
-        }
-        this.action.addRunner(this.createParams({
-            id: id,
-            newRunnerName: runnerName,
-            newCmdLineTemplate: $F('cmdLineTemplate'),
-            newMainClass: $F('mainClass'),
-            newServerName: $F('serverName'),
-            newServerPort: $F('serverPort'),
-            newEnvType: $F('envType'),
-            secured: $('#secured').is(':checked'),
-            classpath: runnerClasspath,
-            addMode: true
-        }));
     },
     removeRunner: function (id) {
         this.action.removeRunner(this.createParams({id: id, selectedRunnerName: $F('selectedRunner')}));
@@ -66,24 +63,19 @@ GPProperties.prototype =
     updateRunnerProperties: function (id) {
         var runnerName = $F('runnerName');
         var serverName = $F('serverName');
-        if (runnerName == '' || serverName == '') {
-            return;
+        if (runnerName && serverName && serverName != '' && runnerName != '') {
+            var runnerClasspath = $replace_windows_sep($F('editClasspathInput'));
+            this.action.updateRunnerProperties(this.createParams({
+                id: id,
+                selectedRunnerName: $F('selectedRunner'),
+                newRunnerName: $F('runnerName'),
+                newServerName: $F('serverName'),
+                newServerPort: $F('serverPort'),
+                secured: $('#secured').is(':checked'),
+                classpath: runnerClasspath,
+                editPropertiesMode: true
+            }));
         }
-
-        var runnerClasspath;
-        if ($F('editClasspathInput') != '') {
-            runnerClasspath = $F('editClasspathInput').replace(/\\/g, "/");
-        }
-        this.action.updateRunnerProperties(this.createParams({
-            id: id,
-            selectedRunnerName: $F('selectedRunner'),
-            newRunnerName: $F('runnerName'),
-            newServerName: $F('serverName'),
-            newServerPort: $F('serverPort'),
-            secured: $('#secured').is(':checked'),
-            classpath: runnerClasspath,
-            editPropertiesMode: true
-        }));
     },
     editRunnerClasspaths: function (id) {
         this.action.editRunnerClasspaths(this.createParams({
@@ -93,22 +85,20 @@ GPProperties.prototype =
         }));
     },
     editRunnerClasspath: function (id, classpath) {
-        classpath = classpath.replace(/\\/g, "/");
         this.action.editRunnerClasspath(this.createParams({
             id: id,
             selectedRunnerName: $F('selectedRunner'),
-            classpath: classpath,
+            classpath: $replace_windows_sep(classpath),
             editClasspathsMode: false
         }));
     },
 
     editSutClasspath: function (id, projectName, classpath) {
-        classpath = classpath.replace(/\\/g, "/");
         this.action.editSutClasspath(this.createParams({
             id: id,
             selectedSutName: $F('selectedSut'),
             projectName: projectName,
-            sutClasspath: classpath,
+            sutClasspath: $replace_windows_sep(classpath),
             editClasspathsMode: false
         }));
     },
@@ -179,10 +169,7 @@ GPProperties.prototype =
         if ($F('newSutName') == '') {
             return;
         }
-        var classpath;
-        if ($F('editClasspathInput') != '') {
-            classpath = $F('editClasspathInput').replace(/\\/g, "/");
-        }
+        var classpath = $replace_windows_sep($F('editClasspathInput'));
         this.action.addSut(this.createParams({
             id: id,
             projectName: projectName,
@@ -214,10 +201,7 @@ GPProperties.prototype =
         if ($F('newSutName') == '') {
             return;
         }
-        var classpath;
-        if ($F('editClasspathInput') != '') {
-            classpath = $F('editClasspathInput').replace(/\\/g, "/");
-        }
+        var classpath = $replace_windows_sep($F('editClasspathInput'));
         this.action.updateSutProperties(this.createParams({
             id: id,
             projectName: projectName,
@@ -248,7 +232,7 @@ GPProperties.prototype =
         }));
     },
     editSutFixture: function (id, projectName, newFixtureClasspath) {
-        var newFixtureClasspath = newFixtureClasspath.replace(/\\/g, "/");
+        var newFixtureClasspath = $replace_windows_sep(newFixtureClasspath);
         this.action.editSutFixture(this.createParams({
             id: id,
             projectName: projectName,
@@ -279,20 +263,21 @@ GPProperties.prototype =
         this.action.editFileSystem(this.createParams({editMode: true}));
     },
     addFileSystem: function () {
-        if ($F('newFileSystemName') == '') {
-            return;
+        var fsName = $F('newFileSystemName');
+        if (fsName && fsName != '') {
+
+            var path = $F('newFileSystemUrl');
+            if (path && path != '') {
+
+                path = path.replace(/\\/g, "/");
+                this.action.addFileSystem(this.createParams({
+                    projectName: $F('newProjectName'),
+                    newName: fsName,
+                    newBaseTestUrl: path,
+                    editMode: true
+                }));
+            }
         }
-        var path = $F('newFileSystemUrl');
-        if (path == '') {
-            return;
-        }
-        path = path.replace(/\\/g, "/");
-        this.action.addFileSystem(this.createParams({
-            projectName: $F('newProjectName'),
-            newName: $F('newFileSystemName'),
-            newBaseTestUrl: path,
-            editMode: true
-        }));
     },
     removeFileSystem: function (repositoryUid) {
         this.action.removeFileSystem(this.createParams({repositoryUid: repositoryUid, editMode: true}));
@@ -318,21 +303,23 @@ GPProperties.prototype =
         }));
     },
     updateCustomDbmsConfiguration: function () {
-        if ($F('jndi_txtfield') === '') {
+        var jndi = $F('jndi_txtfield');
+        if (!jndi || jndi == '') {
             return;
         }
         this.action.updateDbmsConfiguration(this.createParams({
             installType: $F('installType_Cmb'),
-            jndiUrl: $F('jndi_txtfield'),
+            jndiUrl: jndi,
             hibernateDialect: $F('dbms')
         }));
     },
     testDbmsConnection: function () {
-        if ($F('jndi_txtfield') === '') {
+        var jndi = $F('jndi_txtfield');
+        if (!jndi || jndi == '') {
             return;
         }
         GP.View.write('testConnection_display', '');
-        this.action.testDbmsConnection(this.createParams({jndiUrl: $F('jndi_txtfield'), hibernateDialect: $F('dbms')}));
+        this.action.testDbmsConnection(this.createParams({jndiUrl: jndi, hibernateDialect: $F('dbms')}));
     },
     changeInstallationType: function () {
         GP.View.write('dbmsChoice_display', '');
@@ -349,7 +336,7 @@ GPProperties.prototype =
     },
     createDemoSpace: function (checkUsername) {
         if (checkUsername == 'true') {
-            if ($F('username') == '') {
+            if (!$F('username') || $F('username') == '') {
                 return;
             }
         }
@@ -384,4 +371,5 @@ GPProperties.prototype =
             GP.View.switchView('systemError_display', 'waiting_display');
         });
     }
+    
 };

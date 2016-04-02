@@ -99,6 +99,14 @@ function $F(elementId){
 	return AJS.$('#' + elementId).val();
 }
 
+function $replace_windows_sep(path) {
+	if (path) {
+		return path.replace(/\\/g, "/");
+	} else {
+		return path;
+	}
+}
+
 var BrowserDetect = {
 	init: function () {
 		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";

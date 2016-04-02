@@ -11,8 +11,8 @@ jdk:
 before_install:
   - mkdir -p ~/.m2/ ~/.gnupg/
   - cp -a ./tools/settings.xml ~/.m2/
-  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - wattazoum.asc.gpg | gpg --import
-  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - wattazoum-pub.asc.gpg | gpg --import
+  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - ./tools/wattazoum.asc.gpg | gpg --import
+  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - ./tools/wattazoum-pub.asc.gpg | gpg --import
 script:
   - mvn deploy
 env:

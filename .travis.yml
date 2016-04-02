@@ -5,10 +5,12 @@ addons:
     packages:
     - php5-cli
     - mono-complete
+    - gnupg
 jdk:
   - openjdk6
 before_install:
-  - mkdir -p ~/.m2/
-  - cp -a ./settings.xml ~/.m2/
+  - mkdir -p ~/.m2/ ~/.gnupg/
+  - cp -a ./tools/settings.xml ~/.m2/
+  - echo '${env.ENCRYPTION_PASSWORD}' | gpg --passphrase-fd 0 -o ~/.gnupg/secring.gpg ./tools/secring.gpg.enc
 script:
   - mvn deploy

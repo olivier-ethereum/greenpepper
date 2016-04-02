@@ -5,10 +5,16 @@ addons:
     packages:
     - php5-cli
     - mono-complete
+    - gnupg
 jdk:
   - openjdk6
 before_install:
-  - mkdir -p ~/.m2/
-  - cp -a ./settings.xml ~/.m2/
+  - mkdir -p ~/.m2/ ~/.gnupg/
+  - cp -a ./tools/settings.xml ~/.m2/
+  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - ./tools/wattazoum.asc.gpg | gpg --import
+  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - ./tools/wattazoum-pub.asc.gpg | gpg --import
 script:
   - mvn deploy
+env:
+  global:
+    secure: WSG8jHzcCo0WBiE+TTj48FVMQWBjlfCVqqnsuusJqfxmRQUCypR/T+Dpt+Z9/SsgzvHoRtUir4s/iVgABgOMyKrYDT46jeIuFoosQp17odPG9GjQYV+xl5ma1whFeYj5VTXTvBI99G6icAB/lD6IRXpXTzHCvlRjCcGJxDIlOFHYO7awW31juBqj0ldb5886XdwJ4pub2oGe8XSbMBQIBmCrhL/GZpXzfmSzaswN3gCpurDnNrK+pfsJpIW+HEjY8aSvNSWPGXKSfIQ76zqcSqoKsiY5f8rnoIJ2Cy62WuvWKoRDtHMiZmmyXE0o2nm5z1Y9RDD+MAeJUK6b9YgX56WmK0Z3fdvqg7+lX/QlPZofKU+CeXoMhzFMfzAu7+KJxt8IgxIcF7dsQ180mFZjLA7b23PB9rQP7nOwwIZ+JC/5CsPz9HPPywgcoMFaBH8FpZPyRrkzFX5hnHLvbujRlKa/armpwi64SSUJqyH8MqisaiE4yz2v3Uec1PKW9N39D2kxtCu2uJJ+oEe+J9dGypRi2e/5ZGUxR5NTSWMTX4aegIXUuXnRDpO3chxaw4AlEuxVeWxFbSVT6B8iSolvVhkbql1D0q0hJemrp+q7W/qcO4JvVYw22kfCwj/dZrcHtzmBH3AZUFxTK1zoaoyMS/P1VeKQI0BPOMvQ8NvOUqI=

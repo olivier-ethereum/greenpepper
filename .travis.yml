@@ -11,7 +11,7 @@ jdk:
 before_install:
   - mkdir -p ~/.m2/ ~/.gnupg/
   - cp -a ./tools/settings.xml ~/.m2/
-  - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o ~/.gnupg/secring.gpg ./tools/secring.gpg.enc
+  - echo $ENCRYPTION_PASSWORD | gpg --batch --yes --passphrase-fd 0 -o ~/.gnupg/secring.gpg ./tools/secring.gpg.enc
 script:
   - mvn deploy
 env:

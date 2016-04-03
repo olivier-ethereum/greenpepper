@@ -17,7 +17,7 @@
     </description>
 
     <properties>
-        <greenpepper.core.version>4.0</greenpepper.core.version>
+        <greenpepper.core.version>4.1-SNAPSHOT</greenpepper.core.version>
     </properties>
 
     <!-- - GreenPepperOpen modules -->

@@ -143,8 +143,7 @@ public class AgentConfiguration
 
 		if (config == null)
 		{
-			File configFile = new File(DEFAULT_CONFIG_FILE);
-
+			File configFile = new File(DEFAULT_CONFIG_FILE).getAbsoluteFile();
 			if (configFile.exists())
 			{
 				loadProperties(properties, configFile);

@@ -21,8 +21,10 @@ package com.greenpepper.agent.server;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import junit.framework.TestCase;
+import org.apache.commons.io.FileUtils;
 
 public class AgentConfigurationTest
 		extends TestCase
@@ -46,8 +48,12 @@ public class AgentConfigurationTest
 	public void testReadingDefaultConfigurationFile()
 			throws Exception
 	{
+		// keep the current directory
+		String origCWD = System.getProperty("user.dir");
+		URL resource = getClass().getResource("/remoteagent.properties");
+		System.setProperty("user.dir",FileUtils.toFile(resource).getParent());
 		AgentConfiguration configuration = new AgentConfiguration();
-
+		System.setProperty("user.dir",origCWD);
 		assertEquals(7777, configuration.getPort());
 		assertFalse(configuration.isSecured());
 		assertNull(configuration.getKeyStore());

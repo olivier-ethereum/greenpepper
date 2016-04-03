@@ -1,10 +1,12 @@
 package com.greenpepper.agent.server;
 
 import java.io.File;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.xmlrpc.WebServer;
 import org.apache.xmlrpc.XmlRpcClient;
 import org.jmock.Expectations;
@@ -45,8 +47,14 @@ public class AgentTest extends TestCase
         handler = context.mock( Handler.class );
         fakeServer.addHandler( "greenpepper1", handler );
         fakeServer.start();
-		
+
+		// keep the current directory
+		String origCWD = System.getProperty("user.dir");
+		URL resource = getClass().getResource("/remoteagent.properties");
+		System.setProperty("user.dir", FileUtils.toFile(resource).getParent());
 		Agent.main(new String[0]);
+		System.setProperty("user.dir",origCWD);
+
 	}
 	
 	public void tearDown()

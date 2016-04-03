@@ -1,7 +1,11 @@
 package com.greenpepper.util.cmdline;
 
+import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -41,8 +45,10 @@ public class StreamGobblerImpl implements StreamGobbler
      */
     public void run()
     {
-        new Thread(new OuputReadingRunnable(stdout, outBuffer), "Process standard out").start();
-        new Thread(new OuputReadingRunnable(stderr, errBuffer), "Process error").start();
+        TeeInputStream sysout = new TeeInputStream(stdout, new LogOutputStream(LoggerFactory.getLogger("SYSOUT")));
+        new Thread(new OuputReadingRunnable(sysout, outBuffer), "Process standard out").start();
+        TeeInputStream syserr = new TeeInputStream(stderr, new LogOutputStream(LoggerFactory.getLogger("SYSERR")));
+        new Thread(new OuputReadingRunnable(syserr, errBuffer), "Process error").start();
         sendInput();
     }
 
@@ -164,6 +170,45 @@ public class StreamGobblerImpl implements StreamGobbler
         public void run()
         {
             readOutput(input, buffer);
+        }
+    }
+
+    /**
+     * Output stream that allows logging Line per line.
+     */
+    private class LogOutputStream extends OutputStream {
+
+        private final Logger logger;
+        private StringBuffer currentLine = new StringBuffer();
+        private int lastchar = -1;
+
+        public LogOutputStream(Logger logger) {
+            this.logger = logger;
+        }
+
+        @Override
+        public void write(int b) throws IOException {
+            if (b == '\n' || b == '\r' ) {
+                if (lastchar != '\r') {
+                    logger.info(currentLine.toString());
+                    currentLine = new StringBuffer();
+                }
+            } else {
+                currentLine.append((char)b);
+                lastchar = b;
+            }
+
+        }
+
+        @Override
+        public void flush() throws IOException {
+            logger.info(currentLine.toString());
+            currentLine = new StringBuffer();
+        }
+
+        @Override
+        public void close() throws IOException {
+            flush();
         }
     }
 }

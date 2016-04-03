@@ -7,6 +7,9 @@
 		</layout>
 	</appender>
 
+	<logger name="SYSOUT" level="INFO"/>
+	<logger name="SYSERR" level="INFO"/>
+	<logger name="com.greenpepper.util.cmdline.CommandLineExecutor" level="INFO"/>
 	<logger name="com.greenpepper" level="WARN"/>
 	<root level="WARN">
 		<appender-ref ref="STDOUT" />

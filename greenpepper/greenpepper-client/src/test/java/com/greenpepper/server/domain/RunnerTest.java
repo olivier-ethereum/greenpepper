@@ -137,11 +137,9 @@ public class RunnerTest extends TestCase
     
     public static class FakeRunner
     {
-        public static void main(String[] args) throws IOException
-        {
+        public static void main(String[] args) throws IOException {
             File output = new File(args[1]);
             FileWriter writer = new FileWriter(output);
-            
             writer.write("<documents>");
             writer.write("  <document>");
             writer.write("      <statistics>");

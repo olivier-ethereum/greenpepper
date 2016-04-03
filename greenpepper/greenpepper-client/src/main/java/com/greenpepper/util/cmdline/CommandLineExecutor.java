@@ -55,10 +55,7 @@ public class CommandLineExecutor
 
     private Process launchProcess() throws Exception
     {
-		if (log.isDebugEnabled())
-		{
-        	log.debug("Launching cmd: " + getCmdLineToString());
-		}
+        log.info("Launching cmd: {}", getCmdLineToString());
 
         Process p = Runtime.getRuntime().exec(cmdLine);
         gobbler = new StreamGobblerImpl(p);

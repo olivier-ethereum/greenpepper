@@ -9,37 +9,14 @@
 
 	<artifactId>greenpepper-confluence5-plugin</artifactId>
 	<name>GreenPepper Confluence Plugin</name>
+	<packaging>atlassian-plugin</packaging>
 
-	<profiles>
-		<profile>
-			<id>confluence</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.atlassian.maven.plugins</groupId>
-						<artifactId>maven-confluence-plugin</artifactId>
-						<version>${amps.version}</version>
-						<extensions>true</extensions>
-						<configuration>
-							<productVersion>${confluence.version}</productVersion>
-							<productDataVersion>${confluence.data.version}</productDataVersion>
-							<instructions>
-							</instructions>
-						</configuration>
-						<executions>
-							<execution>
-								<id>ensure-deps-are-there</id>
-								<goals>
-									<goal>copy-bundled-dependencies</goal>
-								</goals>
-								<phase>compile</phase>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+
+	<properties>
+		<!-- Confluence version -->
+		<amps.version>6.2.4</amps.version>
+		<plugin.testrunner.version>1.2.3</plugin.testrunner.version>
+	</properties>
 
 	<build>
 		<resources>
@@ -85,32 +62,63 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptor>src/main/assembly/dep.xml</descriptor>
-					<archive>
-						<manifestEntries>
-							<Require-Capability>osgi.extender;
-								filter:="(osgi.extender=osgi.serviceloader.processor)",
-								osgi.serviceloader;
-								filter:="(osgi.serviceloader=com.greenpepper.server.runner.spi.DefaultRunnerBuilder)";
-								cardinality:=multiple</Require-Capability>
-						</manifestEntries>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>attached</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>			
-			<plugin>
 				<groupId>com.atlassian.maven.plugins</groupId>
 				<artifactId>maven-amps-dispatcher-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-confluence-plugin</artifactId>
+				<version>${amps.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<allowGoogleTracking>false</allowGoogleTracking>
+					<productVersion>${confluence.version}</productVersion>
+					<productDataVersion>${confluence.data.version}</productDataVersion>
+					<enableQuickReload>true</enableQuickReload>
+					<enableFastdev>false</enableFastdev>
+					<extractDependencies>false</extractDependencies>
+					<!-- See here for an explanation of default instructions: -->
+					<!-- https://developer.atlassian.com/docs/advanced-topics/configuration-of-instructions-in-atlassian-plugins -->
+					<instructions>
+						<!-- Ensure plugin is spring powered -->
+						<Spring-Context>*</Spring-Context>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.github.strator-dev.greenpepper</groupId>
+									<artifactId>greenpepper-confluence-demo</artifactId>
+									<version>${project.version}</version>
+									<type>jar</type>
+									<classifier>fixtures</classifier>
+									<overWrite>false</overWrite>
+									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+									<destFileName>greenpepper-confluence-demo-${project.version}-fixtures.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.github.strator-dev.greenpepper</groupId>
+									<artifactId>greenpepper-client</artifactId>
+									<version>${greenpepper.core.version}</version>
+									<type>jar</type>
+									<classifier>complete</classifier>
+									<overWrite>false</overWrite>
+									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+									<destFileName>greenpepper-client-${greenpepper.core.version}-complete.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -155,13 +163,68 @@
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
 			<version>${greenpepper.core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.strator-dev.greenpepper</groupId>
-			<artifactId>greenpepper-client</artifactId>
-			<classifier>complete</classifier>
-			<version>${greenpepper.core.version}</version>
-			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>cglib</artifactId>
+					<groupId>cglib</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>antlr</groupId>
+					<artifactId>antlr</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm-attrs</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.transaction</groupId>
+					<artifactId>jta</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-lang3</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>xmlrpc</groupId>
+					<artifactId>xmlrpc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlrpc</groupId>
+					<artifactId>xmlrpc-client</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlrpc</groupId>
+					<artifactId>xmlrpc-common</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jsoup</artifactId>
+					<groupId>org.jsoup</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
@@ -170,6 +233,26 @@
 			<scope>compile</scope>
 			<exclusions>
 				<exclusion>
+					<groupId>commons-collections</groupId>
+					<artifactId>commons-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>axis</artifactId>
+					<groupId>axis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
 					<artifactId>cglib</artifactId>
 					<groupId>cglib</groupId>
 				</exclusion>
@@ -196,6 +279,18 @@
 				<exclusion>
 					<groupId>ch.qos.logback</groupId>
 					<artifactId>logback-classic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jfree</groupId>
+					<artifactId>jfreechart</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jfree</groupId>
+					<artifactId>jcommon</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -235,14 +330,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>com.github.strator-dev.greenpepper</groupId>
-			<artifactId>greenpepper-confluence-demo</artifactId>
-			<version>${project.version}</version>
-			<classifier>fixtures</classifier>
-			<scope>compile</scope>
-		</dependency>
 
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<!-- WIRED TEST RUNNER DEPENDENCIES -->
 		<dependency>
 			<groupId>com.atlassian.plugins</groupId>

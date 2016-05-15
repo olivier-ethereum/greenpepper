@@ -14,7 +14,7 @@
 	<tr class="sp_configClasspathsTitle">
 		<td class="sp_cplabels">$action.FixtureClasspathTitle</td>
 		<td class="sp_cplinksView">
-			<span id="classpathsEditSave" class="sp_configLinks" onclick="gpProperties.editSutFixture('$action.spaceKey', '$action.projectName', $('editClasspathInput').val());">$action.getText('greenpepper.classpath.update')</span>
+			<span id="classpathsEditSave" class="sp_configLinks" onclick="gpProperties.editSutFixture('$action.spaceKey', '$action.projectName', $F('editClasspathInput'));">$action.getText('greenpepper.classpath.update')</span>
 			|
 			<span id="classpathsEditCancel" class="sp_configLinks" onclick="gpProperties.getSutsPane('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.classpath.cancel')</span>
 		</td>

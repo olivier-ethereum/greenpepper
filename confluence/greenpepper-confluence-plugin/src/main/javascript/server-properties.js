@@ -33,8 +33,7 @@ GPProperties.prototype =
     },
     addRunner: function (id) {
         var runnerName = $F('runnerName');
-        var serverName = $F('serverName');
-        if (runnerName && serverName && serverName != '' && runnerName != '') {
+        if (runnerName && runnerName != '') {
             var runnerClasspath = $replace_windows_sep($F('editClasspathInput'));
             this.action.addRunner(this.createParams({
                 id: id,
@@ -62,15 +61,17 @@ GPProperties.prototype =
     },
     updateRunnerProperties: function (id) {
         var runnerName = $F('runnerName');
-        var serverName = $F('serverName');
-        if (runnerName && serverName && serverName != '' && runnerName != '') {
+        if (runnerName && runnerName != '') {
             var runnerClasspath = $replace_windows_sep($F('editClasspathInput'));
             this.action.updateRunnerProperties(this.createParams({
                 id: id,
                 selectedRunnerName: $F('selectedRunner'),
-                newRunnerName: $F('runnerName'),
+                newCmdLineTemplate: $F('cmdLineTemplate'),
+                newMainClass: $F('mainClass'),
+                newRunnerName: runnerName,
                 newServerName: $F('serverName'),
                 newServerPort: $F('serverPort'),
+                newEnvType: $F('envType'),
                 secured: $('#secured').is(':checked'),
                 classpath: runnerClasspath,
                 editPropertiesMode: true

@@ -122,7 +122,7 @@ public class CommandLineRunnerTest
     {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         runner = new CommandLineRunner( new PrintStream( byteOut ) );
-        runner.run( "--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:pom:[3.2,)",
+        runner.run( "--debug", "--pdd", "com.github.strator-dev.greenpepper:greenpepper-confluence-demo:pom:[3.2,"+pluginVersion+"]",
                 "src/test/resources/bank.html", "-o", "target/reports", "--xml" );
         String output = byteOut.toString();
         assertThat( output, containsString( "Artifact: com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures:" ) );

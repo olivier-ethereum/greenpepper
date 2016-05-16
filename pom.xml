@@ -5,7 +5,7 @@
     <artifactId>greenpepper-open</artifactId>
     <packaging>pom</packaging>
     <name>GreenPepper Open</name>
-    <version>4.0.2</version>
+    <version>4.0.3-SNAPSHOT</version>
     <description>
         It was called GreenPepper Open by the creator of GreenPepper when the product was commercial.
         This project hosted every thing that was OpenSourced and that was a contribution of the community.
@@ -103,7 +103,7 @@
         <connection>https://github.com/strator-dev/greenpepper-open.git</connection>
         <developerConnection>scm:git:https://github.com/strator-dev/greenpepper-open.git</developerConnection>
         <url>https://github.com/strator-dev/greenpepper-open.git</url>
-        <tag>v4.0.2</tag>
+        <tag>release-4.0.x</tag>
     </scm>
     <issueManagement>
         <system>Github</system>

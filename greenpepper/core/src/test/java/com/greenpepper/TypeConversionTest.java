@@ -57,8 +57,7 @@ public class TypeConversionTest
 
     public void testMoreConvertersCanBeRegistered()
     {
-        TypeConversion.register(new TypeConverter()
-        {
+        TypeConversion.register(new TypeConverter() {
             public Object parse(String value, Class type)
             {
                 return new BigDecimal(value);
@@ -113,13 +112,13 @@ public class TypeConversionTest
     {
     	assertEquals("", TypeConversion.toString(null));
 
-    	assertEquals("10", TypeConversion.toString(new Integer(10)));
+    	assertEquals("10", TypeConversion.toString(10));
     	assertEquals("10", TypeConversion.toString(10));
     	assertEquals("$5", TypeConversion.toString(new MonetaryAmount(5)));
 
 
     	assertEquals("", TypeConversion.toString(new Integer[0]));
-    	assertEquals("", TypeConversion.toString((Object)new String[0]));
+    	assertEquals("", TypeConversion.toString(new String[0]));
 
     	assertEquals("10, 20, 30, 40", TypeConversion.toString(new Integer[]{10, 20, 30, 40}));
     	assertEquals("$5, $10", TypeConversion.toString(new MonetaryAmount[]{new MonetaryAmount(5), new MonetaryAmount(10)}));

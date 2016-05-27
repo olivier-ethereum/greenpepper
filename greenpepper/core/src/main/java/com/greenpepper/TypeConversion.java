@@ -100,7 +100,7 @@ public final class TypeConversion
         return converterForType( type ) != null;
     }
 
-    private static boolean canSelfConvert( String parsingMethod, Class type )
+    private static boolean canSelfConvert( String parsingMethod, Class<?> type )
     {
         try
         {
@@ -118,17 +118,26 @@ public final class TypeConversion
     /**
      * Converts <code>value</code> to the object type of <code>type</code> by
      * using the appropriate <code>TypeConverter</code>.
+     * <ul>
+     *     <li>We will try first the converter registered by the user.</li>
+     *     <li>Then the <b>parse</b> method of the type parameter</li>
+     *     <li>And finally the <b>valueOf</b> method</li>
+     * </ul>
+     *
      *
      * @param value The string value to convert
      * @param type  The type to convert to
      * @return The converted value
      */
-    public static Object parse( String value, Class type )
+    public static Object parse( String value, Class<?> type )
     {
+        if (converterRegisteredFor( type )) {
+            TypeConverter typeConverter = converterForType(type);
+            if (typeConverter != null)
+                return typeConverter.parse(value, type);
+        }
         if (canSelfConvert( "parse", type ))
             return selfConvert( "parse", value, type );
-        if (converterRegisteredFor( type ))
-            return converterForType( type ).parse( value, type );
         if (canSelfConvert( "valueOf", type ))
             return selfConvert( "valueOf", value, type );
         
@@ -140,7 +149,7 @@ public final class TypeConversion
      * that receive a String and that returns a instance of the
      * class, then it can serve for conversion purpose.
      */
-    private static Object selfConvert( String parsingMethod, String value, Class type )
+    private static Object selfConvert( String parsingMethod, String value, Class<?> type )
     {
         try
         {
@@ -170,15 +179,19 @@ public final class TypeConversion
 
     	Class type = value.getClass();
 
-        if (canSelfRevert( type ))
+        if (converterRegisteredFor( type )) {
+            TypeConverter typeConverter = converterForType(type);
+            if (typeConverter != null)
+                return typeConverter.toString( value);
+        }
+        if (canSelfRevert( type )) {
             return selfRevert( value);
-        if (converterRegisteredFor( type ))
-            return converterForType( type ).toString( value);
+        }
 
 		return String.valueOf(value);
     }
 
-	private static boolean canSelfRevert( Class type )
+	private static boolean canSelfRevert( Class<?> type )
     {
         try
         {
@@ -195,7 +208,7 @@ public final class TypeConversion
 
     private static String selfRevert( Object value )
     {
-    	Class type = value.getClass();
+    	Class<?> type = value.getClass();
         try
         {
             Method method = type.getMethod( "toString", type);
@@ -216,9 +229,9 @@ public final class TypeConversion
      * <p>converterForType.</p>
      *
      * @param type a {@link java.lang.Class} object.
-     * @return a {@link com.greenpepper.converter.TypeConverter} object.
+     * @return a {@link com.greenpepper.converter.TypeConverter} object. Will return null if none is found.
      */
-    public static TypeConverter converterForType( Class type )
+    private static TypeConverter converterForType(Class type)
     {
         for (TypeConverter converter : converters)
         {

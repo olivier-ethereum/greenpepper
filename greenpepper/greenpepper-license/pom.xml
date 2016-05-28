@@ -3,7 +3,7 @@
     <parent>
         <artifactId>greenpepper</artifactId>
         <groupId>com.github.strator-dev.greenpepper</groupId>
-        <version>4.0.1-SNAPSHOT</version>
+        <version>4.0.1</version>
     </parent>
     <artifactId>greenpepper-license</artifactId>
     <packaging>jar</packaging>

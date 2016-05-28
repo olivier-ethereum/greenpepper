@@ -43,7 +43,7 @@ public final class ClassUtils
     public static <T> Class<T> loadClass(String className)
 			throws ClassNotFoundException
 	{
-		return (Class<T>) ClassUtils.class.getClassLoader().loadClass(className);
+		return (Class<T>) Thread.currentThread().getContextClassLoader().loadClass(className);
 	}
 
 	/**

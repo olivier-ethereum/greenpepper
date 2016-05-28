@@ -240,10 +240,6 @@
 							<pattern>org.slf4j</pattern>
 							<shadedPattern>com.greenpepper.shaded.org.slf4j</shadedPattern>
 						</relocation>
-						<relocation>
-							<pattern>org.xml</pattern>
-							<shadedPattern>com.greenpepper.shaded.org.xml</shadedPattern>
-						</relocation>
 					</relocations>
 				</configuration>
 				<executions>

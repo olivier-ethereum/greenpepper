@@ -1,0 +1,8 @@
+.classpath
+.project
+.settings
+target/
+amps-standalone/
+*~
+*.iml
+.idea

@@ -1,0 +1,86 @@
+<div class="sp_configItemView">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="sp_configSubTitle">
+				<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+				$action.getText('greenpepper.suts.list')
+			</td>
+			#if(!$action.systemUnderTests || $action.systemUnderTests.isEmpty())
+				<td class="sp_configNoOutput">$action.getText('greenpepper.suts.none')</td>
+			#else
+				<td class="sp_configOutput">
+					<select id="selectedSut" class="sp_configSelectOption" onchange="gpProperties.getSut('$action.spaceKey', '$action.projectName');">
+						#foreach($sut in $action.systemUnderTests)
+							<option value="$sut.name" #if($action.selectedSutName && $action.selectedSutName.equals($sut.name))selected#end>$sut.name#if($sut.isDefault())&nbsp;&nbsp;&nbsp;&nbsp;$action.getText('greenpepper.suts.default')#end</option>
+						#end
+					</select>
+					&nbsp;&nbsp;
+					#if(!$action.readonly && !$action.editPropertiesMode && !$action.editClasspathsMode && !$action.editFixturesMode)
+						<span class="sp_configTxt">
+							<span id="systemUnderTestEdit_edit" class="sp_configLinks" onclick="gpProperties.editSutProperties('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.edit')</span>
+							|
+							<span id="systemUnderTestEdit_delete" class="sp_configLinks" onclick="gpProperties.removeSut('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.delete')</span>
+							#if(!$action.selectedSut.isDefault())
+								|
+								<span id="systemUnderTestEdit_setasdefault" class="sp_configLinks" onclick="gpProperties.setSutAsDefault('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.setasdefault')</span>
+							#end
+						</span>
+					#end
+					#if(!$action.readonly && $action.editPropertiesMode)
+						<span class="sp_configTxt">
+							<span id="systemUnderTestEdit_save" class="sp_configLinks" onclick="gpProperties.updateSutProperties('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.save')</span>
+							|
+							<span id="systemUnderTestEdit_cancel" class="sp_configLinks" onclick="gpProperties.getSut('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.cancel')</span>
+						</span>
+					#end
+				</td>
+			#end
+			<td class="sp_configLinks" width="27%" align="right">
+				#if(!$action.readonly)<span id="systemUnderTest_add" onclick="gpProperties.showSutInputs('$action.spaceKey', '$action.projectName');">$action.getText('greenpepper.suts.add')</span>#end
+			</td>
+		</tr>
+		#if(!$action.selectedSut && !$action.actionErrors.isEmpty() && !$errorDisplayed)
+			#set($errorDisplayed = true)
+			<tr id="sutsPaneError_display">
+				<td colspan="3" class="sp_configItem">
+					<div class="sp_configError" cellpadding="0" cellspacing="0">
+						#foreach($error in $action.actionErrors)
+							<span class="gpErrMsg">$action.getText($error)</span><br>
+						#end
+					</div>
+				</td>
+			</tr>
+		#end
+		<tr>
+			<td colspan="3" class="sp_configItem">
+				#if($action.selectedSutName)
+					#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+						#set($errorDisplayed = true)
+						<div id="sutsPaneError_display" class="sp_configError" cellpadding="0" cellspacing="0">
+							#foreach($error in $action.actionErrors)
+								<span class="gpErrMsg">$action.getText($error)</span><br>
+							#end
+						</div>
+					#end
+					<div class="sp_configSubItemView">
+						#if(!$action.editPropertiesMode)
+							#parse('templates/greenpepper/configuration/suts/properties.vm')
+						#else
+							#parse('templates/greenpepper/configuration/suts/propertiesEdit.vm')
+						#end
+						#if(!$action.editClasspathsMode)
+							#parse('templates/greenpepper/configuration/suts/classpaths.vm')
+						#else
+							#parse('templates/greenpepper/configuration/suts/classpathsEdit.vm')
+						#end
+						#if(!$action.editFixturesMode)
+							#parse('templates/greenpepper/configuration/suts/fixtures.vm')
+						#else
+							#parse('templates/greenpepper/configuration/suts/fixturesEdit.vm')
+						#end
+					</div>
+				#end
+			</td>
+		</tr>
+	</table>
+</div>

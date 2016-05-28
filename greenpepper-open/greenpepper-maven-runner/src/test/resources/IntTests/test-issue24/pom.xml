@@ -11,7 +11,7 @@
             <plugin>
                 <groupId>com.github.strator-dev.greenpepper</groupId>
                 <artifactId>greenpepper-maven-plugin</artifactId>
-                <version>${greenpepper.core.version}</version>
+                <version>${project.version}</version>
                 <configuration>
                     <locale>en</locale>
                     <debug>true</debug>

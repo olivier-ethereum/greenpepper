@@ -9,7 +9,7 @@
 	<parent>
 		<artifactId>greenpepper</artifactId>
 		<groupId>com.github.strator-dev.greenpepper</groupId>
-		<version>4.0.2-SNAPSHOT</version>
+		<version>4.0.4-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>

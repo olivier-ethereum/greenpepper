@@ -1,0 +1,48 @@
+<div>
+	<div>$action.getText('greenpepper.install.maindesc')</div>
+	<h2>$action.getText('greenpepper.install.dbms.title') 
+	#if(!$action.editMode)
+		<button class="aui-button edit-link" id="dbmsView_edit" onclick="gpProperties.editDbms()"><span class="aui-icon aui-icon-small aui-iconfont-edit"></span>$action.getText('greenpepper.filesystem.edit')</button>
+	#end
+	</h2>
+	<div >
+		<form class="aui">
+			<div id="installPreference">
+				#if($action.editMode)
+					<div class="field-group">
+						<label for="installType_Cmb" >$action.getText('greenpepper.install.installtypelabel')</label>
+						<select id="installType_Cmb" 
+							onchange="$('#installPreference div[id]').each(function(s){s.hide();});$('#' +this.value).show();gpProperties.changeInstallationType();"
+							#if(!$action.editMode)disabled="disabled"#end
+							class="select">
+							<option value="quickInstall" #if(!$action.isCustomSetup)selected="selected"#end>$action.getText('greenpepper.install.quick')</option>
+							<option value="customInstall" #if($action.isCustomSetup)selected="selected"#end>$action.getText('greenpepper.install.custom')</option>
+						</select>
+						<div id="quickInstall" class="description" #if($action.isCustomSetup)style="display:none"#end>
+							$action.getText('greenpepper.install.quickdescription')
+							<div class="aui-message aui-message warning">
+								$action.getText('greenpepper.install.hsql.notice')
+							</div>
+						</div>
+						<div id="customInstall" class="description" #if(!$action.isCustomSetup)style="display:none"#end>
+							$action.getText('greenpepper.install.customdescription')
+							<div class="aui-message aui-message info">
+								<ul>
+								<li>$action.getText('greenpepper.install.jdbc.drivers.notice')</li>
+								<li>$action.getText('greenpepper.install.jndiurl.hint')</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				#end
+			</div>
+			<div id="dbmsChoice_display" class="sp_configItemPane">
+				#if($action.editMode)
+					#parse('templates/greenpepper/configuration/installation/configurationDbmsEdit.vm')
+				#else
+					#parse('templates/greenpepper/configuration/installation/configurationDbmsView.vm')
+				#end
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>$titleHtml</title>
+	<link rel="stylesheet" href="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.page/css/conf-greenpepper.css" type="text/css"/>
+	$stylesheetHtml
+</head>
+<body>
+<h5>$titleWithAnchorHtml#if($hasSections) / $sectionsHtml#end</h5>
+#if($hasException)
+<table>
+	<tr>
+		<td class="conf_wikiErrMsg">
+			$exceptionHtml
+		</td>
+	</tr>
+</table>
+#end
+#if($hasBody)
+$bodyHtml
+#end
+</body>
+</html>

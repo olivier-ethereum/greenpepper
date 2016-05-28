@@ -1,0 +1,25 @@
+#macro ( notEmptyString $value $id)
+	#if($value)
+		<td id="$id" class="sp_configOutput">$value</td>
+	#else
+		<td id="$id" class="sp_configNoOutput">$action.getText('greenpepper.suts.none')</td>
+	#end
+#end
+<table class="sp_configPropertiesView" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.runnername')</td>
+		#notEmptyString($action.selectedSut.runner.name "sutRunnerName")
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.fixturefactory')</td>
+		#notEmptyString($action.selectedSut.fixtureFactory "sutFixtureFactory")
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.fixturefactoryargs')</td>
+		#notEmptyString($action.selectedSut.fixtureFactoryArgs "sutFixtureFactoryArgs")
+	</tr>
+	<tr>
+		<td class="sp_configLabels">$action.getText('greenpepper.suts.projectdependencydescriptor')</td>
+		#notEmptyString($action.selectedSut.projectDependencyDescriptor "sutProjectDependencyDescriptor")
+	</tr>
+</table>

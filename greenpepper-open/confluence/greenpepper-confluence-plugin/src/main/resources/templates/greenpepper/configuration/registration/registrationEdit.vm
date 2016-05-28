@@ -1,0 +1,63 @@
+<div class="sp_configItemView">
+	<div class="form-block greyboxfilled">
+		<table width="100%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="sp_configSubTitle">
+					<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+					$action.getText('greenpepper.project.name')
+				</td>
+				<td class="sp_configInput" colspan="2">
+					<select id="projectName" class="sp_configSelectOption" onchange="gpProperties.editRegistration('$action.spaceKey');">
+						#foreach($project in $action.projects)
+							<option value="$project.name" class="sp_configSelectOption" #if($action.projectName && $project.name.equals($action.projectName)) selected #end>$project.name&nbsp;&nbsp;&nbsp;</option>
+						#end
+					</select>
+				</td>
+			</tr>
+			#if($action.isWithNewProject())
+				<tr id="newProjectName_display">
+					<td class="sp_configSubTitle">&nbsp;</td>
+					<td class="sp_configInput" colspan="2">
+						<input type="text" id="newProjectName" size="40" #if($action.newProjectName)value="$action.newProjectName"  class="sp_configInput"#else value="$action.getText('greenpepper.project.newname')" class="sp_configNoInput" onfocus="GP.View.inputFocus(this, 'sp_configInput');"#end onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+						<span class="sp_configMandatory" title="$action.getText('greenpepper.registration.mandatorytxt')">$action.getText('greenpepper.registration.mandatory')</span>
+					</td>
+				</tr>
+			#end
+			<tr>
+				<td class="sp_configSubTitle">
+					<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+					$action.getText('greenpepper.project.alias')
+				</td>
+				<td class="sp_configInput">
+					<input type="text" id="repositoryName" value="#if($action.repositoryName)$action.repositoryName#end" size="40" class="sp_configInput" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+					<span class="sp_configMandatory" title="$action.getText('greenpepper.registration.mandatorytxt')">$action.getText('greenpepper.registration.mandatory')</span>
+				</td>
+				<td class="sp_configTxt">
+					#if(!$action.registered)<span id="registrationEdit_save" class="sp_configLinks" onclick="gpProperties.register('$action.spaceKey');">$action.getText('greenpepper.registration.save')</span>
+					#else<span id="registrationEdit_update" class="sp_configLinks" onclick="gpProperties.updateRegistration('$action.spaceKey');">$action.getText('greenpepper.registration.update')</span>
+					#end
+					|
+					<span id="registrationEdit_cancel" class="sp_configLinks" onclick="gpProperties.getRegistration('$action.spaceKey');">$action.getText('greenpepper.registration.cancel')</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="sp_configSubTitle">
+					<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+					$action.getText('greenpepper.project.username')
+				</td>
+				<td class="sp_configInput" colspan="2">
+					<input type="text" id="username" value="$!action.username" size="15" class="sp_configInput" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+					<span class="sp_configSubTitle"> $action.getText('greenpepper.project.password') </span>
+					<input type="password" id="pwd" value="$!action.escapedPassword" size="15" class="sp_configInput"/>
+				</td>
+			</tr>
+			#if(!$action.isWithNewProject() && !$action.systemUnderTests.isEmpty())
+				<tr>
+					<td id="sutsPane_display" width="100%" colspan="3">
+						#parse('templates/greenpepper/configuration/suts/systemUnderTest.vm')
+					</td>
+				</tr>
+			#end
+		</table>
+	</div>		
+</div>

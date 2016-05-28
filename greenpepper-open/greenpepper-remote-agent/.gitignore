@@ -1,0 +1,10 @@
+
+# /
+/.settings
+/target
+/.classpath
+/.project
+/greenpepper-remote-agent.iml
+/greenpepper-remote-agent.ipr
+/greenpepper-remote-agent.iws
+/remote-agent.log

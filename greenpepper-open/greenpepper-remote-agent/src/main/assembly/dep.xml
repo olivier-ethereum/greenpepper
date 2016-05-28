@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>complete</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<includes>
+				<include>com.github.strator-dev.greenpepper:greenpepper-core</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-extensions-java</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-client</include>
+				<include>commons-codec:commons-codec</include>
+				<include>xmlrpc:xmlrpc</include>
+				<include>org.slf4j:slf4j-api</include>
+				<include>org.slf4j:slf4j-log4j12</include>
+				<include>log4j:log4j</include>
+			</includes>
+			<unpack>true</unpack>
+			<outputFileNameMapping/>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>target/classes</directory>
+			<outputDirectory/>
+		</fileSet>
+	</fileSets>
+</assembly>

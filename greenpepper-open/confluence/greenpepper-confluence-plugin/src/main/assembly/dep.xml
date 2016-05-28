@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>complete</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<includes>
+				<include>com.github.strator-dev.greenpepper:greenpepper-client</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-server</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-license</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-extensions-java</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-core</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-confluence-code</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-confluence-demo</include>
+				<include>xmlrpc:xmlrpc</include>
+				<include>commons-codec:commons-codec</include>
+				<include>org.hibernate:hibernate</include>
+				<include>org.hibernate:hibernate-annotations</include>
+				<include>org.hibernate:hibernate-commons-annotations</include>
+				<include>org.hibernate:ejb3-persistence</include>
+				<include>de.schlichtherle.truelicense:truelicense-core</include>
+				<include>de.schlichtherle.truelicense:truelicense-xml</include>
+				<include>com.fasterxml.jackson.core:jackson-databind</include>
+				<include>com.fasterxml.jackson.core:jackson-core</include>
+				<include>com.fasterxml.jackson.core:jackson-annotations</include>
+			</includes>
+			<excludes>
+				<exclude>com.github.strator-dev.greenpepper:greenpepper-client:jar:complete</exclude>
+				<exclude>com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures</exclude>
+			</excludes>
+			<unpack>true</unpack>
+			<unpackOptions>
+				<excludes>
+					<exclude>org/xml/**</exclude>
+					<exclude>specs/**</exclude>
+					<exclude>ALongClassName.class</exclude>
+					<exclude>greenpepper-server.cfg.xml</exclude>
+					<exclude>results.txt</exclude>
+					<exclude>WithACustomFixtureFactory.html</exclude>
+					<exclude>log4j.properties</exclude>
+					<exclude>log4j.properties.template</exclude>
+					<exclude>META-INF/**</exclude>
+				</excludes>
+			</unpackOptions>
+			<outputFileNameMapping />
+		</dependencySet>
+		<dependencySet>
+			<includes>
+				<include>com.github.strator-dev.greenpepper:greenpepper-client:jar:complete</include>
+				<include>com.github.strator-dev.greenpepper:greenpepper-confluence-demo:jar:fixtures</include>
+			</includes>
+			<unpack>false</unpack>
+			<outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>target/classes</directory>
+			<outputDirectory />
+		</fileSet>
+	</fileSets>
+</assembly>

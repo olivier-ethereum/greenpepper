@@ -1,0 +1,34 @@
+
+# /
+/Export-To-Tomcat.jardesc
+/.settings
+/target
+/.classpath
+/.project
+/export2tomcat.jardesc
+/*.jardesc
+/*.wtpmodules
+/deploy.bat
+/includes
+/*.bat
+/.externalToolBuilders
+/maven-eclipse.xml
+/GreenPepper
+/greenpepper-confluence-plugin.iml
+/greenpepper-confluence-plugin.ipr
+/greenpepper-confluence-plugin.iws
+/install.sh
+/greenpepper-confluence-plugin-2.0m3-SNAPSHOT-complete.jar
+
+# /src/main/
+# /src/main/
+# /src/main/webapp*
+
+# /src/main/java/
+/src/main/java/META-INF
+
+# /src/main/resources/includes/images/
+/src/main/resources/includes/images/Thumbs.db
+
+# /src/test/java/
+/src/test/java/META-INF

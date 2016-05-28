@@ -1,0 +1,9 @@
+#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+	#set($errorDisplayed = true)
+	#foreach($error in $action.actionErrors)
+		#set($msg = $action.getText($error))
+	#end
+	<img id="dbmsEdit_test_error" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/error.gif" class="centeredImage" title="$msg" alt="" border="0">
+#else
+	<img id="dbmsEdit_test_success" src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.configuration/images/success.gif" class="centeredImage" title="$action.getText('greenpepper.configuration.connected')" alt="" border="0">
+#end

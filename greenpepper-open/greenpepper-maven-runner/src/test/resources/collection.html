@@ -1,0 +1,504 @@
+<html><head>
+<title>Collection</title>
+<base href="http://serpens:8080/confluence"/>
+</head>
+<body>
+<div id="Content" style="text-align:left; padding: 5px;">
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		<div class="panel" style="background-color: #FFFFCE;border-color: #ccc;border-style: solid;border-width: 1px;"><div class="panelHeader" style="border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #ccc;background-color: #8CC06D;"><b>Collection Example</b></div><div class="panelContent" style="background-color: #FFFFCE;">
+<p>The main purpose of this example is to show you :</p>
+<ul>
+	<li><a href="http://www.greenpeppersoftware.com/confluence/display/GPO/Writing+an+executable+specification+with+the+Set+up" rel="nofollow">How to initialize a list of data using the 'Setup' Interpreter</a></li>
+	<li><a href="http://www.greenpeppersoftware.com/confluence/display/GREENPEPPER/Do+Setup+Interpreter" rel="nofollow">How to initialize a list of data using the 'Do Setup' Interpreter</a></li>
+	<li><a href="http://www.greenpeppersoftware.com/confluence/display/GREENPEPPER/Collection+Interpreters" rel="nofollow">How to iterate over a list of data using the 'Collection' Interpreters</a></li>
+</ul>
+</div></div>
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+
+<table style="display:none">
+	<tr>
+		<td>Import</td>
+	</tr>
+			<tr>
+			<td>com.greenpepper.confluence.demo.collection</td>
+		</tr>
+			<tr>
+			<td>GreenPepper.Confluence.Demo.Collection</td>
+		</tr>
+	</table>
+
+<h3><a name="Collection-SetupExample"></a>Setup Example</h3>
+
+<p>Using the <tt>SetupInterpreter</tt>, we populate a list of province.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Setup </th>
+<th class='confluenceTh'> Canada Province Codes </th>
+</tr>
+<tr>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Code </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ALBERTA </td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> BRITISH COLUMBIA </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MANITOBA </td>
+<td class='confluenceTd'> MB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEW BRUNSWICK </td>
+<td class='confluenceTd'> NB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEWFOUNDLAND and LABRADOR </td>
+<td class='confluenceTd'> NL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NOVA SCOTIA </td>
+<td class='confluenceTd'> NS </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NUNAVUT </td>
+<td class='confluenceTd'> NU </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ONTARIO </td>
+<td class='confluenceTd'> ON </td>
+</tr>
+<tr>
+<td class='confluenceTd'> PRINCE EDWARD ISLAND </td>
+<td class='confluenceTd'> PE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> QUEBEC </td>
+<td class='confluenceTd'> QC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> SASKATCHEWAN </td>
+<td class='confluenceTd'> SK </td>
+</tr>
+</tbody></table>
+
+<p>From this list, we intentionnally omit the Yukon province to show the behavior of the <tt>DoSetupInterpreter</tt>.</p>
+
+<p>Using the <tt>DoSetupInterpreter</tt>, the Yukon province will be inserted but others won't. This is because the <em>insertProvinceWithCode</em> method will throw an exception when we are trying to insert duplicate province data. From the row causing the exception, all the remaining rows will be <em>skipped</em>.</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Do Setup </th>
+<th class='confluenceTh'> Canada Province Codes </th>
+</tr>
+<tr>
+<td class='confluenceTd'> insert province </td>
+<td class='confluenceTd'> YUKON </td>
+<td class='confluenceTd'> with code </td>
+<td class='confluenceTd'> YT </td>
+</tr>
+<tr>
+<td class='confluenceTd'> insert province </td>
+<td class='confluenceTd'> ALBERTA </td>
+<td class='confluenceTd'> with code </td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> insert province </td>
+<td class='confluenceTd'> BRITISH COLUMBIA </td>
+<td class='confluenceTd'> with code </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+</tbody></table>
+
+<h3><a name="Collection-ListOf"></a>List Of</h3>
+<p>Using the <tt>ListOfInterpreter</tt>, the requirement list should be the same as the SUD list (order is important).</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> list of </th>
+<th class='confluenceTh'> Canada Province Codes </th>
+</tr>
+<tr>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Code </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ALBERTA </td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> BRITISH COLUMBIA </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MANITOBA </td>
+<td class='confluenceTd'> MB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEW BRUNSWICK </td>
+<td class='confluenceTd'> NB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEWFOUNDLAND and LABRADOR </td>
+<td class='confluenceTd'> NL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NOVA SCOTIA </td>
+<td class='confluenceTd'> NS </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NUNAVUT </td>
+<td class='confluenceTd'> NU </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ONTARIO </td>
+<td class='confluenceTd'> ON </td>
+</tr>
+<tr>
+<td class='confluenceTd'> PRINCE EDWARD ISLAND </td>
+<td class='confluenceTd'> PE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> QUEBEC </td>
+<td class='confluenceTd'> QC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> SASKATCHEWAN </td>
+<td class='confluenceTd'> SK </td>
+</tr>
+<tr>
+<td class='confluenceTd'> YUKON </td>
+<td class='confluenceTd'> YT </td>
+</tr>
+</tbody></table>
+
+<h3><a name="Collection-SetOf"></a>Set Of</h3>
+<p>Using the <tt>SetOfInterpreter</tt>, the requirement set should be the same as the SUD set (order is NOT important).</p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> set of </th>
+<th class='confluenceTh'> Canada Province Codes </th>
+</tr>
+<tr>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Code </th>
+</tr>
+<tr>
+<td class='confluenceTd'> YUKON </td>
+<td class='confluenceTd'> YT </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ALBERTA </td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> BRITISH COLUMBIA </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MANITOBA </td>
+<td class='confluenceTd'> MB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> SASKATCHEWAN </td>
+<td class='confluenceTd'> SK </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEWFOUNDLAND and LABRADOR </td>
+<td class='confluenceTd'> NL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NOVA SCOTIA </td>
+<td class='confluenceTd'> NS </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NUNAVUT </td>
+<td class='confluenceTd'> NU </td>
+</tr>
+<tr>
+<td class='confluenceTd'> PRINCE EDWARD ISLAND </td>
+<td class='confluenceTd'> PE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> QUEBEC </td>
+<td class='confluenceTd'> QC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ONTARIO </td>
+<td class='confluenceTd'> ON </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEW BRUNSWICK </td>
+<td class='confluenceTd'> NB </td>
+</tr>
+</tbody></table>
+
+<h3><a name="Collection-SubsetOf"></a>Subset Of</h3>
+<p>Using the <tt>SubsetOfInterpreter</tt>, the requirement set should be a subset of the SUD set (subset of the full list).</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> subset of </th>
+<th class='confluenceTh'> Canada Province Codes </th>
+</tr>
+<tr>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Code </th>
+</tr>
+<tr>
+<td class='confluenceTd'> BRITISH COLUMBIA </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> QUEBEC </td>
+<td class='confluenceTd'> QC </td>
+</tr>
+</tbody></table>
+
+<h3><a name="Collection-SupersetOf"></a>Superset Of</h3>
+<p>Using the <tt>SupersetOfInterpreter</tt>, the requirement set should be a superset of the SUD set (all items in the list should be present, extra items are ignored).</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> superset of </th>
+<th class='confluenceTh'> Canada Province Codes </th>
+</tr>
+<tr>
+<th class='confluenceTh'> Name </th>
+<th class='confluenceTh'> Code </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ALBERTA </td>
+<td class='confluenceTd'> AB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> BRITISH COLUMBIA </td>
+<td class='confluenceTd'> BC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> MANITOBA </td>
+<td class='confluenceTd'> MB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEW BRUNSWICK </td>
+<td class='confluenceTd'> NB </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NEWFOUNDLAND and LABRADOR </td>
+<td class='confluenceTd'> NL </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NOVA SCOTIA </td>
+<td class='confluenceTd'> NS </td>
+</tr>
+<tr>
+<td class='confluenceTd'> NUNAVUT </td>
+<td class='confluenceTd'> NU </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ONTARIO </td>
+<td class='confluenceTd'> ON </td>
+</tr>
+<tr>
+<td class='confluenceTd'> PRINCE EDWARD ISLAND </td>
+<td class='confluenceTd'> PE </td>
+</tr>
+<tr>
+<td class='confluenceTd'> QUEBEC </td>
+<td class='confluenceTd'> QC </td>
+</tr>
+<tr>
+<td class='confluenceTd'> SASKATCHEWAN </td>
+<td class='confluenceTd'> SK </td>
+</tr>
+<tr>
+<td class='confluenceTd'> YUKON </td>
+<td class='confluenceTd'> YT </td>
+</tr>
+<tr>
+<td class='confluenceTd'> Other Province </td>
+<td class='confluenceTd'> OP </td>
+</tr>
+</tbody></table>
+
+<h3><a name="Collection-SourceCode"></a>Source Code</h3>
+<table style="display:none">
+	<tr>
+		<td>Begin Info</td>
+	</tr>
+</table>
+<div style="padding:0px; margin:0px; ">
+		
+<p><span>
+	<span id="includeTitle_GP_INCLUDE_378" style="cursor:pointer;color:blue;font-weight:bold;text-decoration:underline;" onclick="document.getElementById('GP_INCLUDE_378').style.display='block'">CanadaProvinceCodesFixture.java</span>
+	<div id="GP_INCLUDE_378" width="100%" style="cursor:pointer;padding:0px 2px;border: 1px solid #cc0000;display: none;" onclick="document.getElementById('GP_INCLUDE_378').style.display='none'"><div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>CanadaProvinceCodesFixture.java</b></div><div class="codeContent panelContent">
+<pre class="code-java"><span class="code-keyword">package</span> com.greenpepper.confluence.demo.collection;
+
+<span class="code-keyword">import</span> java.util.Set;
+
+<span class="code-keyword">import</span> com.greenpepper.reflect.CollectionProvider;
+
+<span class="code-keyword">public</span> class CanadaProvinceCodesFixture
+{
+  <span class="code-keyword">private</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> Country country= <span class="code-keyword">new</span> Country(<span class="code-quote">"CANADA"</span>);
+  
+  <span class="code-keyword">private</span> <span class="code-object">String</span> name;
+  <span class="code-keyword">private</span> <span class="code-object">String</span> code;
+
+  <span class="code-keyword">public</span> CanadaProvinceCodesFixture()
+  {
+  }
+
+  <span class="code-keyword">public</span> <span class="code-object">String</span> getName()
+  {
+    <span class="code-keyword">return</span> name;
+  }
+
+  <span class="code-keyword">public</span> void setName(<span class="code-object">String</span> name)
+  {
+    <span class="code-keyword">this</span>.name = name;
+  }
+
+  <span class="code-keyword">public</span> <span class="code-object">String</span> getCode()
+  {
+    <span class="code-keyword">return</span> code;
+  }
+
+  <span class="code-keyword">public</span> void setCode(<span class="code-object">String</span> code)
+  {
+    <span class="code-keyword">this</span>.code = code;
+  }
+  
+  <span class="code-keyword">public</span> void insertProvinceWithCode(<span class="code-object">String</span> name, <span class="code-object">String</span> code)
+  {
+    country.addProvince(name, code);
+  }
+
+  <span class="code-keyword">public</span> void enterRow()
+  {
+    country.addProvince(name, code);
+  }
+
+  @CollectionProvider
+  <span class="code-keyword">public</span> Set<Province> getListOfProvinces()
+  {
+    <span class="code-keyword">return</span> country.provinces();
+  }
+}</pre>
+</div></div></div>
+</span>
+<br/>
+<span>
+	<span id="includeTitle_GP_INCLUDE_379" style="cursor:pointer;color:blue;font-weight:bold;text-decoration:underline;" onclick="document.getElementById('GP_INCLUDE_379').style.display='block'">Country.java</span>
+	<div id="GP_INCLUDE_379" width="100%" style="cursor:pointer;padding:0px 2px;border: 1px solid #cc0000;display: none;" onclick="document.getElementById('GP_INCLUDE_379').style.display='none'"><div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>Country.java</b></div><div class="codeContent panelContent">
+<pre class="code-java"><span class="code-keyword">package</span> com.greenpepper.confluence.demo.collection;
+
+<span class="code-keyword">import</span> java.util.Set;
+<span class="code-keyword">import</span> java.util.TreeSet;
+
+<span class="code-keyword">public</span> class Country
+{
+
+  <span class="code-keyword">private</span> <span class="code-object">String</span> name;
+  <span class="code-keyword">private</span> Set<Province> provinces = <span class="code-keyword">new</span> TreeSet<Province>();
+
+  <span class="code-keyword">public</span> Country(<span class="code-object">String</span> name)
+  {
+    <span class="code-keyword">this</span>.name = name;
+  }
+
+  <span class="code-keyword">public</span> <span class="code-object">String</span> getName()
+  {
+    <span class="code-keyword">return</span> name;
+  }
+  
+  <span class="code-keyword">public</span> void addProvince(<span class="code-object">String</span> name, <span class="code-object">String</span> code)
+  {
+    Province province = <span class="code-keyword">new</span> Province(name, code);
+    
+    <span class="code-keyword">if</span> (provinces.contains(province))
+    {
+      <span class="code-keyword">throw</span> <span class="code-keyword">new</span> IllegalArgumentException(<span class="code-object">String</span>.format(<span class="code-quote">"Province '%s' alread exist"</span>, name));
+    }
+
+    provinces.add(province);
+  }
+
+  <span class="code-keyword">public</span> Set<Province> provinces()
+  {
+    <span class="code-keyword">return</span> provinces;
+  }
+}</pre>
+</div></div></div>
+</span>
+<br/>
+<span>
+	<span id="includeTitle_GP_INCLUDE_380" style="cursor:pointer;color:blue;font-weight:bold;text-decoration:underline;" onclick="document.getElementById('GP_INCLUDE_380').style.display='block'">Province.java</span>
+	<div id="GP_INCLUDE_380" width="100%" style="cursor:pointer;padding:0px 2px;border: 1px solid #cc0000;display: none;" onclick="document.getElementById('GP_INCLUDE_380').style.display='none'"><div class="code panel" style="border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;"><b>Province.java</b></div><div class="codeContent panelContent">
+<pre class="code-java"><span class="code-keyword">package</span> com.greenpepper.confluence.demo.collection;
+
+<span class="code-keyword">public</span> class Province
+    <span class="code-keyword">implements</span> Comparable<Province>
+{
+
+  <span class="code-keyword">private</span> <span class="code-object">String</span> name;
+  <span class="code-keyword">private</span> <span class="code-object">String</span> code;
+
+  <span class="code-keyword">public</span> Province(<span class="code-object">String</span> name, <span class="code-object">String</span> code)
+  {
+    <span class="code-keyword">this</span>.name = name;
+    <span class="code-keyword">this</span>.code = code;
+  }
+
+  <span class="code-keyword">public</span> <span class="code-object">String</span> getName()
+  {
+    <span class="code-keyword">return</span> name;
+  }
+
+  <span class="code-keyword">public</span> void setName(<span class="code-object">String</span> name)
+  {
+    <span class="code-keyword">this</span>.name = name;
+  }
+
+  <span class="code-keyword">public</span> <span class="code-object">String</span> getCode()
+  {
+    <span class="code-keyword">return</span> code;
+  }
+
+  <span class="code-keyword">public</span> void setCode(<span class="code-object">String</span> code)
+  {
+    <span class="code-keyword">this</span>.code = code;
+  }
+
+  <span class="code-keyword">public</span> <span class="code-object">int</span> compareTo(Province o)
+  {
+    <span class="code-keyword">return</span> getName().compareTo(o.getName());
+  }
+}</pre>
+</div></div></div>
+</span>
+</p>
+</div>
+<table style="display:none">
+	<tr>
+		<td>End Info</td>
+	</tr>
+</table>
+
+</div>
+</body></html>

@@ -1,0 +1,55 @@
+<div class="stepTitle">$action.getText('greenpepper.demo.title')
+	#if (!$action.actionErrors.isEmpty() && !$errorDisplayed)
+		#set($errorDisplayed = true)
+		<div  id="demoPaneError_display" class="gpErrMsg">
+			&nbsp;&nbsp;
+			#foreach($error in $action.actionErrors)
+				$action.getText($error)
+			#end
+		</div>
+	#end
+</div>
+#if($action.isServerReady)
+	<p>$action.getText('greenpepper.demo.description')</p>
+	<div class="form-block greyboxfilled">
+		<table class="sp_configItemView" cellspacing="0" cellpadding="0">
+			#if($action.isDemoSpaceExist())
+				<tr>
+					<td class="sp_configSubTitle" colspan="2">
+						<span id="demo_viewSpace" class="sp_configLinks" onclick="document.location.href='$action.demoSpaceUrl';">View Demo Space</span>
+						&nbsp;&nbsp;
+						<span id="demo_removeSpace" class="sp_configLinks" onclick="gpProperties.removeDemoSpace();">$action.getText('greenpepper.demo.removespace')</span>
+					</td>
+				</tr>
+			#else
+				<tr>
+					<td class="form-element-small" colspan="2">
+						$action.getText('greenpepper.registration.title')
+					</td>
+				</tr>
+				<tr>
+					<td class="sp_configSubTitle">
+						<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+						$action.getText('greenpepper.demo.username')
+					</td>
+					<td class="sp_configInput" colspan="2">
+						<input type="text" id="username" value="$!action.username" size="15" class="sp_configInput" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+						#if(!$action.allowRemoteApiAnonymous)<span class="sp_configMandatory" title="$action.getText('greenpepper.registration.mandatorytxt')">$action.getText('greenpepper.registration.mandatory')<span>#end
+					</td>
+				</tr>
+				<tr>
+					<td class="sp_configSubTitle">
+						<img src="$req.contextPath/download/resources/com.greenpepper.confluence.plugin:greenpepper.webactions/images/greenpepper_12.gif" alt="" border="0">
+						$action.getText('greenpepper.demo.password')
+					</td>
+					<td class="sp_configInput">
+						<input type="password" id="pwd" value="$!action.pwd" size="15" class="sp_configInput" onkeypress="javascript:return GP.View.verifyKeyCode(event);"/>
+					</td>
+					<td class="sp_configSubTitle" colspan="2">
+						<span id="demo_createSpace" class="sp_configLinks" onclick="gpProperties.createDemoSpace(#if($action.allowRemoteApiAnonymous)'false'#else'true'#end);">$action.getText('greenpepper.demo.createspace')</span>
+					</td>
+				</tr>
+			#end
+		</table>
+	</div>
+#end

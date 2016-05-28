@@ -1,0 +1,27 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} %-5p %-15c{1} %m%n</Pattern>
+            <!-- <Pattern>%d %-5p - %message \(%file:%line\) %n</Pattern> -->
+        </layout>
+    </appender>
+    <appender name="SUBPROCESSES" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} %-10c{1} %m%n</Pattern>
+            <!-- <Pattern>%d %-5p - %message \(%file:%line\) %n</Pattern> -->
+        </layout>
+    </appender>
+
+    <logger name="SYSOUT" level="INFO" additivity="false">
+        <appender-ref ref="SUBPROCESSES"/>
+    </logger>
+    <logger name="SYSERR" level="INFO" additivity="false">
+        <appender-ref ref="SUBPROCESSES"/>
+    </logger>
+    <logger name="com.greenpepper.util.cmdline.CommandLineExecutor" level="INFO"/>
+    <logger name="com.greenpepper.agent.server" level="INFO"/>
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

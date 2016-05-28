@@ -1,0 +1,6 @@
+|| Scenario || Google Search ||
+| I am on http://www.google.com |
+| The title is "strator-dev greenpepper-open on github" |
+| I type "github" in the search box |
+| I submit the search |
+| The first result is "GitHub - strator-dev/greenpepper-open" |

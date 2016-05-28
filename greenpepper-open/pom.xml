@@ -1,11 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- - Basic Project Information -->
-    <groupId>com.github.strator-dev.greenpepper</groupId>
+    <parent>
+        <groupId>com.github.strator-dev.greenpepper</groupId>
+        <artifactId>greenpepper-base</artifactId>
+        <version>4.1-SNAPSHOT</version>
+    </parent>
     <artifactId>greenpepper-open</artifactId>
     <packaging>pom</packaging>
     <name>GreenPepper Open</name>
-    <version>4.1-SNAPSHOT</version>
     <description>
         It was called GreenPepper Open by the creator of GreenPepper when the product was commercial.
         This project hosted every thing that was OpenSourced and that was a contribution of the community.
@@ -15,10 +18,6 @@
         * Wikis Plugins
         * IDE/Build/Countinuous Integration tools
     </description>
-
-    <properties>
-        <greenpepper.core.version>4.1-SNAPSHOT</greenpepper.core.version>
-    </properties>
 
     <!-- - GreenPepperOpen modules -->
     <modules>
@@ -33,12 +32,7 @@
     <dependencies>
         <!-- **** Basic dependencies **** -->
         <!-- **** Test level (not distributed) dependencies **** -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
@@ -64,187 +58,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <artifactId>greenpepper-base</artifactId>
-                <groupId>com.github.strator-dev.greenpepper</groupId>
-                <version>${greenpepper.core.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
-
-    <!-- - Extra project information -->
-    <url>http://strator-dev.github.io/greenpepper/</url>
-    <inceptionYear>2005</inceptionYear>
-    <organization>
-        <name>The GreenPepper Revival Team</name>
-        <url>http://strator-dev.github.io/greenpepper/#/about</url>
-    </organization>
-    <licenses>
-        <license>
-            <name>GPLv2</name>
-            <url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <id>wattazoum</id>
-            <name>Oumar Aziz OUATTARA</name>
-            <email>aziz@wattazoum.fr</email>
-            <url>http://wattazoum.fr</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>https://github.com/strator-dev/greenpepper-open.git</connection>
-        <developerConnection>scm:git:https://github.com/strator-dev/greenpepper-open.git</developerConnection>
-        <url>https://github.com/strator-dev/greenpepper-open.git</url>
-        <tag>HEAD</tag>
-    </scm>
-    <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/strator-dev/greenpepper-open/issues</url>
-    </issueManagement>
-
-    <!-- - Configure the build plugins -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.3</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <releaseProfiles>release</releaseProfiles>
-                    <preparationGoals>clean install</preparationGoals>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <goals>deploy</goals>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>atlassian-public-m1</id>
-            <url>https://maven.atlassian.com/content/groups/public</url>
-        </repository>
-    </repositories>
-
-    <!-- - Configure the reporting plugins -->
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>surefire-report-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>doclint-java8-disable</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
-			<version>${greenpepper.core.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

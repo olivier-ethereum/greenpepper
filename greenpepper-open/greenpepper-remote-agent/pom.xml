@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
-			<version>${greenpepper.core.version}</version>
+			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>xmlrpc</groupId>
@@ -87,25 +87,6 @@
 			<groupId>xmlrpc</groupId>
 			<artifactId>xmlrpc</artifactId>
 			<version>2.0.1</version>
-		</dependency>
- 
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock</artifactId>
-			<version>2.5.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jmock</groupId>
-			<artifactId>jmock-junit4</artifactId>
-			<version>2.5.1</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit-dep</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	
 	</dependencies>

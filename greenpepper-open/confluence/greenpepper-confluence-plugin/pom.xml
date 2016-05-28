@@ -108,12 +108,12 @@
 								<artifactItem>
 									<groupId>com.github.strator-dev.greenpepper</groupId>
 									<artifactId>greenpepper-client</artifactId>
-									<version>${greenpepper.core.version}</version>
+									<version>${project.version}</version>
 									<type>jar</type>
 									<classifier>complete</classifier>
 									<overWrite>false</overWrite>
 									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
-									<destFileName>greenpepper-client-${greenpepper.core.version}-complete.jar</destFileName>
+									<destFileName>greenpepper-client-${project.version}-complete.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
@@ -162,7 +162,7 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-client</artifactId>
-			<version>${greenpepper.core.version}</version>
+			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>dom4j</artifactId>

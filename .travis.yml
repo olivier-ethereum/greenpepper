@@ -1,13 +1,20 @@
 language: java
+sudo: false
+addons:
+  apt:
+    packages:
+    - php5-cli
+    - mono-complete
+    - gnupg
 jdk:
-  - openjdk6
+  - oraclejdk8
 before_install:
   - mkdir -p ~/.m2/ ~/.gnupg/
   - cp -a ./tools/settings.xml ~/.m2/
   - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - ./tools/wattazoum.asc.gpg | gpg --import
   - echo $ENCRYPTION_PASSWORD | gpg --passphrase-fd 0 -o - ./tools/wattazoum-pub.asc.gpg | gpg --import
 script:
-  - mvn deploy
+  - mvn deploy -Prelease
 env:
   global:
     secure: cAJ7aUzeezD3uOONQTaA1JacKDlve2edoQXDF5Z6gLneD2J2fQDIL7zxC4ZO3SJ/SJ1U6HQMmon6o9DxvCLTXLh4Xet3CTjBn4Z348vQAI6d9+nIAX/p0tnophyCD7wAugYKtWvOqB1M1ICf6qfbar46EoNuslkXVW+EaSStQF5gijekLCHG1nYGOzcGMjf7VAiRbIBQGA7wyUI5imPbv0dMWIlTCXdbifn74ieba5URkVixEwkXun6yQQN8o5NRmayd01AqPhMa85d5R4FCqdxscJSNV0K4w1W/kpmfNBzDwdSVgSp55DZDI8jLDpLBc2Y/2qqrwQ88zrHHd+ZQ8F07Fh2w+jBKfIAN2d4PoYDRwQDIDYxvXldffZCNDJDgCL4pbPY3FEgIN++r/WjdrIGQF0z8bH4L3Y+I9vlFXpCGE4hYBX4hrIHxIfK4LABJB4bq4Hh590iC7JhBPj3hCFCil4m+1zZ+AbU14amJCzga6K5c3xE/xEBc2woaJVjx6a5w+2pwYXfpt7tiw9lffN354K8Lz+a9dJyLhIlC9XBQDTjU0KLlA/RFL26FoEYWK0BfVNRwb5iisxsK5IRBRpNnn3isU0fWFGBgaW/Wk0uwlbiv+3uDcI06/wGyW8TlddP9HX3LlA/B8cH7b1oeUbYqB5d8qjKvNEdt0a0gWw0=

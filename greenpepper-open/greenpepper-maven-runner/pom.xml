@@ -15,12 +15,12 @@
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-core</artifactId>
-			<version>${greenpepper.core.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-extensions-java</artifactId>
-			<version>${greenpepper.core.version}</version>
+			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.apache.ant</groupId>

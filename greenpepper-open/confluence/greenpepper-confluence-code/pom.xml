@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-server</artifactId>
-            <version>${greenpepper.core.version}</version>
+            <version>${project.version}</version>
             <exclusions>
             	<exclusion>
             		<artifactId>commons-logging</artifactId>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-license</artifactId>
-            <version>${greenpepper.core.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>jfree</groupId>

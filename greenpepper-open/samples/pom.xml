@@ -30,7 +30,7 @@
             <plugin>
                 <groupId>com.github.strator-dev.greenpepper</groupId>
                 <artifactId>greenpepper-maven-plugin</artifactId>
-                <version>${greenpepper.core.version}</version>
+                <version>${project.version}</version>
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.github.strator-dev.greenpepper</groupId>
             <artifactId>greenpepper-extensions-java</artifactId>
-            <version>${greenpepper.core.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

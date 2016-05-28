@@ -12,6 +12,9 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -265,7 +268,18 @@ public class GreenPepperRepositoryTest extends TestCase
         assertNotNull( actualDoc );
         StringWriter buffer = new StringWriter();
         actualDoc.print( new PrintWriter( buffer ) );
-        assertEquals( expectedSpec, buffer.toString() );
+
+		org.jsoup.nodes.Document expectedDoc = Jsoup.parse(expectedSpec);
+		expectedDoc.outputSettings().escapeMode(Entities.EscapeMode.xhtml).prettyPrint(false);
+
+		Element expected = expectedDoc.body();
+
+		org.jsoup.nodes.Document resultDoc = Jsoup.parse(buffer.toString());
+		Element result = resultDoc.body();
+		result.select("style:first-of-type").remove();
+		resultDoc.outputSettings().escapeMode(Entities.EscapeMode.xhtml).prettyPrint(false);
+
+		assertEquals( expected.outerHtml(), result.outerHtml() );
     }
     
     private Vector<String> confPageDefinition()

@@ -23,6 +23,9 @@ import com.greenpepper.util.TestCase;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities;
 
 public class AtlassianRepositoryTest extends TestCase
 {
@@ -150,7 +153,17 @@ public class AtlassianRepositoryTest extends TestCase
         assertNotNull( doc );
         StringWriter buffer = new StringWriter();
         doc.print( new PrintWriter( buffer ) );
-        assertEquals( specification(), buffer.toString() );
+        org.jsoup.nodes.Document expectedDoc = Jsoup.parse(specification());
+        expectedDoc.outputSettings().escapeMode(Entities.EscapeMode.xhtml).prettyPrint(false);
+
+        Element expected = expectedDoc.body();
+
+        org.jsoup.nodes.Document resultDoc = Jsoup.parse(buffer.toString());
+        Element result = resultDoc.body();
+        result.select("style:first-of-type").remove();
+        resultDoc.outputSettings().escapeMode(Entities.EscapeMode.xhtml).prettyPrint(false);
+
+        assertEquals( expected.outerHtml(), result.outerHtml() );
     }
 
     public void testComplainsIfArgumentsAreMissing() throws Exception

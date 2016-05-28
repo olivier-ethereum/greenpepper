@@ -84,6 +84,7 @@ public class AtlassianRepository implements DocumentRepository
         logger.trace("Page retrieved from the repository for location '{}'\n{}", location,spec);
         // check if there is an error in the page
         org.jsoup.nodes.Document jsoupDoc = Jsoup.parse(spec);
+        jsoupDoc.outputSettings().prettyPrint(false);
         Elements select = jsoupDoc.select("#conf_actionError_Msg");
         for (Element element : select) {
             if (element.hasText()) {
@@ -98,7 +99,7 @@ public class AtlassianRepository implements DocumentRepository
                 }
             }
         }
-        return loadHtmlDocument( spec );
+        return loadHtmlDocument( jsoupDoc );
 	}
 
 	/** {@inheritDoc} */
@@ -139,9 +140,18 @@ public class AtlassianRepository implements DocumentRepository
         return renderedSpecificationResponse;
     }
 
-	private Document loadHtmlDocument( String content ) throws IOException
+	private Document loadHtmlDocument(org.jsoup.nodes.Document content ) throws IOException
     {
-        Reader reader = new StringReader( content );
+        Element head = content.head();
+        // I will put an encoding UTF8 per default
+        if (head.select("meta[charset]").isEmpty() && head.select("meta[http-equiv=Content-Type]").isEmpty() ) {
+            head.append("<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>");
+        }
+
+        // I will also remove any <base> node from the HEAD
+        head.select("base").remove();
+
+        Reader reader = new StringReader( content.outerHtml() );
         try
         {
             return HtmlDocumentBuilder.tablesAndLists().build( reader );

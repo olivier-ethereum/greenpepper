@@ -45,7 +45,7 @@ public class ReferenceNodeTest extends TestCase
 	
 	public void testReferenceNodeIsProperlyUnmarshallized()
 	{
-		DocumentNode hierarchy = XmlRpcDataMarshaller.toDocumentNode(createExpectedVector());
+		DocumentNode hierarchy = DocumentNode.toDocumentNode(createExpectedVector());
 		ReferenceNode node = (ReferenceNode)hierarchy.getChildren().iterator().next();
 		
 		assertEquals(node.getTitle(), "TITLE");

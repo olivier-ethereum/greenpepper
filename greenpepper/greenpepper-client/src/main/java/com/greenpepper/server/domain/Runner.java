@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
@@ -289,8 +290,8 @@ public class Runner extends AbstractVersionedEntity implements Comparable
 
         try
         {
-        	sections = (String)XmlRpcDataMarshaller.padNull(sections);
-        	locale = (String)XmlRpcDataMarshaller.padNull(locale);
+        	sections = (String) StringUtils.defaultString(sections);
+        	locale = (String)StringUtils.defaultString(locale);
 
 	        XmlRpcClientExecutor xmlrpc = XmlRpcClientExecutorFactory.newExecutor(agentUrl());
 
@@ -347,11 +348,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     {
         Vector<Object> parameters = new Vector<Object>();
         parameters.add(RUNNER_NAME_IDX, name);
-        parameters.add(RUNNER_CMDLINE_IDX, XmlRpcDataMarshaller.padNull(cmdLineTemplate));
+        parameters.add(RUNNER_CMDLINE_IDX, StringUtils.defaultString(cmdLineTemplate));
         parameters.add(RUNNER_ENVTYPE_IDX, envType != null ? envType.marshallize() : EnvironmentType.newInstance("").marshallize());
-        parameters.add(RUNNER_SERVER_NAME_IDX, XmlRpcDataMarshaller.padNull(serverName));
-        parameters.add(RUNNER_SERVER_PORT_IDX, XmlRpcDataMarshaller.padNull(serverPort));
-        parameters.add(RUNNER_MAINCLASS_IDX, XmlRpcDataMarshaller.padNull(mainClass));
+        parameters.add(RUNNER_SERVER_NAME_IDX, StringUtils.defaultString(serverName));
+        parameters.add(RUNNER_SERVER_PORT_IDX, StringUtils.defaultString(serverPort));
+        parameters.add(RUNNER_MAINCLASS_IDX, StringUtils.defaultString(mainClass));
         parameters.add(RUNNER_CLASSPATH_IDX, new Vector<String>(classpaths));
         parameters.add(RUNNER_SECURED_IDX, isSecured());
         return parameters;

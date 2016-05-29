@@ -185,21 +185,6 @@ public class XmlRpcDataMarshaller
     public static final int SUMMARY_SUCCESS_IDX = 3;
     /** Constant <code>SUMMARY_EXCEPTION_IDX=4</code> */
     public static final int SUMMARY_EXCEPTION_IDX = 4;
-    
-    /** Constant <code>NODE_TITLE_INDEX=0</code> */
-    public final static int NODE_TITLE_INDEX = 0;
-    /** Constant <code>NODE_EXECUTABLE_INDEX=1</code> */
-    public final static int NODE_EXECUTABLE_INDEX = 1;
-    /** Constant <code>NODE_CAN_BE_IMPLEMENTED_INDEX=2</code> */
-    public final static int NODE_CAN_BE_IMPLEMENTED_INDEX = 2;
-    /** Constant <code>NODE_CHILDREN_INDEX=3</code> */
-    public final static int NODE_CHILDREN_INDEX = 3;
-    /** Constant <code>NODE_REPOSITORY_UID_INDEX=4</code> */
-    public final static int NODE_REPOSITORY_UID_INDEX = 4;
-    /** Constant <code>NODE_SUT_NAME_INDEX=5</code> */
-    public final static int NODE_SUT_NAME_INDEX = 5;
-    /** Constant <code>NODE_SECTION_INDEX=6</code> */
-    public final static int NODE_SECTION_INDEX = 6;
 
     private final static Logger logger = LoggerFactory.getLogger(XmlRpcDataMarshaller.class);
 
@@ -777,49 +762,6 @@ public class XmlRpcDataMarshaller
     }
 
     /**
-     * Rebuilds a DocumentNode based on the given vector.
-     * </p>
-     *
-     * @param documentNodeParams a {@link java.util.Vector} object.
-     * @return a DocumentNode based on the given vector.
-     */
-    public static DocumentNode toDocumentNode(Vector documentNodeParams)
-    {
-        DocumentNode node = new DocumentNode((String) documentNodeParams.get(NODE_TITLE_INDEX));
-        node.setIsExecutable((Boolean) documentNodeParams.get(NODE_EXECUTABLE_INDEX));
-        node.setCanBeImplemented((Boolean) documentNodeParams.get(NODE_CAN_BE_IMPLEMENTED_INDEX));
-        
-        Hashtable children = (Hashtable) documentNodeParams.get(NODE_CHILDREN_INDEX);
-        Collection<Vector<?>> values = children.values();
-        for (Vector<?> nodeParams : values) {
-            
-        	if(nodeParams.size() > 4)
-        	{
-        		node.addChildren(toReferenceNode(nodeParams));
-        	}
-        	else
-        	{
-        		node.addChildren(toDocumentNode(nodeParams));
-        	}
-        }
-
-        return node;
-    }
-    
-	private static ReferenceNode toReferenceNode(Vector referenceNodeParams) 
-	{
-		ReferenceNode node = new ReferenceNode((String) referenceNodeParams.get(NODE_TITLE_INDEX),
-											   (String) referenceNodeParams.get(NODE_REPOSITORY_UID_INDEX), 
-											   (String) referenceNodeParams.get(NODE_SUT_NAME_INDEX),
-											   (String) referenceNodeParams.get(NODE_SECTION_INDEX));
-		
-        node.setIsExecutable((Boolean) referenceNodeParams.get(NODE_EXECUTABLE_INDEX));
-        node.setCanBeImplemented((Boolean) referenceNodeParams.get(NODE_CAN_BE_IMPLEMENTED_INDEX));
-		
-		return node;
-	}
-
-    /**
      * Wraps the error message id into a String.<br>
      * Structure of the error:<br>
      * TAG_ERROR errorId
@@ -899,17 +841,6 @@ public class XmlRpcDataMarshaller
         {
             checkErrors(xmlRpcResponse);
         }
-    }
-
-    /**
-     * <p>padNull.</p>
-     *
-     * @param str a {@link java.lang.String} object.
-     * @return a {@link java.lang.Object} object.
-     */
-    public static Object padNull(String str)
-    {
-        return (str == null) ? "" : str;
     }
 
 	/**

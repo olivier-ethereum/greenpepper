@@ -9,7 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 /**
@@ -67,7 +67,7 @@ public class EnvironmentType extends AbstractEntity implements Comparable<Enviro
 	public Vector<Object> marshallize()
 	{
         Vector<Object> parameters = new Vector<Object>();
-        parameters.add(ENVTYPE_NAME_IDX, XmlRpcDataMarshaller.padNull(name));
+        parameters.add(ENVTYPE_NAME_IDX, StringUtils.defaultString(name));
 		return parameters;
 	}
 

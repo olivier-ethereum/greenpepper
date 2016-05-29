@@ -84,7 +84,14 @@ public class GreenPepperRepository implements DocumentRepository
 		throw new UnsupportedOperationException("Not supported");
 	}
 
-    /** {@inheritDoc} */
+	@Override
+	public List<Object> getSpecificationsHierarchy(String project, String systemUnderTest) {
+
+		// TODO
+		throw new UnsupportedOperationException("This functionnality is not yet implemented!");
+	}
+
+	/** {@inheritDoc} */
     public List<String> listDocuments(String uri) throws Exception
     {
         List<String> documentsURI = new ArrayList<String>();

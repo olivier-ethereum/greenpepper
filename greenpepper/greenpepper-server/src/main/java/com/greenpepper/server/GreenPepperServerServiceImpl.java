@@ -51,7 +51,6 @@ import com.greenpepper.server.license.GreenPepperLicenceException;
 import com.greenpepper.server.license.LicenseBean;
 import com.greenpepper.server.license.LicenseErrorKey;
 import com.greenpepper.server.license.Permission;
-import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
 import com.greenpepper.util.StringUtil;
 
 /**
@@ -1037,7 +1036,7 @@ public class GreenPepperServerServiceImpl implements GreenPepperServerService {
             DocumentRepository docRepo = repository.asDocumentRepository(EnvironmentType.newInstance("JAVA"), user, pwd);
 
             log.debug("Retrieved specification Hierarchy: " + repository.getName());
-            DocumentNode hierarchy = XmlRpcDataMarshaller.toDocumentNode(new Vector<Object>(docRepo.listDocumentsInHierarchy()));
+            DocumentNode hierarchy = DocumentNode.toDocumentNode(new Vector<Object>(docRepo.listDocumentsInHierarchy()));
             setExecutionEnable(hierarchy, repository.getUid(), systemUnderTestDb);
             return hierarchy;
         } catch (Exception ex) {

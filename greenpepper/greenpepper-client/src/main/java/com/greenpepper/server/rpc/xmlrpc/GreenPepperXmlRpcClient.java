@@ -567,7 +567,7 @@ public class GreenPepperXmlRpcClient implements RpcClientService
         log.debug("Get Specification Hierarchy: " + repository.getName() + " & " + systemUnderTest.getName());
         Vector<Object> vector = (Vector<Object>)execute(XmlRpcMethodName.getSpecificationHierarchy, params, identifier);
 
-        DocumentNode documentNode = XmlRpcDataMarshaller.toDocumentNode(vector);
+        DocumentNode documentNode = DocumentNode.toDocumentNode(vector);
         if (log.isDebugEnabled()) {
             TreeTraverser<DepthAwareDocumentNode> traverser = new TreeTraverser<DepthAwareDocumentNode>() {
 

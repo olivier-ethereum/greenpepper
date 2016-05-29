@@ -33,6 +33,10 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.8.3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-vfs</groupId>

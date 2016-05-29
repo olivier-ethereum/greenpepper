@@ -144,15 +144,15 @@ public class PlainOldFixtureTest extends TestCase
          
          assertNotNull(message);
 
-         assertEquals(new Integer(0), (Integer)message.send());
+         assertEquals(0, message.send());
 
-         assertEquals(new Integer(1), (Integer)message.send(new String[] {"1"}));
+         assertEquals(1, message.send("1"));
 
-         assertEquals(new Integer(2), (Integer)message.send(new String[] { "1", "2" }));
+         assertEquals(2, message.send("1", "2"));
 
          try
          {
-             message.send(new String[] { "1", "2", "3" });
+             message.send("1", "2", "3");
              fail("Must throw an exception");                
          }
          catch(Exception e)
@@ -166,7 +166,7 @@ public class PlainOldFixtureTest extends TestCase
          Message message = fixture.send("AttributeWithDifferentArities");
          assertNotNull(message);
 
-         message.send(new String[] {"1"});
+         message.send("1");
 
          assertEquals(1, target.attributeWithDifferentArities);
 

@@ -24,8 +24,13 @@ import static com.greenpepper.util.CollectionUtil.toArray;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.TreeTraverser;
 import com.greenpepper.repository.DocumentRepository;
+import com.greenpepper.server.domain.DocumentNode;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Repository class.</p>
@@ -41,6 +46,8 @@ public class Repository
     private String root;
     private String name;
     private boolean isDefault;
+    private String projectName;
+    private String systemUnderTest;
 
     private DocumentRepository documentRepository;
 
@@ -81,6 +88,13 @@ public class Repository
     public String[] getTests()
     {
         return toArray(tests);
+    }
+
+
+    public DocumentNode retrieveDocumentHierarchy() throws Exception {
+        DocumentRepository documentRepository = getDocumentRepository();
+        Vector<Object> documentNodeParams = new Vector<Object>(documentRepository.getSpecificationsHierarchy(getProjectName(),getSystemUnderTest()));
+        return DocumentNode.toDocumentNode(documentNodeParams);
     }
 
     /**
@@ -165,7 +179,7 @@ public class Repository
             throw new IllegalArgumentException("Not a " + DocumentRepository.class.getName() + ": " + type );
 
         Constructor<?> constructor = klass.getConstructor( String[].class );
-        return (DocumentRepository) constructor.newInstance( new Object[]{ new String[] { root } } );
+        return (DocumentRepository) constructor.newInstance( new Object[]{ StringUtils.split(root,';') } );
     }
 
     /**
@@ -197,5 +211,21 @@ public class Repository
      */
     public void setDefault(boolean isDefault) {
         this.isDefault = isDefault;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getSystemUnderTest() {
+        return systemUnderTest;
+    }
+
+    public void setSystemUnderTest(String systemUnderTest) {
+        this.systemUnderTest = systemUnderTest;
     }
 }

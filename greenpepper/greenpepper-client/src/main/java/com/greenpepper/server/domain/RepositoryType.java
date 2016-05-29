@@ -23,6 +23,8 @@ import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
 import com.greenpepper.util.StringUtil;
 import com.greenpepper.util.URIUtil;
+import org.apache.commons.lang3.StringUtils;
+
 import static com.greenpepper.util.StringUtil.escapeSemiColon;
 
 /**
@@ -245,15 +247,15 @@ public class RepositoryType extends AbstractVersionedEntity implements Comparabl
     public Vector<Object> marshallize()
     {
         Vector<Object> parameters = new Vector<Object>();
-        parameters.add(REPOSITORY_TYPE_NAME_IDX, XmlRpcDataMarshaller.padNull(name));
+        parameters.add(REPOSITORY_TYPE_NAME_IDX, StringUtils.defaultString(name));
         
     	Hashtable<String, String> repoTypeClasses = new Hashtable<String, String>();
     	for(RepositoryTypeClass repoTypeClass : repositoryTypeClasses)
     		repoTypeClasses.put(repoTypeClass.getEnvType().getName(), repoTypeClass.getClassName());
         
         parameters.add(REPOSITORY_TYPE_REPOCLASSES_IDX, repoTypeClasses);
-        parameters.add(REPOSITORY_TYPE_NAME_FORMAT_IDX, XmlRpcDataMarshaller.padNull(getDocumentUrlFormat()));
-        parameters.add(REPOSITORY_TYPE_URI_FORMAT_IDX, XmlRpcDataMarshaller.padNull(getTestUrlFormat()));
+        parameters.add(REPOSITORY_TYPE_NAME_FORMAT_IDX, StringUtils.defaultString(getDocumentUrlFormat()));
+        parameters.add(REPOSITORY_TYPE_URI_FORMAT_IDX, StringUtils.defaultString(getTestUrlFormat()));
         return parameters;
     }
     

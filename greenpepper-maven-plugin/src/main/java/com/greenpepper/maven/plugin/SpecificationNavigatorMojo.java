@@ -1,12 +1,12 @@
 package com.greenpepper.maven.plugin;
 
-import com.greenpepper.repository.RepositoryException;
 import com.greenpepper.server.domain.DocumentNode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -18,13 +18,22 @@ import java.util.ArrayList;
 public class SpecificationNavigatorMojo extends AbstractMojo {
 
     /**
-     * @parameter expression="${greenpepper.repositories}"
+     * @parameter property="greenpepper.repositories"
      * @required
      */
     ArrayList<Repository> repositories;
 
+    /**
+     * Set this to a Repository name defined in the pom.xml.
+     * This option is only used in case <code>-Dgp.test</code> is used.
+     * @parameter property="gp.repo"
+     */
+    String selectedRepository;
+    private PrintWriter writer;
+
     public SpecificationNavigatorMojo() {
         this.repositories = new ArrayList<Repository>();
+        this.writer = new PrintWriter(System.out);
     }
 
     @Override
@@ -34,16 +43,37 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
     }
 
     private void processAllRepositories() throws MojoExecutionException {
+        if (repositories.isEmpty()) {
+            throw new MojoExecutionException("No repository found in your pom configuration");
+        }
+        boolean atLeastOneRepositoryProcessed = false;
         try {
             for (Repository repository : repositories) {
-                processRepository(repository);
+                if (StringUtils.isNotEmpty(selectedRepository)) {
+                    if (StringUtils.equals(selectedRepository, repository.getName())) {
+                        processRepository(repository);
+                        atLeastOneRepositoryProcessed = true;
+                        break;
+                    }
+                } else {
+                    processRepository(repository);
+                    atLeastOneRepositoryProcessed = true;
+                }
             }
         } catch (Exception e) {
             throw new MojoExecutionException("Error running the Goal", e);
         }
+        if (!atLeastOneRepositoryProcessed) {
+            throw new MojoExecutionException("No repository could match your requirements");
+        }
     }
 
     private void processRepository(Repository repository) throws Exception {
+        if ( StringUtils.isNotEmpty(selectedRepository)
+                && !StringUtils.equals(selectedRepository,repository.getName())) {
+            getLog().debug(String.format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
+            return;
+        }
         if (StringUtils.isAnyEmpty(repository.getProjectName(), repository.getSystemUnderTest())) {
             throw new MojoFailureException("Neither the projectName nor the systemUnderTest should be null. " +
                     "Found: projectName="+ repository.getProjectName() + " ,systemUnderTest="+repository.getSystemUnderTest());
@@ -54,11 +84,12 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         int i = 1;
         for (DocumentNode node : DocumentNode.traverser.preOrderTraversal(documentHierarchy)) {
             if (node.isExecutable()) {
-                System.out.println(String.format("  [%04d] - [%11s] - [%s]",
+                writer.println(String.format("  [%04d] - [%11s] - [%s]",
                         i, !node.canBeImplemented() ? "implemented" : "", node.getTitle()));
                 i++;
             }
         }
+        writer.flush();
     }
 
     private void printRepositoryName(Repository repository) {
@@ -78,14 +109,16 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         repositories.add(repository);
     }
 
-
-
     private void printBanner() {
         System.out.println();
         System.out.println("----------------------------------------------------------------");
         System.out.println(" G R E E N  P E P P E R  S P E C I F I C A T I O N S   L I S T ");
         System.out.println("----------------------------------------------------------------");
         System.out.println();
+    }
+
+    void setPrintWriter(PrintWriter writer) {
+        this.writer = writer;
     }
 
 }

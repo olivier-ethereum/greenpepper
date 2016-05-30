@@ -5,22 +5,18 @@ import com.greenpepper.util.URIUtil;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.xmlrpc.WebServer;
-import org.jmock.Mock;
-import org.jmock.core.matcher.InvokeOnceMatcher;
-import org.jmock.core.matcher.InvokedRecorder;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
-/**
- * Created by azo on 28/05/16.
- */
 public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
 
     private SpecificationNavigatorMojo mojo;
@@ -43,6 +39,7 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
         stopWebServer();
     }
 
+    @SuppressWarnings("unchecked")
     public void testShouldFailIfNoSUT() throws Exception {
 
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
@@ -59,11 +56,71 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
         }
     }
 
+
+    public void testhouldFailIfNoRepo() throws Exception {
+
+        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
+        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
+        try {
+            mojo.execute();
+            fail("No exception thrown");
+        } catch (MojoExecutionException e) {
+            // ok
+        }
+    }
+
+    public void testSelectARepoShouldFailIfNoMatchingFound() throws Exception {
+
+        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
+        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
+        createAtlassianRepository("repo");
+        createAtlassianRepository("repo1");
+        mojo.selectedRepository = "repo2";
+        try {
+            mojo.execute();
+            fail("No exception thrown");
+        } catch (MojoExecutionException e) {
+            // ok
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void testSelectARepo() throws Exception {
+
+        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
+        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
+        createAtlassianRepository("repo1");
+        createAtlassianRepository("repo");
+        mojo.selectedRepository = "repo";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        mojo.setPrintWriter(new PrintWriter(outputStream));
+
+        Vector systemUnderTests = (Vector) systemUnderTests();
+        expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests);
+        Vector specificationRepositories = (Vector) specificationRepositories();
+        expect(handler.getAllSpecificationRepositories()).andReturn(specificationRepositories);
+        expect(handler.getSpecificationHierarchy((Vector)specificationRepositories.get(0), (Vector)systemUnderTests.get(0)))
+                .andReturn((Vector)specHierarchy());
+
+        replay(handler);
+
+        mojo.execute();
+        verify(handler);
+
+        String out = outputStream.toString();
+        assertThat(out, containsString("PAGE Executable"));
+        assertThat(out, containsString("SUBPAGE IMPLEMENTED"));
+    }
+
+    @SuppressWarnings("unchecked")
     public void testShouldPrintTheSpecs() throws Exception {
 
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
         createAtlassianRepository("repo");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        mojo.setPrintWriter(new PrintWriter(outputStream));
+
         Vector systemUnderTests = (Vector) systemUnderTests();
         expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests);
         Vector specificationRepositories = (Vector) specificationRepositories();
@@ -73,6 +130,11 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
 
         replay(handler);
         mojo.execute();
+        verify(handler);
+
+        String out = outputStream.toString();
+        assertThat(out, containsString("PAGE Executable"));
+        assertThat(out, containsString("SUBPAGE IMPLEMENTED"));
     }
 
 

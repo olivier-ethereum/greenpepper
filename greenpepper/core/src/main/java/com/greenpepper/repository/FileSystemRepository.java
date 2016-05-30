@@ -71,8 +71,37 @@ public class FileSystemRepository implements DocumentRepository
 
     @Override
     public List<Object> getSpecificationsHierarchy(String project, String systemUnderTest) {
-        // TODO
-        throw new UnsupportedOperationException("This functionnality is not yet implemented!");
+
+        if (root == null) {
+            return new ArrayList<Object>();
+        }
+
+        return  generateDocumentNode(root, null);
+    }
+
+    private void navigateInto(File directory, Hashtable<String, Vector<?>> pageBranch) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                generateDocumentNode(file, pageBranch);
+            }
+        }
+    }
+
+    private Vector<Object> generateDocumentNode(File file, Hashtable<String, Vector<?>> pageBranch) {
+        Vector<Object> page = new Vector<Object>();
+        page.add(file.getName());
+        page.add(file.isFile());
+        page.add(Boolean.FALSE);
+        Hashtable<String, Vector<?>> subPageBranch = new Hashtable<String, Vector<?>>();
+        page.add(subPageBranch);
+        if (pageBranch != null) {
+            pageBranch.put(file.getName(), page);
+        }
+        if (file.isDirectory()) {
+            navigateInto(file, subPageBranch);
+        }
+        return page;
     }
 
     /** {@inheritDoc} */

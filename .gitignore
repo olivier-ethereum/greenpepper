@@ -6,3 +6,4 @@ amps-standalone/
 *~
 *.iml
 .idea
+dependency-reduced-pom.xml

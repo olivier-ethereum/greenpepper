@@ -39,6 +39,8 @@
                             <tests>
                                 <test>right.html</test>
                             </tests>
+                            <projectName>PROJECT</projectName>
+                            <systemUnderTest>SUT</systemUnderTest>
                         </repository>
                     </repositories>
                 </configuration>
@@ -47,6 +49,7 @@
                         <id>makeall</id>
                         <phase>integration-test</phase>
                         <goals>
+                            <goal>tree</goal>
                             <goal>compile</goal>
                             <goal>resources</goal>
                             <goal>run</goal>

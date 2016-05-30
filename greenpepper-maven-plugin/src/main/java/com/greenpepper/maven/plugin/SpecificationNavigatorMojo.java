@@ -1,12 +1,20 @@
 package com.greenpepper.maven.plugin;
 
 import com.greenpepper.server.domain.DocumentNode;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.TeeOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -29,11 +37,24 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
      * @parameter property="gp.repo"
      */
     String selectedRepository;
+
+    /**
+     * The directory where compiled fixture classes go.
+     *
+     * @parameter expression="${project.build.directory}/greenpepper"
+     * @required
+     */
+    File specOutputDirectory;
+
+
     private PrintWriter writer;
+    private ByteArrayOutputStream tempOutput;
 
     public SpecificationNavigatorMojo() {
         this.repositories = new ArrayList<Repository>();
-        this.writer = new PrintWriter(System.out);
+        tempOutput = new ByteArrayOutputStream();
+        TeeOutputStream teeOutputStream = new TeeOutputStream(System.out, tempOutput);
+        this.writer = new PrintWriter(teeOutputStream);
     }
 
     @Override
@@ -54,6 +75,8 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
                         processRepository(repository);
                         atLeastOneRepositoryProcessed = true;
                         break;
+                    } else {
+                        getLog().debug(String.format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
                     }
                 } else {
                     processRepository(repository);
@@ -69,11 +92,6 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
     }
 
     private void processRepository(Repository repository) throws Exception {
-        if ( StringUtils.isNotEmpty(selectedRepository)
-                && !StringUtils.equals(selectedRepository,repository.getName())) {
-            getLog().debug(String.format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
-            return;
-        }
         if (StringUtils.isAnyEmpty(repository.getProjectName(), repository.getSystemUnderTest())) {
             throw new MojoFailureException("Neither the projectName nor the systemUnderTest should be null. " +
                     "Found: projectName="+ repository.getProjectName() + " ,systemUnderTest="+repository.getSystemUnderTest());
@@ -90,6 +108,15 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
             }
         }
         writer.flush();
+        updateIndexFile(repository);
+    }
+
+    private void updateIndexFile(Repository repository) throws IOException, NoSuchAlgorithmException {
+        String indentifiers = repository.getProjectName() + repository.getSystemUnderTest() + repository.getType() + repository.getRoot();
+        String indexFilename = String.format("%s-%s.index", repository.getName() , DigestUtils.md5Hex(indentifiers.getBytes("UTF-8")));
+        File indexFile = new File(specOutputDirectory, indexFilename);
+        FileUtils.writeByteArrayToFile(indexFile, tempOutput.toByteArray());
+        tempOutput.reset();
     }
 
     private void printRepositoryName(Repository repository) {

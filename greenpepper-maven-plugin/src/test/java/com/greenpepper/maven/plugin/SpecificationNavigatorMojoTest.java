@@ -2,13 +2,14 @@ package com.greenpepper.maven.plugin;
 
 import com.greenpepper.runner.repository.AtlassianRepository;
 import com.greenpepper.util.URIUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.xmlrpc.WebServer;
 import org.junit.After;
-import org.junit.Before;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.*;
@@ -23,13 +24,6 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     private WebServer ws;
     private Handler handler;
 
-    @Before
-    protected void setUp() throws Exception {
-        // required
-        super.setUp();
-        startWebServer();
-    }
-
     @After
     protected void tearDown()
             throws Exception
@@ -41,7 +35,7 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
 
     @SuppressWarnings("unchecked")
     public void testShouldFailIfNoSUT() throws Exception {
-
+        startWebServer();
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
         createAtlassianRepository("repo");
@@ -87,11 +81,13 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     @SuppressWarnings("unchecked")
     public void testSelectARepo() throws Exception {
 
+        startWebServer();
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
         createAtlassianRepository("repo1");
         createAtlassianRepository("repo");
         mojo.selectedRepository = "repo";
+        mojo.specOutputDirectory = getOutputFolder();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mojo.setPrintWriter(new PrintWriter(outputStream));
 
@@ -115,11 +111,13 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     @SuppressWarnings("unchecked")
     public void testShouldPrintTheSpecs() throws Exception {
 
+        startWebServer();
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
         createAtlassianRepository("repo");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mojo.setPrintWriter(new PrintWriter(outputStream));
+        mojo.specOutputDirectory = getOutputFolder();
 
         Vector systemUnderTests = (Vector) systemUnderTests();
         expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests);
@@ -216,6 +214,10 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
         Vector<?> getSystemUnderTestsOfProject(String projectName);
         Vector<?> getAllSpecificationRepositories();
         Vector<?> getSpecificationHierarchy(Vector<?> repository,Vector<?> sut);
+    }
+
+    private File getOutputFolder(){
+        return FileUtils.toFile(getClass().getResource("."));
     }
 
 }

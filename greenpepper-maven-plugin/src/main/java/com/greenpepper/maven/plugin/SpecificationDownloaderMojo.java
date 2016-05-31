@@ -20,7 +20,6 @@ import java.util.List;
  * <p>SpecificationDownloaderMojo class.</p>
  *
  * @goal freeze
- * @requiresDependencyResolution test
  * @description Downloads GreenPepper specifications
  * @author oaouattara
  * @version $Id: $Id
@@ -37,13 +36,6 @@ public class SpecificationDownloaderMojo extends AbstractMojo {
      * @required
      */
     ArrayList<Repository> repositories;
-
-    /**
-     * @parameter expression="${plugin.artifacts}"
-     * @required
-     * @readonly
-     */
-    List<Artifact> pluginDependencies;
 
     int specCount;
 

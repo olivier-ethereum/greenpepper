@@ -62,19 +62,6 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
         }
     }
 
-
-    public void testhouldFailIfNoRepo() throws Exception {
-
-        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
-        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
-        try {
-            mojo.execute();
-            fail("No exception thrown");
-        } catch (MojoExecutionException e) {
-            // ok
-        }
-    }
-
     public void testSelectARepoShouldFailIfNoMatchingFound() throws Exception {
 
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");

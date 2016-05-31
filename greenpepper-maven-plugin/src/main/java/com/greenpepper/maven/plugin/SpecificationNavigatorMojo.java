@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * @goal tree
@@ -63,13 +64,10 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
     }
 
     private void processAllRepositories() throws MojoExecutionException {
-        if (repositories.isEmpty()) {
-            throw new MojoExecutionException("No repository found in your pom configuration");
-        }
         boolean atLeastOneRepositoryProcessed = false;
         try {
             for (Repository repository : repositories) {
-                if (StringUtils.isNotEmpty(selectedRepository)) {
+                if (isNotEmpty(selectedRepository)) {
                     if (StringUtils.equals(selectedRepository, repository.getName())) {
                         processRepository(repository);
                         atLeastOneRepositoryProcessed = true;
@@ -79,13 +77,12 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
                     }
                 } else {
                     processRepository(repository);
-                    atLeastOneRepositoryProcessed = true;
                 }
             }
         } catch (Exception e) {
             throw new MojoExecutionException("Error running the Goal", e);
         }
-        if (!atLeastOneRepositoryProcessed) {
+        if (isNotEmpty(selectedRepository) && !atLeastOneRepositoryProcessed) {
             throw new MojoExecutionException("No repository could match your requirements");
         }
     }

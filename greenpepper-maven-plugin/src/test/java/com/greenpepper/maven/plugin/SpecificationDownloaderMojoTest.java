@@ -5,10 +5,8 @@ import static com.greenpepper.util.CollectionUtil.toVector;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
@@ -39,11 +37,6 @@ public class SpecificationDownloaderMojoTest extends AbstractMojoTestCase {
         URL pomPath = SpecificationDownloaderMojoTest.class.getResource("pom-downloader.xml");
         mojo = (SpecificationDownloaderMojo) lookupMojo("freeze", URIUtil.decoded(pomPath.getPath()));
 
-        mojo.pluginDependencies = new ArrayList<Artifact>();
-        mojo.pluginDependencies.add(new DependencyArtifact("commons-codec", dependency("commons-codec-1.3.jar")));
-        mojo.pluginDependencies.add(new DependencyArtifact("xmlrpc", dependency("xmlrpc-2.0.1.jar")));
-        File extension = dependency("greenpepper-extensions-java.jar");
-        mojo.pluginDependencies.add(new DependencyArtifact("greenpepper-extensions-java", extension));
     }
 
     private Repository createLocalRepository(String name) throws URISyntaxException {
@@ -61,15 +54,6 @@ public class SpecificationDownloaderMojoTest extends AbstractMojoTestCase {
 
     private File localDir() throws URISyntaxException {
         return spec("spec.html").getParentFile();
-    }
-
-    private File dependency(String name) throws URISyntaxException {
-        return new File(classesOutputDir(), name);
-    }
-
-    private File classesOutputDir()
-            throws URISyntaxException {
-        return localDir().getParentFile().getParentFile().getParentFile().getParentFile();
     }
 
     public void testCanDownloadASingleSpecification() throws Exception
@@ -183,7 +167,7 @@ public class SpecificationDownloaderMojoTest extends AbstractMojoTestCase {
         if (ws != null) ws.shutdown();
     }
 
-    public static interface Handler {
+    public interface Handler {
 
         String getRenderedSpecification(String username, String password, Vector<Object> args);
     }

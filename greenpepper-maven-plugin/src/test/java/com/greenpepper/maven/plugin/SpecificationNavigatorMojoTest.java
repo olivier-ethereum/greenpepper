@@ -10,6 +10,7 @@ import org.junit.After;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.*;
@@ -30,6 +31,17 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     {
         // required
         super.tearDown();
+        File outputFolder = getOutputFolder();
+        if (outputFolder.exists()) {
+            for (File file : outputFolder.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return new File(dir, name).isFile() && name.endsWith(".index");
+                }
+            })) {
+                FileUtils.deleteQuietly(file);
+            }
+        }
         stopWebServer();
     }
 
@@ -135,6 +147,30 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
         assertThat(out, containsString("SUBPAGE IMPLEMENTED"));
     }
 
+    @SuppressWarnings("unchecked")
+    public void testWeShouldUseTheIndexFileWhenExists() throws Exception {
+
+        startWebServer();
+        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
+        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
+        createAtlassianRepository("repo");
+        mojo.specOutputDirectory = getOutputFolder();
+
+        Vector systemUnderTests = (Vector) systemUnderTests();
+        expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests).once();
+        Vector specificationRepositories = (Vector) specificationRepositories();
+        expect(handler.getAllSpecificationRepositories()).andReturn(specificationRepositories).once();
+        expect(handler.getSpecificationHierarchy((Vector)specificationRepositories.get(0), (Vector)systemUnderTests.get(0)))
+                .andReturn((Vector)specHierarchy())
+                .once();
+
+        replay(handler);
+
+        mojo.execute();
+        // The second time we call execute, the Mock methods should not be called
+        mojo.execute();
+        verify(handler);
+    }
 
     @SuppressWarnings("unchecked")
     private Vector<Vector<?>> specificationRepositories() {

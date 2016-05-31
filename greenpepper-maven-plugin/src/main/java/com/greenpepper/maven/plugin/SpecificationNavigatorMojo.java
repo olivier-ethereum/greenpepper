@@ -10,12 +10,11 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import static java.lang.String.format;
 
 /**
  * @goal tree
@@ -76,7 +75,7 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
                         atLeastOneRepositoryProcessed = true;
                         break;
                     } else {
-                        getLog().debug(String.format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
+                        getLog().debug(format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
                     }
                 } else {
                     processRepository(repository);
@@ -98,30 +97,42 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         }
         printRepositoryName(repository);
 
-        DocumentNode documentHierarchy = repository.retrieveDocumentHierarchy();
-        int i = 1;
-        for (DocumentNode node : DocumentNode.traverser.preOrderTraversal(documentHierarchy)) {
-            if (node.isExecutable()) {
-                writer.println(String.format("  [%04d] - [%11s] - [%s]",
-                        i, !node.canBeImplemented() ? "implemented" : "", node.getTitle()));
-                i++;
+        File indexFile = getIndexFileForRepository(repository);
+        if (indexFile.exists()) {
+            System.out.println(format("\tUsing index file '%s'.\n" +
+                                      "\tYou can force a refresh by removing it.", indexFile.getName()));
+            System.out.println();
+            IOUtils.copy(new FileInputStream(indexFile), System.out);
+        } else {
+            DocumentNode documentHierarchy = repository.retrieveDocumentHierarchy();
+            int i = 1;
+            for (DocumentNode node : DocumentNode.traverser.preOrderTraversal(documentHierarchy)) {
+                if (node.isExecutable()) {
+                    writer.println(format("  [%04d] - [%11s] - [%s]",
+                            i, !node.canBeImplemented() ? "implemented" : "", node.getTitle()));
+                    i++;
+                }
             }
+            writer.flush();
+            updateIndexFile(repository);
         }
-        writer.flush();
-        updateIndexFile(repository);
     }
 
     private void updateIndexFile(Repository repository) throws IOException, NoSuchAlgorithmException {
-        String indentifiers = repository.getProjectName() + repository.getSystemUnderTest() + repository.getType() + repository.getRoot();
-        String indexFilename = String.format("%s-%s.index", repository.getName() , DigestUtils.md5Hex(indentifiers.getBytes("UTF-8")));
-        File indexFile = new File(specOutputDirectory, indexFilename);
+        File indexFile = getIndexFileForRepository(repository);
         FileUtils.writeByteArrayToFile(indexFile, tempOutput.toByteArray());
         tempOutput.reset();
     }
 
+    private File getIndexFileForRepository(Repository repository) throws UnsupportedEncodingException {
+        String indentifiers = repository.getProjectName() + repository.getSystemUnderTest() + repository.getType() + repository.getRoot();
+        String indexFilename = format("%s-%s.index", repository.getName() , DigestUtils.md5Hex(indentifiers.getBytes("UTF-8")));
+        return new File(specOutputDirectory, indexFilename);
+    }
+
     private void printRepositoryName(Repository repository) {
         System.out.println();
-        System.out.println(String.format(" Repository : %s  (project='%s',sut='%s')",
+        System.out.println(format(" Repository : %s  (project='%s',sut='%s')",
                 repository.getName(), repository.getProjectName(), repository.getSystemUnderTest()));
         System.out.println(StringUtils.repeat(" =",40));
         System.out.println();

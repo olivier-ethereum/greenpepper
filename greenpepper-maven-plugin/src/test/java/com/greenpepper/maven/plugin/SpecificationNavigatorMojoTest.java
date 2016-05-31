@@ -1,11 +1,12 @@
 package com.greenpepper.maven.plugin;
 
 import com.greenpepper.runner.repository.AtlassianRepository;
+import com.greenpepper.server.domain.DocumentNode;
 import com.greenpepper.util.URIUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.apache.xmlrpc.WebServer;
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 
 import java.io.ByteArrayOutputStream;
@@ -13,7 +14,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.util.*;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
@@ -22,8 +22,6 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
 
     private SpecificationNavigatorMojo mojo;
-    private WebServer ws;
-    private Handler handler;
 
     @After
     protected void tearDown()
@@ -31,6 +29,10 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     {
         // required
         super.tearDown();
+        cleanIndexFiles();
+    }
+
+    private void cleanIndexFiles() {
         File outputFolder = getOutputFolder();
         if (outputFolder.exists()) {
             for (File file : outputFolder.listFiles(new FilenameFilter() {
@@ -42,32 +44,62 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
                 FileUtils.deleteQuietly(file);
             }
         }
-        stopWebServer();
     }
 
-    @SuppressWarnings("unchecked")
-    public void testShouldFailIfNoSUT() throws Exception {
-        startWebServer();
-        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
-        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
-        createAtlassianRepository("repo");
-        expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(new Vector());
+    private DocumentNode docNodeHierarchy() {
+        DocumentNode hierachy = new DocumentNode("ROOT");
+        hierachy.setIsExecutable(false);
+        hierachy.setCanBeImplemented(false);
 
-        replay(handler);
-        try {
-            mojo.execute();
-            fail("No exception thrown");
-        } catch (MojoExecutionException e) {
-            // ok
-        }
+        DocumentNode page = new DocumentNode("PAGE");
+        page.setCanBeImplemented(false);
+        page.setIsExecutable(false);
+        hierachy.addChildren(page);
+
+        DocumentNode page2 = new DocumentNode("PAGE Executable");
+        page2.setCanBeImplemented(true);
+        page2.setIsExecutable(true);
+        hierachy.addChildren(page2);
+
+        DocumentNode subpage = new DocumentNode("SUBPAGE IMPLEMENTED");
+        subpage.setCanBeImplemented(false);
+        subpage.setIsExecutable(true);
+        page2.addChildren(subpage);
+
+        return hierachy;
+    }
+
+    private Repository createMockRepository() throws Exception {
+        return createMockRepository("repo");
+    }
+
+    private Repository createMockRepository(String reponame) throws Exception {
+        Repository repo = getMockRepositoryNoexpectServiceCall(reponame);
+        expect(repo.retrieveDocumentHierarchy()).andReturn(docNodeHierarchy()).anyTimes();
+        return repo;
+    }
+
+    private Repository getMockRepositoryNoexpectServiceCall(String reponame) {
+        Repository repo = createMock(Repository.class);
+        expect(repo.getProjectName()).andReturn("PROJECT").anyTimes();
+        expect(repo.getSystemUnderTest()).andReturn("SUTNAME").anyTimes();
+        expect(repo.getName()).andReturn(reponame).anyTimes();
+        expect(repo.getType()).andReturn(AtlassianRepository.class.getName()).anyTimes();
+        expect(repo.getRoot()).andReturn("http://localhost:19005/rpc/xmlrpc?includeStyle=true&handler=greenpepper1#SPACE").anyTimes();
+        mojo.addRepository(repo);
+        return repo;
+    }
+
+    private File getOutputFolder(){
+        return FileUtils.toFile(getClass().getResource("."));
     }
 
     public void testSelectARepoShouldFailIfNoMatchingFound() throws Exception {
 
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
-        createAtlassianRepository("repo");
-        createAtlassianRepository("repo1");
+        replay(createMockRepository("repo"));
+        replay(createMockRepository("repo1"));
         mojo.selectedRepository = "repo2";
         try {
             mojo.execute();
@@ -80,27 +112,17 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     @SuppressWarnings("unchecked")
     public void testSelectARepo() throws Exception {
 
-        startWebServer();
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
-        createAtlassianRepository("repo1");
-        createAtlassianRepository("repo");
+        createMockRepository("repo1");
+        createMockRepository("repo");
         mojo.selectedRepository = "repo";
         mojo.specOutputDirectory = getOutputFolder();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mojo.setPrintWriter(new PrintWriter(outputStream));
 
-        Vector systemUnderTests = (Vector) systemUnderTests();
-        expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests);
-        Vector specificationRepositories = (Vector) specificationRepositories();
-        expect(handler.getAllSpecificationRepositories()).andReturn(specificationRepositories);
-        expect(handler.getSpecificationHierarchy((Vector)specificationRepositories.get(0), (Vector)systemUnderTests.get(0)))
-                .andReturn((Vector)specHierarchy());
-
-        replay(handler);
-
+        replay(mojo.repositories.get(0),mojo.repositories.get(1));
         mojo.execute();
-        verify(handler);
 
         String out = outputStream.toString();
         assertThat(out, containsString("PAGE Executable"));
@@ -109,25 +131,14 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
 
     @SuppressWarnings("unchecked")
     public void testShouldPrintTheSpecs() throws Exception {
-
-        startWebServer();
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
-        createAtlassianRepository("repo");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mojo.setPrintWriter(new PrintWriter(outputStream));
         mojo.specOutputDirectory = getOutputFolder();
+        replay(createMockRepository());
 
-        Vector systemUnderTests = (Vector) systemUnderTests();
-        expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests);
-        Vector specificationRepositories = (Vector) specificationRepositories();
-        expect(handler.getAllSpecificationRepositories()).andReturn(specificationRepositories);
-        expect(handler.getSpecificationHierarchy((Vector)specificationRepositories.get(0), (Vector)systemUnderTests.get(0)))
-            .andReturn((Vector)specHierarchy());
-
-        replay(handler);
         mojo.execute();
-        verify(handler);
 
         String out = outputStream.toString();
         assertThat(out, containsString("PAGE Executable"));
@@ -137,110 +148,132 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
     @SuppressWarnings("unchecked")
     public void testWeShouldUseTheIndexFileWhenExists() throws Exception {
 
-        startWebServer();
         URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
         mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
-        createAtlassianRepository("repo");
+        Repository repo = getMockRepositoryNoexpectServiceCall("repo");
+        expect(repo.retrieveDocumentHierarchy()).andReturn(docNodeHierarchy()).once();
+        replay(repo);
         mojo.specOutputDirectory = getOutputFolder();
 
-        Vector systemUnderTests = (Vector) systemUnderTests();
-        expect(handler.getSystemUnderTestsOfProject("PROJECT")).andReturn(systemUnderTests).once();
-        Vector specificationRepositories = (Vector) specificationRepositories();
-        expect(handler.getAllSpecificationRepositories()).andReturn(specificationRepositories).once();
-        expect(handler.getSpecificationHierarchy((Vector)specificationRepositories.get(0), (Vector)systemUnderTests.get(0)))
-                .andReturn((Vector)specHierarchy())
-                .once();
+        mojo.execute();
+        // The second time we call execute, the Mock retrieveDocumentHierarchy method should not be called
+        mojo.execute();
+        verify(repo);
+    }
 
-        replay(handler);
+    public void testWeShouldSendAllPageIfFilterIsEmpty() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
 
         mojo.execute();
-        // The second time we call execute, the Mock methods should not be called
+
+        assertThat(outputStream.toString(), containsString("[0001]"));
+        assertThat(outputStream.toString(), containsString("[0002]"));
+        outputStream.reset();
+        cleanIndexFiles();
+
+        mojo.specFilter = null;
         mojo.execute();
-        verify(handler);
+        assertThat(outputStream.toString(), containsString("[0001]"));
+        assertThat(outputStream.toString(), containsString("[0002]"));
     }
 
-    @SuppressWarnings("unchecked")
-    private Vector<Vector<?>> specificationRepositories() {
-        Vector<Vector<?>> repos = new Vector<Vector<?>>();
-        repos.add(new Vector(Arrays.asList("REPO NAME", "Confluence-SPACE" )));
-        repos.add(new Vector(Arrays.asList("SUTNAME 2", "Confluence-SPACE 2 KEY" )));
-        return repos;
+    public void testWeShouldBeAbleToSendOnlyImplementedPages() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
+        mojo.specFilter="[I]";
+
+        mojo.execute();
+
+        String output = outputStream.toString();
+        assertThat(output, containsString("[SUBPAGE IMPLEMENTED]"));
+        assertThat(output, CoreMatchers.not(containsString("[PAGE Executable]")));
+        outputStream.reset();
+        cleanIndexFiles();
     }
 
-    @SuppressWarnings("unchecked")
-    private Vector<Vector<?>> systemUnderTests() {
-        Vector<Vector<?>> suts = new Vector<Vector<?>>();
-        suts.add(new Vector(Collections.singletonList("SUTNAME")));
-        suts.add(new Vector(Collections.singletonList("SUTNAME 1")));
-        return suts;
+    private ByteArrayOutputStream prepareTestWithMock() throws Exception {
+        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
+        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        mojo.setPrintWriter(new PrintWriter(outputStream));
+        mojo.specOutputDirectory = getOutputFolder();
+        mojo.specFilter = "";
+
+        Repository repo = createMockRepository();
+        replay(repo);
+        return outputStream;
     }
 
-    private Vector<Object> specHierarchy()
-    {
-        Vector<Object> hierachy = new Vector<Object>();
-        hierachy.add("ROOT");
-        hierachy.add(Boolean.FALSE);
-        hierachy.add(Boolean.FALSE);
-        Hashtable<String,Vector<Object>> pageBranch = new Hashtable<String,Vector<Object>>();
-        hierachy.add(pageBranch);
+    public void testWeShouldBeAbleToSendOnlyNonImplementedPages() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
+        mojo.specFilter="[!I]";
 
-        Vector<Object> page = new Vector<Object>();
-        page.add("PAGE");
-        page.add(Boolean.FALSE);
-        page.add(Boolean.FALSE);
-        page.add(new Hashtable<String,Vector<?>>());
-        pageBranch.put("PAGE", page);
+        mojo.execute();
 
-        Vector<Object> page2 = new Vector<Object>();
-        page2.add("PAGE Executable");
-        page2.add(Boolean.TRUE);
-        page2.add(Boolean.FALSE);
-        Hashtable<String, Vector<?>> subPageBranch = new Hashtable<String, Vector<?>>();
-        page2.add(subPageBranch);
-
-        Vector<Object> subpage = new Vector<Object>();
-        subpage.add("SUBPAGE IMPLEMENTED");
-        subpage.add(Boolean.TRUE);
-        subpage.add(Boolean.TRUE);
-        subpage.add(new Hashtable<String,Vector<?>>());
-        subPageBranch.put("SUBPAGE IMPLEMENTED", subpage);
-        pageBranch.put("PAGE Executable", page2);
-
-        return hierachy;
+        assertThat(outputStream.toString(), containsString("[PAGE Executable]"));
+        assertThat(outputStream.toString(), CoreMatchers.not(containsString("[SUBPAGE IMPLEMENTED]")));
+        outputStream.reset();
     }
 
-    private Repository createAtlassianRepository(String name) {
-        Repository repository = new Repository();
-        repository.setName(name);
-        repository.setType( AtlassianRepository.class.getName() );
-        repository.setRoot("http://localhost:19005/rpc/xmlrpc?includeStyle=true&handler=greenpepper1#SPACE");
-        repository.setProjectName("PROJECT");
-        repository.setSystemUnderTest("SUTNAME");
-        mojo.addRepository(repository);
-        return repository;
+    public void testWeShouldBeAbleToFilterOnSubStringUPPERCASE() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
+        mojo.specFilter="CUTABL";
+
+        mojo.execute();
+
+        String actual = outputStream.toString();
+        assertThat(actual, containsString("[PAGE Executable]"));
+        assertThat(actual, CoreMatchers.not(containsString("[SUBPAGE IMPLEMENTED]")));
+        outputStream.reset();
     }
 
+    public void testWeShouldBeAbleToFilterOnSubStringlowercase() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
+        mojo.specFilter="plemente";
 
-    private void startWebServer() {
-        ws = new WebServer(19005);
-        handler = createMock(Handler.class);
-        ws.addHandler("greenpepper1", handler);
-        ws.start();
+        mojo.execute();
+
+        String actual = outputStream.toString();
+        assertThat(actual, CoreMatchers.not(containsString("[PAGE Executable]")));
+        assertThat(actual, containsString("[SUBPAGE IMPLEMENTED]"));
+        outputStream.reset();
     }
 
-    private void stopWebServer() {
-        if (ws != null) ws.shutdown();
+    public void testWeShouldBeAbleToFilterOnRegexp() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
+        mojo.specFilter="[RE].*PAGE .+";
+
+        mojo.execute();
+
+        String actual = outputStream.toString();
+        assertThat(actual, containsString("[PAGE Executable]"));
+        assertThat(actual, containsString("[SUBPAGE IMPLEMENTED]"));
+        outputStream.reset();
+        cleanIndexFiles();
     }
 
-    public interface Handler {
+    public void testWeShouldBeAbleToFilterOnCombineEverything() throws Exception {
+        ByteArrayOutputStream outputStream = prepareTestWithMock();
+        mojo.specFilter="[!I][RE].*cutab.+";
+        mojo.execute();
 
-        Vector<?> getSystemUnderTestsOfProject(String projectName);
-        Vector<?> getAllSpecificationRepositories();
-        Vector<?> getSpecificationHierarchy(Vector<?> repository,Vector<?> sut);
+        String actual = outputStream.toString();
+        assertThat(actual, containsString("[PAGE Executable]"));
+        assertThat(actual, CoreMatchers.not(containsString("[SUBPAGE IMPLEMENTED]")));
+        outputStream.reset();
+
+        mojo.specFilter="[I][RE].*cutab.+";
+        mojo.execute();
+        actual = outputStream.toString();
+        assertThat(actual, CoreMatchers.not(containsString("[PAGE Executable]")));
+        assertThat(actual, CoreMatchers.not(containsString("[SUBPAGE IMPLEMENTED]")));
+        outputStream.reset();
+
+
+        mojo.specFilter="[I]page";
+        mojo.execute();
+        actual = outputStream.toString();
+        assertThat(actual, CoreMatchers.not(containsString("[PAGE Executable]")));
+        assertThat(actual, containsString("[SUBPAGE IMPLEMENTED]"));
+        outputStream.reset();
     }
-
-    private File getOutputFolder(){
-        return FileUtils.toFile(getClass().getResource("."));
-    }
-
 }

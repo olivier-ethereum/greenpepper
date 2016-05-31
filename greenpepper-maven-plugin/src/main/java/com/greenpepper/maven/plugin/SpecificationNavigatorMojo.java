@@ -13,16 +13,23 @@ import org.apache.maven.plugin.MojoFailureException;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
+ * List the Specifications from the configured repositories.
+ *
  * @goal tree
- * @description List the Specifications from the configured repository.
  *
  */
 public class SpecificationNavigatorMojo extends AbstractMojo {
+
+    private static final Pattern filterPattern = Pattern.compile("(\\[!?I\\])?(\\[RE\\])?(.*)?");
 
     /**
      * @parameter property="greenpepper.repositories"
@@ -45,6 +52,34 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
      * @readonly
      */
     File specOutputDirectory;
+
+    /**
+     * Sets a filter to filter the output of the specs. The filter should have a specific syntax:
+     * <ul>
+     *     <li><code>"substring"</code> : a string to look for inside the page name. The search is case insensitive</li>
+     *     <li><code>"[RE]regular expression"</code> : a regular expression that will be used to match the page name</li>
+     * </ul>
+     * Additionnally you can filter on the <code>implemented</code> status of the page by adding a <code>"[I]"</code>
+     * as a prefix to your search filter.
+     * <ul>
+     *     <li><code>[I]</code> : Give the implemented pages only</li>
+     *     <li><code>[!I]</code> : Give the non implemented pages only</li>
+     * </ul>
+     * <u>Note:</u> A <code>"[I]"</code> or <code>"[!I]"</code> as a search filter will filter only on the implemented status.
+     * <br/>
+     * Examples:
+     * <ul>
+     *     <li><code>sun</code> : all specifications having the substring 'sun'</li>
+     *     <li><code>[RE]taurus</code> : the specification matching exactly 'taurus'</li>
+     *     <li><code>[I]</code> : all implemented specifications</li>
+     *     <li><code>[!I]</code> : all non implemented specifications</li>
+     *     <li><code>[!I]dummy</code> : all non implemented specifications having the substring 'dummy'</li>
+     *     <li><code>[I][RE]'.*moon[^dab]+'</code> : all implemented specifications having the RE '.*moon[^dab]+'</li>
+     * </ul>
+     *
+     * @parameter property="gp.specFilter"
+     */
+    String specFilter;
 
 
     private PrintWriter writer;
@@ -95,13 +130,9 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         printRepositoryName(repository);
 
         File indexFile = getIndexFileForRepository(repository);
-        if (indexFile.exists()) {
-            System.out.println(format("\tUsing index file '%s'.\n" +
-                                      "\tYou can force a refresh by removing it.", indexFile.getName()));
-            System.out.println();
-            IOUtils.copy(new FileInputStream(indexFile), System.out);
-        } else {
+        if (!indexFile.exists()) {
             DocumentNode documentHierarchy = repository.retrieveDocumentHierarchy();
+            PrintWriter writer = new PrintWriter(tempOutput);
             int i = 1;
             for (DocumentNode node : DocumentNode.traverser.preOrderTraversal(documentHierarchy)) {
                 if (node.isExecutable()) {
@@ -111,12 +142,43 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
                 }
             }
             writer.flush();
-            updateIndexFile(repository);
+            updateIndexFile(indexFile);
+        } else {
+            System.out.println(format("\tUsing index file '%s'.\n" +
+                    "\tYou can force a refresh by removing it.", indexFile.getName()));
+            System.out.println();
+        }
+
+        for (String line : IOUtils.readLines(new FileInputStream(indexFile))) {
+            decideForLine(line, writer);
+        }
+        writer.flush();
+    }
+
+    private void decideForLine(String line, PrintWriter writer) {
+        if (isNotEmpty(specFilter)) {
+            Matcher matcher = filterPattern.matcher(specFilter);
+            if (matcher.matches()) {
+                String isImplemented = matcher.group(1);
+                String isRegEx = matcher.group(2);
+                String searchStr = matcher.group(3);
+                boolean matchesImplemented = StringUtils.equals("[I]", isImplemented) && line.contains(" [implemented] ");
+                boolean matchesNonImplemented = StringUtils.equals("[!I]", isImplemented) && line.contains(" [           ] ");
+
+                boolean matchesImplementedReq = isEmpty(isImplemented) || (matchesImplemented || matchesNonImplemented);
+                boolean matchesSearchStringReq = isNotEmpty(isRegEx) || isEmpty(searchStr) || (isNotEmpty(searchStr) && containsIgnoreCase(line, searchStr));
+                boolean matchesRegexStringReq = isEmpty(isRegEx) || (isNotEmpty(isRegEx) && Pattern.matches(searchStr, line));
+
+                if (matchesImplementedReq && matchesRegexStringReq && matchesSearchStringReq) {
+                    writer.println(line);
+                }
+            }
+        } else {
+            writer.println(line);
         }
     }
 
-    private void updateIndexFile(Repository repository) throws IOException, NoSuchAlgorithmException {
-        File indexFile = getIndexFileForRepository(repository);
+    private void updateIndexFile(File indexFile) throws IOException, NoSuchAlgorithmException {
         FileUtils.writeByteArrayToFile(indexFile, tempOutput.toByteArray());
         tempOutput.reset();
     }

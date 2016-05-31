@@ -18,7 +18,6 @@ import static java.lang.String.format;
 
 /**
  * @goal tree
- * @requiresDependencyResolution test
  * @description List the Specifications from the configured repository.
  *
  */
@@ -32,7 +31,7 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
 
     /**
      * Set this to a Repository name defined in the pom.xml.
-     * This option is only used in case <code>-Dgp.test</code> is used.
+     *
      * @parameter property="gp.repo"
      */
     String selectedRepository;
@@ -40,8 +39,9 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
     /**
      * The directory where compiled fixture classes go.
      *
-     * @parameter expression="${project.build.directory}/greenpepper"
+     * @parameter default-value="${project.build.directory}/greenpepper"
      * @required
+     * @readonly
      */
     File specOutputDirectory;
 
@@ -143,7 +143,7 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
      *
      * @param repository a {@link com.greenpepper.maven.plugin.Repository} object.
      */
-    public void addRepository(Repository repository) {
+    void addRepository(Repository repository) {
         repositories.add(repository);
     }
 

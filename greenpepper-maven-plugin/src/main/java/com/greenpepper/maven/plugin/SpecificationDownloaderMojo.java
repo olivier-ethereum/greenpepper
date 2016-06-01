@@ -17,12 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>SpecificationDownloaderMojo class.</p>
+ * <p>Downloads GreenPepper specifications</p>
  *
  * @goal freeze
- * @description Downloads GreenPepper specifications
- * @author oaouattara
- * @version $Id: $Id
  */
 public class SpecificationDownloaderMojo extends AbstractMojo {
     /**

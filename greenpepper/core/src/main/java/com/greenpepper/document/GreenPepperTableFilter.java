@@ -73,12 +73,12 @@ public class GreenPepperTableFilter implements ExampleFilter
 
     private static boolean isBeginTag(Example table)
     {
-        return table == null ? false : BEGIN_GP_TEST.equalsIgnoreCase(ExampleUtil.contentOf(table.at(0, 0, 0)));
+        return table != null && BEGIN_GP_TEST.equalsIgnoreCase(ExampleUtil.contentOf(table.at(0, 0, 0)));
     }
 
     private static boolean isEndTag(Example table)
     {
-        return table == null ? false : END_GP_TEST.equalsIgnoreCase(ExampleUtil.contentOf(table.at(0, 0, 0)));
+        return table != null && END_GP_TEST.equalsIgnoreCase(ExampleUtil.contentOf(table.at(0, 0, 0)));
     }
 
     private static Example getNextEndTag(Example table)

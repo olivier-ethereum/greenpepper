@@ -19,7 +19,7 @@ public class DocumentNodeTest extends TestCase
 
 	public void testThatANodeCanBeCreateFromAHierarchyInAVector()
 	{
-		assertEquals(nodeHierarchy(), XmlRpcDataMarshaller.toDocumentNode(vectorHierarchy()));
+		assertEquals(nodeHierarchy(), DocumentNode.toDocumentNode(vectorHierarchy()));
 	}
 
 	private DocumentNode nodeHierarchy() 

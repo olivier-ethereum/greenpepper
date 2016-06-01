@@ -21,6 +21,7 @@ package com.greenpepper.repository;
 
 import com.greenpepper.document.Document;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -72,4 +73,13 @@ public interface DocumentRepository
      * @throws java.lang.Exception if any.
      */
     void setDocumentAsImplemeted( String location ) throws Exception;
+
+    /**
+     * Retrieves only the specification related to a specified project and a systemUnderTest
+     *
+     * @param project
+     * @param systemUnderTest
+     * @return The specification hierarchy.
+     */
+    List<Object> getSpecificationsHierarchy( String project, String systemUnderTest) throws Exception;
 }

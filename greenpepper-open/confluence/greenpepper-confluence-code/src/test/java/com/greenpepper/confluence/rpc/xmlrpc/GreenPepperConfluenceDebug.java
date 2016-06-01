@@ -36,7 +36,7 @@ public class GreenPepperConfluenceDebug
         {
             XmlRpcClient xmlrpc = new XmlRpcClient(URL);
             Vector vector = (Vector) xmlrpc.execute(HANDLER + ".getSpecificationHierarchy", makeParams("THE"));
-            DocumentNode hierarchy = XmlRpcDataMarshaller.toDocumentNode(vector);
+            DocumentNode hierarchy = DocumentNode.toDocumentNode(vector);
 
             printHierarchy(0, hierarchy, System.out);
         }

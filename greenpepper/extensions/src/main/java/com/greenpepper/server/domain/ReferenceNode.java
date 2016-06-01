@@ -1,9 +1,6 @@
 package com.greenpepper.server.domain;
 
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_REPOSITORY_UID_INDEX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_SUT_NAME_INDEX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_SECTION_INDEX;
-import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Vector;
 
@@ -79,7 +76,7 @@ public class ReferenceNode extends DocumentNode implements Marshalizable
 		Vector<Object> vector = super.marshallize();
 		vector.add(NODE_REPOSITORY_UID_INDEX, repositoryUID);
 		vector.add(NODE_SUT_NAME_INDEX, sutName);
-		vector.add(NODE_SECTION_INDEX, XmlRpcDataMarshaller.padNull(section));
+		vector.add(NODE_SECTION_INDEX, StringUtils.defaultString(section));
 		return vector;
 	}
 

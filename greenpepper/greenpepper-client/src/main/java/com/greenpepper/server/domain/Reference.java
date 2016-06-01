@@ -7,6 +7,7 @@ import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.REFERENCE_S
 import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.REFERENCE_SUT_IDX;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
 import com.greenpepper.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Vector;
 
@@ -209,7 +210,7 @@ public class Reference extends AbstractUniqueEntity implements Comparable
         parameters.add(REFERENCE_REQUIREMENT_IDX, requirement.marshallize());
         parameters.add(REFERENCE_SPECIFICATION_IDX, specification.marshallize());
         parameters.add(REFERENCE_SUT_IDX, systemUnderTest.marshallize());
-        parameters.add(REFERENCE_SECTIONS_IDX, XmlRpcDataMarshaller.padNull(sections));
+        parameters.add(REFERENCE_SECTIONS_IDX, StringUtils.defaultString(sections));
         
         parameters.add(REFERENCE_LAST_EXECUTION_IDX, lastExecution != null ? lastExecution.marshallize() : Execution.none().marshallize());
         return parameters;

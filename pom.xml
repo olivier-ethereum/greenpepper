@@ -82,6 +82,11 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>3.4</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>19.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -311,7 +316,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-site-plugin</artifactId>
-                        <version>3.5.1</version>
+                        <version>3.4</version>
                     </plugin>
                 </plugins>
             </build>
@@ -321,7 +326,9 @@
             <activation>
                 <jdk>[1.8,)</jdk>
             </activation>
-
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
             <build>
                 <plugins>
                     <plugin>

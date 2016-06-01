@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
@@ -348,11 +349,11 @@ public class SystemUnderTest extends AbstractUniqueEntity implements Comparable
         parameters.add(SUT_PROJECT_IDX, project.marshallize());
         parameters.add(SUT_CLASSPATH_IDX, new Vector<String>(sutClasspaths));
         parameters.add(SUT_FIXTURE_CLASSPATH_IDX, new Vector<String>(fixtureClasspaths));
-        parameters.add(SUT_FIXTURE_FACTORY_IDX, XmlRpcDataMarshaller.padNull(fixtureFactory));
-        parameters.add(SUT_FIXTURE_FACTORY_ARGS_IDX, XmlRpcDataMarshaller.padNull(fixtureFactoryArgs));
+        parameters.add(SUT_FIXTURE_FACTORY_IDX, StringUtils.defaultString(fixtureFactory));
+        parameters.add(SUT_FIXTURE_FACTORY_ARGS_IDX, StringUtils.defaultString(fixtureFactoryArgs));
         parameters.add(SUT_IS_DEFAULT_IDX, isDefault());
         parameters.add(SUT_RUNNER_IDX, runner != null ? runner.marshallize() : Runner.newInstance("N/A").marshallize());
-		parameters.add(SUT_PROJECT_DEPENDENCY_DESCRIPTOR_IDX, XmlRpcDataMarshaller.padNull(projectDependencyDescriptor));
+		parameters.add(SUT_PROJECT_DEPENDENCY_DESCRIPTOR_IDX, StringUtils.defaultString(projectDependencyDescriptor));
 		return parameters;
     }
     

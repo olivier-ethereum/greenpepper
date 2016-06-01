@@ -33,6 +33,7 @@ import com.greenpepper.server.GreenPepperServerErrorKey;
 import com.greenpepper.server.GreenPepperServerException;
 import com.greenpepper.server.domain.component.ContentType;
 import com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
@@ -476,16 +477,16 @@ public class Repository extends AbstractVersionedEntity implements Comparable
     public Vector<Object> marshallize()
     {
         Vector<Object> parameters = new Vector<Object>();
-        parameters.add(REPOSITORY_NAME_IDX, XmlRpcDataMarshaller.padNull(name));
-        parameters.add(REPOSITORY_UID_IDX, XmlRpcDataMarshaller.padNull(uid));
+        parameters.add(REPOSITORY_NAME_IDX, StringUtils.defaultString(name));
+        parameters.add(REPOSITORY_UID_IDX, StringUtils.defaultString(uid));
         parameters.add(REPOSITORY_PROJECT_IDX, project != null ? project.marshallize() : Project.newInstance("").marshallize());
         parameters.add(REPOSITORY_TYPE_IDX, type != null ? type.marshallize() : RepositoryType.newInstance("").marshallize());
         parameters.add(REPOSITORY_CONTENTTYPE_IDX, contentType.toString());
-        parameters.add(REPOSITORY_BASE_URL_IDX, XmlRpcDataMarshaller.padNull(getBaseUrl()));
-        parameters.add(REPOSITORY_BASEREPO_URL_IDX, XmlRpcDataMarshaller.padNull(getBaseRepositoryUrl()));
-        parameters.add(REPOSITORY_BASETEST_URL_IDX, XmlRpcDataMarshaller.padNull(getBaseTestUrl()));
-        parameters.add(REPOSITORY_USERNAME_IDX, XmlRpcDataMarshaller.padNull(username));
-        parameters.add(REPOSITORY_PASSWORD_IDX, XmlRpcDataMarshaller.padNull(password));
+        parameters.add(REPOSITORY_BASE_URL_IDX, StringUtils.defaultString(getBaseUrl()));
+        parameters.add(REPOSITORY_BASEREPO_URL_IDX, StringUtils.defaultString(getBaseRepositoryUrl()));
+        parameters.add(REPOSITORY_BASETEST_URL_IDX, StringUtils.defaultString(getBaseTestUrl()));
+        parameters.add(REPOSITORY_USERNAME_IDX, StringUtils.defaultString(username));
+        parameters.add(REPOSITORY_PASSWORD_IDX, StringUtils.defaultString(password));
         parameters.add(REPOSITORY_MAX_USERS_IDX, maxUsers);
         return parameters;
     }

@@ -3,6 +3,7 @@ package com.greenpepper.maven.plugin.it;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
@@ -15,18 +16,18 @@ import junit.framework.TestCase;
  */
 public class GreenPepperMavenPluginTest extends TestCase {
 
-    private void testLaunchingMaven(File testBasedir, ArrayList<String> cliOptions) throws IOException, VerificationException {
+    private void testLaunchingMaven(File testBasedir, ArrayList<String> cliOptions, String ... goals) throws IOException, VerificationException {
         Verifier verifier = new Verifier(testBasedir.getAbsolutePath());
         verifier.deleteArtifact("dummy", "dummy", "4.0", "jar");
         verifier.setCliOptions(cliOptions);
-        verifier.executeGoal("integration-test");
+        verifier.executeGoals(Arrays.asList(goals));
         verifier.verifyErrorFreeLog();
         verifier.resetStreams();
     }
 
     public void testGreenpepperPlugin() throws Exception {
         File testDir = ResourceExtractor.simpleExtractResources(getClass(), "/test-gp-resources");
-        testLaunchingMaven(testDir, new ArrayList<String>());
+        testLaunchingMaven(testDir, new ArrayList<String>(), "integration-test");
     }
 
 
@@ -37,7 +38,12 @@ public class GreenPepperMavenPluginTest extends TestCase {
             add("-f");
             add("test-gp-resources/pom.xml");
         }};
-        testLaunchingMaven(testDir, cliOptions);
+        testLaunchingMaven(testDir, cliOptions, "integration-test");
+    }
+
+    public void testGreenpepperPluginDeps() throws Exception {
+        File testDir = ResourceExtractor.simpleExtractResources(getClass(), "/test-gp-multimodule");
+        testLaunchingMaven(testDir, new ArrayList<String>(), "greenpepper:tree");
     }
 
 }

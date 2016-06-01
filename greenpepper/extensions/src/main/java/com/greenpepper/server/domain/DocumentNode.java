@@ -1,14 +1,8 @@
 package com.greenpepper.server.domain;
 
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_TITLE_INDEX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_EXECUTABLE_INDEX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_CAN_BE_IMPLEMENTED_INDEX;
-import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.NODE_CHILDREN_INDEX;
+import com.google.common.collect.TreeTraverser;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 
 /**
@@ -19,6 +13,35 @@ import java.util.Vector;
  */
 public class DocumentNode implements Comparable, Marshalizable
 {
+
+    /**
+     * Allows retrieval of an Iterator using DocumentNode hierarchy.
+     *
+     * @see TreeTraverser#preOrderTraversal(Object)
+     * @see TreeTraverser#postOrderTraversal(Object)
+     */
+    public static final TreeTraverser<DocumentNode>  traverser = new TreeTraverser<DocumentNode>() {
+        @Override
+        public Iterable<DocumentNode> children(DocumentNode root) {
+            return root.getChildren();
+        }
+    };
+
+    /** Constant <code>NODE_TITLE_INDEX=0</code> */
+    private final static int NODE_TITLE_INDEX = 0;
+    /** Constant <code>NODE_EXECUTABLE_INDEX=1</code> */
+    private final static int NODE_EXECUTABLE_INDEX = 1;
+    /** Constant <code>NODE_CAN_BE_IMPLEMENTED_INDEX=2</code> */
+    private final static int NODE_CAN_BE_IMPLEMENTED_INDEX = 2;
+    /** Constant <code>NODE_CHILDREN_INDEX=3</code> */
+    private final static int NODE_CHILDREN_INDEX = 3;
+    /** Constant <code>NODE_REPOSITORY_UID_INDEX=4</code> */
+    final static int NODE_REPOSITORY_UID_INDEX = 4;
+    /** Constant <code>NODE_SUT_NAME_INDEX=5</code> */
+    final static int NODE_SUT_NAME_INDEX = 5;
+    /** Constant <code>NODE_SECTION_INDEX=6</code> */
+    final static int NODE_SECTION_INDEX = 6;
+
     private String title;
     private boolean executable;
     private boolean canBeImplemented;
@@ -134,6 +157,49 @@ public class DocumentNode implements Comparable, Marshalizable
         vector.add(NODE_CHILDREN_INDEX, hashtable);
 
         return vector;
+    }
+
+    /**
+     * Rebuilds a DocumentNode based on the given vector.
+     * </p>
+     *
+     * @param documentNodeParams a {@link Vector} object.
+     * @return a DocumentNode based on the given vector.
+     */
+    public static DocumentNode toDocumentNode(List<Object> documentNodeParams)
+    {
+        DocumentNode node = new DocumentNode((String) documentNodeParams.get(NODE_TITLE_INDEX));
+        node.setIsExecutable((Boolean) documentNodeParams.get(NODE_EXECUTABLE_INDEX));
+        node.setCanBeImplemented((Boolean) documentNodeParams.get(NODE_CAN_BE_IMPLEMENTED_INDEX));
+
+        Hashtable children = (Hashtable) documentNodeParams.get(NODE_CHILDREN_INDEX);
+        Collection<Vector<Object>> values = children.values();
+        for (Vector<Object> nodeParams : values) {
+
+            if(nodeParams.size() > 4)
+            {
+                node.addChildren(toReferenceNode(nodeParams));
+            }
+            else
+            {
+                node.addChildren(toDocumentNode(nodeParams));
+            }
+        }
+
+        return node;
+    }
+
+    private static ReferenceNode toReferenceNode(List<Object> referenceNodeParams)
+    {
+        ReferenceNode node = new ReferenceNode((String) referenceNodeParams.get(NODE_TITLE_INDEX),
+                (String) referenceNodeParams.get(NODE_REPOSITORY_UID_INDEX),
+                (String) referenceNodeParams.get(NODE_SUT_NAME_INDEX),
+                (String) referenceNodeParams.get(NODE_SECTION_INDEX));
+
+        node.setIsExecutable((Boolean) referenceNodeParams.get(NODE_EXECUTABLE_INDEX));
+        node.setCanBeImplemented((Boolean) referenceNodeParams.get(NODE_CAN_BE_IMPLEMENTED_INDEX));
+
+        return node;
     }
 
     /** {@inheritDoc} */

@@ -15,12 +15,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
-			<artifactId>greenpepper-core</artifactId>
-			<version>${project.version}</version>
-			<classifier>complete</classifier>
-		</dependency>
-		<dependency>
-			<groupId>com.github.strator-dev.greenpepper</groupId>
 			<artifactId>greenpepper-extensions-java</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -84,7 +78,10 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-            <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.unitils</groupId>

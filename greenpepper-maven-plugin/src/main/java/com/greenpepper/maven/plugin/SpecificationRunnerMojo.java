@@ -395,7 +395,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
         urls.add(getDependencyURL("slf4j-api"));
         urls.add(getDependencyURL("jcl-over-slf4j"));
 
-        URL[] classpath = (URL[]) urls.toArray(new URL[urls.size()]);
+        URL[] classpath = urls.toArray(new URL[urls.size()]);
 
         return new URLClassLoader(classpath, ClassLoader.getSystemClassLoader());
     }

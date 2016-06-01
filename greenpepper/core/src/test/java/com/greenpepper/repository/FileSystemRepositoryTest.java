@@ -34,9 +34,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import com.google.common.collect.TreeTraverser;
 import com.greenpepper.document.Document;
 import com.greenpepper.util.IOUtil;
 import com.greenpepper.util.TestCase;
+import org.apache.commons.io.FileUtils;
 
 public class FileSystemRepositoryTest extends TestCase
 {
@@ -106,17 +108,54 @@ public class FileSystemRepositoryTest extends TestCase
     
     public void testWeCanRetrieveTheDocumentsInAHierarchy() throws Exception
     {
-    	List<String> names = Arrays.asList(new String[]{"specs",
-    													"specs/dir1",
-    													"specs/dir1/spec1.html",
-    													"specs/dir1/subdir1",
-    													"specs/dir1/subdir1/spec2.html",
-    													"specs/dir1/subdir1/spec4.html",
-    													"specs/dir2",
-    													"spec3.html"});
+    	List<String> names = Arrays.asList("specs",
+                "specs/dir1",
+                "specs/dir1/spec1.html",
+                "specs/dir1/subdir1",
+                "specs/dir1/subdir1/spec2.html",
+                "specs/dir1/subdir1/spec4.html",
+                "specs/dir2",
+                "spec3.html");
     	createSpecificationHierarchyFiles(hierarchy, names);
         List<Object> hierarchy = hierarchyRepo.listDocumentsInHierarchy();
         assertNamesInHierarchy((Hashtable)hierarchy.get(3), names);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void testWeCanGetTheSpecificationHierarchy() throws Exception
+    {
+        List<String> names = Arrays.asList("specs",
+                "specs/dira",
+                "specs/dira/spec1.html",
+                "specs/dira/subdira",
+                "specs/dira/subdira/spec2.html",
+                "specs/dira/subdira/spec4.html",
+                "specs/dirb",
+                "specs/dirb/spec5.html",
+                "spec3.html");
+        File hierarchy = new File(FileUtils.toFile(getClass().getResource(".")),"testWeCanGetTheSpecificationHierarchy");
+        hierarchy.mkdirs();
+        createSpecificationHierarchyFiles(hierarchy, names);
+        FileSystemRepository fileSystemRepository = new FileSystemRepository(hierarchy);
+        List<Object> tree = fileSystemRepository.getSpecificationsHierarchy("TOTO","TATA");
+        TreeTraverser<List<?>> traverser = new TreeTraverser<List<?>>() {
+            @Override
+            public Iterable<List<?>> children(List<?> root) {
+                return ((Hashtable<String,List<?>>)root.get(3)).values();
+            }
+        };
+
+        Iterator<List<?>> listsIter = traverser.preOrderTraversal(tree).iterator();
+        assertEquals("testWeCanGetTheSpecificationHierarchy", listsIter.next().get(0));
+        assertEquals("spec3.html", listsIter.next().get(0));
+        assertEquals("specs", listsIter.next().get(0));
+        assertEquals("dirb", listsIter.next().get(0));
+        assertEquals("spec5.html", listsIter.next().get(0));
+        assertEquals("dira", listsIter.next().get(0));
+        assertEquals("subdira", listsIter.next().get(0));
+        assertEquals("spec4.html", listsIter.next().get(0));
+        assertEquals("spec2.html", listsIter.next().get(0));
+        assertEquals("spec1.html", listsIter.next().get(0));
     }
 
     public void testAFileShouldNotHoldAnyDocument() throws Exception
@@ -151,14 +190,12 @@ public class FileSystemRepositoryTest extends TestCase
     @SuppressWarnings("unchecked")
 	private void assertNamesInHierarchy(Hashtable branch, List<String> names)
     {
-    	Iterator iter = branch.keySet().iterator();
-    	while(iter.hasNext())
-    	{
-    		String name = (String)iter.next();
-        	Vector child = (Vector)branch.get(name);
-        	assertTrue(names.contains(child.get(0)));
-        	assertNamesInHierarchy((Hashtable)child.get(3), names);
-    	}
+        for (Object o : branch.keySet()) {
+            String name = (String) o;
+            Vector child = (Vector) branch.get(name);
+            assertTrue(names.contains(child.get(0)));
+            assertNamesInHierarchy((Hashtable) child.get(3), names);
+        }
     }
 
     private void assertSpecification( Document doc ) throws IOException

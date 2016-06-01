@@ -3,13 +3,13 @@ package com.greenpepper.runner.repository;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlrpc.XmlRpcClient;
+import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -35,18 +35,21 @@ import com.greenpepper.util.URIUtil;
 public class AtlassianRepository implements DocumentRepository
 {
     /** Constant <code>PAGE_NOT_FOUND="Page Not Found !"</code> */
-    public static final String PAGE_NOT_FOUND = "Page Not Found !";
+    static final String PAGE_NOT_FOUND = "Page Not Found !";
 
     /** Constant <code>INSUFFICIENT_PRIVILEGES="INSUFFICIENT PRIVILEGES !"</code> */
-    public static final String INSUFFICIENT_PRIVILEGES = "INSUFFICIENT PRIVILEGES !";
+    static final String INSUFFICIENT_PRIVILEGES = "INSUFFICIENT PRIVILEGES !";
 
     /** Constant <code>SESSION_INVALID="Session Invalid !"</code> */
-    public static final String SESSION_INVALID = "Session Invalid !";
+    static final String SESSION_INVALID = "Session Invalid !";
 
     /** Constant <code>PARAMETERS_MISSING="Parameters Missing, expecting:[SpaceKey"{trunked}</code> */
-    public static final String PARAMETERS_MISSING = "Parameters Missing, expecting:[SpaceKey, PageTitle, IncludeStyle] !";
+    private static final String PARAMETERS_MISSING = "Parameters Missing, expecting:[SpaceKey, PageTitle, IncludeStyle] !";
 
-    private static final Logger logger = LoggerFactory.getLogger(AtlassianRepository.class); 
+    private static final Logger logger = LoggerFactory.getLogger(AtlassianRepository.class);
+    private static final int SUTNAME_INDEX = 0;
+    private static final int REPOSITORY_UID_INDEX = 1;
+    private static final String CONFLUENCE = "Confluence-";
 
     private final URI root;
 	private String handler;
@@ -54,7 +57,11 @@ public class AtlassianRepository implements DocumentRepository
 	private String username = "";
 	private String password = "";
 
-	/**
+
+    private List<Object> selectedRepository;
+    private XmlRpcClient xmlRpcClient;
+
+    /**
 	 * <p>Constructor for AtlassianRepository.</p>
 	 *
 	 * @param args a {@link java.lang.String} object.
@@ -106,11 +113,36 @@ public class AtlassianRepository implements DocumentRepository
 	public void setDocumentAsImplemeted(String location) throws Exception
 	{
     	Vector<?> args = CollectionUtil.toVector( username , password, args(URI.create(URIUtil.raw(location))));
-        XmlRpcClient xmlrpc = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
+        XmlRpcClient xmlrpc = getXmlRpcClient();
         String msg = (String)xmlrpc.execute( new XmlRpcRequest( handler + ".setSpecificationAsImplemented", args ) );
         
         if(!("<success>".equals(msg))) throw new Exception(msg);
 	}
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Object> getSpecificationsHierarchy(String project, String systemUnderTest) throws Exception {
+        XmlRpcClient xmlrpc = getXmlRpcClient();
+
+        @SuppressWarnings("unchecked")
+        List<List<Object>> sutList = (List<List<Object>>) xmlrpc.execute(new XmlRpcRequest(handler + ".getSystemUnderTestsOfProject", toArgs(project)));
+
+        List<Object> selectedSUT = null;
+        for (List<Object> sut : sutList) {
+            String SutName = (String)sut.get(SUTNAME_INDEX);
+            if (StringUtils.equals(SutName, systemUnderTest)) {
+                selectedSUT = sut;
+                break;
+            }
+        }
+        if (selectedSUT == null) {
+            throw new RepositoryException(String.format("SUT %s not found in the project %s", systemUnderTest, project));
+        }
+
+        return (List<Object>) xmlrpc.execute(
+                new XmlRpcRequest(handler + ".getSpecificationHierarchy", toArgs(getSelectedRepository(), selectedSUT)));
+
+    }
 
     /** {@inheritDoc} */
     public List<String> listDocuments(String uri)
@@ -127,17 +159,16 @@ public class AtlassianRepository implements DocumentRepository
 	@SuppressWarnings("unchecked")
 	public List<Object> listDocumentsInHierarchy() throws Exception
 	{
-    	Vector<?> args = CollectionUtil.toVector( username , password, CollectionUtil.toVector(root.getFragment()));
-        XmlRpcClient xmlrpc = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
+    	Vector<?> args = CollectionUtil.toVector( username , password, CollectionUtil.toVector(getRepositoryName()));
+        XmlRpcClient xmlrpc = getXmlRpcClient();
         return (Vector<Object>)xmlrpc.execute( new XmlRpcRequest( handler + ".getSpecificationHierarchy", args ) );
 	}
 
     private String retrieveSpecification(URI location) throws Exception
     {
     	Vector<?> args = CollectionUtil.toVector( username , password, args(location));
-        XmlRpcClient xmlrpc = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
-        String renderedSpecificationResponse = (String) xmlrpc.execute( new XmlRpcRequest( handler + ".getRenderedSpecification", args ) );
-        return renderedSpecificationResponse;
+        XmlRpcClient xmlrpc = getXmlRpcClient();
+        return (String) xmlrpc.execute( new XmlRpcRequest( handler + ".getRenderedSpecification", args ) );
     }
 
 	private Document loadHtmlDocument(org.jsoup.nodes.Document content ) throws IOException
@@ -164,20 +195,51 @@ public class AtlassianRepository implements DocumentRepository
 
     private Vector<Object> args(URI location)
     {
-    	String[] locationArgs = location.getPath().split("/");
+    	final String[] locationArgs = location.getPath().split("/");
+        final String implemented = URIUtil.getAttribute(location, "implemented");
+
+        ArrayList<Object> args = new ArrayList<Object>(){{
+            add(getRepositoryName());
+            addAll(Arrays.asList(locationArgs));
+            add(includeStyle);
+            add(implemented == null ? true : Boolean.valueOf(implemented));
+            }};
+        return toArgs(args.toArray());
+    }
+
+    private Vector<Object> toArgs(Object... options) {
         Vector<Object> args = new Vector<Object>();
-	    args.add( root.getFragment() );
-	    
-        for(int i = 0; i < locationArgs.length ; i++)
-        {
-	        args.add( locationArgs[i] );
-        }
-
-        args.add( includeStyle );
-        
-        String implemented = URIUtil.getAttribute(location, "implemented");
-        args.add( implemented == null ? true : Boolean.valueOf(implemented) );
-
+        Collections.addAll(args, options);
         return args;
     }
+
+    private XmlRpcClient getXmlRpcClient() throws MalformedURLException {
+        if (xmlRpcClient == null) {
+            xmlRpcClient = new XmlRpcClient( root.getScheme() + "://" + root.getAuthority() + root.getPath() );
+        }
+        return xmlRpcClient;
+    }
+
+    private List<Object> getSelectedRepository() throws IOException, XmlRpcException, RepositoryException {
+        if (selectedRepository == null) {
+            @SuppressWarnings("unchecked")
+            List<List<Object>> repoList = (List<List<Object>>) getXmlRpcClient()
+                    .execute(new XmlRpcRequest(handler + ".getAllSpecificationRepositories", toArgs()));
+            for (List<Object> repo : repoList) {
+                if (StringUtils.equals(CONFLUENCE + getRepositoryName(), (String) repo.get(REPOSITORY_UID_INDEX))){
+                    selectedRepository = repo;
+                    break;
+                }
+            }
+            if (selectedRepository == null) {
+                throw new RepositoryException(String.format("SpecificationRepository %s not found", getRepositoryName()));
+            }
+        }
+        return selectedRepository;
+    }
+
+    private String getRepositoryName() {
+        return root.getFragment();
+    }
+
 }

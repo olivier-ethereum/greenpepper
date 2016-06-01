@@ -22,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Index;
 
 import com.greenpepper.report.XmlReport;
@@ -489,8 +490,8 @@ public class Execution extends AbstractUniqueEntity implements Comparable
     public Vector<Object> marshallize()
     {
         Vector<Object> parameters = new Vector<Object>();
-        parameters.add(EXECUTION_RESULTS_IDX, XmlRpcDataMarshaller.padNull(results));
-        parameters.add(EXECUTION_ERRORID_IDX, XmlRpcDataMarshaller.padNull(executionErrorId));
+        parameters.add(EXECUTION_RESULTS_IDX, StringUtils.defaultString(results));
+        parameters.add(EXECUTION_ERRORID_IDX, StringUtils.defaultString(executionErrorId));
         parameters.add(EXECUTION_FAILIURES_IDX, failures);
         parameters.add(EXECUTION_ERRORS_IDX, errors);
         parameters.add(EXECUTION_SUCCESS_IDX, success);

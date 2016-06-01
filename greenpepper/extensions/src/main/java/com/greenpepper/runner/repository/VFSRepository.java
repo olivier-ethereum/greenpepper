@@ -60,7 +60,14 @@ public class VFSRepository implements DocumentRepository
 
     /** {@inheritDoc} */
     public void setDocumentAsImplemeted(String location) throws Exception {}
-	
+
+    @Override
+    public List<Object> getSpecificationsHierarchy(String project, String systemUnderTest) {
+
+        // TODO
+        throw new UnsupportedOperationException("This functionnality is not yet implemented!");
+    }
+
     /** {@inheritDoc} */
     public List<String> listDocuments(String location) throws Exception
     {

@@ -19,16 +19,9 @@
 
 package com.greenpepper.systemunderdevelopment;
 
-import java.io.File;
-
 import com.greenpepper.Calculator;
-import com.greenpepper.document.Document;
 import com.greenpepper.reflect.Fixture;
-import com.greenpepper.report.FileReportGenerator;
-import com.greenpepper.repository.FileSystemRepository;
-import com.greenpepper.runner.DocumentRunner;
 import com.greenpepper.util.TestCase;
-import com.greenpepper.util.URIUtil;
 
 public class DefaultSystemUnderDevelopmentTest extends TestCase
 {

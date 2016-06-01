@@ -29,6 +29,8 @@ import com.greenpepper.interpreter.column.RecalledColumn;
 import com.greenpepper.interpreter.column.SavedColumn;
 import com.greenpepper.reflect.PlainOldFixture;
 import com.greenpepper.util.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class HeaderFormTest extends TestCase
 {
@@ -69,7 +71,7 @@ public class HeaderFormTest extends TestCase
         assertEquals( "saved", HeaderForm.parse( "saved?=" ).message() );
         assertEquals( "saved", HeaderForm.parse( "saved()=" ).message() );
 
-        assertEquals( "given", HeaderForm.parse( "given" ).message() );
+        Assert.assertEquals( "given", HeaderForm.parse( "given" ).message() );
     }
 
     private Column header(String text)

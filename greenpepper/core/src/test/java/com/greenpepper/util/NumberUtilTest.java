@@ -1,8 +1,5 @@
 package com.greenpepper.util;
 
-import junit.framework.*;
-import com.greenpepper.util.NumberUtil;
-
 public class NumberUtilTest
 		extends TestCase
 {

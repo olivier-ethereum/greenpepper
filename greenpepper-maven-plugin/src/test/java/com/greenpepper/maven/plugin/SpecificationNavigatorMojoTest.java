@@ -276,4 +276,22 @@ public class SpecificationNavigatorMojoTest  extends AbstractMojoTestCase {
         assertThat(actual, containsString("[SUBPAGE IMPLEMENTED]"));
         outputStream.reset();
     }
+
+    public void testWeShouldForceTheRefreshWhenTheRefreshParameterIsSet() throws Exception {
+
+        URL pomPath = SpecificationNavigatorMojoTest.class.getResource("pom-tree.xml");
+        mojo = (SpecificationNavigatorMojo) lookupMojo("tree", URIUtil.decoded(pomPath.getPath()));
+        Repository repo = getMockRepositoryNoexpectServiceCall("repo");
+        expect(repo.retrieveDocumentHierarchy()).andReturn(docNodeHierarchy()).times(2);
+        replay(repo);
+        mojo.specOutputDirectory = getOutputFolder();
+
+        mojo.execute();
+        // The second time we call execute, the Mock retrieveDocumentHierarchy method should not be called
+        mojo.execute();
+        // This time, we set a refresh, the retrieveDocumentHierarchy will be called
+        mojo.refresh = true;
+        mojo.execute();
+        verify(repo);
+    }
 }

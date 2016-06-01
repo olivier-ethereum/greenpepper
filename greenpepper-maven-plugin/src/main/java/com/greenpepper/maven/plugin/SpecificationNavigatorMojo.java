@@ -17,6 +17,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
+import static org.apache.commons.io.FileUtils.writeByteArrayToFile;
+import static org.apache.commons.io.IOUtils.readLines;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -81,6 +83,13 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
      */
     String specFilter;
 
+    /**
+     * Refresh the specificaction list (updating the index file)
+     *
+     * @parameter property="greenpepper.refresh" default-value="false"
+     */
+    boolean refresh;
+
 
     private PrintWriter writer;
     private ByteArrayOutputStream tempOutput;
@@ -130,7 +139,7 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         printRepositoryName(repository);
 
         File indexFile = getIndexFileForRepository(repository);
-        if (!indexFile.exists()) {
+        if (!indexFile.exists() || refresh) {
             DocumentNode documentHierarchy = repository.retrieveDocumentHierarchy();
             PrintWriter writer = new PrintWriter(tempOutput);
             int i = 1;
@@ -145,11 +154,11 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
             updateIndexFile(indexFile);
         } else {
             System.out.println(format("\tUsing index file '%s'.\n" +
-                    "\tYou can force a refresh by removing it.", indexFile.getName()));
+                    "\tYou can force a refresh by removing it or by using '-Dgreenpepper.refresh=true'.", indexFile.getName()));
             System.out.println();
         }
 
-        for (String line : IOUtils.readLines(new FileInputStream(indexFile))) {
+        for (String line : readLines(new FileInputStream(indexFile))) {
             decideForLine(line, writer);
         }
         writer.flush();
@@ -179,8 +188,8 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
     }
 
     private void updateIndexFile(File indexFile) throws IOException, NoSuchAlgorithmException {
-        FileUtils.writeByteArrayToFile(indexFile, tempOutput.toByteArray());
-        tempOutput.reset();
+        writeByteArrayToFile(indexFile, tempOutput.toByteArray());
+        tempOutput = new ByteArrayOutputStream();
     }
 
     private File getIndexFileForRepository(Repository repository) throws UnsupportedEncodingException {

@@ -49,7 +49,7 @@ public class GreenPepperMavenPluginTest extends TestCase {
     public void testGreenpepperPluginGenFixture() throws Exception {
         File testDir = ResourceExtractor.simpleExtractResources(getClass(), "/test-gen-fixtures");
         testLaunchingMaven(testDir, new ArrayList<String>() {{
-            add("-Dgreenpepper.specification=right.html");
+            add("-Dgp.test=right.html");
         }}, "greenpepper:generate-fixtures");
     }
 }

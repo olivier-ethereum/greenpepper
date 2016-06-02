@@ -24,29 +24,24 @@ import com.greenpepper.document.Document;
 import com.greenpepper.document.GreenPepperInterpreterSelector;
 import com.greenpepper.document.GreenPepperTableFilter;
 import com.greenpepper.html.HtmlDocumentBuilder;
-import com.greenpepper.maven.AbstractCompilerMojo;
 import com.greenpepper.maven.AbstractSourceManagementMojo;
 import com.greenpepper.maven.plugin.spy.FixtureGenerator;
 import com.greenpepper.maven.plugin.spy.SpyFixture;
 import com.greenpepper.maven.plugin.spy.SpySystemUnderDevelopment;
-import com.greenpepper.maven.plugin.utils.CompilationFailureException;
 import com.greenpepper.util.ClassUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.compiler.util.scan.SimpleSourceInclusionScanner;
-import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
-import org.codehaus.plexus.compiler.util.scan.StaleSourceScanner;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
+import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.difference;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * <p>Generate a fixture from a Specifciation.</p>
@@ -56,8 +51,9 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
 
     /**
+     * A file on the disk from which to generate the Fixture.
+     *
      * @parameter property="greenpepper.specification"
-     * @required
      */
     File specification;
 
@@ -70,6 +66,27 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
      */
     String fixtureGeneratorClass;
 
+    /**
+     * @parameter property="greenpepper.repositories"
+     */
+    ArrayList<Repository> repositories;
+
+    /**
+     * Set this to a Repository name defined in the pom.xml.
+     * This option is only used in case <code>-Dgp.test</code> is used.
+     *
+     * @parameter property="gp.repo"
+     */
+    String selectedRepository;
+
+    /**
+     * Set this to a Specification name to use this specification for fixture generation.
+     * The test is searched inside the default repository.
+     *
+     * @parameter property="gp.test"
+     */
+    String specificationName;
+
     FixtureGenerator fixtureGenerator;
 
     @Override
@@ -77,21 +94,68 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
         try {
             validateConfiguration();
 
-            SpySystemUnderDevelopment spySut = new SpySystemUnderDevelopment();
-            GreenPepperInterpreterSelector interpreterSelector = new GreenPepperInterpreterSelector(spySut);
-            Document doc = HtmlDocumentBuilder.tablesAndLists().build(new FileReader(specification));
-            doc.addFilter(new CommentTableFilter());
-            doc.addFilter(new GreenPepperTableFilter(false));
-            doc.execute(interpreterSelector);
-
-            HashMap<String, SpyFixture> fixtures = spySut.getFixtures();
-            for (String fixtureName : fixtures.keySet()) {
-                SpyFixture spyFixture = fixtures.get(fixtureName);
-                File classSource = fixtureGenerator.generateFixture(spyFixture, spySut, getFixtureSourceDirectory());
-                getLog().info("\t Generated: " + difference(basedir.getAbsolutePath(), classSource.getAbsolutePath()));
+            if (specification != null) {
+                Document doc = HtmlDocumentBuilder.tablesAndLists().build(new FileReader(specification));
+                generateFixturesForDocument(doc);
+            } else {
+                boolean atLeastOneRepositoryProcessed = false;
+                boolean specificationFound = false;
+                try {
+                    for (Repository repository : repositories) {
+                        if (isNotEmpty(selectedRepository)) {
+                            if (StringUtils.equals(selectedRepository, repository.getName())) {
+                                specificationFound = processRepository(repository);
+                                atLeastOneRepositoryProcessed = true;
+                            } else {
+                                getLog().debug(format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
+                            }
+                        } else {
+                            specificationFound = processRepository(repository);
+                        }
+                        if (specificationFound) {
+                            getLog().debug("Already found the required specification. We stop here.");
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new MojoExecutionException("Error running the Goal", e);
+                }
+                if (isNotEmpty(selectedRepository) && !atLeastOneRepositoryProcessed) {
+                    throw new MojoExecutionException("No repository could match your requirements");
+                }
+                if (!specificationFound) {
+                    throw new MojoExecutionException(format("The specification %s has not been found", specificationName));
+                }
             }
+
         } catch (Exception e) {
             throw new MojoExecutionException("Generation Failed", e);
+        }
+    }
+
+    private boolean processRepository(Repository repository) throws Exception {
+        try {
+            Document document = repository.getDocumentRepository().loadDocument(specificationName);
+            generateFixturesForDocument(document);
+            return true;
+        } catch (Exception e) {
+            getLog().debug("failed to load the document from repository : " +  e.getMessage());
+            return false;
+        }
+    }
+
+    private void generateFixturesForDocument(Document doc) throws Exception {
+        SpySystemUnderDevelopment spySut = new SpySystemUnderDevelopment();
+        GreenPepperInterpreterSelector interpreterSelector = new GreenPepperInterpreterSelector(spySut);
+        doc.addFilter(new CommentTableFilter());
+        doc.addFilter(new GreenPepperTableFilter(false));
+        doc.execute(interpreterSelector);
+
+        HashMap<String, SpyFixture> fixtures = spySut.getFixtures();
+        for (String fixtureName : fixtures.keySet()) {
+            SpyFixture spyFixture = fixtures.get(fixtureName);
+            File classSource = fixtureGenerator.generateFixture(spyFixture, spySut, getFixtureSourceDirectory());
+            getLog().info("\t Generated: " + difference(basedir.getAbsolutePath(), classSource.getAbsolutePath()));
         }
     }
 
@@ -101,5 +165,17 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
         }
         Class<FixtureGenerator> fixtureGeneratorClazz = ClassUtils.loadClass(fixtureGeneratorClass);
         fixtureGenerator = fixtureGeneratorClazz.newInstance();
+
+        if (specification != null && !specification.isFile()) {
+            throw new MojoFailureException("The specified file doesn't exist : " + specification);
+        }
+        if (specification == null) {
+            if (repositories == null || repositories.isEmpty()) {
+                throw new MojoFailureException("When not using a File to generate the fixtures, you need to set some repositories");
+            }
+            if (isEmpty(specificationName)) {
+                throw new MojoFailureException("When not using a File to generate the fixtures, you need to set a specification name to search for in the repositories");
+            }
+        }
     }
 }

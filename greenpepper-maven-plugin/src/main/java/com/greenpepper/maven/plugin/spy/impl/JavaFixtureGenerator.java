@@ -22,8 +22,6 @@ public class JavaFixtureGenerator implements FixtureGenerator {
 
     @Override
     public File generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory) throws Exception {
-        final JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
-        javaClass.setName(fixture.getName());
         Collection<String> imports = systemUnderDevelopment.getImports();
         String packageName = null;
         Matcher matcher = FULL_CLASS_NAME_PATTERN.matcher(fixture.getRawName());
@@ -32,44 +30,67 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         }
         if (isEmpty(packageName) && !imports.isEmpty()) {
             packageName = imports.iterator().next();
-            javaClass.setPackage(packageName);
         }
-
-        for (Constructor constructor : fixture.getConstructors()) {
-            MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
-                    .setPublic()
-                    .setConstructor(true)
-                    .setBody("throw new UnsupportedOperationException(\"Not yet implemented!\");");
-
-            for (int i = 0; i < constructor.getArity(); i++) {
-                methodSource.addParameter(String.class, "param" + (i+1) );
-            }
-        }
-
-        for (Property property : fixture.getProperties()) {
-            javaClass.addField()
-                    .setName(property.getName())
-                    .setType(String.class)
-                    .setPublic();
-        }
-
-        for (Method method : fixture.getMethods()) {
-            MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
-                    .setName(method.getName())
-                    .setPublic()
-                    .setReturnType(String.class);
-            for (int i = 0; i < method.getArity(); i++) {
-                methodSource.addParameter(String.class, "param" + (i+1) );
-            }
-            methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
-        }
-
         File directoryForFixure = fixtureSourceDirectory;
         if (isNotEmpty(packageName)) {
             directoryForFixure = new File(fixtureSourceDirectory, replaceChars(packageName, '.', '/'));
             forceMkdir(directoryForFixure);
         }
         File javaFile = new File(directoryForFixure, fixture.getName() + ".java");
+        final JavaClassSource javaClass;
+        if (javaFile.exists()) {
+            javaClass = Roaster.parse(JavaClassSource.class, javaFile);
+        } else {
+            javaClass = Roaster.create(JavaClassSource.class);
+            if (isNotEmpty(packageName)) {
+                javaClass.setPackage(packageName);
+            }
+            javaClass.setName(fixture.getName());
+        }
+
+        for (Constructor constructor : fixture.getConstructors()) {
+            Class<String>[] paramTypes = new Class[constructor.getArity()];
+            for (int i = 0; i < constructor.getArity(); i++) {
+                paramTypes[i] = String.class;
+            }
+            if (!javaClass.hasMethodSignature(constructor.getName(), (Class<?>[]) paramTypes)) {
+                MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
+                        .setPublic()
+                        .setConstructor(true)
+                        .setBody("throw new UnsupportedOperationException(\"Not yet implemented!\");");
+
+                for (int i = 0; i < constructor.getArity(); i++) {
+                    methodSource.addParameter(String.class, "param" + (i + 1));
+                }
+            }
+        }
+
+        for (Property property : fixture.getProperties()) {
+            if (!javaClass.hasField(property.getName())){
+                javaClass.addField()
+                        .setName(property.getName())
+                        .setType(String.class)
+                        .setPublic();
+            }
+        }
+
+        for (Method method : fixture.getMethods()) {
+            Class<String>[] paramTypes = new Class[method.getArity()];
+            for (int i = 0; i < method.getArity(); i++) {
+                paramTypes[i] = String.class;
+            }
+            if (!javaClass.hasMethodSignature(method.getName(), (Class<?>[]) paramTypes)) {
+                MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
+                        .setName(method.getName())
+                        .setPublic()
+                        .setReturnType(String.class);
+                for (int i = 0; i < method.getArity(); i++) {
+                    methodSource.addParameter(String.class, "param" + (i + 1));
+                }
+                methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
+            }
+        }
+
         writeStringToFile(javaFile, javaClass.toString());
         return javaFile;
     }

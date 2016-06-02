@@ -29,7 +29,6 @@ import com.greenpepper.maven.plugin.spy.FixtureGenerator;
 import com.greenpepper.maven.plugin.spy.SpyFixture;
 import com.greenpepper.maven.plugin.spy.SpySystemUnderDevelopment;
 import com.greenpepper.util.ClassUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;

@@ -9,6 +9,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import static org.apache.commons.io.FileUtils.writeStringToFile;
+import static org.apache.commons.lang3.StringUtils.countMatches;
+import static org.apache.commons.lang3.StringUtils.replace;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
+
 public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
     private FixtureGeneratorMojo mojo;
@@ -64,5 +70,27 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         mojo.execute();
 
         assertTrue(new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java").exists());
+    }
+
+    public void testGenerateFixtureAndUpdateIt() throws Exception {
+        mojo.specification = loadSpecification("right.html");
+        mojo.execute();
+
+        File fixtureFile = new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
+        assertTrue(fixtureFile.exists());
+        String javaclassSrc = FileUtils.readFileToString(fixtureFile);
+        String moddedSrc = replace(javaclassSrc, "throw new UnsupportedOperationException(\"Not yet implemented!\");", " return null;");
+        writeStringToFile(fixtureFile, moddedSrc);
+
+        mojo.specification = loadSpecification("right1.html");
+        mojo.execute();
+
+        fixtureFile = new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
+        assertTrue(fixtureFile.exists());
+        String actual = FileUtils.readFileToString(fixtureFile);
+        assertThat(actual, containsString("thatTheAnswerIs"));
+        assertThat(actual, containsString("echo"));
+        assertThat(actual, containsString("return null;"));
+        assertEquals(1, countMatches(actual,"public EchoFixture() {"));
     }
 }

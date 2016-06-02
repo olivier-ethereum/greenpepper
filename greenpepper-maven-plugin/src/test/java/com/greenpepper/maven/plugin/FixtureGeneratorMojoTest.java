@@ -59,5 +59,10 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java").exists());
     }
 
+    public void testGenerateFixtureWithPackageInName() throws Exception {
+        mojo.specification = loadSpecification("right.html");
+        mojo.execute();
 
+        assertTrue(new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java").exists());
+    }
 }

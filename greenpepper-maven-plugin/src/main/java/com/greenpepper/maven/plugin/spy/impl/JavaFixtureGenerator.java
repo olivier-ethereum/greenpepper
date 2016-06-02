@@ -7,13 +7,18 @@ import org.jboss.forge.roaster.model.source.MethodSource;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.apache.commons.io.FileUtils.forceMkdir;
 import static org.apache.commons.io.FileUtils.writeStringToFile;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.replaceChars;
 
 public class JavaFixtureGenerator implements FixtureGenerator {
+
+    private static final Pattern FULL_CLASS_NAME_PATTERN = Pattern.compile("([\\p{Alnum}\\.]+)\\.[\\p{Alnum}]+");
 
     @Override
     public File generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory) throws Exception {
@@ -21,7 +26,11 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         javaClass.setName(fixture.getName());
         Collection<String> imports = systemUnderDevelopment.getImports();
         String packageName = null;
-        if (!imports.isEmpty()) {
+        Matcher matcher = FULL_CLASS_NAME_PATTERN.matcher(fixture.getRawName());
+        if (matcher.matches()) {
+            packageName = matcher.group(1);
+        }
+        if (isEmpty(packageName) && !imports.isEmpty()) {
             packageName = imports.iterator().next();
             javaClass.setPackage(packageName);
         }

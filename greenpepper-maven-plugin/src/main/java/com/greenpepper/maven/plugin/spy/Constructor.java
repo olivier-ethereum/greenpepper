@@ -17,19 +17,6 @@ public class Constructor implements Comparable<Constructor> {
         return this.arity;
     }
 
-    public String toCode() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("public ").append(this.getName()).append("(");
-        for (int i = 0; i < this.arity; ++i) {
-            sb.append("String param").append(i + 1);
-            sb.append(i == this.arity - 1 ? "" : ", ");
-        }
-        sb.append("){");
-        sb.append("\n// TODO Auto-generated Constructor stub");
-        sb.append("\n}");
-        return sb.toString();
-    }
-
     public boolean equals(Object o) {
         if (o == null) {
             return false;

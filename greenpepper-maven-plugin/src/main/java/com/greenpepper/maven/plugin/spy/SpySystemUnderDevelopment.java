@@ -25,6 +25,7 @@ public class SpySystemUnderDevelopment extends DefaultSystemUnderDevelopment {
         SpyFixture fixture = this.fixtures.get(fixtureName);
         if (fixture == null) {
             fixture = new SpyFixture(fixtureName);
+            fixture.setRawName(name);
         }
         fixture.addConstructors(new Constructor(fixtureName, parameters.length));
         if (!StringUtil.isEmpty(name)) {

@@ -17,12 +17,6 @@ public class Property implements Comparable<Property> {
         return this.rawName;
     }
 
-    public String toCode() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("public String ").append(this.getName()).append(";");
-        return sb.toString();
-    }
-
     public boolean equals(Object o) {
         if (o == null) {
             return false;

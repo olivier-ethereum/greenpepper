@@ -11,6 +11,7 @@ public class SpyFixture implements Fixture {
     private SortedSet<Property> properties = new TreeSet<Property>();
     private SortedSet<Method> methods = new TreeSet<Method>();
     private String name;
+    private String rawName;
 
     public SpyFixture(String fixtureName) {
         this.name = fixtureName;
@@ -88,6 +89,14 @@ public class SpyFixture implements Fixture {
 
     public int hashCode() {
         return this.name.hashCode();
+    }
+
+    public void setRawName(String rawName) {
+        this.rawName = rawName;
+    }
+
+    public String getRawName() {
+        return rawName;
     }
 }
 

@@ -25,11 +25,13 @@ import com.greenpepper.document.GreenPepperInterpreterSelector;
 import com.greenpepper.document.GreenPepperTableFilter;
 import com.greenpepper.html.HtmlDocumentBuilder;
 import com.greenpepper.maven.AbstractCompilerMojo;
+import com.greenpepper.maven.AbstractSourceManagementMojo;
 import com.greenpepper.maven.plugin.spy.FixtureGenerator;
 import com.greenpepper.maven.plugin.spy.SpyFixture;
 import com.greenpepper.maven.plugin.spy.SpySystemUnderDevelopment;
 import com.greenpepper.maven.plugin.utils.CompilationFailureException;
 import com.greenpepper.util.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -43,6 +45,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.difference;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 /**
@@ -50,7 +53,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  *
  * @goal generate-fixtures
  */
-public class FixtureGeneratorMojo extends AbstractMojo {
+public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
 
     /**
      * @parameter property="greenpepper.specification"
@@ -84,17 +87,10 @@ public class FixtureGeneratorMojo extends AbstractMojo {
             HashMap<String, SpyFixture> fixtures = spySut.getFixtures();
             for (String fixtureName : fixtures.keySet()) {
                 SpyFixture spyFixture = fixtures.get(fixtureName);
-                String classSource = fixtureGenerator.generateFixture(spyFixture, spySut);
-                System.out.println(classSource);
+                File classSource = fixtureGenerator.generateFixture(spyFixture, spySut, getFixtureSourceDirectory());
+                getLog().info("\t Generated: " + difference(basedir.getAbsolutePath(), classSource.getAbsolutePath()));
             }
-
-        } catch (IOException e) {
-            throw new MojoExecutionException("Generation Failed", e);
-        } catch (IllegalAccessException e) {
-            throw new MojoExecutionException("Generation Failed", e);
-        } catch (InstantiationException e) {
-            throw new MojoExecutionException("Generation Failed", e);
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             throw new MojoExecutionException("Generation Failed", e);
         }
     }

@@ -56,14 +56,6 @@ public class FixtureCompilerMojo
     private boolean skip;
 
     /**
-     * The source directory containing the fixture sources to be compiled.
-     *
-     * @parameter default="${basedir}/src/fixture/java"
-     * @required
-     */
-    private File fixtureSourceDirectory;
-
-    /**
      * Project fixture classpath.
      *
      * @parameter expression="${project.testClasspathElements}"

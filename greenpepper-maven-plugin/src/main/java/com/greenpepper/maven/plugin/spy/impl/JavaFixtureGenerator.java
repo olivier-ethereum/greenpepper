@@ -5,17 +5,25 @@ import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
+import java.io.File;
 import java.util.Collection;
+
+import static org.apache.commons.io.FileUtils.forceMkdir;
+import static org.apache.commons.io.FileUtils.writeStringToFile;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.replaceChars;
 
 public class JavaFixtureGenerator implements FixtureGenerator {
 
     @Override
-    public String generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment) {
+    public File generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory) throws Exception {
         final JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
         javaClass.setName(fixture.getName());
         Collection<String> imports = systemUnderDevelopment.getImports();
+        String packageName = null;
         if (!imports.isEmpty()) {
-            javaClass.setPackage(imports.iterator().next());
+            packageName = imports.iterator().next();
+            javaClass.setPackage(packageName);
         }
 
         for (Constructor constructor : fixture.getConstructors()) {
@@ -47,6 +55,13 @@ public class JavaFixtureGenerator implements FixtureGenerator {
             methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
         }
 
-        return javaClass.toString();
+        File directoryForFixure = fixtureSourceDirectory;
+        if (isNotEmpty(packageName)) {
+            directoryForFixure = new File(fixtureSourceDirectory, replaceChars(packageName, '.', '/'));
+            forceMkdir(directoryForFixure);
+        }
+        File javaFile = new File(directoryForFixure, fixture.getName() + ".java");
+        writeStringToFile(javaFile, javaClass.toString());
+        return javaFile;
     }
 }

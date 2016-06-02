@@ -41,9 +41,15 @@ public class GreenPepperMavenPluginTest extends TestCase {
         testLaunchingMaven(testDir, cliOptions, "integration-test");
     }
 
-    public void testGreenpepperPluginDeps() throws Exception {
+    public void testGreenpepperPluginTree() throws Exception {
         File testDir = ResourceExtractor.simpleExtractResources(getClass(), "/test-gp-multimodule");
         testLaunchingMaven(testDir, new ArrayList<String>(), "greenpepper:tree");
     }
 
+    public void testGreenpepperPluginGenFixture() throws Exception {
+        File testDir = ResourceExtractor.simpleExtractResources(getClass(), "/test-gen-fixtures");
+        testLaunchingMaven(testDir, new ArrayList<String>() {{
+            add("-Dgreenpepper.specification=right.html");
+        }}, "greenpepper:generate-fixtures");
+    }
 }

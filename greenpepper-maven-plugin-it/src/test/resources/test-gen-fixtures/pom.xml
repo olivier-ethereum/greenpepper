@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dummy</groupId>
+    <artifactId>dummy</artifactId>
+    <version>${project.version}</version>
+    <name>test greenpepper runner</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.strator-dev.greenpepper</groupId>
+                <artifactId>greenpepper-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <locale>en</locale>
+                    <debug>true</debug>
+                    <fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
+                    <fixtureOutputDirectory>target/test-classes</fixtureOutputDirectory>
+                    <reportsDirectory>target/greenpepper-reports</reportsDirectory>
+                    <systemUnderDevelopment>com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment</systemUnderDevelopment>
+
+                    <!-- Sample repositories configuration -->
+                    <resources>
+                        <resource>
+                            <directory>src/fixture/resources</directory>
+                            <excludes>
+                                <exclude>**/*.java</exclude>
+                            </excludes>
+                        </resource>
+                    </resources>
+
+                    <repositories>
+                        <repository>
+                            <type>com.greenpepper.repository.FileSystemRepository</type>
+                            <root>src/test/specs</root>
+                            <name>file</name>
+                            <isDefault>true</isDefault>
+                            <projectName>PROJECT</projectName>
+                            <systemUnderTest>SUT</systemUnderTest>
+                        </repository>
+                    </repositories>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

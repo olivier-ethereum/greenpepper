@@ -3,12 +3,15 @@ package com.greenpepper.maven.plugin;
 import com.greenpepper.maven.plugin.spy.impl.JavaFixtureGenerator;
 import com.greenpepper.util.URIUtil;
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.io.FileUtils.writeStringToFile;
 import static org.apache.commons.lang3.StringUtils.countMatches;
 import static org.apache.commons.lang3.StringUtils.replace;
@@ -78,8 +81,8 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
         File fixtureFile = new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
         assertTrue(fixtureFile.exists());
-        String javaclassSrc = FileUtils.readFileToString(fixtureFile);
-        String moddedSrc = replace(javaclassSrc, "throw new UnsupportedOperationException(\"Not yet implemented!\");", " return null;");
+        String javaclassSrc = readFileToString(fixtureFile);
+        String moddedSrc = replace(javaclassSrc, "throw new UnsupportedOperationException(\"Not yet implemented!\");", "return null;");
         writeStringToFile(fixtureFile, moddedSrc);
 
         mojo.specification = loadSpecification("right1.html");
@@ -87,10 +90,31 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
         fixtureFile = new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
         assertTrue(fixtureFile.exists());
-        String actual = FileUtils.readFileToString(fixtureFile);
+        String actual = readFileToString(fixtureFile);
         assertThat(actual, containsString("thatTheAnswerIs"));
         assertThat(actual, containsString("echo"));
         assertThat(actual, containsString("return null;"));
-        assertEquals(1, countMatches(actual,"public EchoFixture() {"));
+        assertEquals("We don't generate a default constructor",  0, countMatches(actual,"public EchoFixture() {"));
+        assertEquals("We generate a constructor with parameter",  1, countMatches(actual,"public EchoFixture(String param1) {"));
+
+
+    }
+
+    public void testShouldNotReformatTheCode() throws MojoFailureException, MojoExecutionException, IOException {
+        mojo.specification = loadSpecification("right.html");
+        mojo.execute();
+        File fixtureFile = new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
+        assertTrue(fixtureFile.exists());
+        String javaclassSrc = readFileToString(fixtureFile);
+        assertThat(javaclassSrc, containsString("\tpublic String echo"));
+
+        // let's reformat the code
+        writeStringToFile(fixtureFile, javaclassSrc.replaceAll("\t", "  "));
+
+        mojo.specification = loadSpecification("right1.html");
+        mojo.execute();
+
+        javaclassSrc = readFileToString(fixtureFile);
+        assertEquals("We should not have a tab for pre existing methods",  0, countMatches(javaclassSrc,"\tpublic String echo"));
     }
 }

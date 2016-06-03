@@ -154,8 +154,19 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
         HashMap<String, SpyFixture> fixtures = spySut.getFixtures();
         for (String fixtureName : fixtures.keySet()) {
             SpyFixture spyFixture = fixtures.get(fixtureName);
-            File classSource = fixtureGenerator.generateFixture(spyFixture, spySut, getFixtureSourceDirectory());
-            getLog().info("\t Generated: " + difference(basedir.getAbsolutePath(), classSource.getAbsolutePath()));
+            FixtureGenerator.Result result = fixtureGenerator.generateFixture(spyFixture, spySut, getFixtureSourceDirectory());
+            File classSource = result.getFixtureFile();
+            switch (result.getAction()) {
+                case CREATED:
+                    getLog().info(format("\t %s: %s", "Generated", difference(basedir.getAbsolutePath(), classSource.getAbsolutePath())));
+                    break;
+                case UPDATED:
+                    getLog().info(format("\t %s: %s", "Updated", difference(basedir.getAbsolutePath(), classSource.getAbsolutePath())));
+                    break;
+                case NONE:
+                    getLog().debug(format("\t %s: %s", "Nothing done for", difference(basedir.getAbsolutePath(), classSource.getAbsolutePath())));
+                    break;
+            }
             if (getLog().isDebugEnabled()){
                 getLog().debug(format("\t Code of fixtureName :\n %s", readFileToString(classSource)));
             }

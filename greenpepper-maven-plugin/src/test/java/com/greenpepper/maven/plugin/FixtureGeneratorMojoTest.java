@@ -11,10 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import static org.apache.commons.io.FileUtils.getFile;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.io.FileUtils.writeStringToFile;
 import static org.apache.commons.lang3.StringUtils.countMatches;
 import static org.apache.commons.lang3.StringUtils.replace;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
@@ -116,5 +119,29 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
         javaclassSrc = readFileToString(fixtureFile);
         assertEquals("We should not have a tab for pre existing methods",  0, countMatches(javaclassSrc,"\tpublic String echo"));
+    }
+
+    public void testShouldFindTheSourceInARandomPackage() throws MojoFailureException, MojoExecutionException, IOException {
+        mojo.specification = loadSpecification("right.html");
+        mojo.execute();
+        File fixtureFile = new File(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
+        assertTrue(fixtureFile.exists());
+        String previousContent = readFileToString(fixtureFile);
+
+        mojo.specification = loadSpecification("multifixture-multiimport.html");
+        mojo.execute();
+
+        fixtureFile = getFile(srcDir, "com/greenpepper/maven/plugin/EchoFixture.java");
+        String newContent = readFileToString(fixtureFile);
+        assertThat(previousContent, not(equalTo(newContent)));
+        assertTrue(getFile(srcDir, "BankFixture.java").exists());
+        assertTrue(getFile(srcDir, "ShopFixture.java").exists());
+
+        mojo.specification = loadSpecification("multifixture.html");
+        mojo.execute();
+        assertTrue(getFile(srcDir, "com/greenpepper/samples/fixture/BankFixture.java").exists());
+        assertTrue(getFile(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java").exists());
+
+
     }
 }

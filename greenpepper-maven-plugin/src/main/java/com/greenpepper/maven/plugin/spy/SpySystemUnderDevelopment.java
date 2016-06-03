@@ -4,19 +4,21 @@ import com.greenpepper.reflect.Fixture;
 import com.greenpepper.systemunderdevelopment.DefaultSystemUnderDevelopment;
 import com.greenpepper.util.NameUtils;
 import com.greenpepper.util.StringUtil;
+
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 
 
 public class SpySystemUnderDevelopment extends DefaultSystemUnderDevelopment {
     private HashMap<String, SpyFixture> fixtures = new HashMap<String, SpyFixture>();
-    private HashSet<String> imports = new HashSet<String>();
+    private List<String> imports = new ArrayList<String>();
 
     public HashMap<String, SpyFixture> getFixtures() {
         return this.fixtures;
     }
 
-    public HashSet<String> getImports() {
+    public List<String> getImports() {
         return this.imports;
     }
 

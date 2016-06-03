@@ -28,6 +28,7 @@ import com.greenpepper.maven.AbstractSourceManagementMojo;
 import com.greenpepper.maven.plugin.spy.FixtureGenerator;
 import com.greenpepper.maven.plugin.spy.SpyFixture;
 import com.greenpepper.maven.plugin.spy.SpySystemUnderDevelopment;
+import com.greenpepper.maven.plugin.spy.impl.JavaFixtureGenerator;
 import com.greenpepper.util.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -87,7 +88,10 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
      */
     String specificationName;
 
-    private FixtureGenerator fixtureGenerator;
+    /**
+     * @parameter property="greenpepper.fixtureGenerator"
+     */
+    FixtureGenerator fixtureGenerator = null;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -177,9 +181,9 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
         if (isEmpty(fixtureGeneratorClass)) {
             throw new MojoFailureException("The fixtureGeneratorClass can't be null!");
         }
-        Class<FixtureGenerator> fixtureGeneratorClazz = ClassUtils.loadClass(fixtureGeneratorClass);
-        fixtureGenerator = fixtureGeneratorClazz.newInstance();
-
+        if (fixtureGenerator == null) {
+            fixtureGenerator = new JavaFixtureGenerator();
+        }
         if (specification != null && !specification.isFile()) {
             throw new MojoFailureException("The specified file doesn't exist : " + specification);
         }

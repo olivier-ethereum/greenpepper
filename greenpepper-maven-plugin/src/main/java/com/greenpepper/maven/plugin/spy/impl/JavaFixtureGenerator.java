@@ -18,6 +18,7 @@ import static java.io.File.separatorChar;
 import static org.apache.commons.io.FileUtils.forceMkdir;
 import static org.apache.commons.io.FileUtils.getFile;
 import static org.apache.commons.io.FileUtils.writeStringToFile;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.replaceChars;
 
@@ -26,6 +27,16 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaFixtureGenerator.class);
 
     private static final Pattern FULL_CLASS_NAME_PATTERN = Pattern.compile("([\\p{Alnum}\\.]+)\\.[\\p{Alnum}]+");
+
+    private String defaultPackage;
+
+    public String getDefaultPackage() {
+        return defaultPackage;
+    }
+
+    public void setDefaultPackage(String defaultPackage) {
+        this.defaultPackage = defaultPackage;
+    }
 
     @Override
     public Result generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory) throws Exception {
@@ -100,6 +111,9 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         Matcher matcher = FULL_CLASS_NAME_PATTERN.matcher(fixture.getRawName());
         if (matcher.matches()) {
             packageName = matcher.group(1);
+        }
+        if (isBlank(packageName) && isNotBlank(defaultPackage)) {
+            packageName = defaultPackage;
         }
         return packageName;
     }

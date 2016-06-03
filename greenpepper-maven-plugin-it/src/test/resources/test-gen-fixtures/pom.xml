@@ -15,6 +15,9 @@
                 <configuration>
                     <locale>en</locale>
                     <debug>true</debug>
+                    <fixtureGenerator implementation="com.greenpepper.maven.plugin.spy.impl.JavaFixtureGenerator">
+                        <defaultPackage>com.toto.tata</defaultPackage>
+                    </fixtureGenerator>
                     <fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
                     <fixtureOutputDirectory>target/test-classes</fixtureOutputDirectory>
                     <reportsDirectory>target/greenpepper-reports</reportsDirectory>

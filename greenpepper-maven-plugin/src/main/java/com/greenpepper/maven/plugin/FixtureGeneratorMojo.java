@@ -38,6 +38,7 @@ import java.io.FileReader;
 import java.util.*;
 
 import static java.lang.String.format;
+import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.lang3.StringUtils.difference;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -86,7 +87,7 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
      */
     String specificationName;
 
-    FixtureGenerator fixtureGenerator;
+    private FixtureGenerator fixtureGenerator;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -155,6 +156,9 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
             SpyFixture spyFixture = fixtures.get(fixtureName);
             File classSource = fixtureGenerator.generateFixture(spyFixture, spySut, getFixtureSourceDirectory());
             getLog().info("\t Generated: " + difference(basedir.getAbsolutePath(), classSource.getAbsolutePath()));
+            if (getLog().isDebugEnabled()){
+                getLog().debug(format("\t Code of fixtureName :\n %s", readFileToString(classSource)));
+            }
         }
     }
 

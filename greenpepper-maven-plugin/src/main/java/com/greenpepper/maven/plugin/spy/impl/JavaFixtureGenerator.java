@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,6 +28,8 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaFixtureGenerator.class);
 
     private static final Pattern FULL_CLASS_NAME_PATTERN = Pattern.compile("([\\p{Alnum}\\.]+)\\.[\\p{Alnum}]+");
+    private static final char DOT = '.';
+    private static final String JAVA_EXTENSION = ".java";
 
     private String defaultPackage;
 
@@ -63,7 +66,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
 
         fileHasBeenUpdated |= updateFields(fixture, fileHasBeenUpdated, javaClass);
 
-        fileHasBeenUpdated |= updateMethods(fixture, fileHasBeenUpdated, javaClass);
+        fileHasBeenUpdated |= updateMethods(fixture, fixtureSourceDirectory, fileHasBeenUpdated, javaClass);
 
         if (fileHasBeenUpdated) {
             writeStringToFile(javaFile, javaClass.toUnformattedString());
@@ -76,12 +79,12 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     }
 
     private File getJavaSouceFile(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory, String packageName) throws IOException {
-        String fixtureFilename = fixture.getName() + ".java";
+        String fixtureFilename = fixture.getName() + JAVA_EXTENSION;
         File javaSouceFile = null;
         // we search in every imports
         List<String> imports = systemUnderDevelopment.getImports();
         for (String anImport : imports) {
-            File tentative = getFile(fixtureSourceDirectory, replaceChars(anImport, '.', separatorChar), fixtureFilename);
+            File tentative = getFile(fixtureSourceDirectory, replaceChars(anImport, DOT, separatorChar), fixtureFilename);
             if (tentative.exists()) {
                 javaSouceFile = tentative;
                 break;
@@ -90,11 +93,11 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         // if we didn't find the file
         if (javaSouceFile == null) {
             if (isNotBlank(packageName)) {
-                File directoryForFixure = new File(fixtureSourceDirectory, replaceChars(packageName, '.', separatorChar));
+                File directoryForFixure = new File(fixtureSourceDirectory, replaceChars(packageName, DOT, separatorChar));
                 forceMkdir(directoryForFixure);
                 javaSouceFile = new File(directoryForFixure, fixtureFilename);
             } else if (imports.size() == 1 && isNotBlank(imports.get(0))) {
-                File directoryForFixure = new File(fixtureSourceDirectory, replaceChars(imports.get(0), '.', separatorChar));
+                File directoryForFixure = new File(fixtureSourceDirectory, replaceChars(imports.get(0), DOT, separatorChar));
                 forceMkdir(directoryForFixure);
                 javaSouceFile = new File(directoryForFixure, fixtureFilename);
             } else {
@@ -122,16 +125,10 @@ public class JavaFixtureGenerator implements FixtureGenerator {
      *
      * @return true if an update has been made.
      */
-    private boolean updateMethods(SpyFixture fixture, boolean fileHasBeenUpdated, JavaClassSource javaClass) {
+    private boolean updateMethods(SpyFixture fixture, File fixtureSourceDirectory, boolean fileHasBeenUpdated, JavaClassSource javaClass) throws FileNotFoundException {
         for (Method method : fixture.getMethods()) {
-            boolean existingMethodFound = false;
-            for (MethodSource<JavaClassSource> methodSource : javaClass.getMethods()) {
-                if (StringUtils.equals(method.getName(), methodSource.getName()) &&
-                        methodSource.getParameters().size() == method.getArity()) {
-                    existingMethodFound = true;
-                    break;
-                }
-            }
+            boolean existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
+
             if (!existingMethodFound) {
                 MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
                         .setName(method.getName())
@@ -146,6 +143,41 @@ public class JavaFixtureGenerator implements FixtureGenerator {
 
         }
         return fileHasBeenUpdated;
+    }
+
+    private boolean isExistingMethodFound(File fixtureSourceDirectory, JavaClassSource javaClass, Method method) throws FileNotFoundException {
+        LOGGER.debug("Searching method {} in class {}", method.getName(), javaClass.getName());
+        boolean existingMethodFound = false;
+        for (MethodSource<JavaClassSource> methodSource : javaClass.getMethods()) {
+            if (StringUtils.equals(method.getName(), methodSource.getName()) &&
+                    methodSource.getParameters().size() == method.getArity()) {
+                existingMethodFound = true;
+                LOGGER.debug("Method Found");
+                break;
+            }
+        }
+        if (!existingMethodFound) {
+            // Find on the method on the superclass
+            String superType = javaClass.getSuperType();
+            if (isNotBlank(superType) && !StringUtils.equals("java.lang.Object", superType)) {
+                JavaClassSource superTypeSource = findTheClass(fixtureSourceDirectory, superType);
+                if (superTypeSource != null) {
+                    existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, superTypeSource, method);
+                }
+            }
+        }
+
+        return existingMethodFound;
+    }
+
+    private JavaClassSource findTheClass(File fixtureSourceDirectory, String superType) throws FileNotFoundException {
+        File javaSourceFile = getFile(fixtureSourceDirectory, replaceChars(superType, DOT, separatorChar) + JAVA_EXTENSION);
+        if (javaSourceFile.exists()) {
+            return Roaster.parse(JavaClassSource.class, javaSourceFile);
+        } else {
+            LOGGER.info("I can't find the source of '{}' in the source directory '{}'", superType, fixtureSourceDirectory);
+        }
+        return null;
     }
 
     /**

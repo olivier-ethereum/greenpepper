@@ -11,9 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import static org.apache.commons.io.FileUtils.getFile;
-import static org.apache.commons.io.FileUtils.readFileToString;
-import static org.apache.commons.io.FileUtils.writeStringToFile;
+import static org.apache.commons.io.FileUtils.*;
 import static org.apache.commons.lang3.StringUtils.countMatches;
 import static org.apache.commons.lang3.StringUtils.replace;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -46,14 +44,14 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
     private File getFixtureSrcDir() throws IOException {
         URL currentPackage = getClass().getResource(".");
-        File srcDir = new File(FileUtils.toFile(currentPackage), "src");
+        File srcDir = new File(toFile(currentPackage), "src");
         FileUtils.forceMkdir(srcDir);
         return srcDir;
     }
 
     private File loadSpecification(String name) {
         URL resource = getClass().getResource("specs/" + name);
-        return FileUtils.toFile(resource);
+        return toFile(resource);
     }
 
     public void testGenerateFixture() throws Exception {
@@ -141,7 +139,21 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         mojo.execute();
         assertTrue(getFile(srcDir, "com/greenpepper/samples/fixture/BankFixture.java").exists());
         assertTrue(getFile(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java").exists());
+    }
 
+    public void testShouldFindMethodsInSupertype() throws MojoFailureException, MojoExecutionException, IOException {
+        mojo.specification = loadSpecification("supertype.html");
+        URL currentPackage = getClass().getResource(".");
+        File srcDir = new File(toFile(currentPackage), "existingSrc");
+
+        String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java"));
+
+        mojo.setFixtureSourceDirectory(srcDir);
+        mojo.execute();
+
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java"));
+
+        assertThat(previousContent, equalTo(newContent));
 
     }
 }

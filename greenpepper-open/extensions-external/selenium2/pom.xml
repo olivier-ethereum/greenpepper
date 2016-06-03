@@ -52,6 +52,7 @@
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+					<testFailureIgnore>true</testFailureIgnore>
 					<fixtureSourceDirectory>src/fixture/java</fixtureSourceDirectory>
 					<fixtureOutputDirectory>target/fixture-test-classes</fixtureOutputDirectory>
 					<systemUnderDevelopment>com.greenpepper.extensions.selenium2.google.GoogleSearchSystemUnderDevelopment

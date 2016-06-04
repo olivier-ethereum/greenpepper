@@ -1,6 +1,8 @@
 package com.greenpepper.maven.plugin.spy.impl;
 
 import com.greenpepper.maven.plugin.spy.*;
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
@@ -11,17 +13,14 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.io.File.separatorChar;
-import static org.apache.commons.io.FileUtils.forceMkdir;
-import static org.apache.commons.io.FileUtils.getFile;
-import static org.apache.commons.io.FileUtils.writeStringToFile;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.replaceChars;
+import static org.apache.commons.io.FileUtils.*;
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class JavaFixtureGenerator implements FixtureGenerator {
 
@@ -31,15 +30,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     private static final char DOT = '.';
     private static final String JAVA_EXTENSION = ".java";
 
-    private String defaultPackage;
-
-    public String getDefaultPackage() {
-        return defaultPackage;
-    }
-
-    public void setDefaultPackage(String defaultPackage) {
-        this.defaultPackage = defaultPackage;
-    }
+    public String defaultPackage;
 
     @Override
     public Result generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory) throws Exception {
@@ -84,10 +75,22 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         // we search in every imports
         List<String> imports = systemUnderDevelopment.getImports();
         for (String anImport : imports) {
-            File tentative = getFile(fixtureSourceDirectory, replaceChars(anImport, DOT, separatorChar), fixtureFilename);
-            if (tentative.exists()) {
-                javaSouceFile = tentative;
-                break;
+            File packageDir = new File(fixtureSourceDirectory, replaceChars(anImport, DOT, separatorChar));
+            if (packageDir.isDirectory()) {
+                Collection<File> files = listFiles(packageDir, new NameFileFilter(fixtureFilename, IOCase.INSENSITIVE), null);
+                if (files.size() == 1) {
+                    javaSouceFile = files.iterator().next();
+                    break;
+                } else if (files.size() > 1) {
+                    LOGGER.error("You have multiple java sources with the same case insensitive names.");
+                    LOGGER.error("We can't choose the file to merge the fixture in.");
+                    LOGGER.error("Moreover, your build is platform dependant because of this issue.");
+                    LOGGER.error("Incriminating files:");
+                    for (File file : files) {
+                        LOGGER.error("\t - {}", file.getAbsolutePath());
+                    }
+                    break;
+                }
             }
         }
         // if we didn't find the file

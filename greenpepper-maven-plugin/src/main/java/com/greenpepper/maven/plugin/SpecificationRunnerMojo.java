@@ -94,7 +94,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     String reportsType;
 
     /**
-     * @parameter expression="${greenpepper.repositories}"
+     * @parameter property="greenpepper.repositories"
      * @required
      */
     ArrayList<Repository> repositories;
@@ -141,7 +141,8 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     /**
      * Set this to a Specification name to run only this test.
      * The test is searched inside the default repository.
-     * @parameter expression="${gp.test}"
+     *
+     * @parameter property="gp.test"
      */
     String testSpecification;
 
@@ -155,7 +156,8 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     /**
      * Set this to a Repository name defined in the pom.xml.
      * This option is only used in case <code>-Dgp.test</code> is used.
-     * @parameter expression="${gp.repo}"
+     *
+     * @parameter property="gp.repo"
      */
     String selectedRepository;
 
@@ -315,7 +317,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
 
     private void runSingleTest(Repository repository, String test) throws MojoExecutionException, MojoFailureException {
         String repoCmdOption;
-        boolean managingFileSystem = false;
+        boolean managingFileSystem;
         try {
             DocumentRepository documentRepository = repository.getDocumentRepository();
             managingFileSystem = documentRepository instanceof FileSystemRepository;
@@ -422,7 +424,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
 
         for (URL url : urls) {
 
-            if (url.getFile().indexOf("greenpepper-core") != -1 && url.getFile().endsWith(".jar")) {
+            if (url.getFile().contains("greenpepper-core") && url.getFile().endsWith(".jar")) {
                 return true;
             }
         }

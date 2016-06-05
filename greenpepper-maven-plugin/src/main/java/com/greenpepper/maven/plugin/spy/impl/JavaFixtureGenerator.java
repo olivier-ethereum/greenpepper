@@ -144,55 +144,97 @@ public class JavaFixtureGenerator implements FixtureGenerator {
      */
     private boolean updateMethods(SpyFixture fixture, File fixtureSourceDirectory, JavaClassSource javaClass) throws FileNotFoundException {
         boolean fileHasBeenUpdated = false;
-        for (Method method : fixture.getMethods()) {
-            boolean existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
+        switch (fixture.getType()) {
+            case WORKFLOW:
+                for (Method method : fixture.getMethods()) {
+                    boolean existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
 
-            if (!existingMethodFound) {
-                LOGGER.debug("Creating Method '{}' to deal with '{}'", method.getName(), method.getRawName() );
-                MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
-                        .setName(method.getName())
-                        .setPublic();
+                    if (!existingMethodFound) {
+                        LOGGER.debug("Creating Method '{}' to deal with '{}'", method.getName(), method.getRawName() );
+                        MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
+                                .setName(method.getName())
+                                .setPublic();
 
-                SpyFixture subFixtureSpy = method.getSubFixtureSpy();
-                if (subFixtureSpy == null) {
-                    methodSource.setReturnType(String.class);
-                } else {
-                    switch (subFixtureSpy.getType()) {
-                        case COLLECTION_PROVIDER:
-                            Pojo pojo = subFixtureSpy.getPojo();
-                            if (!javaClass.hasNestedType(pojo.getName())) {
-                                JavaSource<?> nestedType = javaClass.addNestedType(format("public static class %s {}", pojo.getName()));
-                                if (nestedType.isClass()) {
-                                    JavaClassSource nestedType1 = (JavaClassSource) nestedType;
-                                    for (Property property : pojo.getProperties()) {
-                                        nestedType1.addField().setName(property.getName()).setType(String.class).setPublic();
-                                    }
-                                }
+                        SpyFixture subFixtureSpy = method.getSubFixtureSpy();
+                        if (subFixtureSpy == null) {
+                            methodSource.setReturnType(String.class);
+                        } else {
+                            switch (subFixtureSpy.getType()) {
+                                case COLLECTION_PROVIDER:
+                                    generateMethodForCollectionProvider(javaClass, methodSource, subFixtureSpy);
+                                    break;
+                                case SETUP:
+                                    generateMethodForSetup(javaClass, methodSource, subFixtureSpy);
+                                    break;
+                                default:
+                                    throw new IllegalStateException("The value '" + subFixtureSpy.getType() + "' of the subFixture is not supported");
                             }
-                            JavaSource<?> nestedType = javaClass.getNestedType(pojo.getName());
-                            methodSource.setReturnType(format("java.util.Collection<%s>",
-                                    replaceChars(nestedType.getQualifiedName(), '$', DOT)))
-                                    .addAnnotation(CollectionProvider.class);
-                            break;
-                        case SETUP:
-                            LOGGER.debug("Processing @EnterRow method");
-                            methodSource.addAnnotation(EnterRow.class);
-                            appendFieldsToClass(javaClass, subFixtureSpy.getProperties());
-                            break;
-                        default:
-                            throw new IllegalStateException("The value '" + subFixtureSpy.getType() + "' of the subFixture is not supported");
-                    }
-                }
+                        }
 
-                for (int i = 0; i < method.getArity(); i++) {
-                    methodSource.addParameter(String.class, "param" + (i + 1));
+                        for (int i = 0; i < method.getArity(); i++) {
+                            methodSource.addParameter(String.class, "param" + (i + 1));
+                        }
+                        methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
+                        fileHasBeenUpdated = true;
+                    }
+
                 }
-                methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
-                fileHasBeenUpdated = true;
-            }
+                break;
+            case COLLECTION_PROVIDER:
+                Method queryMethod = new Method("query",0);
+                boolean existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, queryMethod);
+                if (!existingMethodFound) {
+                    LOGGER.debug("Creating Method '{}' to provide the @CollectionProvider", queryMethod.getName() );
+                    MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
+                            .setName(queryMethod.getName())
+                            .setPublic();
+                    generateMethodForCollectionProvider(javaClass, methodSource, fixture);
+                    methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
+                    fileHasBeenUpdated = true;
+                }
+                break;
+            case SETUP:
+                Method method = new Method("enterRow", 0);
+                boolean existingEnterRowMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
+                if (!existingEnterRowMethodFound) {
+                    LOGGER.debug("Creating Method '{}' to provide the @EnterRow", method.getName() );
+                    MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
+                            .setName(method.getName())
+                            .setPublic();
+                    generateMethodForSetup(javaClass, methodSource, fixture);
+                    methodSource.setBody("throw  new UnsupportedOperationException(\"Not yet implemented!\");");
+                    fileHasBeenUpdated = true;
+                }
+                break;
+            default:
+                throw new IllegalStateException("The value '" + fixture.getType() + "' of the SpyFixture is not supported");
 
         }
+
         return fileHasBeenUpdated;
+    }
+
+    private void generateMethodForSetup(JavaClassSource javaClass, MethodSource<JavaClassSource> methodSource, SpyFixture subFixtureSpy) {
+        LOGGER.debug("Processing @EnterRow method");
+        methodSource.addAnnotation(EnterRow.class);
+        appendFieldsToClass(javaClass, subFixtureSpy.getProperties());
+    }
+
+    private void generateMethodForCollectionProvider(JavaClassSource javaClass, MethodSource<JavaClassSource> methodSource, SpyFixture subFixtureSpy) {
+        Pojo pojo = subFixtureSpy.getPojo();
+        if (!javaClass.hasNestedType(pojo.getName())) {
+            JavaSource<?> nestedType = javaClass.addNestedType(format("public static class %s {}", pojo.getName()));
+            if (nestedType.isClass()) {
+                JavaClassSource nestedType1 = (JavaClassSource) nestedType;
+                for (Property property : pojo.getProperties()) {
+                    nestedType1.addField().setName(property.getName()).setType(String.class).setPublic();
+                }
+            }
+        }
+        JavaSource<?> nestedType = javaClass.getNestedType(pojo.getName());
+        methodSource.setReturnType(format("java.util.Collection<%s>",
+                replaceChars(nestedType.getQualifiedName(), '$', DOT)))
+                .addAnnotation(CollectionProvider.class);
     }
 
     private boolean isExistingMethodFound(File fixtureSourceDirectory, JavaClassSource javaClass, Method method) throws FileNotFoundException {
@@ -204,6 +246,16 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                     methodSource.getParameters().size() == method.getArity()) {
                 existingMethodFound = true;
                 LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
+                break;
+            }
+            if (StringUtils.equals(method.getName(),"query") && methodSource.hasAnnotation(CollectionProvider.class)) {
+                existingMethodFound = true;
+                LOGGER.debug("Found Method '{}' to deal with '@CollectionProvider' in collection fixture", methodSource.getName() );
+                break;
+            }
+            if (StringUtils.equals(method.getName(),"enterRow") && methodSource.hasAnnotation(EnterRow.class)) {
+                existingMethodFound = true;
+                LOGGER.debug("Found Method '{}' to deal with '@EnterRow' in setup fixture", methodSource.getName() );
                 break;
             }
             SpyFixture subFixtureSpy = method.getSubFixtureSpy();

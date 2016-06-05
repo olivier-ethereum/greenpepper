@@ -75,6 +75,7 @@ public class SpyFixture implements Fixture {
                         break;
                     } else {
                         spyFixture = new SpyFixture(spyCallResult.message);
+                        spyFixture.rawName = spyCallResult.message;
                         method.setSubFixtureSpy(spyFixture);
                         break;
                     }
@@ -154,7 +155,7 @@ public class SpyFixture implements Fixture {
     }
 
     public Pojo getPojo() {
-        return new Pojo(getName() + " item", getProperties());
+        return new Pojo(getRawName() + " item", getProperties());
     }
 
     public enum SubFixtureType {

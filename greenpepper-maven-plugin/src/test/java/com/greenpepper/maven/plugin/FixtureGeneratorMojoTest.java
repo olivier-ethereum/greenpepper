@@ -251,7 +251,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertThat(newContent, equalTo(previousContent));
     }
 
-    public void ignoretestShouldGenerateEnterRowAnnotationInSetup() throws Exception {
+    public void testShouldGenerateEnterRowAnnotationInSetup() throws Exception {
         mojo.specification = loadSpecification("setup.html");
 
         mojo.execute();
@@ -261,9 +261,10 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         String newContent = readFileToString(fixture);
         assertThat(newContent, containsString("@EnterRow"));
         assertThat(newContent, containsString("public void enterRow()"));
+        System.out.println(newContent);
     }
 
-    public void ignoretestShouldGenerateCollectionProviderAnnotationInListof() throws Exception {
+    public void testShouldGenerateCollectionProviderAnnotationInListof() throws Exception {
         mojo.specification = loadSpecification("list.html");
 
         mojo.execute();
@@ -274,5 +275,37 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertThat(newContent, containsString("@CollectionProvider"));
         assertThat(newContent, containsString("public Collection<"));
         assertThat(newContent, containsString("query()"));
+    }
+
+    public void testShouldDetectEnterRowAnnotationAndMethodOnSetups() throws Exception {
+        copyExistingSrcToTestingSrc();
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupWithAnnotationFixture.java").exists());
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupWithMethodFixture.java").exists());
+        String previousContentWithMethod = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupWithMethodFixture.java"));
+        String previousContentWithAnnotation = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupWithAnnotationFixture.java"));
+        mojo.specification = loadSpecification("setup.html");
+
+        mojo.execute();
+
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupWithMethodFixture.java"));
+        String newContentWithAnnotation = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupWithAnnotationFixture.java"));
+        assertThat(newContent, equalTo(previousContentWithMethod));
+        assertThat(newContentWithAnnotation, equalTo(previousContentWithAnnotation));
+    }
+
+    public void testShouldDetectCollectionAnnotationAndMethodOnSetups() throws Exception {
+        copyExistingSrcToTestingSrc();
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithAnnotationFixture.java").exists());
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithMethodFixture.java").exists());
+        String previousContentWithAnnotation = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithAnnotationFixture.java"));
+        String previousContentWithMethod = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithMethodFixture.java"));
+        mojo.specification = loadSpecification("list.html");
+
+        mojo.execute();
+
+        String newContentWithAnnotation = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithAnnotationFixture.java"));
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithMethodFixture.java"));
+        assertThat(newContent, equalTo(previousContentWithMethod));
+        assertThat(newContentWithAnnotation, equalTo(previousContentWithAnnotation));
     }
 }

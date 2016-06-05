@@ -37,7 +37,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
 
     @Override
     public Result generateFixture(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment, File fixtureSourceDirectory) throws Exception {
-        String packageName = getPackageName(fixture);
+        String packageName = getPackageName(fixture, systemUnderDevelopment);
 
         File javaFile = getJavaSouceFile(fixture, systemUnderDevelopment, fixtureSourceDirectory, packageName);
 
@@ -102,10 +102,6 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                 File directoryForFixure = new File(fixtureSourceDirectory, replaceChars(packageName, DOT, separatorChar));
                 forceMkdir(directoryForFixure);
                 javaSouceFile = new File(directoryForFixure, fixtureFilename);
-            } else if (imports.size() == 1 && isNotBlank(imports.get(0))) {
-                File directoryForFixure = new File(fixtureSourceDirectory, replaceChars(imports.get(0), DOT, separatorChar));
-                forceMkdir(directoryForFixure);
-                javaSouceFile = new File(directoryForFixure, fixtureFilename);
             } else {
                 forceMkdir(fixtureSourceDirectory);
                 javaSouceFile = new File(fixtureSourceDirectory, fixtureFilename);
@@ -115,14 +111,19 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         return javaSouceFile ;
     }
 
-    private String getPackageName(SpyFixture fixture) {
+    private String getPackageName(SpyFixture fixture, SpySystemUnderDevelopment systemUnderDevelopment) {
         String packageName = null;
         Matcher matcher = FULL_CLASS_NAME_PATTERN.matcher(fixture.getRawName());
         if (matcher.matches()) {
             packageName = matcher.group(1);
         }
-        if (isBlank(packageName) && isNotBlank(defaultPackage)) {
-            packageName = defaultPackage;
+        if (isBlank(packageName)) {
+            List<String> imports = systemUnderDevelopment.getImports();
+            if (imports != null && imports.size() == 1 && isNotBlank(imports.get(0))) {
+                packageName = imports.get(0);
+            } else if (isNotBlank(defaultPackage)) {
+                packageName = defaultPackage;
+            }
         }
         return packageName;
     }

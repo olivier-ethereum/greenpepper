@@ -164,7 +164,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
     public void testShouldDetectCollectionProviderAnnotation() throws Exception {
         copyExistingSrcToTestingSrc();
         String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java"));
-        mojo.specification = loadSpecification("CollectionOfValuesSample.html");
+        mojo.specification = loadSpecification("CollectionOfValuesWithoutImport.html");
         JavaFixtureGenerator javaFixtureGenerator = new JavaFixtureGenerator();
         javaFixtureGenerator.defaultPackage = "com.greenpepper.samples.fixture";
         mojo.fixtureGenerator = javaFixtureGenerator;
@@ -179,7 +179,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
 
     public void testShouldGenerateCollectionProviderAnnotation() throws Exception {
-        mojo.specification = loadSpecification("CollectionOfValuesSample.html");
+        mojo.specification = loadSpecification("CollectionOfValuesWithoutImport.html");
         JavaFixtureGenerator javaFixtureGenerator = new JavaFixtureGenerator();
         javaFixtureGenerator.defaultPackage = "com.greenpepper.samples.fixture";
         mojo.fixtureGenerator = javaFixtureGenerator;
@@ -192,7 +192,6 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertThat(newContent, containsString("PhoneBookFixture.PhoneBookEntriesItem"));
     }
 
-
     public void testShouldDetectQueryMethod() throws Exception {
         copyExistingSrcToTestingSrc();
         String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithQueryMethodFixture.java"));
@@ -203,5 +202,26 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithQueryMethodFixture.java").exists());
         String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithQueryMethodFixture.java"));
         assertThat(previousContent, equalTo(newContent));
+    }
+
+    public void testShouldUseTheUniqueImportAsPackage() throws Exception {
+        mojo.specification = loadSpecification("setup.html");
+
+        mojo.execute();
+
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java").exists());
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
+        assertThat(newContent, containsString("package com.greenpepper.samples.fixture;"));
+    }
+
+    public void ignoretestShouldGenerateEnterRowAnnotation() throws Exception {
+        mojo.specification = loadSpecification("setup.html");
+
+        mojo.execute();
+
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java").exists());
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
+        assertThat(newContent, containsString("@EnterRow"));
+        assertThat(newContent, containsString("phoneBookEntries"));
     }
 }

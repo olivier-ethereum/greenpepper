@@ -23,7 +23,7 @@ public class FixtureAnnotationClassScannerTest {
     public void scanShouldFindOnlyBankFixtures() throws Exception {
         FixtureAnnotationClassScanner fixtureScanner = new FixtureAnnotationClassScanner();
         Fixtures scanned = fixtureScanner.scan("com.greenpepper.fixtures.application.bank");
-        assertEquals(3, scanned.getFixture().size());
+        assertEquals("The result has 3 fixtures and 1 SubFixture", 4, scanned.getFixture().size());
     }
 
     @Test
@@ -38,6 +38,6 @@ public class FixtureAnnotationClassScannerTest {
         FixtureAnnotationClassScanner fixtureScanner = new FixtureAnnotationClassScanner();
         Fixtures scanned = fixtureScanner.scan("com.greenpepper.fixtures.application");
         List<FixtureType> fixtures = scanned.getFixture();
-        assertEquals(5, fixtures.size());
+        assertEquals("The result has 5 fixtures and 1 SubFixture", 6, fixtures.size());
     }
 }

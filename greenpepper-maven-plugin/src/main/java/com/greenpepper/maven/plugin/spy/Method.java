@@ -3,7 +3,7 @@ package com.greenpepper.maven.plugin.spy;
 public class Method extends Spy<Method> {
 
     private int arity;
-    private SpySubFixture subFixtureSpy;
+    private SpyFixture subFixtureSpy;
 
     public Method(String rawName, int arity) {
         super(rawName);
@@ -37,11 +37,11 @@ public class Method extends Spy<Method> {
         return this.getName().compareTo(other.getName());
     }
 
-    public void setSubFixtureSpy(SpySubFixture subFixtureSpy) {
+    public void setSubFixtureSpy(SpyFixture subFixtureSpy) {
         this.subFixtureSpy = subFixtureSpy;
     }
 
-    public SpySubFixture getSubFixtureSpy() {
+    public SpyFixture getSubFixtureSpy() {
         return subFixtureSpy;
     }
 }

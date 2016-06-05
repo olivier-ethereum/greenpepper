@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
+import static com.greenpepper.maven.plugin.spy.SpyFixture.SubFixtureType.WORKFLOW;
+
 public class SpyFixture implements Fixture {
     private SortedSet<Constructor> constructors = new TreeSet<Constructor>();
     private SortedSet<Property> properties = new TreeSet<Property>();
@@ -15,6 +17,7 @@ public class SpyFixture implements Fixture {
     private String name;
 
     private String rawName;
+    private SubFixtureType type = WORKFLOW;
 
     public SpyFixture(String fixtureName) {
         this.name = fixtureName;
@@ -24,8 +27,25 @@ public class SpyFixture implements Fixture {
         return true;
     }
 
+    public SubFixtureType getType() {
+        return type;
+    }
+
+    public void setType(SubFixtureType type) {
+        this.type = type;
+    }
+
     public Message check(String message) {
-        return SpyOn.function(this, message);
+        SpyOn spyOn;
+        switch (type) {
+            case COLLECTION_PROVIDER:
+                spyOn = SpyOn.property(this, message);
+                break;
+            case SETUP:
+            default:
+                spyOn = SpyOn.function(this, message);
+        }
+        return spyOn;
     }
 
     public Message getter(String message) {
@@ -47,14 +67,14 @@ public class SpyFixture implements Fixture {
     public Fixture fixtureFor(Object target) {
         if (target instanceof SpyCallResult) {
             SpyCallResult spyCallResult = (SpyCallResult) target;
-            SpySubFixture spyFixture = null;
+            SpyFixture spyFixture = null;
             for (Method method : methods) {
                 if (method.getArity() == 0 && StringUtils.equals(method.getRawName(),spyCallResult.message) ) {
                     spyFixture =  method.getSubFixtureSpy();
                     if (spyFixture != null) {
                         break;
                     } else {
-                        spyFixture = new SpySubFixture(spyCallResult.message);
+                        spyFixture = new SpyFixture(spyCallResult.message);
                         method.setSubFixtureSpy(spyFixture);
                         break;
                     }
@@ -122,5 +142,23 @@ public class SpyFixture implements Fixture {
         return rawName;
     }
 
+    @CollectionProvider
+    public Collection<?> spyForCollectionProvider() {
+        type = SubFixtureType.COLLECTION_PROVIDER;
+        return Collections.singleton(this);
+    }
+
+    @EnterRow
+    public void spyForEnterRow() {
+        type = SubFixtureType.SETUP;
+    }
+
+    public Pojo getPojo() {
+        return new Pojo(getName() + " item", getProperties());
+    }
+
+    public enum SubFixtureType {
+        COLLECTION_PROVIDER, SETUP, WORKFLOW;
+    }
 }
 

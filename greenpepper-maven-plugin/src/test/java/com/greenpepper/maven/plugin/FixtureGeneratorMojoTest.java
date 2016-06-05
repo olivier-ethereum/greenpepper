@@ -17,6 +17,7 @@ import static org.apache.commons.lang3.StringUtils.replace;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
@@ -205,7 +206,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
     }
 
     public void testShouldUseTheUniqueImportAsPackage() throws Exception {
-        mojo.specification = loadSpecification("setup.html");
+        mojo.specification = loadSpecification("dowith-setup.html");
 
         mojo.execute();
 
@@ -215,7 +216,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
     }
 
     public void testShouldGenerateEnterRowAnnotation() throws Exception {
-        mojo.specification = loadSpecification("setup.html");
+        mojo.specification = loadSpecification("dowith-setup.html");
 
         mojo.execute();
 
@@ -229,7 +230,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         copyExistingSrcToTestingSrc();
         assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethod2Fixture.java").exists());
         String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethod2Fixture.java"));
-        mojo.specification = loadSpecification("setup2.html");
+        mojo.specification = loadSpecification("dowith-setup2.html");
 
         mojo.execute();
 
@@ -242,11 +243,36 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         copyExistingSrcToTestingSrc();
         assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java").exists());
         String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
-        mojo.specification = loadSpecification("setup.html");
+        mojo.specification = loadSpecification("dowith-setup.html");
 
         mojo.execute();
 
         String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
         assertThat(newContent, equalTo(previousContent));
+    }
+
+    public void ignoretestShouldGenerateEnterRowAnnotationInSetup() throws Exception {
+        mojo.specification = loadSpecification("setup.html");
+
+        mojo.execute();
+
+        File fixture = getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookSetupFixture.java");
+        assertTrue(fixture.exists());
+        String newContent = readFileToString(fixture);
+        assertThat(newContent, containsString("@EnterRow"));
+        assertThat(newContent, containsString("public void enterRow()"));
+    }
+
+    public void ignoretestShouldGenerateCollectionProviderAnnotationInListof() throws Exception {
+        mojo.specification = loadSpecification("list.html");
+
+        mojo.execute();
+
+        File fixture = getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookListFixture.java");
+        assertTrue(fixture.exists());
+        String newContent = readFileToString(fixture);
+        assertThat(newContent, containsString("@CollectionProvider"));
+        assertThat(newContent, containsString("public Collection<"));
+        assertThat(newContent, containsString("query()"));
     }
 }

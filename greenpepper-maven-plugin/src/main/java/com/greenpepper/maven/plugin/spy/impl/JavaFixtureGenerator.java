@@ -153,7 +153,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                         .setName(method.getName())
                         .setPublic();
 
-                SpySubFixture subFixtureSpy = method.getSubFixtureSpy();
+                SpyFixture subFixtureSpy = method.getSubFixtureSpy();
                 if (subFixtureSpy == null) {
                     methodSource.setReturnType(String.class);
                 } else {
@@ -206,7 +206,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                 LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
                 break;
             }
-            SpySubFixture subFixtureSpy = method.getSubFixtureSpy();
+            SpyFixture subFixtureSpy = method.getSubFixtureSpy();
             if (subFixtureSpy != null) {
                 switch (subFixtureSpy.getType()) {
                     case COLLECTION_PROVIDER:

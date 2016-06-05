@@ -1,11 +1,9 @@
 package com.greenpepper.maven.plugin.spy;
 
-import com.greenpepper.util.NameUtils;
-
 public class Method extends Spy<Method> {
 
     private int arity;
-    private PojoSpyFixture collectionSpy;
+    private SpySubFixture subFixtureSpy;
 
     public Method(String rawName, int arity) {
         super(rawName);
@@ -39,12 +37,12 @@ public class Method extends Spy<Method> {
         return this.getName().compareTo(other.getName());
     }
 
-    public void setCollectionSpy(PojoSpyFixture collectionSpy) {
-        this.collectionSpy = collectionSpy;
+    public void setSubFixtureSpy(SpySubFixture subFixtureSpy) {
+        this.subFixtureSpy = subFixtureSpy;
     }
 
-    public PojoSpyFixture getCollectionSpy() {
-        return collectionSpy;
+    public SpySubFixture getSubFixtureSpy() {
+        return subFixtureSpy;
     }
 }
 

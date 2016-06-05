@@ -1,6 +1,7 @@
 package com.greenpepper.maven.plugin.spy;
 
 import com.greenpepper.reflect.CollectionProvider;
+import com.greenpepper.reflect.EnterRow;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.Message;
 import org.apache.commons.lang3.StringUtils;
@@ -46,15 +47,15 @@ public class SpyFixture implements Fixture {
     public Fixture fixtureFor(Object target) {
         if (target instanceof SpyCallResult) {
             SpyCallResult spyCallResult = (SpyCallResult) target;
-            PojoSpyFixture spyFixture = null;
+            SpySubFixture spyFixture = null;
             for (Method method : methods) {
                 if (method.getArity() == 0 && StringUtils.equals(method.getRawName(),spyCallResult.message) ) {
-                    spyFixture =  method.getCollectionSpy();
+                    spyFixture =  method.getSubFixtureSpy();
                     if (spyFixture != null) {
                         break;
                     } else {
-                        spyFixture = new PojoSpyFixture(spyCallResult.message);
-                        method.setCollectionSpy(spyFixture);
+                        spyFixture = new SpySubFixture(spyCallResult.message);
+                        method.setSubFixtureSpy(spyFixture);
                         break;
                     }
                 }
@@ -121,9 +122,5 @@ public class SpyFixture implements Fixture {
         return rawName;
     }
 
-    @CollectionProvider
-    public Collection<?> spyForCollectionProvider() {
-        return Collections.singleton(this);
-    }
 }
 

@@ -2,6 +2,7 @@ package com.greenpepper.maven.plugin.spy.impl;
 
 import com.greenpepper.maven.plugin.spy.*;
 import com.greenpepper.reflect.CollectionProvider;
+import com.greenpepper.reflect.EnterRow;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.lang3.StringUtils;
@@ -15,8 +16,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,16 +59,23 @@ public class JavaFixtureGenerator implements FixtureGenerator {
             action = ActionDone.CREATED;
         }
 
-        fileHasBeenUpdated |= updateConstructors(fixture, fileHasBeenUpdated, javaClass);
+        fileHasBeenUpdated |= updateConstructors(fixture, javaClass);
 
-        fileHasBeenUpdated |= updateFields(fixture, fileHasBeenUpdated, javaClass);
+        fileHasBeenUpdated |= updateFields(fixture, javaClass);
 
-        fileHasBeenUpdated |= updateMethods(fixture, fixtureSourceDirectory, fileHasBeenUpdated, javaClass);
+        fileHasBeenUpdated |= updateMethods(fixture, fixtureSourceDirectory, javaClass);
 
         if (fileHasBeenUpdated) {
-            writeStringToFile(javaFile, javaClass.toUnformattedString());
-            if (action == ActionDone.NONE) {
-                action = ActionDone.UPDATED;
+            switch (action) {
+                case NONE:
+                    action = ActionDone.UPDATED;
+                    writeStringToFile(javaFile, javaClass.toUnformattedString());
+                    break;
+                case CREATED:
+                    writeStringToFile(javaFile, javaClass.toString());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Action " + action + " is not supported.");
             }
         }
 
@@ -132,7 +142,8 @@ public class JavaFixtureGenerator implements FixtureGenerator {
      *
      * @return true if an update has been made.
      */
-    private boolean updateMethods(SpyFixture fixture, File fixtureSourceDirectory, boolean fileHasBeenUpdated, JavaClassSource javaClass) throws FileNotFoundException {
+    private boolean updateMethods(SpyFixture fixture, File fixtureSourceDirectory, JavaClassSource javaClass) throws FileNotFoundException {
+        boolean fileHasBeenUpdated = false;
         for (Method method : fixture.getMethods()) {
             boolean existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
 
@@ -142,23 +153,35 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                         .setName(method.getName())
                         .setPublic();
 
-                if (method.getCollectionSpy() == null) {
+                SpySubFixture subFixtureSpy = method.getSubFixtureSpy();
+                if (subFixtureSpy == null) {
                     methodSource.setReturnType(String.class);
                 } else {
-                    Pojo pojo = method.getCollectionSpy().getPojo();
-                    if (!javaClass.hasNestedType(pojo.getName())) {
-                        JavaSource<?> nestedType = javaClass.addNestedType(format("public static class %s {}", pojo.getName()));
-                        if (nestedType.isClass()) {
-                            JavaClassSource nestedType1 = (JavaClassSource) nestedType;
-                            for (Property property : pojo.getProperties()) {
-                                nestedType1.addField().setName(property.getName()).setType(String.class).setPublic();
+                    switch (subFixtureSpy.getType()) {
+                        case COLLECTION_PROVIDER:
+                            Pojo pojo = subFixtureSpy.getPojo();
+                            if (!javaClass.hasNestedType(pojo.getName())) {
+                                JavaSource<?> nestedType = javaClass.addNestedType(format("public static class %s {}", pojo.getName()));
+                                if (nestedType.isClass()) {
+                                    JavaClassSource nestedType1 = (JavaClassSource) nestedType;
+                                    for (Property property : pojo.getProperties()) {
+                                        nestedType1.addField().setName(property.getName()).setType(String.class).setPublic();
+                                    }
+                                }
                             }
-                        }
+                            JavaSource<?> nestedType = javaClass.getNestedType(pojo.getName());
+                            methodSource.setReturnType(format("java.util.Collection<%s>",
+                                    replaceChars(nestedType.getQualifiedName(), '$', DOT)))
+                                    .addAnnotation(CollectionProvider.class);
+                            break;
+                        case SETUP:
+                            LOGGER.debug("Processing @EnterRow method");
+                            methodSource.addAnnotation(EnterRow.class);
+                            appendFieldsToClass(javaClass, subFixtureSpy.getProperties());
+                            break;
+                        default:
+                            throw new IllegalStateException("The value '" + subFixtureSpy.getType() + "' of the subFixture is not supported");
                     }
-                    JavaSource<?> nestedType = javaClass.getNestedType(pojo.getName());
-                    methodSource.setReturnType(format("java.util.Collection<%s>",
-                                replaceChars(nestedType.getQualifiedName(), '$', DOT)))
-                            .addAnnotation(CollectionProvider.class);
                 }
 
                 for (int i = 0; i < method.getArity(); i++) {
@@ -183,11 +206,19 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                 LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
                 break;
             }
-            // query method
-            if (method.getCollectionSpy() != null && StringUtils.equals(methodSource.getName(),"query") && methodSource.getParameters().isEmpty()) {
-                existingMethodFound = true;
-                LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
-                break;
+            SpySubFixture subFixtureSpy = method.getSubFixtureSpy();
+            if (subFixtureSpy != null) {
+                switch (subFixtureSpy.getType()) {
+                    case COLLECTION_PROVIDER:
+                        existingMethodFound = checkForStandardMethod(method, methodSource, CollectionProvider.class, "query");
+                        break;
+                    case SETUP:
+                        existingMethodFound = checkForStandardMethod(method, methodSource, EnterRow.class, "enterRow");
+                        break;
+                    default:
+                        throw new IllegalStateException("The value '" + subFixtureSpy.getType() + "' of the subFixture is not supported");
+
+                }
             }
 
         }
@@ -205,6 +236,23 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         return existingMethodFound;
     }
 
+    private boolean checkForStandardMethod(Method method, MethodSource<JavaClassSource> methodSource, Class<? extends Annotation> annotation, String defaultMethodName) {
+        boolean existingMethodFound = false;
+        // method technical name
+        if (StringUtils.equals(methodSource.getName(),defaultMethodName) && methodSource.getParameters().isEmpty()) {
+            existingMethodFound = true;
+            LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
+            return existingMethodFound;
+        }
+        // annotation
+        if (methodSource.hasAnnotation(annotation)) {
+            existingMethodFound = true;
+            LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
+            return existingMethodFound;
+        }
+        return existingMethodFound;
+    }
+
     private JavaClassSource findTheClass(File fixtureSourceDirectory, String superType) throws FileNotFoundException {
         File javaSourceFile = getFile(fixtureSourceDirectory, replaceChars(superType, DOT, separatorChar) + JAVA_EXTENSION);
         if (javaSourceFile.exists()) {
@@ -219,8 +267,14 @@ public class JavaFixtureGenerator implements FixtureGenerator {
      *
      * @return true if an update has been made.
      */
-    private boolean updateFields(SpyFixture fixture, boolean fileHasBeenUpdated, JavaClassSource javaClass) {
-        for (Property property : fixture.getProperties()) {
+    private boolean updateFields(SpyFixture fixture, JavaClassSource javaClass) {
+        Set<Property> properties = fixture.getProperties();
+        return appendFieldsToClass(javaClass, properties);
+    }
+
+    private boolean appendFieldsToClass(JavaClassSource javaClass, Set<Property> properties) {
+        boolean fileHasBeenUpdated = false;
+        for (Property property : properties) {
             if (!javaClass.hasField(property.getName())){
                 javaClass.addField()
                         .setName(property.getName())
@@ -236,7 +290,8 @@ public class JavaFixtureGenerator implements FixtureGenerator {
      *
      * @return true if an update has been made.
      */
-    private boolean updateConstructors(SpyFixture fixture, boolean fileHasBeenUpdated, JavaClassSource javaClass) {
+    private boolean updateConstructors(SpyFixture fixture, JavaClassSource javaClass) {
+        boolean fileHasBeenUpdated = false;
         for (Constructor constructor : fixture.getConstructors()) {
             if (constructor.getArity() > 0) {
                 boolean existingConstructorFound = false;

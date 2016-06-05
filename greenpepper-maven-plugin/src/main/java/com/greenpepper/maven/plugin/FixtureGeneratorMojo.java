@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 
+import static java.io.File.separator;
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.lang3.StringUtils.difference;
@@ -162,13 +163,13 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
             File classSource = result.getFixtureFile();
             switch (result.getAction()) {
                 case CREATED:
-                    getLog().info(format("\t %s: %s", "Generated", difference(basedir.getAbsolutePath(), classSource.getAbsolutePath())));
+                    getLog().info(format("\t %s: %s", "Generated", difference(basedir.getAbsolutePath() + separator, classSource.getAbsolutePath())));
                     break;
                 case UPDATED:
-                    getLog().info(format("\t %s: %s", "Updated", difference(basedir.getAbsolutePath(), classSource.getAbsolutePath())));
+                    getLog().info(format("\t %s: %s", "Updated", difference(basedir.getAbsolutePath() + separator, classSource.getAbsolutePath())));
                     break;
                 case NONE:
-                    getLog().debug(format("\t %s: %s", "Nothing done for", difference(basedir.getAbsolutePath(), classSource.getAbsolutePath())));
+                    getLog().debug(format("\t %s: %s", "Nothing done for", difference(basedir.getAbsolutePath() + separator, classSource.getAbsolutePath())));
                     break;
             }
             if (getLog().isDebugEnabled()){

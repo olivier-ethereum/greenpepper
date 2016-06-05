@@ -214,7 +214,7 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertThat(newContent, containsString("package com.greenpepper.samples.fixture;"));
     }
 
-    public void ignoretestShouldGenerateEnterRowAnnotation() throws Exception {
+    public void testShouldGenerateEnterRowAnnotation() throws Exception {
         mojo.specification = loadSpecification("setup.html");
 
         mojo.execute();
@@ -223,5 +223,30 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
         assertThat(newContent, containsString("@EnterRow"));
         assertThat(newContent, containsString("phoneBookEntries"));
+    }
+
+    public void testShouldDetectEnterRowMethod() throws Exception {
+        copyExistingSrcToTestingSrc();
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethod2Fixture.java").exists());
+        String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethod2Fixture.java"));
+        mojo.specification = loadSpecification("setup2.html");
+
+        mojo.execute();
+
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethod2Fixture.java"));
+        assertThat(newContent, equalTo(previousContent));
+    }
+
+
+    public void testShouldDetectEnterRowAnnotation() throws Exception {
+        copyExistingSrcToTestingSrc();
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java").exists());
+        String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
+        mojo.specification = loadSpecification("setup.html");
+
+        mojo.execute();
+
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithEnterRowMethodFixture.java"));
+        assertThat(newContent, equalTo(previousContent));
     }
 }

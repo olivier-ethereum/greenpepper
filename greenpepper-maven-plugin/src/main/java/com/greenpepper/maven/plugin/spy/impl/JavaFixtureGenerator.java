@@ -136,6 +136,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
             boolean existingMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
 
             if (!existingMethodFound) {
+                LOGGER.debug("Creating Method '{}' to deal with '{}'", method.getName(), method.getRawName() );
                 MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
                         .setName(method.getName())
                         .setPublic();
@@ -171,15 +172,23 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     }
 
     private boolean isExistingMethodFound(File fixtureSourceDirectory, JavaClassSource javaClass, Method method) throws FileNotFoundException {
-        LOGGER.debug("Searching method {} in class {}", method.getName(), javaClass.getName());
+        LOGGER.debug("Searching method '{}' in class '{}'", method.getRawName(), javaClass.getName());
         boolean existingMethodFound = false;
         for (MethodSource<JavaClassSource> methodSource : javaClass.getMethods()) {
+            // Normal case
             if (StringUtils.equals(method.getName(), methodSource.getName()) &&
                     methodSource.getParameters().size() == method.getArity()) {
                 existingMethodFound = true;
-                LOGGER.debug("Method Found");
+                LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
                 break;
             }
+            // query method
+            if (method.getCollectionSpy() != null && StringUtils.equals(methodSource.getName(),"query") && methodSource.getParameters().isEmpty()) {
+                existingMethodFound = true;
+                LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
+                break;
+            }
+
         }
         if (!existingMethodFound) {
             // Find on the method on the superclass

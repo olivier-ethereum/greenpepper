@@ -180,7 +180,6 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
     public void testShouldGenerateCollectionProviderAnnotation() throws Exception {
         mojo.specification = loadSpecification("CollectionOfValuesSample.html");
-        mojo.setFixtureSourceDirectory(srcDir);
         JavaFixtureGenerator javaFixtureGenerator = new JavaFixtureGenerator();
         javaFixtureGenerator.defaultPackage = "com.greenpepper.samples.fixture";
         mojo.fixtureGenerator = javaFixtureGenerator;
@@ -191,6 +190,18 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java"));
         assertThat(newContent, containsString("Collection"));
         assertThat(newContent, containsString("PhoneBookFixture.PhoneBookEntriesItem"));
-        System.out.println(newContent);
+    }
+
+
+    public void testShouldDetectQueryMethod() throws Exception {
+        copyExistingSrcToTestingSrc();
+        String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithQueryMethodFixture.java"));
+        mojo.specification = loadSpecification("query-method.html");
+
+        mojo.execute();
+
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/WithQueryMethodFixture.java").exists());
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/WithQueryMethodFixture.java"));
+        assertThat(previousContent, equalTo(newContent));
     }
 }

@@ -29,11 +29,12 @@ class SpyOn extends Message {
         } else {
             this.spyFixture.addMethod(new Method(this.message, this.arity));
         }
-        return new Object();
+        return new SpyCallResult(this.message);
     }
 
     public int getArity() {
         return this.arity;
     }
+
 }
 

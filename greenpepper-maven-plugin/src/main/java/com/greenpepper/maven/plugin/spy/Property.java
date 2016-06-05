@@ -2,19 +2,10 @@ package com.greenpepper.maven.plugin.spy;
 
 import com.greenpepper.util.NameUtils;
 
-public class Property implements Comparable<Property> {
-    private String rawName;
+public class Property extends Spy<Property> {
 
     public Property(String rawName) {
-        this.rawName = rawName;
-    }
-
-    public String getName() {
-        return NameUtils.toLowerCamelCase(NameUtils.humanize(this.rawName));
-    }
-
-    public String getRawName() {
-        return this.rawName;
+        super(rawName);
     }
 
     public boolean equals(Object o) {
@@ -27,13 +18,5 @@ public class Property implements Comparable<Property> {
         return this.getName().equals(((Property)o).getName());
     }
 
-    public int hashCode() {
-        return this.getName().hashCode();
-    }
-
-    @Override
-    public int compareTo(Property other) {
-        return this.getName().compareToIgnoreCase(other.getName());
-    }
 }
 

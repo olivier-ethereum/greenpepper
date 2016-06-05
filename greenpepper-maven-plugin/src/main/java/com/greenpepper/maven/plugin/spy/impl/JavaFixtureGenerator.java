@@ -1,11 +1,13 @@
 package com.greenpepper.maven.plugin.spy.impl;
 
 import com.greenpepper.maven.plugin.spy.*;
+import com.greenpepper.reflect.CollectionProvider;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
+import org.jboss.forge.roaster.model.source.JavaSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.io.File.separatorChar;
+import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
@@ -135,8 +138,27 @@ public class JavaFixtureGenerator implements FixtureGenerator {
             if (!existingMethodFound) {
                 MethodSource<JavaClassSource> methodSource = javaClass.addMethod()
                         .setName(method.getName())
-                        .setPublic()
-                        .setReturnType(String.class);
+                        .setPublic();
+
+                if (method.getCollectionSpy() == null) {
+                    methodSource.setReturnType(String.class);
+                } else {
+                    Pojo pojo = method.getCollectionSpy().getPojo();
+                    if (!javaClass.hasNestedType(pojo.getName())) {
+                        JavaSource<?> nestedType = javaClass.addNestedType(format("public static class %s {}", pojo.getName()));
+                        if (nestedType.isClass()) {
+                            JavaClassSource nestedType1 = (JavaClassSource) nestedType;
+                            for (Property property : pojo.getProperties()) {
+                                nestedType1.addField().setName(property.getName()).setType(String.class).setPublic();
+                            }
+                        }
+                    }
+                    JavaSource<?> nestedType = javaClass.getNestedType(pojo.getName());
+                    methodSource.setReturnType(format("java.util.Collection<%s>",
+                                replaceChars(nestedType.getQualifiedName(), '$', DOT)))
+                            .addAnnotation(CollectionProvider.class);
+                }
+
                 for (int i = 0; i < method.getArity(); i++) {
                     methodSource.addParameter(String.class, "param" + (i + 1));
                 }

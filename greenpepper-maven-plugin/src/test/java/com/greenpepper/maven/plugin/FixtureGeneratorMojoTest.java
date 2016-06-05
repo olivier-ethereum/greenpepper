@@ -143,17 +143,54 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
 
     public void testShouldFindMethodsInSupertype() throws MojoFailureException, MojoExecutionException, IOException {
         mojo.specification = loadSpecification("supertype.html");
-        URL currentPackage = getClass().getResource(".");
-        File srcDir = new File(toFile(currentPackage), "existingSrc");
+        copyExistingSrcToTestingSrc();
 
         String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java"));
 
-        mojo.setFixtureSourceDirectory(srcDir);
         mojo.execute();
 
         String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/ShopFixture.java"));
 
         assertThat(previousContent, equalTo(newContent));
 
+    }
+
+    private void copyExistingSrcToTestingSrc() throws IOException {
+        URL currentPackage = getClass().getResource(".");
+        File existingSrc = new File(toFile(currentPackage), "existingSrc");
+        FileUtils.copyDirectory(existingSrc, srcDir);
+    }
+
+    public void testShouldDetectCollectionProviderAnnotation() throws Exception {
+        copyExistingSrcToTestingSrc();
+        String previousContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java"));
+        mojo.specification = loadSpecification("CollectionOfValuesSample.html");
+        JavaFixtureGenerator javaFixtureGenerator = new JavaFixtureGenerator();
+        javaFixtureGenerator.defaultPackage = "com.greenpepper.samples.fixture";
+        mojo.fixtureGenerator = javaFixtureGenerator;
+
+        mojo.execute();
+
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java"));
+
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java").exists());
+        assertThat(previousContent, equalTo(newContent));
+    }
+
+
+    public void testShouldGenerateCollectionProviderAnnotation() throws Exception {
+        mojo.specification = loadSpecification("CollectionOfValuesSample.html");
+        mojo.setFixtureSourceDirectory(srcDir);
+        JavaFixtureGenerator javaFixtureGenerator = new JavaFixtureGenerator();
+        javaFixtureGenerator.defaultPackage = "com.greenpepper.samples.fixture";
+        mojo.fixtureGenerator = javaFixtureGenerator;
+
+        mojo.execute();
+
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java").exists());
+        String newContent = readFileToString(getFile(srcDir, "com/greenpepper/samples/fixture/PhoneBookFixture.java"));
+        assertThat(newContent, containsString("Collection"));
+        assertThat(newContent, containsString("PhoneBookFixture.PhoneBookEntriesItem"));
+        System.out.println(newContent);
     }
 }

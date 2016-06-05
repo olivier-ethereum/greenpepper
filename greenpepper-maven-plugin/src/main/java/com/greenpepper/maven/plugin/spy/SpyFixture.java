@@ -1,16 +1,18 @@
 package com.greenpepper.maven.plugin.spy;
 
+import com.greenpepper.reflect.CollectionProvider;
 import com.greenpepper.reflect.Fixture;
 import com.greenpepper.reflect.Message;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
 
 public class SpyFixture implements Fixture {
     private SortedSet<Constructor> constructors = new TreeSet<Constructor>();
     private SortedSet<Property> properties = new TreeSet<Property>();
     private SortedSet<Method> methods = new TreeSet<Method>();
     private String name;
+
     private String rawName;
 
     public SpyFixture(String fixtureName) {
@@ -42,6 +44,26 @@ public class SpyFixture implements Fixture {
     }
 
     public Fixture fixtureFor(Object target) {
+        if (target instanceof SpyCallResult) {
+            SpyCallResult spyCallResult = (SpyCallResult) target;
+            PojoSpyFixture spyFixture = null;
+            for (Method method : methods) {
+                if (method.getArity() == 0 && StringUtils.equals(method.getRawName(),spyCallResult.message) ) {
+                    spyFixture =  method.getCollectionSpy();
+                    if (spyFixture != null) {
+                        break;
+                    } else {
+                        spyFixture = new PojoSpyFixture(spyCallResult.message);
+                        method.setCollectionSpy(spyFixture);
+                        break;
+                    }
+                }
+            }
+            if (spyFixture == null) {
+                throw new IllegalArgumentException("The method for the collection provider should have already been seen.");
+            }
+            return spyFixture;
+        }
         return this;
     }
 
@@ -97,6 +119,11 @@ public class SpyFixture implements Fixture {
 
     public String getRawName() {
         return rawName;
+    }
+
+    @CollectionProvider
+    public Collection<?> spyForCollectionProvider() {
+        return Collections.singleton(this);
     }
 }
 

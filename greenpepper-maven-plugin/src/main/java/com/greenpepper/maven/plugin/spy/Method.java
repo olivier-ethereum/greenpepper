@@ -2,25 +2,18 @@ package com.greenpepper.maven.plugin.spy;
 
 import com.greenpepper.util.NameUtils;
 
-public class Method implements Comparable<Method> {
-    private String rawName;
+public class Method extends Spy<Method> {
+
     private int arity;
+    private PojoSpyFixture collectionSpy;
 
     public Method(String rawName, int arity) {
-        this.rawName = rawName;
+        super(rawName);
         this.arity = arity;
-    }
-
-    public String getName() {
-        return NameUtils.toLowerCamelCase(NameUtils.humanize(this.rawName));
     }
 
     public int getArity() {
         return this.arity;
-    }
-
-    public String getRawName() {
-        return this.rawName;
     }
 
     public boolean equals(Object o) {
@@ -44,6 +37,14 @@ public class Method implements Comparable<Method> {
             return new Integer(this.arity).compareTo(other.arity);
         }
         return this.getName().compareTo(other.getName());
+    }
+
+    public void setCollectionSpy(PojoSpyFixture collectionSpy) {
+        this.collectionSpy = collectionSpy;
+    }
+
+    public PojoSpyFixture getCollectionSpy() {
+        return collectionSpy;
     }
 }
 

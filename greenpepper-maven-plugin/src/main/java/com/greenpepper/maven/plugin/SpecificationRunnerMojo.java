@@ -317,7 +317,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
 
     private void runSingleTest(Repository repository, String test) throws MojoExecutionException, MojoFailureException {
         String repoCmdOption;
-        boolean managingFileSystem = false;
+        boolean managingFileSystem;
         try {
             DocumentRepository documentRepository = repository.getDocumentRepository();
             managingFileSystem = documentRepository instanceof FileSystemRepository;
@@ -424,7 +424,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
 
         for (URL url : urls) {
 
-            if (url.getFile().indexOf("greenpepper-core") != -1 && url.getFile().endsWith(".jar")) {
+            if (url.getFile().contains("greenpepper-core") && url.getFile().endsWith(".jar")) {
                 return true;
             }
         }

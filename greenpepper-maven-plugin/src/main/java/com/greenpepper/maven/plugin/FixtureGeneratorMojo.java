@@ -100,9 +100,11 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
             validateConfiguration();
 
             if (specification != null) {
+                printSpecificationName(specification.getName());
                 Document doc = HtmlDocumentBuilder.tablesAndLists().build(new FileReader(specification));
                 generateFixturesForDocument(doc);
             } else {
+                printSpecificationName(specificationName);
                 boolean atLeastOneRepositoryProcessed = false;
                 boolean specificationFound = false;
                 try {
@@ -197,4 +199,13 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
             }
         }
     }
+
+    private void printSpecificationName(String specificationName) {
+        System.out.println();
+        String title = format(" Generating fixture for : %s ", specificationName);
+        System.out.println(title);
+        System.out.println(StringUtils.repeat("-",title.length()));
+        System.out.println();
+    }
+
 }

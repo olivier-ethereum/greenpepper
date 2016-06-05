@@ -261,7 +261,6 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         String newContent = readFileToString(fixture);
         assertThat(newContent, containsString("@EnterRow"));
         assertThat(newContent, containsString("public void enterRow()"));
-        System.out.println(newContent);
     }
 
     public void testShouldGenerateCollectionProviderAnnotationInListof() throws Exception {

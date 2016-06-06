@@ -53,7 +53,7 @@ import com.greenpepper.maven.plugin.utils.CompilationFailureException;
  * @version $Id: StaleSourceScannerTest.java 2393 2005-08-08 22:32:59Z kenney $
  */
 public abstract class AbstractCompilerMojo
-    extends AbstractMojo
+    extends AbstractSourceManagementMojo
 {
     // ----------------------------------------------------------------------
     // Configurables
@@ -176,15 +176,6 @@ public abstract class AbstractCompilerMojo
     // ----------------------------------------------------------------------
     // Read-only parameters
     // ----------------------------------------------------------------------
-
-    /**
-     * The directory to run the compiler from if fork is true.
-     *
-     * @parameter expression="${basedir}"
-     * @required
-     * @readonly
-     */
-    private File basedir;
 
     /**
      * The target directory of the compiler if fork is true.

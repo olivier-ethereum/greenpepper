@@ -11,7 +11,7 @@ public abstract class Spy<T extends Spy> implements Comparable<T> {
     }
 
     public String getName() {
-        return NameUtils.toLowerCamelCase(NameUtils.humanize(this.rawName));
+        return NameUtils.toJavaIdentifierForm(this.rawName);
     }
 
     public String getRawName() {

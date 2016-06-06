@@ -194,7 +194,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                 }
                 break;
             case SETUP:
-                Method method = new Method("enterRow", 0);
+                Method method = new Method("enter row", 0);
                 boolean existingEnterRowMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
                 if (!existingEnterRowMethodFound) {
                     LOGGER.debug("Creating Method '{}' to provide the @EnterRow", method.getName() );
@@ -294,13 +294,10 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         if (StringUtils.equals(methodSource.getName(),defaultMethodName) && methodSource.getParameters().isEmpty()) {
             existingMethodFound = true;
             LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
-            return existingMethodFound;
-        }
-        // annotation
-        if (methodSource.hasAnnotation(annotation)) {
+        } else if (methodSource.hasAnnotation(annotation)) {
+            // annotation
             existingMethodFound = true;
             LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
-            return existingMethodFound;
         }
         return existingMethodFound;
     }

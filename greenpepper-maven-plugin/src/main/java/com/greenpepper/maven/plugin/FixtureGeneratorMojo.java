@@ -29,7 +29,7 @@ import com.greenpepper.maven.plugin.spy.FixtureGenerator;
 import com.greenpepper.maven.plugin.spy.SpyFixture;
 import com.greenpepper.maven.plugin.spy.SpySystemUnderDevelopment;
 import com.greenpepper.maven.plugin.spy.impl.JavaFixtureGenerator;
-import com.greenpepper.util.ClassUtils;
+import com.greenpepper.repository.DocumentNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -71,7 +71,7 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
     /**
      * @parameter property="greenpepper.repositories"
      */
-    ArrayList<Repository> repositories;
+    List<Repository> repositories;
 
     /**
      * Set this to a Repository name defined in the pom.xml.
@@ -145,7 +145,7 @@ public class FixtureGeneratorMojo extends AbstractSourceManagementMojo {
             Document document = repository.getDocumentRepository().loadDocument(specificationName);
             generateFixturesForDocument(document);
             return true;
-        } catch (Exception e) {
+        } catch (DocumentNotFoundException e) {
             getLog().debug("failed to load the document from repository : " +  e.getMessage());
             return false;
         }

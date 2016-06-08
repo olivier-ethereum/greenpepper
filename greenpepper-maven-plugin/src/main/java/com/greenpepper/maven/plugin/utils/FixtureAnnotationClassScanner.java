@@ -1,8 +1,6 @@
 package com.greenpepper.maven.plugin.utils;
 
-import com.google.common.base.Predicates;
 import com.google.common.collect.Multimap;
-import com.google.common.reflect.TypeToken;
 import com.greenpepper.annotation.Fixture;
 import com.greenpepper.annotation.FixtureCollection;
 import com.greenpepper.annotation.FixtureMethod;
@@ -10,7 +8,6 @@ import com.greenpepper.maven.plugin.schemas.*;
 import com.greenpepper.reflect.CollectionProvider;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 import org.reflections.Store;
 import org.reflections.util.ClasspathHelper;
@@ -49,15 +46,19 @@ public class FixtureAnnotationClassScanner {
     }
 
     /**
-     * @param packageToScan the package to scan for fixtures
+     * @param packagesToScan the package to scan for fixtures
      * @return The full Fixtures description.
      * @throws ClassNotFoundException
      */
-    public Fixtures scan(String packageToScan) throws ClassNotFoundException {
+    public Fixtures scan(String ... packagesToScan) throws ClassNotFoundException {
         ConfigurationBuilder configuration = new ConfigurationBuilder();
-        configuration.addUrls(ClasspathHelper.forPackage(packageToScan));
+        FilterBuilder filterBuilder = new FilterBuilder();
+        for (String packageToScan : packagesToScan) {
+            configuration.addUrls(ClasspathHelper.forPackage(packageToScan));
+            filterBuilder.include(replace(packageToScan,".", "\\.") + "\\..+Fixture\\.class");
+        }
+        configuration.filterInputsBy(filterBuilder);
         configuration.addScanners(new JavaClassesScanner());
-        configuration.filterInputsBy(new FilterBuilder().include(replace(packageToScan,".", "\\.") + "\\..+Fixture\\.class"));
         Reflections reflections = new Reflections(configuration);
 
         Store store = reflections.getStore();
@@ -149,7 +150,7 @@ public class FixtureAnnotationClassScanner {
                 if (StringUtils.isNotBlank(annotation.value())) {
                     message = annotation.value();
                 }
-                StringBuffer buffer = new StringBuffer(message).append(" (Fixtures de remplacement: ");
+                StringBuilder buffer = new StringBuilder(message).append(" (Replacing Fixture: ");
                 for (Class<?> class1 : relatedTo) {
                     buffer.append(class1.getSimpleName()).append(" ");
                 }

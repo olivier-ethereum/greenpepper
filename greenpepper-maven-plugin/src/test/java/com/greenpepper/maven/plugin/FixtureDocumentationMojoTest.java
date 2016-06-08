@@ -41,7 +41,7 @@ public class FixtureDocumentationMojoTest extends AbstractMojoTestCase {
 
 
     public void testGenerateDocumentation() throws Exception {
-        mojo.packageToScan = "com.greenpepper.fixtures.application.bank";
+        mojo.packagesToScan = new String[]{ "com.greenpepper.fixtures.application.bank" };
         mojo.execute();
 
         assertTrue(new File(docDir, "fixtures.xml").exists());

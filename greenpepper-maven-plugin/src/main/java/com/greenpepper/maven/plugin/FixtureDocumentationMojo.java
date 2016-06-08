@@ -61,7 +61,10 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  */
 public class FixtureDocumentationMojo extends AbstractMojo {
 
-    String packageToScan;
+    /**
+     * @parameter
+     */
+    String[] packagesToScan;
 
     /**
      * @parameter default-value="${project.build.directory}/greenpepper-documentation"
@@ -73,7 +76,7 @@ public class FixtureDocumentationMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             FixtureAnnotationClassScanner fixtureScanner = new FixtureAnnotationClassScanner();
-            Fixtures scanned = fixtureScanner.scan(packageToScan);
+            Fixtures scanned = fixtureScanner.scan(packagesToScan);
             JAXBContext jaxbContext = JAXBContext.newInstance(Fixtures.class.getPackage().getName());
             File output = new File(documentationDirectory, "fixtures.xml");
             jaxbContext.createMarshaller().marshal(scanned, output);

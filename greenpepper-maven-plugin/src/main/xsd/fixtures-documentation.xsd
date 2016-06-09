@@ -4,12 +4,12 @@
 	targetNamespace="http://schemas.greenpepper.github.io/documentation"
 	attributeFormDefault="unqualified" elementFormDefault="qualified">
 
-	<simpleType name="typeMembreEnum">
+	<simpleType name="typeMemberEnum">
 		<restriction base="string">
-			<enumeration value="methode" />
-			<enumeration value="propriete" />
-			<enumeration value="champ" />
-			<enumeration value="constructeur" />
+			<enumeration value="method" />
+			<enumeration value="property" />
+			<enumeration value="field" />
+			<enumeration value="constructor" />
 			<enumeration value="query" />
 		</restriction>
 	</simpleType>
@@ -28,7 +28,7 @@
 		</restriction>
 	</simpleType>
 
-	<complexType name="parametreType">
+	<complexType name="parameterType">
 		<attribute name="type" type="string" use="required" />
 	</complexType>
 
@@ -40,29 +40,29 @@
 				informations d'obsolétude).</documentation>
 		</annotation>
 
-		<attribute name="obsolete" type="boolean" use="optional" />
-		<attribute name="validee" type="boolean" use="optional" />
+		<attribute name="deprecated" type="boolean" use="optional" />
+		<attribute name="bestpractice" type="boolean" use="optional" />
 		<attribute name="usage" type="string" use="optional" />
-		<attribute name="correctionprioritaire" type="boolean" use="optional" />
-		<attribute name="fixturederemplacement" type="string" use="optional" />
-		<attribute name="methodederemplacement" type="string" use="optional" />
+		<attribute name="tofixasap" type="boolean" use="optional" />
+		<attribute name="replacingfixture" type="string" use="optional" />
+		<attribute name="replacingmethod" type="string" use="optional" />
 		<attribute name="message" type="string" use="optional" />
 	</complexType>
 
-	<complexType name="membreType">
+	<complexType name="memberType">
 		<complexContent>
 			<extension base="f:elementBaseType">
 				<sequence>
-					<element name="parametre" type="f:parametreType" minOccurs="0"
+					<element name="parameter" type="f:parameterType" minOccurs="0"
 						maxOccurs="unbounded" />
 				</sequence>
-				<attribute name="nom" type="string" use="required" />
-				<attribute name="type" type="f:typeMembreEnum" use="required" />
+				<attribute name="name" type="string" use="required" />
+				<attribute name="type" type="f:typeMemberEnum" use="required" />
 
-				<attribute name="lecture" type="boolean" use="optional" />
-				<attribute name="ecriture" type="boolean" use="optional" />
+				<attribute name="read" type="boolean" use="optional" />
+				<attribute name="write" type="boolean" use="optional" />
 
-				<attribute name="typerenvoye" type="string" use="optional" />
+				<attribute name="returntype" type="string" use="optional" />
 
 				<attribute name="dowithtype" type="f:typeDoWithEnum" use="optional" />
 			</extension>
@@ -73,10 +73,10 @@
 		<complexContent>
 			<extension base="f:elementBaseType">
 				<sequence>
-					<element name="membre" type="f:membreType" maxOccurs="unbounded" />
+					<element name="member" type="f:memberType" maxOccurs="unbounded" />
 				</sequence>
-				<attribute name="classe" type="string" use="required" />
-				<attribute name="categorie" type="string" use="optional" />
+				<attribute name="class" type="string" use="required" />
+				<attribute name="category" type="string" use="optional" />
 			</extension>
 		</complexContent>
 	</complexType>

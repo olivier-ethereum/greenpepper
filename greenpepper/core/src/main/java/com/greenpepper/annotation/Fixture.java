@@ -29,13 +29,13 @@ public @interface Fixture {
      */
     String category() default "";
 
-    boolean obsolete() default false;
+    boolean deprecated() default false;
 
-    boolean validate() default true;
+    boolean bestPractice() default true;
 
     String usage() default "";
 
-    boolean correctionPrioritaire() default false;
+    boolean toFixAsap() default false;
 
     boolean isAbstract() default false;
 }

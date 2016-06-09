@@ -11,8 +11,8 @@ import java.lang.annotation.*;
 @Documented
 public @interface FixtureCollection {
 
-    boolean obsolete() default false;
+    boolean deprecated() default false;
 
-    boolean validate() default true;
+    boolean bestPractice() default true;
 
 }

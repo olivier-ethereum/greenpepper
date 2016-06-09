@@ -27,7 +27,7 @@ import static org.reflections.ReflectionUtils.*;
 
 public class FixtureAnnotationClassScanner {
 
-    private static final String CAT_FIXTURES_ABSTRAITES = "Fixtures abstraites";
+    private static final String CAT_FIXTURES_ABSTRAITES = "Abstract Fixtures";
 
     /**
      * Logger for this class
@@ -95,7 +95,7 @@ public class FixtureAnnotationClassScanner {
                 parseFixtureAnnotation(clazz, fixtureType);
             }
 
-            List<MembreType> listMembreType = fixtureType.getMembre();
+            List<MemberType> listMembreType = fixtureType.getMember();
 
             LOGGER.debug(" Retrieve and add constructor members");
             Constructor<?>[] constructors = clazz.getConstructors();
@@ -109,7 +109,7 @@ public class FixtureAnnotationClassScanner {
             Set<Field> publicFields = getAllFields(clazz, withModifier(Modifier.PUBLIC));
             addFieldMembreTypes(listMembreType, publicFields);
 
-            fixtureType.setClasse(returnTypeToString(clazz));
+            fixtureType.setClazz(returnTypeToString(clazz));
             listFixtureType.add(fixtureType);
 
             LOGGER.debug(" Retrieve and add new fixture with method members returning a Collection");
@@ -133,19 +133,19 @@ public class FixtureAnnotationClassScanner {
 
     private void parseFixtureAnnotation(Class<?> clazz, FixtureType fixtureType) {
         Fixture annotation = clazz.getAnnotation(Fixture.class);
-        if (annotation.obsolete()) {
+        if (annotation.deprecated()) {
             LOGGER.debug("Found Obsolete Fixture");
-            fixtureType.setObsolete(true);
+            fixtureType.setDeprecated(true);
         } else {
-            fixtureType.setValidee(annotation.validate());
+            fixtureType.setBestpractice(annotation.bestPractice());
         }
         if (StringUtils.isNotBlank(annotation.value())) {
             fixtureType.setMessage(annotation.value());
         }
-        if (annotation.obsolete()) {
+        if (annotation.deprecated()) {
             Class<?>[] relatedTo = annotation.relatedTo();
             if (!ArrayUtils.isEmpty(relatedTo)) {
-                fixtureType.setFixturederemplacement(relatedTo[0].getSimpleName());
+                fixtureType.setReplacingfixture(relatedTo[0].getSimpleName());
                 String message = "";
                 if (StringUtils.isNotBlank(annotation.value())) {
                     message = annotation.value();
@@ -160,17 +160,17 @@ public class FixtureAnnotationClassScanner {
         }
 
         if (StringUtils.isNotBlank(annotation.category())) {
-            fixtureType.setCategorie(annotation.category());
+            fixtureType.setCategory(annotation.category());
         }
 
         if (StringUtils.isNotBlank(annotation.usage())) {
             fixtureType.setUsage(annotation.usage());
         }
-        if (annotation.correctionPrioritaire()) {
-            fixtureType.setCorrectionprioritaire(true);
+        if (annotation.toFixAsap()) {
+            fixtureType.setTofixasap(true);
         }
         if (annotation.isAbstract()) {
-            fixtureType.setCategorie(CAT_FIXTURES_ABSTRAITES);
+            fixtureType.setCategory(CAT_FIXTURES_ABSTRAITES);
         }
     }
 
@@ -187,10 +187,10 @@ public class FixtureAnnotationClassScanner {
                 FixtureType fixtureType = new FixtureType();
                 if (method.isAnnotationPresent(FixtureCollection.class)) {
                     FixtureCollection annotation = method.getAnnotation(FixtureCollection.class);
-                    if (annotation.obsolete()) {
-                        fixtureType.setObsolete(annotation.obsolete());
+                    if (annotation.deprecated()) {
+                        fixtureType.setDeprecated(annotation.deprecated());
                     } else {
-                        fixtureType.setValidee(annotation.validate());
+                        fixtureType.setBestpractice(annotation.bestPractice());
                     }
                 }
 
@@ -205,21 +205,21 @@ public class FixtureAnnotationClassScanner {
                     typeClass = Object.class;
                 }
 
-                fixtureType.setClasse(returnTypeToString(clazz) + "/" + method.getName());
-                List<MembreType> listMembreType = fixtureType.getMembre();
+                fixtureType.setClazz(returnTypeToString(clazz) + "/" + method.getName());
+                List<MemberType> listMembreType = fixtureType.getMember();
 
                 if (Modifier.isAbstract(clazz.getModifiers())) {
-                    fixtureType.setCategorie(CAT_FIXTURES_ABSTRAITES);
+                    fixtureType.setCategory(CAT_FIXTURES_ABSTRAITES);
                 } else {
                     Set<Field> allFields = getAllFields(typeClass,
                             and(or(withModifier(Modifier.PUBLIC), withModifier(Modifier.PRIVATE)),
                                     not(withModifier(Modifier.STATIC))));
 
                     for (Field field : allFields) {
-                        MembreType membreType = new MembreType();
-                        membreType.setNom(field.getName());
-                        membreType.setType(TypeMembreEnum.QUERY);
-                        membreType.setTyperenvoye(returnTypeToString(field.getType().getSimpleName()));
+                        MemberType membreType = new MemberType();
+                        membreType.setName(field.getName());
+                        membreType.setType(TypeMemberEnum.QUERY);
+                        membreType.setReturntype(returnTypeToString(field.getType().getSimpleName()));
                         listMembreType.add(membreType);
                     }
                 }
@@ -232,7 +232,7 @@ public class FixtureAnnotationClassScanner {
 
     }
 
-    private void addMethodMembreTypes(List<MembreType> listMembreType, Set<Method> methods) {
+    private void addMethodMembreTypes(List<MemberType> listMembreType, Set<Method> methods) {
         if (methods == null) {
             return;
         }
@@ -242,27 +242,27 @@ public class FixtureAnnotationClassScanner {
             returnTypeString = returnTypeToString(method.getGenericReturnType());
             if (!(method.getGenericReturnType() instanceof ParameterizedType)
                     && !StringUtils.contains(returnTypeString, '/')) {
-                MembreType membreType = createMembreType(TypeMembreEnum.METHODE,
+                MemberType membreType = createMembreType(TypeMemberEnum.METHOD,
                         returnTypeToString(method.getGenericReturnType()), method.getName());
                 FixtureMethod annotation = method.getAnnotation(FixtureMethod.class);
-                if (annotation.obsolete()) {
-                    membreType.setValidee(false);
+                if (annotation.deprecated()) {
+                    membreType.setBestpractice(false);
                     if (StringUtils.isNotBlank(annotation.replacedWith())) {
                         membreType.setMessage("Replacing Method : " + annotation.replacedWith());
                     }
-                    membreType.setObsolete(true);
+                    membreType.setDeprecated(true);
                 }
-                if (annotation.validated()) {
-                    membreType.setValidee(true);
+                if (annotation.bestPractice()) {
+                    membreType.setBestpractice(true);
                 }
                 if (StringUtils.isNotBlank(annotation.usage())) {
                     membreType.setUsage(annotation.usage());
                 }
 
-                List<ParametreType> listParameterType = membreType.getParametre();
+                List<ParameterType> listParameterType = membreType.getParameter();
 
                 for (Class<?> clazzType : method.getParameterTypes()) {
-                    ParametreType paramType = new ParametreType();
+                    ParameterType paramType = new ParameterType();
                     paramType.setType(returnTypeToString(clazzType));
                     listParameterType.add(paramType);
                 }
@@ -271,29 +271,29 @@ public class FixtureAnnotationClassScanner {
         }
     }
 
-    private void addFieldMembreTypes(List<MembreType> listMembreType, Set<Field> fields) {
+    private void addFieldMembreTypes(List<MemberType> listMembreType, Set<Field> fields) {
         if (fields == null) {
             return;
         }
         for (Field field : fields) {
-            listMembreType.add(createMembreType(TypeMembreEnum.PROPRIETE, returnTypeToString(field.getType()),
+            listMembreType.add(createMembreType(TypeMemberEnum.PROPERTY, returnTypeToString(field.getType()),
                     field.getName()));
         }
     }
 
-    private void addClassMembreType(List<MembreType> listMembreType, Constructor<?>[] constructors,
+    private void addClassMembreType(List<MemberType> listMembreType, Constructor<?>[] constructors,
                                     boolean scanEmptyConstructor) {
 
         for (Constructor<?> constructor : constructors) {
             if (!scanEmptyConstructor && constructor.getParameterTypes().length == 0) {
                 continue;
             }
-            MembreType membreType = createMembreType(TypeMembreEnum.CONSTRUCTEUR, null,
+            MemberType membreType = createMembreType(TypeMemberEnum.CONSTRUCTOR, null,
                     returnTypeToString(constructor.getName()));
-            List<ParametreType> listParametreType = membreType.getParametre();
+            List<ParameterType> listParametreType = membreType.getParameter();
 
             for (Class<?> clazz : constructor.getParameterTypes()) {
-                ParametreType paramType = new ParametreType();
+                ParameterType paramType = new ParameterType();
                 paramType.setType(returnTypeToString(clazz));
                 listParametreType.add(paramType);
             }
@@ -301,11 +301,11 @@ public class FixtureAnnotationClassScanner {
         }
     }
 
-    private MembreType createMembreType(TypeMembreEnum typeMembreEnum, String typeRenvoye, String nom) {
-        MembreType membreType = new MembreType();
+    private MemberType createMembreType(TypeMemberEnum typeMembreEnum, String typeRenvoye, String nom) {
+        MemberType membreType = new MemberType();
         membreType.setType(typeMembreEnum);
-        membreType.setTyperenvoye(typeRenvoye);
-        membreType.setNom(nom);
+        membreType.setReturntype(typeRenvoye);
+        membreType.setName(nom);
         return membreType;
 
     }

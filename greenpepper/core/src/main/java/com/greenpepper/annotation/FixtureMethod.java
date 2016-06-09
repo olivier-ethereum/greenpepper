@@ -17,9 +17,9 @@ public @interface FixtureMethod {
      */
     String value() default "";
 
-    boolean validated() default true;
+    boolean bestPractice() default true;
 
-    boolean obsolete() default false;
+    boolean deprecated() default false;
 
     String replacedWith() default "";
 

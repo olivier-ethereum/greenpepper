@@ -26,9 +26,9 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import com.greenpepper.util.log.GreenPepperLogger;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.greenpepper.util.Factory;
 import com.greenpepper.util.IOUtil;
@@ -42,7 +42,7 @@ import com.greenpepper.util.URIUtil;
  */
 public class FileReportGenerator implements ReportGenerator
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileReportGenerator.class);
+    private static final Logger LOGGER = GreenPepperLogger.getLogger(FileReportGenerator.class);
     private final File reportsDirectory;
 
     private Class<? extends Report> reportClass;

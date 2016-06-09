@@ -7,6 +7,7 @@ import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.Roaster;
+import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.JavaSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
@@ -194,7 +195,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                 }
                 break;
             case SETUP:
-                Method method = new Method("enterRow", 0);
+                Method method = new Method("enter row", 0);
                 boolean existingEnterRowMethodFound = isExistingMethodFound(fixtureSourceDirectory, javaClass, method);
                 if (!existingEnterRowMethodFound) {
                     LOGGER.debug("Creating Method '{}' to provide the @EnterRow", method.getName() );
@@ -242,18 +243,18 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         boolean existingMethodFound = false;
         for (MethodSource<JavaClassSource> methodSource : javaClass.getMethods()) {
             // Normal case
-            if (StringUtils.equals(method.getName(), methodSource.getName()) &&
+            if (equalsIgnoreCase(method.getName(), methodSource.getName()) &&
                     methodSource.getParameters().size() == method.getArity()) {
                 existingMethodFound = true;
                 LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
                 break;
             }
-            if (StringUtils.equals(method.getName(),"query") && methodSource.hasAnnotation(CollectionProvider.class)) {
+            if (equalsIgnoreCase(method.getName(),"query") && methodSource.hasAnnotation(CollectionProvider.class)) {
                 existingMethodFound = true;
                 LOGGER.debug("Found Method '{}' to deal with '@CollectionProvider' in collection fixture", methodSource.getName() );
                 break;
             }
-            if (StringUtils.equals(method.getName(),"enterRow") && methodSource.hasAnnotation(EnterRow.class)) {
+            if (equalsIgnoreCase(method.getName(),"enterRow") && methodSource.hasAnnotation(EnterRow.class)) {
                 existingMethodFound = true;
                 LOGGER.debug("Found Method '{}' to deal with '@EnterRow' in setup fixture", methodSource.getName() );
                 break;
@@ -291,16 +292,13 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     private boolean checkForStandardMethod(Method method, MethodSource<JavaClassSource> methodSource, Class<? extends Annotation> annotation, String defaultMethodName) {
         boolean existingMethodFound = false;
         // method technical name
-        if (StringUtils.equals(methodSource.getName(),defaultMethodName) && methodSource.getParameters().isEmpty()) {
+        if (equalsIgnoreCase(methodSource.getName(),defaultMethodName) && methodSource.getParameters().isEmpty()) {
             existingMethodFound = true;
             LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
-            return existingMethodFound;
-        }
-        // annotation
-        if (methodSource.hasAnnotation(annotation)) {
+        } else if (methodSource.hasAnnotation(annotation)) {
+            // annotation
             existingMethodFound = true;
             LOGGER.debug("Found Method '{}' to deal with '{}'", methodSource.getName(), method.getRawName() );
-            return existingMethodFound;
         }
         return existingMethodFound;
     }
@@ -327,7 +325,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
     private boolean appendFieldsToClass(JavaClassSource javaClass, Set<Property> properties) {
         boolean fileHasBeenUpdated = false;
         for (Property property : properties) {
-            if (!javaClass.hasField(property.getName())){
+            if (!hasFieldIgnoreCase(javaClass, property)){
                 javaClass.addField()
                         .setName(property.getName())
                         .setType(String.class)
@@ -336,6 +334,15 @@ public class JavaFixtureGenerator implements FixtureGenerator {
             }
         }
         return fileHasBeenUpdated;
+    }
+
+    private boolean hasFieldIgnoreCase(JavaClassSource javaClass, Property property) {
+        for (FieldSource<JavaClassSource> fieldSource : javaClass.getFields()) {
+            if (equalsIgnoreCase(property.getName(), fieldSource.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

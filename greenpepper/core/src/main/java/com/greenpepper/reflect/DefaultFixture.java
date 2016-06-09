@@ -1,6 +1,8 @@
 package com.greenpepper.reflect;
 
 import com.greenpepper.ogn.ObjectGraphNavigationFixture;
+import com.greenpepper.util.log.GreenPepperLogger;
+import org.slf4j.Logger;
 
 /**
  * <p>DefaultFixture class.</p>
@@ -10,6 +12,9 @@ import com.greenpepper.ogn.ObjectGraphNavigationFixture;
  */
 public class DefaultFixture implements Fixture
 {
+    public static final String GREENPEPPER_FIXTURES_LOGGERNAME = "greenpepper.fixtures";
+
+    private static final Logger LOGGER = GreenPepperLogger.getLogger(GREENPEPPER_FIXTURES_LOGGERNAME);
     private final Fixture delegate;
 
     /**
@@ -53,6 +58,7 @@ public class DefaultFixture implements Fixture
     /** {@inheritDoc} */
     public Message check( String message ) throws NoSuchMessageException
     {
+        LOGGER.info(message);
         return delegate.check( message );
     }
 

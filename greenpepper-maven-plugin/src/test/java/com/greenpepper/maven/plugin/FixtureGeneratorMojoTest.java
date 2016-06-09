@@ -1,6 +1,9 @@
 package com.greenpepper.maven.plugin;
 
+import com.greenpepper.document.Document;
+import com.greenpepper.html.HtmlDocumentBuilder;
 import com.greenpepper.maven.plugin.spy.impl.JavaFixtureGenerator;
+import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.util.URIUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -8,16 +11,20 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 
 import static org.apache.commons.io.FileUtils.*;
 import static org.apache.commons.lang3.StringUtils.countMatches;
 import static org.apache.commons.lang3.StringUtils.replace;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
@@ -307,4 +314,50 @@ public class FixtureGeneratorMojoTest  extends AbstractMojoTestCase {
         assertThat(newContent, equalTo(previousContentWithMethod));
         assertThat(newContentWithAnnotation, equalTo(previousContentWithAnnotation));
     }
+
+    public void testShouldGenerateFixtureWithSpecialChars() throws Exception {
+
+        String specName = "special-chars-infixture";
+        Repository repo = createMockRepository("repo", specName);
+        mojo.repositories = Collections.singletonList(repo);
+
+        mojo.specificationName = specName;
+
+        mojo.execute();
+
+        File fixture = new File(srcDir, "com/greenpepper/samples/application/phonebook/PhoneBookFixture.java");
+        assertTrue(fixture.exists());
+    }
+
+    public void testShouldGenerateFixtureFromRepository() throws Exception {
+
+        String specName = "list";
+        Repository repo = createMockRepository("repo", specName);
+        mojo.repositories = Collections.singletonList(repo);
+
+        mojo.specificationName = specName;
+
+        mojo.execute();
+
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithAnnotationFixture.java").exists());
+        assertTrue(new File(srcDir, "com/greenpepper/samples/fixture/PhoneBookListWithMethodFixture.java").exists());
+    }
+
+
+    private Repository createMockRepository(String reponame, String specName) throws Exception {
+        Repository repo = createMock(Repository.class);
+        expect(repo.getName()).andReturn(reponame).anyTimes();
+
+        DocumentRepository documentRepository = createMock(DocumentRepository.class);
+        File specification = loadSpecification(specName + ".html");
+        Document doc = HtmlDocumentBuilder.tablesAndLists().build(new FileReader(specification));
+        expect(documentRepository.loadDocument(specName)).andReturn(doc);
+
+        expect(repo.getDocumentRepository()).andReturn(documentRepository).anyTimes();
+
+        replay(repo,documentRepository);
+        return repo;
+    }
+
+
 }

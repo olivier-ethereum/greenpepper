@@ -19,6 +19,15 @@
 
 package com.greenpepper.html;
 
+import com.greenpepper.Example;
+import com.greenpepper.TextExample;
+import com.greenpepper.document.Document;
+import com.greenpepper.repository.DocumentBuilder;
+import com.greenpepper.util.CollectionUtil;
+import com.greenpepper.util.IOUtil;
+import com.greenpepper.util.log.GreenPepperLogger;
+import org.slf4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,16 +38,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.greenpepper.Example;
-import com.greenpepper.TextExample;
-import com.greenpepper.document.Document;
-import com.greenpepper.repository.DocumentBuilder;
-import com.greenpepper.util.CollectionUtil;
-import com.greenpepper.util.IOUtil;
-
 /**
  * <p>HtmlDocumentBuilder class.</p>
  *
@@ -48,7 +47,7 @@ import com.greenpepper.util.IOUtil;
 public class HtmlDocumentBuilder implements DocumentBuilder
 {
     
-    private static final Logger logger = LoggerFactory.getLogger(HtmlDocumentBuilder.class);
+    private static final Logger logger = GreenPepperLogger.getLogger(HtmlDocumentBuilder.class);
     
     
     private final List<String> tags;

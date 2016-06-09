@@ -23,6 +23,17 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.ant</groupId>
+					<artifactId>ant-nodeps</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.8.3</version>
@@ -138,7 +149,30 @@
 							<pattern>org.slf4j</pattern>
 							<shadedPattern>com.greenpepper.shaded.org.slf4j</shadedPattern>
 						</relocation>
+						<relocation>
+							<pattern>org.codehaus.janino</pattern>
+							<shadedPattern>com.greenpepper.shaded.org.codehaus.janino</shadedPattern>
+						</relocation>
 					</relocations>
+
+					<filters>
+						<filter>
+							<!--
+                                Exclude files that sign a jar
+                                (one or multiple of the dependencies).
+                                One may not repack a signed jar without
+                                this, or you will get a
+                                SecurityException at program start.
+                            -->
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.INF</exclude> <!-- This one may not be required -->
+							</excludes>
+						</filter>
+					</filters>
 				</configuration>
 				<executions>
 					<execution>

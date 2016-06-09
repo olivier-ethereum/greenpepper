@@ -1,0 +1,18 @@
+<configuration>
+
+	<appender name="STDOUT" class="com.greenpepper.shaded.ch.qos.logback.core.ConsoleAppender">
+		<encoder class="com.greenpepper.shaded.ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{HH:mm:ss.SSS} [GreenPepper] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<if condition='property("greenpepper.debug").equalsIgnoreCase("true")'>
+	<then>
+		<logger name="greenpepper.exceptions" level="INFO"/>
+		<logger name="greenpepper.fixtures" level="INFO"/>
+	</then>
+	</if>
+	<root level="WARN">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

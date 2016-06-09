@@ -11,7 +11,8 @@
     <description>GreenPepper is a collaboration platform to help business experts and developers create executable specifications in order to build the right software.</description>
 
     <properties>
-        <slf4j.version>1.7.13</slf4j.version>
+        <slf4j.version>1.7.15</slf4j.version>
+        <janino.version>2.7.8</janino.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <github.global.server>github</github.global.server>
     </properties>
@@ -71,6 +72,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>1.1.3</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>${janino.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>

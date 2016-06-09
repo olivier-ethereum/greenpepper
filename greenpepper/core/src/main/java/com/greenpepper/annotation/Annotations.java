@@ -1,8 +1,11 @@
 package com.greenpepper.annotation;
 
-import java.lang.reflect.InvocationTargetException;
-
+import com.greenpepper.GreenPepper;
 import com.greenpepper.expectation.Expectation;
+import com.greenpepper.util.log.GreenPepperLogger;
+import org.slf4j.Logger;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * <p>Annotations class.</p>
@@ -12,6 +15,9 @@ import com.greenpepper.expectation.Expectation;
  */
 public final class Annotations
 {
+
+    public static final String GREENPEPPER_EXCEPTIONS_LOGGERNAME = "greenpepper.exceptions";
+    private static final Logger LOGGER = GreenPepperLogger.getLogger(GREENPEPPER_EXCEPTIONS_LOGGERNAME);
     /**
      * <p>exception.</p>
      *
@@ -22,10 +28,16 @@ public final class Annotations
     {
 		if (t instanceof InvocationTargetException)
 		{
+            if (GreenPepper.isDebugEnabled()) {
+                LOGGER.info("Caught exception in fixture execution", t);
+            }
 			return new ExceptionAnnotation( ((InvocationTargetException) t).getTargetException() );
 		}
 		else
 		{
+            if (GreenPepper.isDebugEnabled()) {
+                LOGGER.info("Caught exception in fixture execution", t);
+            }
 			return new ExceptionAnnotation( t );
 		}
 	}

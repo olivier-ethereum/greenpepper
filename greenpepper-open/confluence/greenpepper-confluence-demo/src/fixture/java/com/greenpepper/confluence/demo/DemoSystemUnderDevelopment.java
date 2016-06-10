@@ -28,7 +28,7 @@ public class DemoSystemUnderDevelopment
 		extends DefaultSystemUnderDevelopment
 {
 	/**
-	* This class is obsolete : it is needed for the greenpepper-maven-plugin
+	* This class is deprecated : it is needed for the greenpepper-maven-plugin
 	* to allow having 2 different repositories under different System Under
 	* Development.
 	*/

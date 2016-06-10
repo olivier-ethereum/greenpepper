@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:f="http://schemas.greenpepper.github.io/documentation"
+	targetNamespace="http://schemas.greenpepper.github.io/documentation"
+	attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+	<simpleType name="typeMemberEnum">
+		<restriction base="string">
+			<enumeration value="method" />
+			<enumeration value="property" />
+			<enumeration value="field" />
+			<enumeration value="constructor" />
+			<enumeration value="query" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="typeDoWithEnum">
+		<restriction base="string">
+			<enumeration value="acceptreject" />
+			<enumeration value="check" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="typeLanguage">
+		<restriction base="string">
+			<enumeration value="java" />
+			<enumeration value="csharp" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="parameterType">
+		<attribute name="type" type="string" use="required" />
+	</complexType>
+
+
+	<complexType name="elementBaseType">
+		<annotation>
+			<documentation>Type de base pour les fixtures et les membres de
+				fixture reprenant les champs communs (pour l'instant, uniquement les
+				informations d'obsolétude).</documentation>
+		</annotation>
+
+		<attribute name="deprecated" type="boolean" use="optional" />
+		<attribute name="bestpractice" type="boolean" use="optional" />
+		<attribute name="usage" type="string" use="optional" />
+		<attribute name="tofixasap" type="boolean" use="optional" />
+		<attribute name="replacingfixture" type="string" use="optional" />
+		<attribute name="replacingmethod" type="string" use="optional" />
+		<attribute name="message" type="string" use="optional" />
+	</complexType>
+
+	<complexType name="memberType">
+		<complexContent>
+			<extension base="f:elementBaseType">
+				<sequence>
+					<element name="parameter" type="f:parameterType" minOccurs="0"
+						maxOccurs="unbounded" />
+				</sequence>
+				<attribute name="name" type="string" use="required" />
+				<attribute name="type" type="f:typeMemberEnum" use="required" />
+
+				<attribute name="read" type="boolean" use="optional" />
+				<attribute name="write" type="boolean" use="optional" />
+
+				<attribute name="returntype" type="string" use="optional" />
+
+				<attribute name="dowithtype" type="f:typeDoWithEnum" use="optional" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="fixtureType">
+		<complexContent>
+			<extension base="f:elementBaseType">
+				<sequence>
+					<element name="member" type="f:memberType" maxOccurs="unbounded" />
+				</sequence>
+				<attribute name="class" type="string" use="required" />
+				<attribute name="category" type="string" use="optional" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="fixtures">
+		<complexType>
+			<sequence>
+				<element name="fixture" type="f:fixtureType" maxOccurs="unbounded" />
+			</sequence>
+			<attribute name="language" type="f:typeLanguage" use="required" />
+		</complexType>
+	</element>
+
+</schema>

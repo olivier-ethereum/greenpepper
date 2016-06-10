@@ -17,36 +17,25 @@
  * or see the FSF site: http://www.fsf.org.
  */
 
-package com.greenpepper.samples.application.mortgage;
+package com.greenpepper.fixtures.application.mortgage;
 
-import junit.framework.TestCase;
+import com.greenpepper.samples.application.mortgage.Money;
+import com.greenpepper.samples.application.mortgage.InsuranceFeeSpecification;
 
-public class FinanceableAmountSpecificationTest extends TestCase
+public class InsurancePremiumFeeCalculationFixture
 {
-    private FinanceableAmountSpecification specification;
+    public Money salePrice;
+    public Money downPayment;
 
-    protected void setUp()
+    public Money financedAmount()
     {
-        specification = new FinanceableAmountSpecification();
+        return salePrice.minus(downPayment);
     }
 
-    protected void tearDown()
+    public Money premiumFee()
     {
+        InsuranceFeeSpecification insuranceFee = new InsuranceFeeSpecification(salePrice);
+        return insuranceFee.forDownpayment(downPayment);
     }
-
-    public void testThatAPropertyWithoutValueCanNotBeFinanced()
-    {
-        Property zeroValueProperty = Property.valued(Money.zero());
-
-        assertEquals(Money.zero(), specification.financeableAmmountOf(zeroValueProperty));
-    }
-
-
-    public void testThatTheFinanceableAmountIsProportionalToPropertyValue()
-    {
-        Property chalet = Property.valued(Money.parse("$100 000"));
-        assertEquals(Money.parse("$75,000"), specification.financeableAmmountOf(chalet));
-    }
-
 
 }

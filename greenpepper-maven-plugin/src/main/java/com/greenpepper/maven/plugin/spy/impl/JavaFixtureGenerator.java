@@ -1,5 +1,8 @@
 package com.greenpepper.maven.plugin.spy.impl;
 
+import com.greenpepper.annotation.Fixture;
+import com.greenpepper.annotation.FixtureCollection;
+import com.greenpepper.annotation.FixtureMethod;
 import com.greenpepper.maven.plugin.spy.*;
 import com.greenpepper.reflect.CollectionProvider;
 import com.greenpepper.reflect.EnterRow;
@@ -55,7 +58,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
             if (isNotBlank(packageName)) {
                 javaClass.setPackage(packageName);
             }
-            javaClass.setName(fixture.getName());
+            javaClass.setName(fixture.getName()).addAnnotation(Fixture.class).setStringValue("usage", fixture.getRawName());
             fileHasBeenUpdated = true;
             action = ActionDone.CREATED;
         }
@@ -156,6 +159,8 @@ public class JavaFixtureGenerator implements FixtureGenerator {
                                 .setName(method.getName())
                                 .setPublic();
 
+                        methodSource.addAnnotation(FixtureMethod.class).setStringValue("usage", method.getRawName());
+
                         SpyFixture subFixtureSpy = method.getSubFixtureSpy();
                         if (subFixtureSpy == null) {
                             methodSource.setReturnType(String.class);
@@ -236,6 +241,7 @@ public class JavaFixtureGenerator implements FixtureGenerator {
         methodSource.setReturnType(format("java.util.Collection<%s>",
                 replaceChars(nestedType.getQualifiedName(), '$', DOT)))
                 .addAnnotation(CollectionProvider.class);
+        methodSource.addAnnotation(FixtureCollection.class);
     }
 
     private boolean isExistingMethodFound(File fixtureSourceDirectory, JavaClassSource javaClass, Method method) throws FileNotFoundException {

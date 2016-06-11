@@ -70,7 +70,7 @@ public class FileSystemRepository implements DocumentRepository
 	public void setDocumentAsImplemeted(String location) throws Exception{	}
 
     @Override
-    public List<Object> getSpecificationsHierarchy(String project, String systemUnderTest) {
+    public List<Object> getSpecificationsHierarchy(String project, String systemUnderTest) throws IOException {
 
         if (root == null) {
             return new ArrayList<Object>();
@@ -79,7 +79,7 @@ public class FileSystemRepository implements DocumentRepository
         return  generateDocumentNode(root, null);
     }
 
-    private void navigateInto(File directory, Hashtable<String, Vector<?>> pageBranch) {
+    private void navigateInto(File directory, Hashtable<String, Vector<?>> pageBranch) throws IOException {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
@@ -88,15 +88,15 @@ public class FileSystemRepository implements DocumentRepository
         }
     }
 
-    private Vector<Object> generateDocumentNode(File file, Hashtable<String, Vector<?>> pageBranch) {
+    private Vector<Object> generateDocumentNode(File file, Hashtable<String, Vector<?>> pageBranch) throws IOException {
         Vector<Object> page = new Vector<Object>();
-        page.add(file.getName());
+        page.add(file.equals(root) ? root.getName() : relativePath(file));
         page.add(file.isFile());
         page.add(Boolean.FALSE);
         Hashtable<String, Vector<?>> subPageBranch = new Hashtable<String, Vector<?>>();
         page.add(subPageBranch);
         if (pageBranch != null) {
-            pageBranch.put(file.getName(), page);
+            pageBranch.put(relativePath(file), page);
         }
         if (file.isDirectory()) {
             navigateInto(file, subPageBranch);

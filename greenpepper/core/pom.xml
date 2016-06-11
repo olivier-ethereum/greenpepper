@@ -135,6 +135,10 @@
 						<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 						<transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
 						<transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer" />
+						<transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+							<resource>greenpepper-logback.xml</resource>
+							<file>${project.build.outputDirectory}/META-INF/greenpepper-logback.xml</file>
+						</transformer>
 					</transformers>
 					<relocations>
 						<relocation>
@@ -150,8 +154,8 @@
 							<shadedPattern>com.greenpepper.shaded.org.slf4j</shadedPattern>
 						</relocation>
 						<relocation>
-							<pattern>org.codehaus.janino</pattern>
-							<shadedPattern>com.greenpepper.shaded.org.codehaus.janino</shadedPattern>
+							<pattern>org.codehaus</pattern>
+							<shadedPattern>com.greenpepper.shaded.org.codehaus</shadedPattern>
 						</relocation>
 					</relocations>
 

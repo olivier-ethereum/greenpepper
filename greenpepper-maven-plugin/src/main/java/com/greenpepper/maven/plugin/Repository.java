@@ -85,9 +85,9 @@ public class Repository
      *
      * @return an array of {@link java.lang.String} objects.
      */
-    public String[] getTests()
+    public List<String> getTests()
     {
-        return toArray(tests);
+        return tests;
     }
 
 
@@ -102,9 +102,9 @@ public class Repository
      *
      * @return an array of {@link java.lang.String} objects.
      */
-    public String[] getSuites()
+    public List<String> getSuites()
     {
-        return toArray(suites);
+        return suites;
     }
 
     /**

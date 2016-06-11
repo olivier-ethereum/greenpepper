@@ -2,8 +2,6 @@ package com.greenpepper.maven.plugin;
 
 import com.greenpepper.server.domain.DocumentNode;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -13,15 +11,14 @@ import org.apache.maven.plugin.MojoFailureException;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.writeByteArrayToFile;
 import static org.apache.commons.io.IOUtils.readLines;
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.*;
 
 /**
  * List the Specifications from the configured repositories.
@@ -32,6 +29,10 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class SpecificationNavigatorMojo extends AbstractMojo {
 
     private static final Pattern filterPattern = Pattern.compile("(\\[!?I\\])?(\\[RE\\])?(.*)?");
+
+
+    // "  [%04d] - [%11s] - [%s]"
+    private static final Pattern INDEX_LINE_PATTERN = Pattern.compile("  \\[[0-9]{4}\\] - \\[.{11}\\] - \\[(.+)\\]$");
 
     /**
      * @parameter property="greenpepper.repositories"
@@ -107,22 +108,26 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         processAllRepositories();
     }
 
-    private void processAllRepositories() throws MojoExecutionException {
+    private void processAllRepositories() throws MojoExecutionException, MojoFailureException {
         boolean atLeastOneRepositoryProcessed = false;
         try {
             for (Repository repository : repositories) {
                 if (isNotEmpty(selectedRepository)) {
                     if (StringUtils.equals(selectedRepository, repository.getName())) {
-                        processRepository(repository);
+                        listRepositorySpecifications(repository);
                         atLeastOneRepositoryProcessed = true;
                         break;
                     } else {
                         getLog().debug(format("Skipping repository '%s', selected is '%s' ", repository.getName(), selectedRepository));
                     }
                 } else {
-                    processRepository(repository);
+                    listRepositorySpecifications(repository);
                 }
             }
+        } catch (MojoExecutionException e) {
+            throw e;
+        } catch (MojoFailureException e) {
+            throw e;
         } catch (Exception e) {
             throw new MojoExecutionException("Error running the Goal", e);
         }
@@ -131,26 +136,27 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
         }
     }
 
-    private void processRepository(Repository repository) throws Exception {
+    protected List<String> listRepositorySpecifications(Repository repository) throws Exception {
         if (StringUtils.isAnyEmpty(repository.getProjectName(), repository.getSystemUnderTest())) {
             throw new MojoFailureException("Neither the projectName nor the systemUnderTest should be null. " +
                     "Found: projectName="+ repository.getProjectName() + " ,systemUnderTest="+repository.getSystemUnderTest());
         }
         printRepositoryName(repository);
 
+
         File indexFile = getIndexFileForRepository(repository);
         if (!indexFile.exists() || refresh) {
             DocumentNode documentHierarchy = repository.retrieveDocumentHierarchy();
-            PrintWriter writer = new PrintWriter(tempOutput);
+            PrintWriter byteArrayWriter = new PrintWriter(tempOutput);
             int i = 1;
             for (DocumentNode node : DocumentNode.traverser.preOrderTraversal(documentHierarchy)) {
                 if (node.isExecutable()) {
-                    writer.println(format("  [%04d] - [%11s] - [%s]",
+                    byteArrayWriter.println(format("  [%04d] - [%11s] - [%s]",
                             i, !node.canBeImplemented() ? "implemented" : "", node.getTitle()));
                     i++;
                 }
             }
-            writer.flush();
+            byteArrayWriter.flush();
             updateIndexFile(indexFile);
         } else {
             System.out.println(format("\tUsing index file '%s'.\n" +
@@ -158,13 +164,25 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
             System.out.println();
         }
 
+        if (isNotEmpty(specFilter)) {
+            System.out.println(format("\tFiltering the specifications using '%s'", specFilter));
+            System.out.println();
+        }
+
+        ArrayList<String> specifications = new ArrayList<String>();
         for (String line : readLines(new FileInputStream(indexFile))) {
-            decideForLine(line, writer);
+            String specification = decideForLine(line, writer);
+            if (isNotBlank(specification)) {
+                specifications.add(specification);
+            }
         }
         writer.flush();
+        System.out.println();
+        return specifications;
     }
 
-    private void decideForLine(String line, PrintWriter writer) {
+    private String decideForLine(String line, PrintWriter writer) throws MojoExecutionException {
+        boolean lineMatchingReq = false;
         if (isNotEmpty(specFilter)) {
             Matcher matcher = filterPattern.matcher(specFilter);
             if (matcher.matches()) {
@@ -180,10 +198,22 @@ public class SpecificationNavigatorMojo extends AbstractMojo {
 
                 if (matchesImplementedReq && matchesRegexStringReq && matchesSearchStringReq) {
                     writer.println(line);
+                    lineMatchingReq = true;
                 }
             }
         } else {
             writer.println(line);
+            lineMatchingReq = true;
+        }
+        if (lineMatchingReq) {
+            Matcher matcher = INDEX_LINE_PATTERN.matcher(line);
+            if (matcher.matches()) {
+                return matcher.group(1);
+            } else {
+                throw new MojoExecutionException(format("Corrupted index line (not matching the pattern %s): |%s|", INDEX_LINE_PATTERN.pattern(), line));
+            }
+        } else {
+            return null;
         }
     }
 

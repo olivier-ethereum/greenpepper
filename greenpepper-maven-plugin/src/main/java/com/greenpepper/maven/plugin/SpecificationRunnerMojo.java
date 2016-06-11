@@ -21,9 +21,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.repository.FileSystemRepository;
@@ -40,6 +38,9 @@ import com.greenpepper.runner.RecorderMonitor;
 import com.greenpepper.util.IOUtil;
 import org.apache.maven.project.MavenProject;
 
+import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * <p>SpecificationRunnerMojo class.</p>
  *
@@ -50,7 +51,7 @@ import org.apache.maven.project.MavenProject;
  * @author oaouattara
  * @version $Id: $Id
  */
-public class SpecificationRunnerMojo extends AbstractMojo {
+public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
 
     /**
      * Set this to 'true' to bypass greenpepper tests entirely.
@@ -256,7 +257,7 @@ public class SpecificationRunnerMojo extends AbstractMojo {
                         }
                     }
                     if (defaultRepository == null) {
-                        throw new MojoExecutionException(String.format("Repository '%s' not found in the list of repository.", selectedRepository));
+                        throw new MojoExecutionException(format("Repository '%s' not found in the list of repository.", selectedRepository));
                     }
                 } else {
                     for (Repository repository : repositories) {
@@ -286,8 +287,28 @@ public class SpecificationRunnerMojo extends AbstractMojo {
     }
 
     private void runAllIn(Repository repository) throws MojoExecutionException, MojoFailureException {
-        runTestsIn(repository);
-        runSuitesIn(repository);
+        if (!repository.getTests().isEmpty() || !repository.getSuites().isEmpty()) {
+            runTestsIn(repository);
+            runSuitesIn(repository);
+        } else {
+            getLog().debug(format("The repository %s doesn't have tests defined. Trying to retrieve the tests list", repository.getName()));
+            if (isNotBlank(repository.getProjectName()) && isNotBlank(repository.getSystemUnderTest())) {
+                try {
+                    List<String> specifications = listRepositorySpecifications(repository);
+                    repository.getTests().addAll(specifications);
+                    runTestsIn(repository);
+                } catch (MojoExecutionException e) {
+                    throw e;
+                } catch (MojoFailureException e) {
+                    throw e;
+                } catch (Exception e) {
+                    throw new MojoExecutionException(format("Couldn't list repository '%s' specifications", repository.getName()), e);
+                }
+            } else {
+                getLog().info(format("Not running any specification for repository '%s'.", repository.getName()));
+                getLog().info("Please set the 'projectName' and 'systemUnderTest' on the repository if you want to dynamically find the tests to run.");
+            }
+        }
     }
 
     private void runSuitesIn(Repository repository) throws MojoExecutionException, MojoFailureException {

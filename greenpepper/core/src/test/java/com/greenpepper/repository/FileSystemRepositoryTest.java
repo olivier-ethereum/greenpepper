@@ -147,15 +147,15 @@ public class FileSystemRepositoryTest extends TestCase
 
         Iterator<List<?>> listsIter = traverser.preOrderTraversal(tree).iterator();
         assertEquals("testWeCanGetTheSpecificationHierarchy", listsIter.next().get(0));
-        assertEquals("spec3.html", listsIter.next().get(0));
-        assertEquals("specs", listsIter.next().get(0));
-        assertEquals("dirb", listsIter.next().get(0));
-        assertEquals("spec5.html", listsIter.next().get(0));
-        assertEquals("dira", listsIter.next().get(0));
-        assertEquals("subdira", listsIter.next().get(0));
-        assertEquals("spec4.html", listsIter.next().get(0));
-        assertEquals("spec2.html", listsIter.next().get(0));
-        assertEquals("spec1.html", listsIter.next().get(0));
+        assertEquals("/spec3.html", listsIter.next().get(0));
+        assertEquals("/specs", listsIter.next().get(0));
+        assertEquals("/specs/dirb", listsIter.next().get(0));
+        assertEquals("/specs/dirb/spec5.html", listsIter.next().get(0));
+        assertEquals("/specs/dira", listsIter.next().get(0));
+        assertEquals("/specs/dira/subdira", listsIter.next().get(0));
+        assertEquals("/specs/dira/subdira/spec2.html", listsIter.next().get(0));
+        assertEquals("/specs/dira/subdira/spec4.html", listsIter.next().get(0));
+        assertEquals("/specs/dira/spec1.html", listsIter.next().get(0));
     }
 
     public void testAFileShouldNotHoldAnyDocument() throws Exception

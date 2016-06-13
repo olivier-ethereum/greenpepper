@@ -4,6 +4,7 @@ import static com.greenpepper.server.rpc.xmlrpc.XmlRpcDataMarshaller.*;
 import static com.greenpepper.util.IOUtils.uniquePath;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.SortedSet;
@@ -284,7 +285,7 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     }
     
     @SuppressWarnings("unchecked")
-	private Execution executeRemotely(Specification specification, SystemUnderTest systemUnderTest, boolean implementedVersion, String sections, String locale)
+    protected Execution executeRemotely(Specification specification, SystemUnderTest systemUnderTest, boolean implementedVersion, String sections, String locale)
     {
         LOG.debug("Execute Remotely {} on agentURL {}", specification.getName(), agentUrl());
 
@@ -313,18 +314,27 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     
     private Execution executeLocally(Specification specification, SystemUnderTest systemUnderTest, boolean implementedVersion, String sections, String locale)
     {
+        String outpuPath = null;
+        try {
+            outpuPath = uniquePath("GreenPepperTest", ".tst");
+            return executeLocally(specification, systemUnderTest, implementedVersion, sections, locale, outpuPath);
+        } catch (IOException e) {
+            return Execution.error(specification, systemUnderTest, sections, ExceptionUtils.stackTrace(e, "<br>", 15));
+        }
+
+    }
+
+    protected Execution executeLocally(Specification specification, SystemUnderTest systemUnderTest, boolean implementedVersion, String sections, String locale, String outpuPath) {
+
         File outputFile = null;
-        
         try
         {
-            String outpuPath = uniquePath("GreenPepperTest", ".tst");
-			outputFile = new File(outpuPath);
+            outputFile = new File(outpuPath);
 
             String[] cmdLine = compileCmdLine(specification, systemUnderTest, outpuPath, implementedVersion, sections, locale);
             new CommandLineExecutor(cmdLine).executeAndWait();
 
-            return Execution.newInstance(specification, systemUnderTest, XmlReport.parse(outputFile));
-        }
+            return Execution.newInstance(specification, systemUnderTest, XmlReport.parse(outputFile));}
         catch (GreenPepperServerException e)
         {
             return Execution.error(specification, systemUnderTest, sections, e.getId());
@@ -335,11 +345,11 @@ public class Runner extends AbstractVersionedEntity implements Comparable
         }
         finally
         {
-			IOUtil.deleteFile(outputFile);
+            IOUtil.deleteFile(outputFile);
         }
     }
 
-	/**
+    /**
 	 * <p>marshallize.</p>
 	 *
 	 * @return a {@link java.util.Vector} object.
@@ -422,7 +432,7 @@ public class Runner extends AbstractVersionedEntity implements Comparable
     }
     
     @Transient
-    private boolean isRemote()
+    protected boolean isRemote()
     {
     	return !StringUtil.isEmpty(serverName) && !StringUtil.isEmpty(serverPort);
     }

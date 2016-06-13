@@ -25,8 +25,11 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
+import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -287,6 +290,20 @@ public class SpecificationRunnerMojoTest extends AbstractMojoTestCase
         {
             assertTrue( true );
         }
+    }
+
+    public void testShouldRunInaForkedProcess() throws Exception {
+        createLocalRepository( "repo" ).addTest( "right.html" );
+        List<File> uniqueClasspathElements = new FastClasspathScanner().getUniqueClasspathElements();
+        List<String> classpassElements = new ArrayList<String>(uniqueClasspathElements.size());
+        for (File uniqueClasspathElement : uniqueClasspathElements) {
+            classpassElements.add(uniqueClasspathElement.getAbsolutePath());
+        }
+        mojo.classpathElements.addAll(classpassElements);
+        mojo.fork = true;
+        mojo.execute();
+
+        assertReport( "right.html" );
     }
 
     private File reportFileFor(String input, String repoName)

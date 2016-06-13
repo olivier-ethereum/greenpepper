@@ -18,6 +18,11 @@
 			<artifactId>greenpepper-extensions-java</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.strator-dev.greenpepper</groupId>
+			<artifactId>greenpepper-server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -121,6 +126,12 @@
 			<groupId>com.google.code.guice</groupId>
 			<artifactId>guice</artifactId>
 			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.lukehutch</groupId>
+			<artifactId>fast-classpath-scanner</artifactId>
+			<version>1.9.19</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

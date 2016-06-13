@@ -25,6 +25,10 @@ import java.util.*;
 
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.repository.FileSystemRepository;
+import com.greenpepper.runner.repository.AtlassianRepository;
+import com.greenpepper.runner.repository.XWikiRepository;
+import com.greenpepper.server.domain.*;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -161,6 +165,14 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
      * @parameter property="gp.repo"
      */
     String selectedRepository;
+
+    /**
+     * Launch the test in the Maven process if false. Or fork a java process if true.
+     *
+     * @parameter property="maven.greenpepper.fork" default-value="false"
+     */
+    boolean fork;
+
 
     /**
      * @component
@@ -364,8 +376,58 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
             repoCmdOption = repository.getType() + (repository.getRoot() != null ? ";" + repository.getRoot() : "");
         }
 
-        String outputDir = new File(reportsDirectory, repository.getName()).getAbsolutePath();
+        File repositoryReportsFolder = new File(reportsDirectory, repository.getName());
 
+        if (fork) {
+            runInForkedRunner(repository, test, repositoryReportsFolder);
+        } else {
+            runInEmbeddedRunner(test, repoCmdOption, repositoryReportsFolder);
+        }
+
+    }
+
+    private void runInForkedRunner(Repository repository, String test, File repositoryReportsFolder) throws MojoExecutionException {
+        Runner defaultRunner = Runner.createDefault("java");
+        CompositeSpecificationRunnerMonitor monitors = new CompositeSpecificationRunnerMonitor();
+        monitors.add(new LoggerMonitor(getLog()));
+        RecorderMonitor recorder = new RecorderMonitor();
+        monitors.add(recorder);
+        defaultRunner.monitor = monitors;
+
+        File outputFile = new File(repositoryReportsFolder, test);
+        SystemUnderTest systemUnderTest = new SystemUnderTest();
+        systemUnderTest.setName(repository.getSystemUnderTest());
+        systemUnderTest.setProject(Project.newInstance(repository.getProjectName()));
+
+        TreeSet<String> classpath = new TreeSet<String>();
+        for (URL url : createClasspath()) {
+            classpath.add(FileUtils.toFile(url).getAbsolutePath());
+        }
+        systemUnderTest.setSutClasspaths(classpath);
+        Specification specification = Specification.newInstance(test);
+        com.greenpepper.server.domain.Repository repositoryRunner = com.greenpepper.server.domain.Repository.newInstance(repository.getName());
+        RepositoryType repositoryType = RepositoryType.newInstance("FILE");
+        repositoryType.setRepositoryClass(repository.getType());
+        EnvironmentType java = EnvironmentType.newInstance("JAVA");
+        repositoryType.registerClassForEnvironment(repository.getType(), java);
+        repositoryRunner.setBaseTestUrl(repository.getRoot());
+
+        repositoryRunner.setType(repositoryType);
+        specification.setRepository(repositoryRunner);
+        systemUnderTest.setFixtureFactory(systemUnderDevelopment);
+        try {
+            defaultRunner.execute(specification, systemUnderTest, outputFile.getAbsolutePath());
+        } catch (IOException e) {
+            throw new MojoExecutionException("Failed to write the output file: " +outputFile, e);
+        }
+
+        exceptionOccured |= recorder.hasException();
+        testFailed |= recorder.hasTestFailures();
+        statistics.tally(recorder.getStatistics());
+    }
+
+    private void runInEmbeddedRunner(String test, String repoCmdOption, File repositoryReportsFolder) throws MojoExecutionException, MojoFailureException {
+        String outputDir = repositoryReportsFolder.getAbsolutePath();
         List<String> args = args("-f", systemUnderDevelopment, "-r", repoCmdOption, "-o", outputDir, test);
 
         run(args);
@@ -399,6 +461,12 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
     }
 
     private ClassLoader createClassLoader() throws MojoExecutionException {
+        URL[] classpath = createClasspath();
+
+        return new URLClassLoader(classpath, ClassLoader.getSystemClassLoader());
+    }
+
+    private URL[] createClasspath() throws MojoExecutionException {
         List<URL> urls = new ArrayList<URL>();
         if (classpathElements != null) {
             for (String classpathElement : classpathElements) {
@@ -418,9 +486,7 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
         urls.add(getDependencyURL("slf4j-api"));
         urls.add(getDependencyURL("jcl-over-slf4j"));
 
-        URL[] classpath = urls.toArray(new URL[urls.size()]);
-
-        return new URLClassLoader(classpath, ClassLoader.getSystemClassLoader());
+        return urls.toArray(new URL[urls.size()]);
     }
 
     private URL getDependencyURL(String name) throws MojoExecutionException {

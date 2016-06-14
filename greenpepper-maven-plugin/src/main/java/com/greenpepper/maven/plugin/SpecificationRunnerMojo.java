@@ -25,13 +25,10 @@ import java.util.*;
 
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.repository.FileSystemRepository;
-import com.greenpepper.runner.repository.AtlassianRepository;
-import com.greenpepper.runner.repository.XWikiRepository;
 import com.greenpepper.server.domain.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
@@ -56,6 +53,10 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @version $Id: $Id
  */
 public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
+
+    public enum ReportType {
+        html, xml;
+    }
 
     /**
      * Set this to 'true' to bypass greenpepper tests entirely.
@@ -96,7 +97,7 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
     /**
      * @parameter expression="${maven.greenpepper.reports.type}" default-value="html"
      */
-    String reportsType;
+    ReportType reportsType = ReportType.html;
 
     /**
      * @parameter property="greenpepper.repositories"
@@ -387,7 +388,10 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
     }
 
     private void runInForkedRunner(Repository repository, String test, File repositoryReportsFolder) throws MojoExecutionException {
-        Runner defaultRunner = Runner.createDefault("java");
+        List<String> optionsList = new ArrayList<String>();
+        appendOptionsList(optionsList);
+        Runner defaultRunner = Runner.createDefault("java", optionsList);
+        defaultRunner.setReportType(reportsType);
         CompositeSpecificationRunnerMonitor monitors = new CompositeSpecificationRunnerMonitor();
         monitors.add(new LoggerMonitor(getLog()));
         RecorderMonitor recorder = new RecorderMonitor();
@@ -542,6 +546,16 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
             arguments.add(testSpecificationOutput);
         }
 
+        appendOptionsList(arguments);
+
+        if (reportsType == ReportType.xml) {
+            arguments.add("--xml");
+        }
+
+        return arguments;
+    }
+
+    private void appendOptionsList(List<String> arguments) {
         if (!StringUtils.isEmpty(locale)) {
             arguments.add("--locale");
             arguments.add(locale);
@@ -552,10 +566,6 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
             arguments.add(selector);
         }
 
-        if ("xml".equalsIgnoreCase(reportsType)) {
-            arguments.add("--xml");
-        }
-
         if (stopOnFirstFailure) {
             arguments.add("--stop");
         }
@@ -563,8 +573,6 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
         if (debug) {
             arguments.add("--debug");
         }
-
-        return arguments;
     }
 
     private String[] toArray(List<String> args) {

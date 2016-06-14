@@ -20,7 +20,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.strator-dev.greenpepper</groupId>
-			<artifactId>greenpepper-server</artifactId>
+			<artifactId>greenpepper-client</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

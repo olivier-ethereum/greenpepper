@@ -32,6 +32,8 @@ import com.greenpepper.report.ReportGenerator;
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>DocumentRunner class.</p>
@@ -41,14 +43,17 @@ import com.greenpepper.util.Timer;
  */
 public class DocumentRunner implements SpecificationRunner
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentRunner.class);
+
     private ReportGenerator reportGenerator;
     private SystemUnderDevelopment systemUnderDevelopment;
     private DocumentRepository documentRepository;
     private String[] sections;
     private SpecificationRunnerMonitor monitor;
     private Class<? extends InterpreterSelector> interpreterSelectorClass;
+
     private boolean lazy;
-    
+
     /**
      * <p>Constructor for DocumentRunner.</p>
      */
@@ -163,6 +168,7 @@ public class DocumentRunner implements SpecificationRunner
         }
         catch (Exception e)
         {
+            LOGGER.error("Failed to run the specification " + input, e);
             if (report != null) report.renderException( e );
             monitor.exceptionOccured( e );
         }

@@ -32,8 +32,8 @@ import com.greenpepper.report.ReportGenerator;
 import com.greenpepper.repository.DocumentRepository;
 import com.greenpepper.systemunderdevelopment.SystemUnderDevelopment;
 import com.greenpepper.util.Timer;
+import com.greenpepper.util.log.GreenPepperLogger;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>DocumentRunner class.</p>
@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DocumentRunner implements SpecificationRunner
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentRunner.class);
+    private static final Logger LOGGER = GreenPepperLogger.getLogger(DocumentRunner.class);
 
     private ReportGenerator reportGenerator;
     private SystemUnderDevelopment systemUnderDevelopment;

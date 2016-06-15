@@ -67,7 +67,7 @@ public class SpecificationRunnerMojo extends SpecificationNavigatorMojo {
 
     /**
      * Project fixture classpath.
-     * @parameter expression="${project.testClasspathElements}"
+     * @parameter expression="${project.runtimeClasspathElements}"
      * @required
      * @readonly
      */

@@ -22,7 +22,6 @@
 			<artifactId>greenpepper-core</artifactId>
 			<type>test-jar</type>
 			<version>${project.version}</version>
-			<scope>fixture</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
